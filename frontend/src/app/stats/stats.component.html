@@ -1,0 +1,38 @@
+<h1>Stats</h1>
+
+<h2>Checked In Members</h2>
+<table>
+    <thead>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Time In</td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let checkIn of checkins$ | async">
+            <td>{{ checkIn.user.first_name }}</td>
+            <td>{{ checkIn.user.last_name}}</td>
+            <td>{{ checkIn.created_at | date: 'YYYY/MM/dd @ hh:mm a'}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Registered Members</h2>
+<table>
+    <thead>
+        <td>PID</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users$ | async">
+            <td id="pid">{{ user.pid }}</td>
+            <td>{{ user.first_name}}</td>
+            <td>{{ user.last_name }}</td>
+            <td><input type="button" value="delete" (click)="onSubmit(user)" /></td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<a routerLink="/">Home</a>
