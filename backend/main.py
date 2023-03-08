@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
+from user_service import UserService, User
 from user import User
 from checkin import CheckinRequest, Checkin
 import storage
