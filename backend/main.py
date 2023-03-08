@@ -53,3 +53,34 @@ def reset() -> str:
         storage.create_registration(User(pid=730439634, first_name="Chalisa", last_name="Phoomsakha"))
         storage.create_checkin(730439634)
         return "OK"
+ 
+@app.get("/api/users")
+def get_users(user_service: UserService = Depends()) -> list[User]:
+    return user_service.all()
+
+
+@app.post("/api/users")
+def new_user(user: User, user_service: UserService = Depends()) -> User:
+    try:
+        return user_service.create(user)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    # raise NotImplemented()
+
+
+@app.get("/api/users/{pid}", responses={404: {"model": None}})
+def get_user(pid: int, user_service: UserService = Depends()) -> User:
+    try: 
+        return user_service.get(pid)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    # raise NotImplemented()
+
+
+@app.delete("/api/users/{pid}")
+def delete_user(pid: int, user_service = Depends(UserService)):
+    try:
+        return user_service.delete(pid)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    # raise NotImplemented()
