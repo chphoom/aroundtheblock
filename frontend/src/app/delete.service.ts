@@ -6,7 +6,11 @@ export interface User {
   email: string;
   displayName: string;
   password: string;
-  created: Date
+  created: Date;
+  private: boolean;
+  bio: string;
+  pronouns: string;
+  img: string;
 }
 
 @Injectable({

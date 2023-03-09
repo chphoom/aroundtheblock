@@ -19,11 +19,9 @@ class UserService:
         return [entity.to_model() for entity in entities]
 
     def create(self, user: User) -> User:
-        # 
         temp = self._session.get(UserEntity, user.email)
         if temp:
             raise ValueError(f"Duplicate PID: {temp.email}")
-               # raise NotImplemented()
         else:
             user_entity: UserEntity = UserEntity.from_model(user)
             self._session.add(user_entity)
@@ -38,7 +36,6 @@ class UserService:
             return user.to_model()
         else:
             raise ValueError(f"No user found with PID: {email}")
-        # raise NotImplemented()
 
     def delete(self, email: str) -> User:
         # 
@@ -49,4 +46,11 @@ class UserService:
             return user
         else:
             raise ValueError(f"No user found with PID: {email}")
-        # raise NotImplemented()
+
+    # def update(self, user: User) -> User:
+    #     temp = self._session.get(UserEntity, user.email)
+    #         if temp:
+    #             #update value
+    #             return user.to_model()
+    #         else:
+    #             raise ValueError(f"No user found with PID: {temp.email}")

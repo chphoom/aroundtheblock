@@ -6,7 +6,11 @@ export interface User {
   email: string;
   displayName: string;
   password: string;
-  created: Date
+  created: Date;
+  private: boolean;
+  bio: string;
+  pronouns: string;
+  img: string;
 }
 
 /**
@@ -64,7 +68,7 @@ export class RegistrationService {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
-    let user: User = {email, displayName, password, created: new Date()};
+    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", img: ""};
 
     return this.http.post<User>("api/registrations",user);
   }
