@@ -4,7 +4,7 @@ from user import User
 from checkin import CheckinRequest, Checkin
 import storage
 import os
-from static_files import StaticFileMiddleware
+# from static_files import StaticFileMiddleware
 
 
 app = FastAPI()
@@ -41,7 +41,8 @@ def delete_user(userPID: int) -> User:
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
         
-app.mount("/", StaticFileMiddleware("../static", "index.html"))
+# app.mount("/", StaticFileMiddleware("../static", "index.html"))
+
 @app.post("/api/reset")
 def reset() -> str:
     """Development-only route for resetting storage module and adding fake user and checkin."""
