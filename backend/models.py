@@ -1,8 +1,11 @@
 from pydantic import BaseModel
+from datetime import datetime
 
+#User object
 class User(BaseModel):
-    pid: int 
-    first_name: str
-    last_name: str
+    email: str 
+    displayName: str
+    password: str
+    created: datetime
     class Config:
         orm_mode = True

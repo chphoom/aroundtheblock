@@ -28,7 +28,7 @@ export class StatsComponent {
   private onSuccess(user: User): void {
     //update users and checkings
     this.users$ = this.registrationService.getUsers()
-    window.alert(`The deleted user is': ${user.first_name} ${user.last_name}`);
+    window.alert(`The deleted user is': ${user.displayName}`);
   }
 
   private onError(err: Error) {

@@ -10,9 +10,9 @@ import { RegistrationService, User } from '../registration.service';
 export class RegistrationComponent {
 
   form = this.formBuilder.group({
-    pid: '',
-    first_name: '',
-    last_name: ''
+    email: '',
+    displayName: '',
+    password: ''
   });
 
   constructor(
@@ -22,12 +22,12 @@ export class RegistrationComponent {
 
   onSubmit(): void {
     let form = this.form.value;
-    let pid = parseInt(form.pid ?? "");
-    let first_name = form.first_name ?? "";
-    let last_name = form.last_name ?? "";
+    let email = form.email ?? "";
+    let displayName = form.displayName ?? "";
+    let password = form.password ?? "";
 
     this.registrationService
-      .registerUser(pid, first_name, last_name)
+      .registerUser(email, displayName, password)
       .subscribe({
         next: (user) => this.onSuccess(user),
         error: (err) => this.onError(err)
@@ -35,7 +35,7 @@ export class RegistrationComponent {
   }
 
   private onSuccess(user: User): void {
-    window.alert(`Thanks for registering: ${user.first_name} ${user.last_name}`);
+    window.alert(`Thanks for registering: ${user.displayName}`);
     this.form.reset();
   }
 

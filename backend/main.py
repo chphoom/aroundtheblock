@@ -12,9 +12,9 @@ def get_registrations(user_service: UserService = Depends()) -> list[User]:
     return user_service.all()
 
 @app.get("/api/users/{pid}", responses={404: {"model": None}})
-def get_user(pid: int, user_service: UserService = Depends()) -> User:
+def get_user(email: str, user_service: UserService = Depends()) -> User:
     try: 
-        return user_service.get(pid)
+        return user_service.get(email)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
 
@@ -25,10 +25,10 @@ def new_registration(user: User, user_service: UserService = Depends()) -> User:
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
 
-@app.delete("/api/delete/{userPID}")
-def delete_user(userPID: int, user_service = Depends(UserService)) -> User:
+@app.delete("/api/delete/{email}")
+def delete_user(email: str, user_service = Depends(UserService)) -> User:
     try:
-        return user_service.delete(userPID)
+        return user_service.delete(email)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
         

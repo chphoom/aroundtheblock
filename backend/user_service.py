@@ -20,9 +20,9 @@ class UserService:
 
     def create(self, user: User) -> User:
         # 
-        temp = self._session.get(UserEntity, user.pid)
+        temp = self._session.get(UserEntity, user.email)
         if temp:
-            raise ValueError(f"Duplicate PID: {temp.pid}")
+            raise ValueError(f"Duplicate PID: {temp.email}")
                # raise NotImplemented()
         else:
             user_entity: UserEntity = UserEntity.from_model(user)
@@ -31,22 +31,22 @@ class UserService:
             return user_entity.to_model() 
             
 
-    def get(self, pid: int) -> User | None:
+    def get(self, email: str) -> User | None:
         # 
-        user = self._session.get(UserEntity, pid)
+        user = self._session.get(UserEntity, email)
         if user:
             return user.to_model()
         else:
-            raise ValueError(f"No user found with PID: {pid}")
+            raise ValueError(f"No user found with PID: {email}")
         # raise NotImplemented()
 
-    def delete(self, pid: int) -> User:
+    def delete(self, email: str) -> User:
         # 
-        user = self._session.get(UserEntity, pid)
+        user = self._session.get(UserEntity, email)
         if user:
             self._session.delete(user)
             self._session.commit()
             return user
         else:
-            raise ValueError(f"No user found with PID: {pid}")
+            raise ValueError(f"No user found with PID: {email}")
         # raise NotImplemented()

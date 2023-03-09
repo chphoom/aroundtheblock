@@ -3,15 +3,16 @@
 <h2>Registered Members</h2>
 <table>
     <thead>
-        <td>PID</td>
-        <td>First Name</td>
-        <td>Last Name</td>
+        <td>Email</td>
+        <td>Username</td>
+        <td>Password</td>
     </thead>
     <tbody>
         <tr *ngFor="let user of users$ | async">
-            <td id="pid">{{ user.pid }}</td>
-            <td>{{ user.first_name}}</td>
-            <td>{{ user.last_name }}</td>
+            <td id="email">{{ user.email }}</td>
+            <td>{{ user.displayName}}</td>
+            <td>{{ user.password }}</td>
+            <td>{{ user.created }}</td>
             <td><input type="button" value="delete" (click)="onSubmit(user)" /></td>
         </tr>
     </tbody>

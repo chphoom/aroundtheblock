@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, map } from 'rxjs';
 
 export interface User {
-  pid: number;
-  first_name: string;
-  last_name: string;
+  email: string;
+  displayName: string;
+  password: string;
+  created: Date
 }
 
 /**
@@ -25,37 +26,45 @@ export class RegistrationService {
    * @returns observable array of User objects.
    */
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>("/api/registrations");
+    return this.http.get<User[]>("/api/registrations").pipe(map(users=>users.map(user => {
+      user.created = new Date(user.created);
+      return user;
+    })));
   }
 
   /**
    * Registers a user with the check-in system.
    * 
-   * @param pid 9-digit UNC PID
-   * @param first_name required string with length greater than 0.
-   * @param last_name 
+   * @param email 
+   * @param displayName username
+   * @param password
+   * @param created
    * @returns Obervable of User that will error if there are issues with validation or persistence.
    */
-  registerUser(pid: number, first_name: string, last_name: string): Observable<User> {
+  registerUser(email: string, displayName: string, password: string): Observable<User> {
     let errors: string[] = [];
 
-    if (pid.toString().length !== 9) {
-      errors.push(`Invalid PID: ${pid}`);
+    //TODO: email  validation
+    if (email === "") {
+      errors.push(`Email required.`);
+    }
+    // if (pid.toString().length !== 9) {
+    //   errors.push(`Invalid PID: ${pid}`);
+    // }
+
+    if (displayName === "") {
+      errors.push(`Username required.`);
     }
 
-    if (first_name === "") {
-      errors.push(`First Name required.`);
-    }
-
-    if (last_name === "") {
-      errors.push(`Last Name required.`)
+    if (password === "") {
+      errors.push(`Password required.`)
     }
 
     if (errors.length > 0) {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
-    let user: User = {pid, first_name, last_name};
+    let user: User = {email, displayName, password, created: new Date()};
 
     return this.http.post<User>("api/registrations",user);
   }

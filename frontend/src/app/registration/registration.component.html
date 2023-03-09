@@ -2,18 +2,18 @@
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div>
-        <label for="pid">PID</label>
-        <input id="pid" type="text" formControlName="pid">
+        <label for="email">Email</label>
+        <input id="email" type="text" formControlName="email">
       </div>
 
     <div>
-      <label for="first_name">First Name</label>
-      <input id="first_name" type="text" formControlName="first_name">
+      <label for="displayName">Username</label>
+      <input id="displayName" type="text" formControlName="displayName">
     </div>
     
     <div>
-      <label for="last_name">Last Name</label>
-      <input id="last_name" type="text" formControlName="last_name">
+      <label for="password">Password</label>
+      <input id="password" type="text" formControlName="password">
     </div>
 
     <button class="button" type="submit">Register</button>

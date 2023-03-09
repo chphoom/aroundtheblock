@@ -11,6 +11,7 @@ session = Session(database.engine)
 
 # : Add a UserEntity to the database session and commit it.
 from models import User
-user_entity: UserEntity = UserEntity.from_model(User(pid=730439634, first_name="Chalisa",last_name="Phoomsakha"))
+from datetime import datetime
+user_entity: UserEntity = UserEntity.from_model(User(email="keaw@email.unc.com", displayName="keaw",password="4ho00o76i1", created=datetime.now()))
 session.add(user_entity)
 session.commit()

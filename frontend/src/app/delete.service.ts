@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, map } from 'rxjs';
 
 export interface User {
-  pid: number;
-  first_name: string;
-  last_name: string;
+  email: string;
+  displayName: string;
+  password: string;
+  created: Date
 }
 
 @Injectable({
@@ -17,6 +18,6 @@ export class DeleteService {
 
   deleteUser(user: User): Observable<User> {
     //let newUser: User = {user.pid, };
-    return this.http.delete<User>("api/delete/"+user.pid);
+    return this.http.delete<User>("api/delete/"+user.email);
   }
 }
