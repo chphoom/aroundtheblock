@@ -40,13 +40,13 @@ class UserService:
             raise ValueError(f"No user found with PID: {pid}")
         # raise NotImplemented()
 
-    def delete(self, pid: int) -> None:
+    def delete(self, pid: int) -> User:
         # 
         user = self._session.get(UserEntity, pid)
         if user:
             self._session.delete(user)
             self._session.commit()
-            return None
+            return user
         else:
             raise ValueError(f"No user found with PID: {pid}")
         # raise NotImplemented()

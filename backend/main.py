@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Depends
 from user_service import UserService, User
-from user import User
+# from user import User
 from checkin import CheckinRequest, Checkin
 import storage
 import os
@@ -11,16 +11,28 @@ app = FastAPI()
 
 
 @app.get("/api/registrations")
-def get_registrations() -> list[User]:
-    return storage.get_registrations()
+def get_registrations(user_service: UserService = Depends()) -> list[User]:
+    # return storage.get_registrations()
+    return user_service.all()
 
+@app.get("/api/users/{pid}", responses={404: {"model": None}})
+def get_user(pid: int, user_service: UserService = Depends()) -> User:
+    try: 
+        return user_service.get(pid)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    # raise NotImplemented()
 
 @app.post("/api/registrations")
-def new_registration(user: User) -> User:
-    try:
-        return storage.create_registration(user)
-    except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
+def new_registration(user: User, user_service: UserService = Depends()) -> User:
+    # try:
+    #     return storage.create_registration(user)
+    # except Exception as e:
+    #     raise HTTPException(status_code=422, detail=str(e))
+        try:
+            return user_service.create(user)
+        except Exception as e:
+            raise HTTPException(status_code=422, detail=str(e))
 
 @app.get("/api/checkins")
 def get_checkIns() -> list[Checkin]:
@@ -35,11 +47,15 @@ def new_checkIn(checkInRequest: CheckinRequest) -> Checkin:
         raise HTTPException(status_code=422, detail=str(e))
 
 @app.delete("/api/delete/{userPID}")
-def delete_user(userPID: int) -> User:
+def delete_user(userPID: int, user_service = Depends(UserService)) -> User:
+    # try:
+    #     return storage.delete_user(storage.get_user_by_pid(userPID))
+    # except Exception as e:
+    #     raise HTTPException(status_code=422, detail=str(e))
     try:
-        return storage.delete_user(storage.get_user_by_pid(userPID))
+        return user_service.delete(userPID)
     except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
+        raise HTTPException(status_code=404, detail=str(e))
         
 # app.mount("/", StaticFileMiddleware("../static", "index.html"))
 
@@ -56,33 +72,24 @@ def reset() -> str:
         storage.create_checkin(730439634)
         return "OK"
  
-@app.get("/api/users")
-def get_users(user_service: UserService = Depends()) -> list[User]:
-    return user_service.all()
+# @app.get("/api/users")
+# def get_users(user_service: UserService = Depends()) -> list[User]:
+#     return user_service.all()
 
 
-@app.post("/api/users")
-def new_user(user: User, user_service: UserService = Depends()) -> User:
-    try:
-        return user_service.create(user)
-    except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
-    # raise NotImplemented()
+# @app.post("/api/users")
+# def new_user(user: User, user_service: UserService = Depends()) -> User:
+#     try:
+#         return user_service.create(user)
+#     except Exception as e:
+#         raise HTTPException(status_code=422, detail=str(e))
+#     # raise NotImplemented()
 
 
-@app.get("/api/users/{pid}", responses={404: {"model": None}})
-def get_user(pid: int, user_service: UserService = Depends()) -> User:
-    try: 
-        return user_service.get(pid)
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    # raise NotImplemented()
-
-
-@app.delete("/api/users/{pid}")
-def delete_user(pid: int, user_service = Depends(UserService)):
-    try:
-        return user_service.delete(pid)
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    # raise NotImplemented()
+# @app.delete("/api/users/{pid}")
+# def delete_user(pid: int, user_service = Depends(UserService)):
+#     try:
+#         return user_service.delete(pid)
+#     except Exception as e:
+#         raise HTTPException(status_code=404, detail=str(e))
+#     # raise NotImplemented()
