@@ -4,7 +4,7 @@ from user import User
 from checkin import CheckinRequest, Checkin
 import storage
 import os
-#from static_files import StaticFileMiddleware
+from static_files import StaticFileMiddleware
 
 
 app = FastAPI()
