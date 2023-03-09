@@ -1,9 +1,10 @@
 """Definitions of SQLAlchemy table-backed object mappings called entities."""
 
 
-from sqlalchemy import String, DateTime, Boolean, ForeignKey
+from sqlalchemy import String, DateTime, Boolean, ForeignKey, ARRAY, Integer
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
-from typing import Self
+from sqlalchemy.ext.mutable import MutableList
+from typing import Self, List
 from models import User, Post
 from datetime import datetime
 
@@ -11,7 +12,7 @@ from datetime import datetime
 class Base(DeclarativeBase):
     pass
 
-#maps user object fromo pydantic to user entity in ddatabase
+#maps user object fromo pydantic to user entity in database
 class UserEntity(Base):
     __tablename__ = "users"
 
@@ -23,8 +24,8 @@ class UserEntity(Base):
     bio: Mapped[str] = mapped_column(String(64))
     pronouns: Mapped[str] = mapped_column(String(64))
     img: Mapped[str] = mapped_column(String(64))
-    # userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
-    # savedPosts: Mapped[list["PostEntity"]] = relationship(back_populates="savedBy")
+    userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
+    savedPosts: Mapped[list["PostEntity"]] = mapped_column(MutableList.as_mutable(ARRAY("PostEntity")))
 
     @classmethod
     def from_model(cls, model: User) -> Self:
@@ -34,23 +35,48 @@ class UserEntity(Base):
         return User(email=self.email, displayName=self.displayName, password=self.password, created=self.created, private=self.private, bio=self.bio, pronouns=self.pronouns, img=self.img)#, userPosts=self.userPosts)
 
 #TODO maps post object from pydantic to post entity in database
-# class PostEntity(Base):
-#     __tablename__ = "posts"
+class PostEntity(Base):
+    __tablename__ = "posts"
 
-#     img: Mapped[str] = mapped_column(String(64), primary_key=True)
-#     desc: Mapped[str] = mapped_column(String(64))
-#     private: Mapped[bool] = mapped_column(Boolean)
-#     created: Mapped[datetime] = mapped_column(DateTime)
-#     user_id = mapped_column(ForeignKey("users.email"))
-#     postedBy: Mapped[UserEntity] = relationship(back_populates="userPosts")
-#     savedBy: Mapped[UserEntity] = relationship(back_populates="savedPosts")
+    id = mapped_column(Integer, primary_key=True)
+    img: Mapped[str] = mapped_column(String(64))
+    desc: Mapped[str] = mapped_column(String(64))
+    private: Mapped[bool] = mapped_column(Boolean)
+    created: Mapped[datetime] = mapped_column(DateTime)
+    user_id = mapped_column(ForeignKey("users.email"))
+    postedBy: Mapped[UserEntity] = relationship(back_populates="userPosts")
+    # savedBy: Mapped[UserEntity] = relationship(back_populates="savedPosts")
+    comments: Mapped[list["CommentEntity"]] = relationship(back_populates="post")
+    tags: Mapped[list["PostEntity"]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
+    challenge: Mapped[list["ChallengeEntity"]] = relationship(back_populates="posts")
 
-#     @classmethod
-#     def from_model(cls, model: Post) -> Self:
-#         return cls(img=model.img, desc=model.desc, private=model.private, created=model.created)
+    @classmethod
+    def from_model(cls, model: Post) -> Self:
+        return cls(img=model.img, desc=model.desc, private=model.private, created=model.created)
 
-#     def to_model(self) -> Post:
-#         return User(img=self.img, desc=self.desc, private=self.private, created=self.created)
+    def to_model(self) -> Post:
+        return User(img=self.img, desc=self.desc, private=self.private, created=self.created)
 
 #TODO maps comments object from pydantic to comments entity in database
+class CommentEntity(Base):
+    __tablename__ = "comments"
+
+    id = mapped_column(Integer, primary_key=True)
+    commenter: Mapped[UserEntity] = relationship()
+    post: Mapped[PostEntity] = relationship(back_populates="comments")
+    replies: Mapped[list["CommentEntity"]] = mapped_column(MutableList.as_mutable(ARRAY("CommentEntity")))
+    text: Mapped[str] = mapped_column(String(64))
+    created: Mapped[datetime] = mapped_column(DateTime)
+
 #TODO maps challenges object fromo pydantic to challenges entity in database
+class ChallengeEntity(Base):
+    __tablename__ = "challenges"
+
+    id = mapped_column(Integer, primary_key=True)
+    posts: Mapped[list[PostEntity]] = relationship(back_populates="challenge")
+    noun: Mapped[str] = mapped_column(String(64))
+    verb: Mapped[str] = mapped_column(String(64))
+    adj: Mapped[str] = mapped_column(String(64))
+    emotion: Mapped[str] = mapped_column(String(64))
+    style: Mapped[str] = mapped_column(String(64))
+    colors: Mapped[str] = mapped_column(String(64))

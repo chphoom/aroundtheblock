@@ -28,6 +28,8 @@ class Challenge(BaseModel):
     emotion: str | None
     style: str | None
     colors: List[str] | None
+    class Config:
+        orm_mode = True
 
 class weChallenge(Challenge):
     start: datetime
@@ -55,5 +57,7 @@ class Comment(BaseModel):
     commenter: User
     post: Post
     replies: List | None
-    test: str
+    text: str
     created: datetime
+    class Config:
+        orm_mode = True
