@@ -14,10 +14,6 @@ export class HomeComponent {
     {
       name: "Stats",
       route: "/stats"
-    },
-    {
-      name: "Check-in",
-      route: "/checkin"
     }
   ]
 }

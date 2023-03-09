@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { StatsComponent } from './stats/stats.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CheckInComponent } from './check-in/check-in.component';
+// import { CheckInComponent } from './check-in/check-in.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,6 @@ import { CheckInComponent } from './check-in/check-in.component';
     HomeComponent,
     RegistrationComponent,
     StatsComponent,
-    CheckInComponent,
   ],
   imports: [
     BrowserModule,
