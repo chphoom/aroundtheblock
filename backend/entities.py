@@ -5,7 +5,7 @@ from sqlalchemy import String, DateTime, Boolean, ForeignKey, ARRAY, Integer, Co
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 from sqlalchemy.ext.mutable import MutableList
 from typing import Self, List
-from models import User, Post, Challenge
+from models import User, Post, Challenge, Comment, weChallenge, meChallenge
 from datetime import datetime
 
 
@@ -79,7 +79,7 @@ class ChallengeEntity(Base):
         return cls(posts=model.posts, noun=model.noun, verb=model.verb, adj=model.adj, emotion=model.emotion, style=model.style, colors=model.colors)
 
     def to_model(self) -> Challenge:
-        return User(posts=self.posts, noun=self.noun, verb=self.verb, adj=self.adj, emotion=self.emotion, style=self.style, colors=self.colors)
+        return Challenge(posts=self.posts, noun=self.noun, verb=self.verb, adj=self.adj, emotion=self.emotion, style=self.style, colors=self.colors)
 
 # class weChallengeEntity(ChallengeEntity):
 #     start: Mapped[datetime] = mapped_column(DateTime)
@@ -99,17 +99,16 @@ class PostEntity(Base):
     created: Mapped[datetime] = mapped_column(DateTime)
     user_id = mapped_column(ForeignKey("users.email"))
     postedBy: Mapped[UserEntity] = relationship(back_populates="userPosts", post_update=True)
-    # savedBy: Mapped[UserEntity] = relationship(back_populates="savedPosts")
     comments: Mapped[list["CommentEntity"]] = relationship(back_populates="post")
-    # tags: Mapped[list["PostEntity"]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
+    tags: Mapped[list["PostEntity"]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
     challenge: Mapped[ChallengeEntity] = relationship(back_populates="posts")
 
     @classmethod
     def from_model(cls, model: Post) -> Self:
-        return cls(img=model.img, desc=model.desc, private=model.private, created=model.created)
+        return cls(img=model.img, desc=model.desc, private=model.private, created=model.created, postedBy=model.postedBy, comments=model.comments, challenge=model.challenge)
 
     def to_model(self) -> Post:
-        return User(img=self.img, desc=self.desc, private=self.private, created=self.created)
+        return Post(img=self.img, desc=self.desc, private=self.private, created=self.created, postedBy=self.postedBy, comments=self.comments, challenge=self.challenge)
 
 # maps comments object from pydantic to comments entity in database
 class CommentEntity(Base):
@@ -120,7 +119,14 @@ class CommentEntity(Base):
     commenter: Mapped[UserEntity] = relationship(post_update=True)
     post_id = mapped_column(ForeignKey("posts.id"))
     post: Mapped[PostEntity] = relationship(back_populates="comments", post_update=True)
-    # replies: Mapped[list["CommentEntity"]] = relationship()
+    # replyTo_id = mapped_column(ForeignKey(comments.id))
+    # replies: Mapped[list["CommentEntity"]] = relationship(back_populates="replies", post_update=True)
     text: Mapped[str] = mapped_column(String(64))
     created: Mapped[datetime] = mapped_column(DateTime)
 
+    @classmethod
+    def from_model(cls, model: Comment) -> Self:
+        return cls(commenter=model.commenter, post=model.post, text=model.text, created=model.created)
+    
+    def to_model(self) -> Comment:
+        return Comment(commenter=self.commenter, post=self.post, text=self.text, created=self.created)
