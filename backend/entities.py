@@ -25,7 +25,7 @@ class UserEntity(Base):
     pronouns: Mapped[str] = mapped_column(String(64))
     img: Mapped[str] = mapped_column(String(64))
     userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
-    savedPosts: Mapped[list["PostEntity"]] = mapped_column(MutableList.as_mutable(ARRAY("PostEntity")))
+    # savedPosts: Mapped[list["PostEntity"]] = mapped_column(MutableList.as_mutable(ARRAY("PostEntity")))
 
     @classmethod
     def from_model(cls, model: User) -> Self:
@@ -34,7 +34,7 @@ class UserEntity(Base):
     def to_model(self) -> User:
         return User(email=self.email, displayName=self.displayName, password=self.password, created=self.created, private=self.private, bio=self.bio, pronouns=self.pronouns, img=self.img)#, userPosts=self.userPosts)
 
-#TODO maps post object from pydantic to post entity in database
+# maps post object from pydantic to post entity in database
 class PostEntity(Base):
     __tablename__ = "posts"
 
@@ -57,22 +57,25 @@ class PostEntity(Base):
     def to_model(self) -> Post:
         return User(img=self.img, desc=self.desc, private=self.private, created=self.created)
 
-#TODO maps comments object from pydantic to comments entity in database
+# maps comments object from pydantic to comments entity in database
 class CommentEntity(Base):
     __tablename__ = "comments"
 
     id = mapped_column(Integer, primary_key=True)
+    user_id = mapped_column(ForeignKey("users.email"))
     commenter: Mapped[UserEntity] = relationship()
+    post_id = mapped_column(ForeignKey("posts.id"))
     post: Mapped[PostEntity] = relationship(back_populates="comments")
     replies: Mapped[list["CommentEntity"]] = mapped_column(MutableList.as_mutable(ARRAY("CommentEntity")))
     text: Mapped[str] = mapped_column(String(64))
     created: Mapped[datetime] = mapped_column(DateTime)
 
-#TODO maps challenges object fromo pydantic to challenges entity in database
+# maps challenges object fromo pydantic to challenges entity in database
 class ChallengeEntity(Base):
     __tablename__ = "challenges"
 
     id = mapped_column(Integer, primary_key=True)
+    post_id = mapped_column(ForeignKey("posts.id"))
     posts: Mapped[list[PostEntity]] = relationship(back_populates="challenge")
     noun: Mapped[str] = mapped_column(String(64))
     verb: Mapped[str] = mapped_column(String(64))
