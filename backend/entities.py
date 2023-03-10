@@ -49,11 +49,8 @@ class UserEntity(Base):
     pronouns: Mapped[str] = mapped_column(String(64))
     img: Mapped[str] = mapped_column(String(64))
     userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
-    # post_id = mapped_column(ForeignKey("posts.id"))
     savedPosts: Mapped[list["PostEntity"]] = relationship(secondary=savedPost)
-    # challenge_id = mapped_column(ForeignKey("challenges.id"))
     savedChallenges: Mapped[list["ChallengeEntity"]] = relationship(secondary=savedChallenge)
-    # savedChallenges= list["ChallengeEntity"]
     connectedAccounts: Mapped[list[str]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
 
     @classmethod
