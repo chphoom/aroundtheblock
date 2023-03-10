@@ -5,7 +5,7 @@ from sqlalchemy import String, DateTime, Boolean, ForeignKey, ARRAY, Integer
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 from sqlalchemy.ext.mutable import MutableList
 from typing import Self, List
-from models import User, Post
+from models import User, Post, Challenge
 from datetime import datetime
 
 
@@ -25,14 +25,19 @@ class UserEntity(Base):
     pronouns: Mapped[str] = mapped_column(String(64))
     img: Mapped[str] = mapped_column(String(64))
     userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
-    # savedPosts: Mapped[list["PostEntity"]] = mapped_column(MutableList.as_mutable(ARRAY("PostEntity")))
+    # post_id = mapped_column(ForeignKey("posts.id"))
+    savedPosts: Mapped[list["PostEntity"]] = relationship()
+    # challenge_id = mapped_column(ForeignKey("challenges.id"))
+    # savedChallenges: Mapped[list["ChallengeEntity"]] = relationship()
+    # savedChallenges= list["ChallengeEntity"]
+    connectedAccounts: Mapped[list[str]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
 
     @classmethod
     def from_model(cls, model: User) -> Self:
-        return cls(email=model.email, displayName=model.displayName, password=model.password, created=model.created, private=model.private, bio=model.bio, pronouns=model.pronouns, img=model.img) #userPosts=model.userPosts)
+        return cls(email=model.email, displayName=model.displayName, password=model.password, created=model.created, private=model.private, bio=model.bio, pronouns=model.pronouns, img=model.img, userPosts=model.userPosts, connectedAccounts=model.connectedAccounts, savedPosts=model.savedPosts)#,  savedChallenges=model.savedChallenges)
 
     def to_model(self) -> User:
-        return User(email=self.email, displayName=self.displayName, password=self.password, created=self.created, private=self.private, bio=self.bio, pronouns=self.pronouns, img=self.img)#, userPosts=self.userPosts)
+        return User(email=self.email, displayName=self.displayName, password=self.password, created=self.created, private=self.private, bio=self.bio, pronouns=self.pronouns, img=self.img, userPosts=self.userPosts, connectedAccounts=self.connectedAccounts, savedPosts=self.savedPosts)#, savedChallenges=self.savedChallenges)
 
 # maps post object from pydantic to post entity in database
 class PostEntity(Base):
@@ -83,3 +88,11 @@ class ChallengeEntity(Base):
     emotion: Mapped[str] = mapped_column(String(64))
     style: Mapped[str] = mapped_column(String(64))
     colors: Mapped[str] = mapped_column(String(64))
+
+    @classmethod
+    def from_model(cls, model: Challenge) -> Self:
+        return cls(posts=model.posts, noun=model.noun, verb=model.verb, adj=model.adj, emotion=model.emotion, style=model.style, colors=model.colors)
+
+    def to_model(self) -> Challenge:
+        return User(posts=self.posts, noun=self.noun, verb=self.verb, adj=self.adj, emotion=self.emotion, style=self.style, colors=self.colors)
+# class 
