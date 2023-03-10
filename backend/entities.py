@@ -72,14 +72,14 @@ class ChallengeEntity(Base):
     adj: Mapped[str] = mapped_column(String(64))
     emotion: Mapped[str] = mapped_column(String(64))
     style: Mapped[str] = mapped_column(String(64))
-    colors: Mapped[str] = mapped_column(String(64))
+    colors: Mapped[list[str]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
 
     @classmethod
     def from_model(cls, model: Challenge) -> Self:
         return cls(posts=model.posts, noun=model.noun, verb=model.verb, adj=model.adj, emotion=model.emotion, style=model.style, colors=model.colors)
 
     def to_model(self) -> Challenge:
-        return Challenge(posts=self.posts, noun=self.noun, verb=self.verb, adj=self.adj, emotion=self.emotion, style=self.style, colors=self.colors)
+        return Challenge(id=self.id, posts=self.posts, noun=self.noun, verb=self.verb, adj=self.adj, emotion=self.emotion, style=self.style, colors=self.colors)
 
 # class weChallengeEntity(ChallengeEntity):
 #     start: Mapped[datetime] = mapped_column(DateTime)

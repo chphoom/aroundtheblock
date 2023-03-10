@@ -22,6 +22,6 @@ export class DeleteService {
 
   deleteUser(user: User): Observable<User> {
     //let newUser: User = {user.pid, };
-    return this.http.delete<User>("api/delete/"+user.email);
+    return this.http.delete<User>("api/delete/users/"+user.email);
   }
 }

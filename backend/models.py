@@ -21,6 +21,7 @@ class User(BaseModel):
 
 #: Challenges
 class Challenge(BaseModel):
+    id: int | None
     posts: List
     noun: str | None
     verb: str | None
