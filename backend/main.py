@@ -1,12 +1,28 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, File, UploadFile
 from user_service import UserService, User
 from challenge_service import ChallengeService, Challenge
 from post_service import PostService, Post
 from comment_service import CommentService, Comment
 import os
+import imghdr
+
 # from static_files import StaticFileMiddleware
 
 app = FastAPI()
+
+#-----------SAVING MEDIAUPLOADS------------
+@app.post("/api/uploadfile/")
+async def create_upload_file(file: UploadFile = File()): 
+    contents = await file.read()
+    file_type = imghdr.what(file.filename, contents)
+    if not file_type:
+        raise HTTPException(status_code=400, detail='Invalid image file')
+    filename = file.filename.replace(" ", "") # Remove any whitespace from the filename
+    filename = file.filename.split('.')[0] + '.' + file_type
+    with open(os.path.join('./images', filename), 'wb') as f:
+        f.write(contents)
+    return {'message': 'File uploaded successfully!'}
+
 
 # ----------USER API ROUTES----------------
 #api route retrieves ALL registered users
