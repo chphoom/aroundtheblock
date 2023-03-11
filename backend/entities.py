@@ -36,6 +36,12 @@ c2p = Table (
     Column("posts", ForeignKey("posts.id"))
 )
 
+#comment reply
+comment_reply_assoc = Table("comment_reply_assoc", Base.metadata,
+    Column('comment_id', Integer, ForeignKey('comments.id')),
+    Column('reply_id', Integer, ForeignKey('comments.id'))
+)
+
 #maps user object fromo pydantic to user entity in database
 class UserEntity(Base):
     __tablename__ = "users"
@@ -120,8 +126,9 @@ class CommentEntity(Base):
     commenter: Mapped[UserEntity] = relationship(post_update=True)
     post_id = mapped_column(ForeignKey("posts.id"))
     post: Mapped[PostEntity] = relationship(back_populates="comments", post_update=True)
-    # replyTo_id = mapped_column(ForeignKey(comments.id))
-    # replies: Mapped[list["CommentEntity"]] = relationship(back_populates="replies", post_update=True)
+    replyTo_id = mapped_column(ForeignKey("comments.id"))
+    replies: Mapped[list["CommentEntity"]] = relationship(secondary="comment_reply_assoc", primaryjoin=id==comment_reply_assoc.c.comment_id,
+                            secondaryjoin=id==comment_reply_assoc.c.reply_id, back_populates="replies", post_update=True)
     text: Mapped[str] = mapped_column(String(64))
     created: Mapped[datetime] = mapped_column(DateTime)
 

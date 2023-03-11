@@ -56,4 +56,16 @@ class CommentService:
             self._session.commit()
             return temp.to_model()
         else:
-            raise ValueError(f"Post not found")
+            raise ValueError(f"Comment not found")
+
+    def reply(self, comment_id: int, reply: Comment) -> Comment:
+        temp = self._session.get(CommentEntity, comment_id)
+        if temp:
+            reply = self._session.get(CommentEntity, reply.id)
+            reply.replyTo_id = temp.id
+            temp.replies.append(reply)
+            self._session.add(reply)
+            self._session.commit()
+            return temp.to_model()
+        else:
+            raise ValueError(f"Comment not found")

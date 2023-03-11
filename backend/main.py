@@ -147,5 +147,13 @@ def update_comment(comment_id: int, newText: str, comment_service: CommentServic
         return comment_service.update(comment_id, newText)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
+    
+#api route to reply to a comment
+@app.post("/api/reply")
+def create_reply(comment_id: int, reply: Comment, comment_service: CommentService = Depends()) -> Comment:
+    try: 
+        return comment_service.reply(comment_id=comment_id,reply=reply)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
 # app.mount("/", StaticFileMiddleware("../static", "index.html"))
 
