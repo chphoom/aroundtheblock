@@ -46,8 +46,8 @@ class Post(BaseModel):
     desc: str
     private: bool
     created: datetime
-    challenge: Challenge | None
-    postedBy: User | None
+    challenge: Challenge | str | None
+    postedBy: User | str | None
     comments: List
     tags: List[str]
     class Config:

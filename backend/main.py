@@ -78,16 +78,17 @@ def delete_challenge(id: int, challenge_service = Depends(ChallengeService)) -> 
 
 # ----------POST API ROUTES----------------
 #api route retrieves ALL challenges
-#TODO: breaks after a post is created
+#returns postedBy as the email (primary key) of the user
+#  and challenge as the noun of the challenge (logic to generate a challenge name is to be implemented)
 @app.get("/api/posts")
 def get_posts(post_service: PostService = Depends()) -> list[Post]:
     return post_service.all()
 
 #api route creates a new Post
 @app.post("/api/posts")
-def new_post(post: Post, user_service: UserService = Depends()) -> Post:
+def new_post(post: Post, post_service: PostService = Depends()) -> Post:
         try:
-            return user_service.add_post(post)
+            return post_service.create(post)
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
         

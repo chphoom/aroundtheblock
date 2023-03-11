@@ -108,7 +108,8 @@ class PostEntity(Base):
         return cls(id=model.id, img=model.img, desc=model.desc, private=model.private, created=model.created, postedBy=model.postedBy, comments=model.comments, challenge=model.challenge, tags=model.tags)
 
     def to_model(self) -> Post:
-        return Post(id=self.id, img=self.img, desc=self.desc, private=self.private, created=self.created, postedBy=self.postedBy, comments=self.comments, challenge=self.challenge, tags=self.tags)
+        #TODO: update logic to output name of the challenge
+        return Post(id=self.id, img=self.img, desc=self.desc, private=self.private, created=self.created, postedBy=self.user_id, comments=self.comments, challenge=self.challenge.noun, tags=self.tags)
 
 # maps comments object from pydantic to comments entity in database
 class CommentEntity(Base):
