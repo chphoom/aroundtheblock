@@ -41,13 +41,13 @@ class meChallenge(Challenge):
 
 #: Post object
 class Post(BaseModel):
+    id: int | None
     img: str
     desc: str
     private: bool
     created: datetime
-    challenge: Challenge
-    postedBy: User
-    # savedBy: 
+    challenge: Challenge | None
+    postedBy: User | None
     comments: List
     tags: List[str]
     class Config:
@@ -55,6 +55,7 @@ class Post(BaseModel):
 
 #: Comments
 class Comment(BaseModel):
+    id: int | None
     commenter: User
     post: Post
     replies: List | None

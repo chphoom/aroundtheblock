@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException, Depends
 from user_service import UserService, User
 from challenge_service import ChallengeService, Challenge
+from post_service import PostService, Post
 import os
 # from static_files import StaticFileMiddleware
-
 
 app = FastAPI()
 
@@ -62,7 +62,7 @@ def new_challenge(challenge: Challenge, challenge_service: ChallengeService = De
 #api route retrieves challenge given id
 #TODO: implement a way to find challenge and get the correct id
 @app.get("/api/challenges/{id}", responses={404: {"model": None}})
-def get_user(id: int, challenge_service: ChallengeService = Depends()) -> Challenge:
+def get_challenge(id: int, challenge_service: ChallengeService = Depends()) -> Challenge:
     try: 
         return challenge_service.get(id)
     except Exception as e:
@@ -70,12 +70,43 @@ def get_user(id: int, challenge_service: ChallengeService = Depends()) -> Challe
     
 #api route deletes challenge FROM THE DATABASE
 @app.delete("/api/delete/challenges/{id}")
-def delete_user(id: int, challenge_service = Depends(ChallengeService)) -> Challenge:
+def delete_challenge(id: int, challenge_service = Depends(ChallengeService)) -> Challenge:
     try:
         return challenge_service.delete(id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
 
+# ----------POST API ROUTES----------------
+#api route retrieves ALL challenges
+#TODO: breaks after a post is created
+@app.get("/api/posts")
+def get_posts(post_service: PostService = Depends()) -> list[Post]:
+    return post_service.all()
+
+#api route creates a new Post
+@app.post("/api/posts")
+def new_post(post: Post, user_service: UserService = Depends()) -> Post:
+        try:
+            return user_service.add_post(post)
+        except Exception as e:
+            raise HTTPException(status_code=422, detail=str(e))
+        
+#api route retrieves post given id
+#TODO: implement a way to find post and get the correct id
+@app.get("/api/posts/{id}", responses={404: {"model": None}})
+def get_post(id: int, post_service: PostService = Depends()) -> Post:
+    try: 
+        return post_service.get(id)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    
+#api route deletes post FROM THE DATABASE
+@app.delete("/api/delete/posts/{id}")
+def delete_post(id: int, post_service = Depends(PostService)) -> Post:
+    try:
+        return post_service.delete(id)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 # app.mount("/", StaticFileMiddleware("../static", "index.html"))
 

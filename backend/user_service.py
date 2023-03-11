@@ -2,8 +2,8 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from database import db_session
-from models import User
-from entities import UserEntity
+from models import User, Post
+from entities import UserEntity, PostEntity, ChallengeEntity
 
 
 class UserService:
@@ -62,3 +62,22 @@ class UserService:
             return temp.to_model()
         else:
             raise ValueError(f"No user found with PID: {temp.email}")
+        
+    def add_post(self, post: Post) -> Post:
+        temp = self._session.get(UserEntity, post.postedBy.email)
+        if temp:
+            post.postedBy = temp
+            temp2 = self._session.get(ChallengeEntity, post.challenge.id)
+            post.challenge = temp2
+            post_entity: PostEntity = PostEntity.from_model(post)
+            temp.userPosts.append(post_entity)
+            temp2.posts.append(post_entity)
+            self._session.commit()
+            return post
+        else:
+            raise ValueError(f"No user found with PID: {post.postedBy.email}")
+
+    # def allPosts(self) -> list[Post]:
+    #     query = select(PostEntity)
+    #     entities = self._session.scalars(query).all()
+    #     return [entity.to_model() for entity in entities]

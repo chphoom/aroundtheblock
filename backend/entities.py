@@ -65,8 +65,7 @@ class ChallengeEntity(Base):
     __tablename__ = "challenges"
 
     id = mapped_column(Integer, primary_key=True)
-    post_id = mapped_column(ForeignKey("posts.id"))
-    posts: Mapped[list["PostEntity"]] = relationship(secondary=c2p, back_populates="challenge", post_update=True)
+    posts: Mapped[list["PostEntity"]] = relationship(secondary=c2p, back_populates="challenge")
     noun: Mapped[str] = mapped_column(String(64))
     verb: Mapped[str] = mapped_column(String(64))
     adj: Mapped[str] = mapped_column(String(64))
@@ -100,15 +99,16 @@ class PostEntity(Base):
     user_id = mapped_column(ForeignKey("users.email"))
     postedBy: Mapped[UserEntity] = relationship(back_populates="userPosts", post_update=True)
     comments: Mapped[list["CommentEntity"]] = relationship(back_populates="post")
-    tags: Mapped[list["PostEntity"]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
-    challenge: Mapped[ChallengeEntity] = relationship(back_populates="posts")
+    tags: Mapped[list[str]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
+    challenge_id = mapped_column(ForeignKey("challenges.id"))
+    challenge: Mapped[ChallengeEntity] = relationship(back_populates="posts", post_update=True)
 
     @classmethod
     def from_model(cls, model: Post) -> Self:
-        return cls(img=model.img, desc=model.desc, private=model.private, created=model.created, postedBy=model.postedBy, comments=model.comments, challenge=model.challenge)
+        return cls(id=model.id, img=model.img, desc=model.desc, private=model.private, created=model.created, postedBy=model.postedBy, comments=model.comments, challenge=model.challenge, tags=model.tags)
 
     def to_model(self) -> Post:
-        return Post(img=self.img, desc=self.desc, private=self.private, created=self.created, postedBy=self.postedBy, comments=self.comments, challenge=self.challenge)
+        return Post(id=self.id, img=self.img, desc=self.desc, private=self.private, created=self.created, postedBy=self.postedBy, comments=self.comments, challenge=self.challenge, tags=self.tags)
 
 # maps comments object from pydantic to comments entity in database
 class CommentEntity(Base):
@@ -129,4 +129,4 @@ class CommentEntity(Base):
         return cls(commenter=model.commenter, post=model.post, text=model.text, created=model.created)
     
     def to_model(self) -> Comment:
-        return Comment(commenter=self.commenter, post=self.post, text=self.text, created=self.created)
+        return Comment(id=self.id, commenter=self.commenter, post=self.post, text=self.text, created=self.created)
