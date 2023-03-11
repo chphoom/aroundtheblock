@@ -130,4 +130,4 @@ class CommentEntity(Base):
         return cls(commenter=model.commenter, post=model.post, text=model.text, created=model.created)
     
     def to_model(self) -> Comment:
-        return Comment(id=self.id, commenter=self.commenter, post=self.post, text=self.text, created=self.created)
+        return Comment(id=self.id, commenter=self.user_id, post=self.post_id, text=self.text, created=self.created)

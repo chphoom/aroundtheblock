@@ -56,8 +56,8 @@ class Post(BaseModel):
 #: Comments
 class Comment(BaseModel):
     id: int | None
-    commenter: User
-    post: Post
+    commenter: User | str
+    post: Post | int
     replies: List | None
     text: str
     created: datetime

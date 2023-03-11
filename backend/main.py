@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from user_service import UserService, User
 from challenge_service import ChallengeService, Challenge
 from post_service import PostService, Post
+from comment_service import CommentService, Comment
 import os
 # from static_files import StaticFileMiddleware
 
@@ -110,12 +111,41 @@ def delete_post(id: int, post_service = Depends(PostService)) -> Post:
         raise HTTPException(status_code=404, detail=str(e))
     
 #api route to update post desc, tags, and comments
-@app.post("/api/edit")
+@app.post("/api/post/edit")
 def update_post(post: Post, post_service: PostService = Depends()) -> Post:
     try:
         return post_service.update(post)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 
+# ----------COMMENT API ROUTES----------------
+#api route retrieces ALL comments
+@app.get("/api/comments")
+def get_comments(comment_service: CommentService = Depends()) -> list[Comment]:
+    return comment_service.all()
+
+#api route creates a new comment
+@app.post("/api/comment")
+def new_comment(comment: Comment, comment_service: CommentService = Depends()) -> Comment:
+        try:
+            return comment_service.create(comment)
+        except Exception as e:
+            raise HTTPException(status_code=422, detail=str(e))
+        
+#api route deletes comment
+@app.delete("/api/delete/comment/{id}")
+def delete_comment(id: int, comment_service = Depends(CommentService)):
+    try:
+        return comment_service.delete(id)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    
+#api route to update a comment's text
+@app.post("/api/comment/edit")
+def update_comment(comment_id: int, newText: str, comment_service: CommentService = Depends()) -> Comment:
+    try:
+        return comment_service.update(comment_id, newText)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
 # app.mount("/", StaticFileMiddleware("../static", "index.html"))
 
