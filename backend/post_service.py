@@ -53,3 +53,14 @@ class PostService:
             return post
         else:
             raise ValueError(f"No post found")
+        
+    def update(self, post: Post) -> Post:
+        temp = self._session.get(PostEntity, post.id)
+        if temp:
+            temp.desc = post.desc
+            temp.tags = post.tags
+            temp.comments = post.comments
+            self._session.commit()
+            return temp.to_model()
+        else:
+            raise ValueError(f"Post not found")

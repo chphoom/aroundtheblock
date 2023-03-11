@@ -108,6 +108,14 @@ def delete_post(id: int, post_service = Depends(PostService)) -> Post:
         return post_service.delete(id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+    
+#api route to update post desc, tags, and comments
+@app.post("/api/edit")
+def update_post(post: Post, post_service: PostService = Depends()) -> Post:
+    try:
+        return post_service.update(post)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
 
 # app.mount("/", StaticFileMiddleware("../static", "index.html"))
 
