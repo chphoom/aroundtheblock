@@ -84,10 +84,7 @@ export class RegistrationService {
 
   /**
    * Retrieves whether User is logged in based on presence of valid JWT token in local storage
-   * 
-   * @param email 
-   * @param password
-   * @returns Obervable of Token that will error if there are issues with validation or persistence.
+   * @returns boolean value
    */
   isLoggedIn(): boolean {
     const token = localStorage.getItem('jwt');
