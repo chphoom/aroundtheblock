@@ -5,8 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { StatsComponent } from './stats/stats.component';
+import { MeChallengeComponent } from './me-challenge/me-challenge.component';
+import { LoginComponent } from './login/login.component';
+
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -15,8 +18,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MeChallengeComponent } from './me-challenge/me-challenge.component';
-import { LoginComponent } from './login/login.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
@@ -28,7 +29,6 @@ import { MatInputModule } from '@angular/material/input';
   declarations: [
     AppComponent,
     HomeComponent,
-    RegistrationComponent,
     StatsComponent,
     MeChallengeComponent,
     LoginComponent,
