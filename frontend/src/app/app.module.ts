@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -32,6 +33,7 @@ import { MatInputModule } from '@angular/material/input';
     StatsComponent,
     MeChallengeComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
