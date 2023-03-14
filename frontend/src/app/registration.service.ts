@@ -65,4 +65,14 @@ export class RegistrationService {
     return this.http.post<User>("api/registrations",user);
   }
 
+  loginUser(email: string, password: string){
+    const body = new URLSearchParams();
+    body.set('username', email);
+    body.set('password', password);
+
+    return this.http.post('/api/login', body.toString(), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
+  }
+
 }

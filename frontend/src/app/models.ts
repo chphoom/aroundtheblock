@@ -53,3 +53,9 @@ export interface Comment {
     text: string,
     created: Date
 }
+
+export interface TokenResponse {
+    access_token: string;
+    token_type: string;
+  }
+  

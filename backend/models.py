@@ -63,3 +63,8 @@ class Comment(BaseModel):
     created: datetime
     class Config:
         orm_mode = True
+
+# Define the JWT token schema
+class Token(BaseModel):
+    access_token: str
+    token_type: str
