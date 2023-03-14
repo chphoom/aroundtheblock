@@ -17,13 +17,42 @@ export class LoginComponent {
 
   register = this.formBuilder.group({
     email: '',
-    displayName: '',
-    password: ''
+    username: '',
+    password: '',
+    confirm: ''
   });
 
   constructor(
     private registrationService: RegistrationService,
     private formBuilder: FormBuilder,
   ) {}
+
+  registerSubmit(): void {
+    let form = this.register.value;
+    let email = form.email ?? "";
+    let displayName = form.username ?? "";
+    let password = form.password ?? "";
+    let confirm = form.confirm ?? "";
+
+    this.registrationService
+      .registerUser(email, displayName, password, confirm)
+      .subscribe({
+        next: (user) => this.onSuccess(user),
+        error: (err) => this.onError(err)
+      });
+  }
+
+  private onSuccess(user: User): void {
+    window.alert(`Thanks for registering: ${user.displayName}`);
+    this.register.reset();
+  }
+
+  private onError(err: Error) {
+    if (err.message) {
+      window.alert(err.message);
+    } else {
+      window.alert("Unknown error: " + JSON.stringify(err));
+    }
+  }
 
 }

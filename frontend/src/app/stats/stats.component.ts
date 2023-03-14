@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RegistrationService, User } from '../registration.service';
-// import { CheckinService, Checkin } from '../checkin.service';
 import { DeleteService } from '../delete.service';
 
 @Component({

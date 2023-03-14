@@ -27,7 +27,7 @@ export class RegistrationComponent {
     let password = form.password ?? "";
 
     this.registrationService
-      .registerUser(email, displayName, password)
+      .registerUser(email, displayName, password, "")
       .subscribe({
         next: (user) => this.onSuccess(user),
         error: (err) => this.onError(err)

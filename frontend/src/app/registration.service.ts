@@ -1,17 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, map } from 'rxjs';
-
-export interface User {
-  email: string;
-  displayName: string;
-  password: string;
-  created: Date;
-  private: boolean;
-  bio: string;
-  pronouns: string;
-  img: string;
-}
+import { User } from './models';
+export { User } from './models';
 
 /**
  * This class handles the registration concerns of the system including the ability
@@ -45,16 +36,13 @@ export class RegistrationService {
    * @param created
    * @returns Obervable of User that will error if there are issues with validation or persistence.
    */
-  registerUser(email: string, displayName: string, password: string): Observable<User> {
+  registerUser(email: string, displayName: string, password: string, confirm: string): Observable<User> {
     let errors: string[] = [];
 
     //TODO: email  validation
     if (email === "") {
       errors.push(`Email required.`);
     }
-    // if (pid.toString().length !== 9) {
-    //   errors.push(`Invalid PID: ${pid}`);
-    // }
 
     if (displayName === "") {
       errors.push(`Username required.`);
@@ -63,12 +51,16 @@ export class RegistrationService {
     if (password === "") {
       errors.push(`Password required.`)
     }
+    
+    if (password !== confirm) {
+      errors.push('Please confirm that your passwords match')
+    }
 
     if (errors.length > 0) {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
-    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", img: ""};
+    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", img: "", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
 
     return this.http.post<User>("api/registrations",user);
   }
