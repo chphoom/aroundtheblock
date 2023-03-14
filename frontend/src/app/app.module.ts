@@ -15,6 +15,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MeChallengeComponent } from './me-challenge/me-challenge.component';
+import { LoginComponent } from './login/login.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 
@@ -24,6 +30,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     HomeComponent,
     RegistrationComponent,
     StatsComponent,
+    MeChallengeComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +44,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatSidenavModule,
     MatListModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    MatTabsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

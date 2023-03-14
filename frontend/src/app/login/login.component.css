@@ -1,0 +1,28 @@
+.logincard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 431px;
+    height: 528px;
+    left: 296px;
+    top: 108px;
+    padding: 5% 35%;
+}
+
+mat-card {
+    height: 100%;
+    width: 100%;
+    border-radius: 23px;
+}
+
+.loginForm, .roundedInput{
+    width: 100%
+}
+
+.loginForm, .registerForm{
+    display: flex;
+    flex-direction: column;
+    padding: 5% 0;
+    justify-content: center;
+    align-items: center;
+}

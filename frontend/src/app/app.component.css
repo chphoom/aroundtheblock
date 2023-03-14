@@ -3,7 +3,7 @@
 }
   
 .mat-sidenav {
-    width: 250px;
+    width: 200px;
 }
   
 .mat-sidenav-content {
@@ -21,7 +21,36 @@ body {
     padding: 0;
 }
 
-mat-sidenav-content {
+.search, .account {
+    display: flex;
+    margin: 0;
     padding: 0;
 }
+
+::ng-deep .mat-drawer-content, .mat-sidenav-content{
+    position: relative;
+    z-index: 1;
+    display: block;
+    height: 100%;
+    overflow: auto;
+    padding: 0 20px;
+}
+
+::ng-deep .mat-toolbar-row, .mat-toolbar-single-row {
+    display: flex;
+    box-sizing: border-box;
+    padding: 5px 16px;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    height: fit-content;
+    border-color: black;
+    border-radius: 10px;
+}
+
+.spacer {
+    flex: 1;
+}
+
   
