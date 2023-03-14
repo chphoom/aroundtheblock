@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RegistrationService } from '../registration.service';
 import { MatTabGroup } from '@angular/material/tabs';
-import { CookieService } from 'ngx-cookie-service';
 import {TokenResponse, User} from '../models';
 import { Router } from '@angular/router';
 
@@ -31,7 +30,6 @@ export class LoginComponent {
   constructor(
     private registrationService: RegistrationService,
     private formBuilder: FormBuilder,
-    private cookieService: CookieService,
     private router: Router
   ) {}
 

@@ -8,10 +8,14 @@
   <mat-icon routerLink="/">style</mat-icon>
   <mat-icon>notifications</mat-icon>
   <p class="search">search</p>
-  <p class="account" routerLink="/login">
+  <p *ngIf="isLoggedin; else elseBlock" class="account" routerLink="/login">
     <mat-icon>account_box</mat-icon>
-    account login/signup
+    login/signup
   </p>
+  <ng-template #elseBlock>
+    <mat-icon>account_box</mat-icon>
+    account
+  </ng-template>
 </mat-toolbar>
 
 <mat-sidenav-container>
