@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, map } from 'rxjs';
 import { User } from './models';
 export { User } from './models';
@@ -91,4 +91,16 @@ export class RegistrationService {
     return token !== null;
   }
 
+  /**
+   * Retrieves User thats logged in
+   * @returns User
+   */
+  getUserInfo(): Observable<User> {
+    const token = localStorage.getItem('jwt');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<User>('https://example.com/api/user', { headers })
+  }
 }

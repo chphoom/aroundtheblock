@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends, File, UploadFile, Response
+from fastapi import FastAPI, HTTPException, Depends, File, UploadFile, Response, Header
 from fastapi.security import OAuth2PasswordRequestForm
 from user_service import UserService, User
 from challenge_service import ChallengeService, Challenge
@@ -14,6 +14,21 @@ import imghdr
 app = FastAPI()
 
 #-----------JWT TOKENS (for login) ---------
+
+#Define function to get user from token
+@app.get("/api/login")
+def get_token_info(authorization: str = Header(None), login_service: LoginService = Depends()) -> User:
+    if authorization is None:
+        raise HTTPException(status_code=401, detail='Authorization header missing')
+    try:
+        token = authorization.split(' ')[1]
+        decoded_token = login_service.decode(token=token)
+        # Extract user data from the decoded token here
+        user_email = decoded_token['sub']
+        user = login_service.get(user_email)
+    except:
+        raise HTTPException(status_code=401, detail='Invalid authorization token')
+    return user
 
 # Define the login route
 @app.post("/api/login")
@@ -63,6 +78,7 @@ def get_user(email: str, user_service: UserService = Depends()) -> User:
         raise HTTPException(status_code=404, detail=str(e))
 
 #api route to update user info
+#TODO: Change update function use PUT instead of POST
 @app.post("/api/users")
 def update_user(user: User, user_service: UserService = Depends()) -> User:
     try:

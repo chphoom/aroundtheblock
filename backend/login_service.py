@@ -15,13 +15,21 @@ class LoginService:
     def __init__(self, session: Session = Depends(db_session)):
         self._session = session
 
+    def get(self, email: str) -> User | None:
+        # 
+        user = self._session.get(UserEntity, email)
+        if user:
+            return user.to_model()
+        else:
+            raise ValueError(f"No user found with PID: {email}")
+        
     # Authenticate the user
     def authenticate_user(self, email: str, password: str) -> Optional[User]:
         user = self._session.get(UserEntity, email)
         if not user:
-            return None
+            raise ValueError(f"No uer found with that email and password combination.")
         if not password == user.password:
-            return None
+            raise ValueError(f"Passwords do not match")
         return user
 
     # Create the JWT access token
@@ -34,3 +42,6 @@ class LoginService:
         to_encode.update({"exp": expire})
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
         return encoded_jwt
+
+    def decode(self, token: Token) -> dict:
+        return jwt.decode(token, SECRET_KEY, ALGORITHM)
