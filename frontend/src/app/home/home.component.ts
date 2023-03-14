@@ -8,10 +8,6 @@ import { Component } from '@angular/core';
 export class HomeComponent {
   stories = [
     {
-      name: "Register",
-      route: "/register"
-    },
-    {
       name: "Stats",
       route: "/stats"
     }
