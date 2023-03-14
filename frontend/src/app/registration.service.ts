@@ -28,7 +28,7 @@ export class RegistrationService {
   }
 
   /**
-   * Registers a user with the check-in system.
+   * Registers a user into database.
    * 
    * @param email 
    * @param displayName username
@@ -65,6 +65,13 @@ export class RegistrationService {
     return this.http.post<User>("api/registrations",user);
   }
 
+  /**
+   * Logs User in and returns resulting JWT Token
+   * 
+   * @param email 
+   * @param password
+   * @returns Obervable of Token that will error if there are issues with validation or persistence.
+   */
   loginUser(email: string, password: string){
     const body = new URLSearchParams();
     body.set('username', email);
@@ -73,6 +80,18 @@ export class RegistrationService {
     return this.http.post('/api/login', body.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
+  }
+
+  /**
+   * Retrieves whether User is logged in based on presence of valid JWT token in local storage
+   * 
+   * @param email 
+   * @param password
+   * @returns Obervable of Token that will error if there are issues with validation or persistence.
+   */
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('jwt');
+    return token !== null;
   }
 
 }

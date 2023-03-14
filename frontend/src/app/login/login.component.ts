@@ -88,13 +88,4 @@ export class LoginComponent {
     }
   }
 
-  private setCookie() {
-    this.cookieService.set('my_cookie', 'cookie_value');
-  }
-
-  private getCookie() {
-    const cookieValue = this.cookieService.get('my_cookie');
-    console.log(cookieValue);
-  }
-
 }
