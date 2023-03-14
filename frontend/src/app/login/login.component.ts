@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RegistrationService, User } from '../registration.service';
+import { MatTabGroup } from '@angular/material/tabs';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { RegistrationService, User } from '../registration.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  @ViewChild('tabGroup') tabGroup!: MatTabGroup;
 
   login = this.formBuilder.group({
     email: '',
@@ -45,6 +47,7 @@ export class LoginComponent {
   private onSuccess(user: User): void {
     window.alert(`Thanks for registering: ${user.displayName}`);
     this.register.reset();
+    this.tabGroup.selectedIndex = 0;
   }
 
   private onError(err: Error) {
