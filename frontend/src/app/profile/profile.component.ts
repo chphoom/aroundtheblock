@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegistrationService } from '../registration.service';
+import { RegistrationService, User } from '../registration.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,6 +8,13 @@ import { RegistrationService } from '../registration.service';
 })
 export class ProfileComponent {
   isLoggedin = this.registration_service.isLoggedIn();
+  user: User = {} as User;
+
+  ngOnInit() {
+    this.registration_service.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
+  }
   
   constructor(private registration_service: RegistrationService){}
 

@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
+import {MatGridListModule} from '@angular/material/grid-list';
 import { ProfileComponent } from './profile/profile.component';
 
 
@@ -49,7 +50,8 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     MatCardModule,
     MatTabsModule,
-    MatInputModule
+    MatInputModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

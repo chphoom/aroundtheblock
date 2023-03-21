@@ -1,1 +1,74 @@
-<p>profile works!</p>
+<!-- <div class="profPage">
+    <div class="accpreview"> 
+        <div class="profilepic">
+            <img>
+            image here 
+        </div>
+        <div class="info">
+            info here 
+        </div>
+        <div class="icons">
+            icons here 
+        </div>
+    </div>
+    <div class="posts"> 
+    posts here
+    </div>
+</div> -->
+<!-- <header>
+    <div>
+      <img src="https://via.placeholder.com/150" alt="Profile image">
+      <h1>Username</h1>
+      <button>Edit Profile</button>
+    </div>
+    <section>
+        <h2>About</h2>
+        <p>Bio text goes here</p>
+        <ul>
+          <li><strong>Name:</strong> First Last</li>
+          <li><strong>Location:</strong> City, Country</li>
+          <li><strong>Website:</strong> <a href="#">www.website.com</a></li>
+        </ul>
+      </section>
+  </header>
+  <main>
+    <section>
+      <h2>Posts</h2>
+      <div>
+        Loop through user's posts and display them here
+        <img src="https://via.placeholder.com/300" alt="Post image">
+        <img src="https://via.placeholder.com/300" alt="Post image">
+        <img src="https://via.placeholder.com/300" alt="Post image">
+      </div>
+    </section>
+  </main> -->
+
+<section style="height: 30%;">
+    <div style="display: flex; align-items: center;">
+        <img src="https://via.placeholder.com/200" alt="Post image"style="width: 15%; height: auto; flex-shrink: 1;">
+        <div>{{user.displayName}}</div>
+      </div>      
+</section>
+<section>
+    <mat-tab-group #tabGroup>
+        <mat-tab label="Posts">
+            <div>
+                <!-- Loop through user's posts and display them here -->
+                <img src="https://via.placeholder.com/300" alt="Post image">
+                <img src="https://via.placeholder.com/300" alt="Post image">
+                <img src="https://via.placeholder.com/300" alt="Post image">
+              </div>
+        </mat-tab>
+        <mat-tab label="Saved Posts">
+            <div>
+                <!-- Loop through user's saved posts and display them here -->
+                <img src="https://via.placeholder.com/300" alt="Post image">
+                <img src="https://via.placeholder.com/300" alt="Post image">
+                <img src="https://via.placeholder.com/300" alt="Post image">
+              </div>
+        </mat-tab>
+        <mat-tab label="Saved Challenges">
+            content
+        </mat-tab>
+    </mat-tab-group>
+</section>
