@@ -9,7 +9,7 @@ from datetime import timedelta
 import os
 import imghdr
 
-# from static_files import StaticFileMiddleware
+from static_files import StaticFileMiddleware
 
 app = FastAPI()
 
@@ -203,5 +203,6 @@ def create_reply(comment_id: int, reply: Comment, comment_service: CommentServic
         return comment_service.reply(comment_id=comment_id,reply=reply)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
-# app.mount("/", StaticFileMiddleware("../static", "index.html"))
+
+app.mount("/", StaticFileMiddleware("../static", "index.html"))
 
