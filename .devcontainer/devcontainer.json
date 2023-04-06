@@ -4,9 +4,9 @@
     "service": "httpd",
     "remoteUser": "vscode",
     "forwardPorts": [
-        4200,
-        8000,
-        8080
+        1560,
+        1561,
+        1562 
     ],
     "customizations": {
         "vscode": {

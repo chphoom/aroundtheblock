@@ -1,11 +1,13 @@
 """Single-page application middleware.
 
 Our application is organized as a single-page application (SPA). This middleware class
-extends the functionality of the StaticFiles middleware and was inspired by:
+extends the functionality of the StaticFiles middleware and was inspired by: 
 <https://stackoverflow.com/questions/63069190/how-to-capture-arbitrary-paths-at-one-route-in-fastapi>
 """
 
-__author__ = "Kris Jordan <kris@cs.unc.edu>"
+__authors__ = ["Kris Jordan"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
 
 import os
 
@@ -13,7 +15,6 @@ from fastapi.staticfiles import StaticFiles
 
 
 class StaticFileMiddleware(StaticFiles):
-
     def __init__(self, directory: os.PathLike, index="index.html") -> None:
         self.index = index
         super().__init__(directory=directory, packages=None, html=True, check_dir=True)

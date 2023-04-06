@@ -1,9 +1,25 @@
-"""This module loads environment variables from a .env file or the environment."""
+"""Load environment variables from a .env file or the process' environment."""
+
+import os
+import dotenv
+
+__authors__ = ["Kris Jordan"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
+# Load envirnment variables from .env file upon module start.
+dotenv.load_dotenv(verbose=True)
 
 
-# Load Envirnment Variables from .env File Upon Startup
-from dotenv import load_dotenv
-load_dotenv()
+def getenv(variable: str) -> str:
+    """Get value of environment variable or raise an error if undefined.
 
-# Expose `getenv` as a module-level function
-from os import getenv
+    Unlike `os.getenv`, our application expects all environment variables it needs to be defined
+    and we intentionally fast error out with a diagnostic message to avoid scenarios of running
+    the application when expected environment variables are not set.
+    """
+    value = os.getenv(variable)
+    if value is not None:
+        return value
+    else:
+        raise NameError(f'Error: {variable} Environment Variable not Defined')
