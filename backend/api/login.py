@@ -3,9 +3,15 @@ from fastapi import APIRouter, HTTPException, Depends, Response, Header
 from fastapi.security import OAuth2PasswordRequestForm
 from ..env import getenv
 from ..models import User
-from ..services import UserService, Token
+from ..services import UserService
 from datetime import timedelta, datetime
 from typing import Optional
+
+# Define the JWT token schema
+from pydantic import BaseModel
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
 
 _JWT_SECRET = getenv('JWT_SECRET')
