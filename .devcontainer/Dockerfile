@@ -9,16 +9,17 @@ ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
 	&& apt-get install --yes \
-	    git \
+        apt-transport-https \
 	    curl \
-        wget \
         debian-keyring \
         debian-archive-keyring \
-        apt-transport-https \
+	    git \
         fonts-powerline \
+        postgresql-client \
         software-properties-common \
         sudo \
         tzdata \
+        wget \
         zsh \
     && rm -rf /var/lib/apt/lists/*
 
@@ -41,7 +42,11 @@ RUN npm install -g @angular/cli
 # Install Python 3.11
 RUN add-apt-repository ppa:deadsnakes/ppa \
     && apt update \
-    && apt install --yes python3.11 python3-pip \
+    && apt install --yes \
+        python3.11 \
+        python3-pip \
+        libpq-dev \
+        python3.11-dev \
     && rm -rf /var/lib/apt/lists* \
     && unlink /usr/bin/python3 \
     && ln -s /usr/bin/python3.11 /usr/bin/python3
@@ -74,17 +79,11 @@ RUN curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.
     && echo 'source <(ng completion script)' >>~/.zshrc \
     && echo 'export PATH=$PATH:$HOME/.local/bin' >>~/.zshrc
 
-# Expose dev web port
-EXPOSE 8000
 
 # Install Database Dependencies
-RUN sudo apt-get update \
-	&& sudo apt-get install --yes \
-       libpq-dev \
-       python3.11-dev \
-       postgresql-client \
-    && sudo rm -rf /var/lib/apt/lists/*
-
 COPY backend/requirements.txt /workspace/backend/requirements.txt
 WORKDIR /workspace/backend
 RUN python3 -m pip install -r requirements.txt
+
+# Expose server ports
+EXPOSE 1560 1561 1562
