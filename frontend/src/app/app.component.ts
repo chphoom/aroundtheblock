@@ -7,7 +7,7 @@ import { RegistrationService } from './registration.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Around the Block';
   isLoggedin = this.registration_service.isLoggedIn();
   
   constructor(private registration_service: RegistrationService){}

@@ -23,6 +23,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ProfileComponent } from './profile/profile.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 
 
@@ -35,6 +36,7 @@ import { ProfileComponent } from './profile/profile.component';
     MeChallengeComponent,
     LoginComponent,
     ProfileComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,
