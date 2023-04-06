@@ -1,0 +1,73 @@
+nav {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color:white;
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0.2rem 0.5rem;
+}
+
+#title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    margin:0;
+}
+
+p {
+    font-family: 'Overpass', sans-serif;
+    font-size: 14px;
+}
+
+.logo svg {
+    margin:0.5rem 1rem;
+}
+
+.nav-challenge svg, mat-icon {
+    margin:0.5rem 0.5rem;
+}
+
+.home {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.nav-challenge {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    transition: font-weight 300ms ease-out;
+}
+
+.nav-challenge:hover {
+    font-weight: 600;
+}
+
+.unit {
+    margin-right:1rem;
+}
+
+.search {
+    margin-left:1rem;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
