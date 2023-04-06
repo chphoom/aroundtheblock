@@ -3,7 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import Self
 from .entity_base import EntityBase
 from .reply_entity import reply_table
-from ..models.models import Comment
+from ..models import Comment
 from datetime import datetime
 
 # maps comments object from pydantic to comments entity in database

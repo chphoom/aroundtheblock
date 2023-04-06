@@ -3,7 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.mutable import MutableList
 from typing import Self
 from .entity_base import EntityBase
-from ..models.models import Post
+from ..models import Post
 from datetime import datetime
 
 # maps post object from pydantic to post entity in database

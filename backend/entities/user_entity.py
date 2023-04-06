@@ -7,7 +7,7 @@ from typing import Self
 from .entity_base import EntityBase
 from .savedPost_entity import savedPost
 from .savedChallenge_entity import savedChallenge
-from ..models.models import User
+from ..models import User
 from datetime import datetime
 
 #maps user object fromo pydantic to user entity in database

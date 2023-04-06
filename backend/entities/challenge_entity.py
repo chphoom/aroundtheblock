@@ -4,7 +4,7 @@ from sqlalchemy.ext.mutable import MutableList
 from typing import Self
 from .entity_base import EntityBase
 from .c2p_entity import c2p
-from ..models.models import Challenge
+from ..models import Challenge
 # from datetime import datetime
 
 # maps challenges object from pydantic to challenges entity in database

@@ -10,7 +10,7 @@ class Post(BaseModel):
     created: datetime = datetime.now()
     challenge: int | None
     postedBy: int | None
-    comments: list['comment'] = []
+    comments: list['Comment'] = []
     tags: list[str] = []
     class Config:
         orm_mode = True

@@ -19,7 +19,7 @@ from .post_entity import PostEntity
 from .comment_entity import CommentEntity
 from .c2p_entity import c2p
 from .reply_entity import reply_table
-from .savedPost_entity import savedPost_table
+from .savedPost_entity import savedPost
 from .challenge_entity import ChallengeEntity
 from .savedChallenge_entity import savedChallenge
 
