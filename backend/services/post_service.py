@@ -1,9 +1,9 @@
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from database import db_session
-from models import Post
-from entities import PostEntity, ChallengeEntity, UserEntity
+from ..database import db_session
+from ..models import Post
+from ..entities import PostEntity, ChallengeEntity, UserEntity
 
 class PostService:
 

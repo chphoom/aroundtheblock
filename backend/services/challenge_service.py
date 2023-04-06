@@ -1,9 +1,9 @@
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from database import db_session
-from models import Challenge, meChallenge, weChallenge
-from entities import ChallengeEntity
+from ..database import db_session
+from ..models import Challenge, meChallenge, weChallenge
+from ..entities import ChallengeEntity
 
 
 class ChallengeService:

@@ -1,9 +1,9 @@
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from database import db_session
-from models import Comment
-from entities import PostEntity, CommentEntity, UserEntity
+from ..database import db_session
+from ..models import Comment
+from ..entities import PostEntity, CommentEntity, UserEntity
 
 class CommentService:
 

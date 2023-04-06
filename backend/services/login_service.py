@@ -1,12 +1,12 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from database import db_session
+from ..database import db_session
 from datetime import datetime, timedelta
 from typing import Optional
-from models import User, Token
-from entities import UserEntity
-from config import SECRET_KEY, ALGORITHM
+from ..models import User, Token
+from ..entities import UserEntity
+from ..config import SECRET_KEY, ALGORITHM
 import jwt
 
 class LoginService:
