@@ -11,7 +11,6 @@ from typing import Optional
 _JWT_SECRET = getenv('JWT_SECRET')
 _JST_ALGORITHM = 'HS256'
 
-# TODO: check this stuff with kris jordan's code
 
 api = APIRouter()
 
