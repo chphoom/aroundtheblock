@@ -1,0 +1,33 @@
+main {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.background {
+    background: linear-gradient(180deg, rgba(255, 214, 238, 0.5) 0%, rgba(255, 223, 160, 0.425) 52.08%, rgba(187, 241, 186, 0.235) 100%);
+}
+
+.content {
+    width: 615px;
+    background: linear-gradient(180deg, #FFD6EE 0%, rgba(255, 223, 160, 0.85) 52.08%, rgba(187, 241, 186, 0.47) 100%);
+    padding:0 2em;
+    padding-bottom: 3em;
+}
+
+h1 {
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 43px;
+    text-align: center;
+}
+
+p {
+    font-family: 'Overpass';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+}
