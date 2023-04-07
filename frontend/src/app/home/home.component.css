@@ -31,7 +31,6 @@ p {
 
 .challenge .we {
     grid-column: 1 / 2;
-    background: linear-gradient(180deg, rgba(187, 241, 186, 0.58) 0%, rgba(187, 241, 186, 0.0348) 100%);
 }
 
 .we {

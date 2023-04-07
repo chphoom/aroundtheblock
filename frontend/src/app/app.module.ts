@@ -18,16 +18,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatCardModule} from '@angular/material/card';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { ProfileComponent } from './profile/profile.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
-
-
-
+import { WeChallengeComponent } from './we-challenge/we-challenge.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -39,6 +38,7 @@ import { FooterComponent } from './footer/footer.component';
     ProfileComponent,
     NavigationComponent,
     FooterComponent,
+    WeChallengeComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +55,8 @@ import { FooterComponent } from './footer/footer.component';
     MatCardModule,
     MatTabsModule,
     MatInputModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
