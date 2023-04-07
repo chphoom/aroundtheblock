@@ -28,6 +28,7 @@ import { FooterComponent } from './footer/footer.component';
 import { WeChallengeComponent } from './we-challenge/we-challenge.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AboutComponent } from './about/about.component';
+import { PastChallengesComponent } from './past-challenges/past-challenges.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AboutComponent } from './about/about.component';
     FooterComponent,
     WeChallengeComponent,
     AboutComponent,
+    PastChallengesComponent,
   ],
   imports: [
     BrowserModule,
