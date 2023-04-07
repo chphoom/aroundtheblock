@@ -1,3 +1,7 @@
+main {
+    background: linear-gradient(180deg, rgba(255, 214, 238, 0.5) 0%, rgba(255, 223, 160, 0.425) 52.08%, rgba(187, 241, 186, 0.235) 100%);
+}
+
 .logincard {
     display: flex;
     justify-content: center;

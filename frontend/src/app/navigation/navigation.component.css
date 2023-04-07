@@ -71,8 +71,13 @@ p {
     flex-grow:1;
     align-items: center;
     height:30px;
-    border: 1px solid white;
+    border: 1px solid rgb(218, 218, 218);
     border-radius: 25px;
+    transition: border 300ms;
+}
+
+.search:hover {
+    border-color: white;
 }
 
 .search svg {
@@ -98,5 +103,13 @@ input[type="text"]::placeholder {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
 
+.user p {
+    color: rgb(218, 218, 218);
+    transition: color 300ms;
+}
+
+.user p:hover {
+    color: white;
 }

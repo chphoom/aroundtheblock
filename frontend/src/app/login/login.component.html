@@ -1,42 +1,44 @@
-<div class="logincard">
-    <mat-card>
-        <mat-card-content>
-            <mat-tab-group #tabGroup>
-                <mat-tab label="Login" class="loginForm">
-                    <form [formGroup]="login" class="loginForm" (ngSubmit)="loginSubmit()">
-                        <mat-form-field class="roundedInput">
-                            <mat-label> Email</mat-label>
-                            <input matInput placeholder="Email" formControlName="email" id="email" type="email">
-                        </mat-form-field>
-                         <mat-form-field class="roundedInput">
-                            <mat-label>Password</mat-label>
-                            <input matInput  placeholder="Password" formControlName="password" id="password" type="password">
-                        </mat-form-field> 
-                        <button mat-button type="Submit">Login</button>
-                    </form>
-                </mat-tab>
-                <mat-tab label="Sign Up" class="signupForm">
-                    <form [formGroup]="register" class="registerForm" (ngSubmit)="registerSubmit()">
-                        <mat-form-field class="roundedInput">
-                            <mat-label>Email</mat-label>
-                            <input matInput placeholder="Email" formControlName="email" id="email" type="email">
-                        </mat-form-field>
-                        <mat-form-field class="roundedInput">
-                            <mat-label>Username</mat-label>
-                            <input matInput placeholder="Username" formControlName="username" id="username">
-                        </mat-form-field>
-                         <mat-form-field class="roundedInput">
-                            <mat-label>Password</mat-label>
-                            <input matInput  placeholder="Password" formControlName="password" id="password" type="password">
-                        </mat-form-field>
-                        <mat-form-field class="roundedInput">
-                            <mat-label>Confirm Password</mat-label>
-                            <input matInput  placeholder="Confirm Password" formControlName="confirm" id="confirm" type="password">
-                        </mat-form-field>  
-                        <button mat-button type="Submit">Sign Up</button>
-                    </form>
-                </mat-tab>
-              </mat-tab-group>
-        </mat-card-content>
-    </mat-card> 
-</div>
+<main>
+    <div class="logincard">
+        <mat-card>
+            <mat-card-content>
+                <mat-tab-group #tabGroup>
+                    <mat-tab label="Login" class="loginForm">
+                        <form [formGroup]="login" class="loginForm" (ngSubmit)="loginSubmit()">
+                            <mat-form-field class="roundedInput">
+                                <mat-label> Email</mat-label>
+                                <input matInput placeholder="Email" formControlName="email" id="email" type="email">
+                            </mat-form-field>
+                             <mat-form-field class="roundedInput">
+                                <mat-label>Password</mat-label>
+                                <input matInput  placeholder="Password" formControlName="password" id="password" type="password">
+                            </mat-form-field> 
+                            <button mat-button type="Submit">Login</button>
+                        </form>
+                    </mat-tab>
+                    <mat-tab label="Sign Up" class="signupForm">
+                        <form [formGroup]="register" class="registerForm" (ngSubmit)="registerSubmit()">
+                            <mat-form-field class="roundedInput">
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="Email" formControlName="email" id="email" type="email">
+                            </mat-form-field>
+                            <mat-form-field class="roundedInput">
+                                <mat-label>Username</mat-label>
+                                <input matInput placeholder="Username" formControlName="username" id="username">
+                            </mat-form-field>
+                             <mat-form-field class="roundedInput">
+                                <mat-label>Password</mat-label>
+                                <input matInput  placeholder="Password" formControlName="password" id="password" type="password">
+                            </mat-form-field>
+                            <mat-form-field class="roundedInput">
+                                <mat-label>Confirm Password</mat-label>
+                                <input matInput  placeholder="Confirm Password" formControlName="confirm" id="confirm" type="password">
+                            </mat-form-field>  
+                            <button mat-button type="Submit">Sign Up</button>
+                        </form>
+                    </mat-tab>
+                  </mat-tab-group>
+            </mat-card-content>
+        </mat-card> 
+    </div>
+</main>
