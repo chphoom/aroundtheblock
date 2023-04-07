@@ -52,6 +52,11 @@ p {
 
 .logo svg {
     margin:0.5rem 1rem;
+    transition: all 300ms ease-out; 
+}
+
+.logo svg:hover {
+    transform: scale(1.1); 
 }
 
 .nav-challenge svg, mat-icon {
@@ -96,12 +101,14 @@ p {
     align-items: center;
     height:30px;
     border: 1px solid rgb(218, 218, 218);
+    outline: 1px solid transparent;
     border-radius: 25px;
-    transition: border 300ms;
+    transition: all 300ms;
 }
 
 .search:hover {
     border-color: white;
+    outline-color: white;
 }
 
 .search svg {

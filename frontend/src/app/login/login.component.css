@@ -30,3 +30,12 @@ mat-card {
     justify-content: center;
     align-items: center;
 }
+
+button {
+    background-color: rgba(0, 0, 0, 0.686);;
+    color: white;
+}
+
+button:hover {
+    background-color: black;
+}
