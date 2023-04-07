@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ProfileComponent } from './profile/profile.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -37,6 +38,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     LoginComponent,
     ProfileComponent,
     NavigationComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

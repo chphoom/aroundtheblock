@@ -41,15 +41,15 @@ p {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .nav-challenge {
     display:flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
     transition: font-weight 300ms ease-out;
+    min-width: 65px;
 }
 
 .nav-challenge:hover {
@@ -57,7 +57,7 @@ p {
 }
 
 .unit {
-    margin-right:1rem;
+    padding-right:1rem;
 }
 
 .search {
