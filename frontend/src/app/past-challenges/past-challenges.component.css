@@ -1,0 +1,45 @@
+main {
+    display:grid;
+    grid-template-columns: 33.33% 33.33% 33.34%;
+    grid-template-rows: repeat(1fr, 3);
+}
+
+p {
+    margin:0.5em;
+}
+
+header {
+    grid-column: 1 / 4;
+    background-color: #BBF1BA;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 1rem;
+}
+
+.side-bar {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.challenge {
+    grid-column: 2 / 4;
+    grid-row: 2 / 3;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: start;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(187, 241, 186, 0.58) 0%, rgba(187, 241, 186, 0.0348) 100%);
+}
+
+.posts-container {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
