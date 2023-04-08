@@ -1,1 +1,23 @@
-<p>me-challenge works!</p>
+<main>
+    <div class="challenge">
+        <h2>meChallenge</h2>
+        <p>Make your own custom art challenge! Select different options and generate your challenge.</p>
+        <div class="options">
+            <mat-checkbox>Noun</mat-checkbox>
+            <mat-checkbox>Adj</mat-checkbox>
+            <mat-checkbox>Verb</mat-checkbox>
+            <mat-checkbox>Style</mat-checkbox>
+            <mat-checkbox>Emotion</mat-checkbox>
+            <mat-checkbox>Colors</mat-checkbox>
+        </div>
+        <button id="me" routerLink="/me-challenge">
+            <p>Generate</p>
+        </button>
+        <p *ngIf="isLoggedin">See saved challenges</p>
+        
+    </div>
+    <div class="posts-container">
+            <h1>See what others made</h1>
+            <div class="posts"></div>
+    </div>
+</main>

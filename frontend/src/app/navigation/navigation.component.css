@@ -10,19 +10,8 @@ nav {
     padding: 0.2rem 0.5rem;
 }
 
-#title {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 28px;
-    margin:0;
-}
-
 p {
-    font-family: 'Overpass', sans-serif;
     font-size: 14px;
-}
-
-.logo svg {
-    margin:0.5rem 1rem;
 }
 
 .nav-challenge svg, mat-icon {
@@ -36,20 +25,13 @@ p {
     align-items: center;
 }
 
-.logo {
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-}
-
 .nav-challenge {
     display:flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
     transition: font-weight 300ms ease-out;
+    min-width: 65px;
 }
 
 .nav-challenge:hover {
@@ -57,11 +39,42 @@ p {
 }
 
 .unit {
-    margin-right:1rem;
+    padding-right:1rem;
 }
 
 .search {
-    margin-left:1rem;
+    margin:0 2rem;
+    display:flex;
+    flex-grow:1;
+    align-items: center;
+    height:30px;
+    border: 1px solid rgb(218, 218, 218);
+    outline: 1px solid transparent;
+    border-radius: 25px;
+    transition: all 300ms;
+}
+
+.search:hover {
+    border-color: white;
+    outline-color: white;
+}
+
+.search svg {
+    margin: 0.7rem;
+    color: rgb(218, 218, 218);
+}
+
+#search {
+    outline: none;
+	border: none;
+    background-color: transparent;
+    color:white;
+    width: 20rem;
+}
+
+input[type="text"]::placeholder {
+	color: rgb(218, 218, 218);
+	font-size: 14px;
 }
 
 .user {
@@ -69,5 +82,13 @@ p {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
 
+.user p {
+    color: rgb(218, 218, 218);
+    transition: color 300ms;
+}
+
+.user p:hover {
+    color: white;
 }

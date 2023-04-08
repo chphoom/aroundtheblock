@@ -1,22 +1,18 @@
-p {
+p, a {
     margin:0.5em;
+}
+
+#countdown {
+    font-size: 24px;
 }
 
 .challenge {
     display:flex;
     flex-direction: column;
     align-items: center;
-    justify-content: start;
+    justify-items: start;
     text-align: center;
-    background: linear-gradient(180deg, rgba(255, 191, 230, 0.51) 0%, rgba(255, 255, 255, 0.51) 100%);
-}
-
-.options {
-    margin: 2rem 0;
-}
-
-mat-checkbox {
-    margin-right:2rem;
+    background: linear-gradient(180deg, rgba(187, 241, 186, 0.58) 0%, rgba(187, 241, 186, 0.0348) 100%);
 }
 
 .posts-container {

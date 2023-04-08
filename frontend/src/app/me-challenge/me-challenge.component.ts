@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RegistrationService } from '../registration.service';
 
 @Component({
   selector: 'app-me-challenge',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./me-challenge.component.css']
 })
 export class MeChallengeComponent {
-
+  isLoggedin = this.registration_service.isLoggedIn();
+  
+  constructor(private registration_service: RegistrationService){}
 }
