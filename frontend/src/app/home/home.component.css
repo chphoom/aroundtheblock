@@ -75,6 +75,7 @@ p {
     main {
         display: grid;
         grid-template-columns: auto;
+        grid-template-rows: auto;
     }
     
     .challenge .me {
