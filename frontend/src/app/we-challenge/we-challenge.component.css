@@ -1,54 +1,5 @@
-main {
-    margin-bottom: 2rem;
-}
-
-h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    margin:0;
-    font-size: 28px;
-    line-height: 38px;
-}
-
-h2 {
-    font-family: 'Roboto Condensed', sans-serif;
-    margin:0.5em;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 38px;
-}
-
 p, a {
-    font-family: 'Overpass', sans-serif;
     margin:0.5em;
-    color:black;
-    text-decoration: none;
-    transition: text-decoration 300ms;
-}
-
-a, a > span {
-    position: relative;
-    color: inherit;
-    text-decoration: none;
-    line-height: 24px;
-}
-
-a:before, a:after, a > span:before, a > span:after {
-    content: '';
-    position: absolute;
-    transition: transform .5s ease;
-}
-
-.hover:before {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1.5px;
-    background: #000000;
-    transform: scaleX(0);
-}
-.hover:hover:before {
-    transform: scaleX(1);
 }
 
 #countdown {
@@ -62,27 +13,6 @@ a:before, a:after, a > span:before, a > span:after {
     justify-items: start;
     text-align: center;
     background: linear-gradient(180deg, rgba(187, 241, 186, 0.58) 0%, rgba(187, 241, 186, 0.0348) 100%);
-}
-
-button {
-    border-radius: 29px;
-    width:150px;
-    height:50px;
-    border: none;
-    margin:1rem;
-}
-
-button p {
-    font-size: 20px;
-}
-
-#we {
-    background: #BBF1BA;
-    transition: background 300ms;
-}
-
-#we:hover {
-    background: #88EA86;
 }
 
 .posts-container {
