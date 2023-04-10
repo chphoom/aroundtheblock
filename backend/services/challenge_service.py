@@ -18,7 +18,7 @@ class ChallengeService:
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
 
-    def create(self, challenge: Challenge) -> Challenge:
+    def create(self, challenge: Challenge | weChallenge | meChallenge) -> Challenge | weChallenge | meChallenge:
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")

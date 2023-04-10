@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from ..services import ChallengeService
-from ..models import Challenge
+from ..models import Challenge, weChallenge, meChallenge
 
 
 api = APIRouter()
@@ -18,7 +18,15 @@ def new_challenge(challenge: Challenge, challenge_service: ChallengeService = De
             return challenge_service.create(challenge)
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
-        
+
+#api route registers a new challenge
+@api.post("/api/wechallenges")
+def new_challenge(challenge: weChallenge, challenge_service: ChallengeService = Depends()) -> weChallenge:
+        try:
+            return challenge_service.create(challenge)
+        except Exception as e:
+            raise HTTPException(status_code=422, detail=str(e))
+          
 #api route retrieves challenge given id
 #TODO: implement a way to find challenge and get the correct id
 @api.get("/api/challenges/{id}", responses={404: {"model": None}})
