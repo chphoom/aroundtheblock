@@ -70,5 +70,3 @@ class ChallengeService:
     #         return temp.to_model()
     #     else:
     #         raise ValueError(f"No challenge found with ID: {challenge.id}")
-
-    # def generate() -> Challenge:
