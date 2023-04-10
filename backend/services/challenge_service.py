@@ -13,7 +13,7 @@ class ChallengeService:
     def __init__(self, session: Session = Depends(db_session)):
         self._session = session
 
-    def all(self) -> list[Challenge]:
+    def all(self) -> list[Challenge | weChallenge | meChallenge]:
         query = select(ChallengeEntity)
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
@@ -28,14 +28,14 @@ class ChallengeService:
             self._session.commit()
             return challenge_entity.to_model() 
             
-    def get(self, id: int) -> Challenge | None:
+    def get(self, id: int) -> Challenge | weChallenge | meChallenge | None:
         challenge = self._session.get(ChallengeEntity, id)
         if challenge:
             return challenge.to_model()
         else:
             raise ValueError(f"Challenge not found.")
 
-    def delete(self, id: int) -> Challenge:
+    def delete(self, id: int) -> Challenge | weChallenge | meChallenge:
         # 
         challenge = self._session.get(ChallengeEntity, id)
         if challenge:

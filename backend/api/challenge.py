@@ -8,25 +8,17 @@ api = APIRouter()
 # ----------CHALLENGE API ROUTES----------------
 #api route retrieves ALL challenges
 @api.get("/api/challenges")
-def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
+def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Challenge | weChallenge | meChallenge]:
     return challenge_service.all()
 
 #api route registers a new challenge
 @api.post("/api/challenges")
-def new_challenge(challenge: Challenge, challenge_service: ChallengeService = Depends()) -> Challenge:
+def new_challenge(challenge: Challenge | weChallenge | meChallenge, challenge_service: ChallengeService = Depends()) -> Challenge | weChallenge | meChallenge:
         try:
             return challenge_service.create(challenge)
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
-
-#api route registers a new challenge
-@api.post("/api/wechallenges")
-def new_challenge(challenge: weChallenge, challenge_service: ChallengeService = Depends()) -> weChallenge:
-        try:
-            return challenge_service.create(challenge)
-        except Exception as e:
-            raise HTTPException(status_code=422, detail=str(e))
-          
+     
 #api route retrieves challenge given id
 #TODO: implement a way to find challenge and get the correct id
 @api.get("/api/challenges/{id}", responses={404: {"model": None}})

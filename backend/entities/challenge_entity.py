@@ -29,7 +29,7 @@ class ChallengeEntity(EntityBase):
     @classmethod
     def from_model(cls, model: Challenge | weChallenge | meChallenge) -> Self:
         if isinstance(model, weChallenge):
-            return cls(
+            return weChallengeEntity(
                 posts=model.posts,
                 noun=model.noun, 
                 verb=model.verb, 
@@ -42,7 +42,7 @@ class ChallengeEntity(EntityBase):
                 end=model.end
                 )
         elif isinstance(model, meChallenge):
-            return cls(
+            return meChallengeEntity(
                 posts=model.posts,
                 noun=model.noun, 
                 verb=model.verb, 

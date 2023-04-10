@@ -25,3 +25,5 @@ class meChallenge(Challenge):
 # Python... :sob:... necessary due to circularity (TODO: refactor to remove circularity)
 from .post import Post
 Challenge.update_forward_refs()
+weChallenge.update_forward_refs()
+meChallenge.update_forward_refs()
