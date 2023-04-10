@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import datetime, timedelta
 
 #: Challenges
 class Challenge(BaseModel):
@@ -15,11 +15,12 @@ class Challenge(BaseModel):
         orm_mode = True
 
 class weChallenge(Challenge):
-    start: datetime | None
-    end: datetime | None
+    start: datetime = datetime.now()
+    end: datetime = start + timedelta(days=7)
  
 class meChallenge(Challenge):
     createdBy: int | None
+
 
 # copied fro professor's databse code at the end of User Model.. Assuming theres some importance here
 # Python... :sob:... necessary due to circularity (TODO: refactor to remove circularity)

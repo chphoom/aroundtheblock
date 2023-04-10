@@ -35,3 +35,5 @@ def delete_challenge(id: int, challenge_service = Depends(ChallengeService)) -> 
         return challenge_service.delete(id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+# @api.post("/api/generate")
