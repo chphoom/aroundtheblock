@@ -22,7 +22,7 @@ with Session(engine) as session:
             pronouns="they/them", 
             img="", 
             userPosts=[], 
-            connectedAccounts=[], 
+            connectedAccounts=["instagram.com/khaamkeaw", "pinterest.com/twofacedsatyr"], 
             savedPosts=[], 
             savedChallenges=[]))
     challenge_entity: entities.ChallengeEntity = entities.ChallengeEntity.from_model(
