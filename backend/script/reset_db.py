@@ -20,7 +20,7 @@ with Session(engine) as session:
             private=True, 
             bio="", 
             pronouns="they/them", 
-            img="", 
+            pfp="", 
             userPosts=[], 
             connectedAccounts=["instagram.com/khaamkeaw", "pinterest.com/twofacedsatyr"], 
             savedPosts=[], 

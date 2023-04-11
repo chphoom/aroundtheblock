@@ -22,6 +22,7 @@ class ChallengeEntity(EntityBase):
     createdBy = mapped_column(ForeignKey("users.email"), nullable=True)
     start: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     end: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+    type: Mapped[str] = mapped_column(String(64))
 
     @classmethod
     def from_model(cls, model: Challenge) -> Self:
@@ -35,7 +36,8 @@ class ChallengeEntity(EntityBase):
             colors=model.colors,
             createdBy=model.createdBy,
             start=model.start,
-            end=model.end
+            end=model.end,
+            type=model.getType()
             )
 
     def to_model(self) -> Challenge:
@@ -50,5 +52,6 @@ class ChallengeEntity(EntityBase):
             colors=self.colors,
             createdBy=self.createdBy,
             start=self.start,
-            end=self.end
+            end=self.end,
+            type=self.type
             )
