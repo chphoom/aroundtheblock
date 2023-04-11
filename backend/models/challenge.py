@@ -12,8 +12,8 @@ class Challenge(BaseModel):
     style: str = ""
     colors: list[str] = []
 # class weChallenge(Challenge):
-    start: datetime = datetime.now()
-    end: datetime = start + timedelta(days=7)
+    start: datetime | None #= datetime.now()
+    end: datetime | None #= start + timedelta(days=7)
 # class meChallenge(Challenge):
     createdBy: str | None
     class Config:
