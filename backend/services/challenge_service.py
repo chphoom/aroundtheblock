@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Challenge, meChallenge, weChallenge
 from ..entities import ChallengeEntity
+from .generator import generate
 
 
 class ChallengeService:
@@ -19,10 +20,19 @@ class ChallengeService:
         return [entity.to_model() for entity in entities]
 
     def create(self, challenge: Challenge) -> Challenge:
+    # def create(self) -> Challenge:
+        # challenge = generate(3)
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")
         else:
+            temp = generate(3)
+            challenge.noun = temp.noun
+            challenge.verb = temp.verb
+            challenge.adj = temp.adj
+            challenge.emotion = temp.emotion
+            challenge.style = temp.style
+            challenge.colors = temp.colors
             challenge_entity: ChallengeEntity = ChallengeEntity.from_model(challenge)
             self._session.add(challenge_entity)
             self._session.commit()
