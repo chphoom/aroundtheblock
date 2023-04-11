@@ -9,7 +9,7 @@ class Post(BaseModel):
     private: bool
     created: datetime = datetime.now()
     challenge: int | None
-    postedBy: int | None
+    postedBy: str | None
     comments: list['Comment'] = []
     tags: list[str] = []
     class Config:

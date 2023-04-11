@@ -18,6 +18,14 @@ with Session(engine) as session:
     # session.execute(text(f'ALTER SEQUENCE {entities.UserEntity.__table__}_id_seq RESTART WITH {len(users.models) + 1}'))
     session.commit()
 
+# Add Post
+with Session(engine) as session:
+    from .devdata import posts
+    to_entity = entities.PostEntity.from_model
+    session.add_all([to_entity(model) for model in posts.models])
+    session.execute(text(f'ALTER SEQUENCE {entities.PostEntity.__table__}_id_seq RESTART WITH {len(users.models) + 1}'))
+    session.commit()
+
 
 # Enter Mock User Data
 with Session(engine) as session:
