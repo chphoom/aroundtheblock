@@ -11,6 +11,10 @@ api = APIRouter()
 def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
     return challenge_service.all()
 
+@api.get("api/challenges/current")
+def get_current_challenge(challenge_service: ChallengeService = Depends()) -> Challenge:
+    return challenge_service.current()
+
 #api route registers a new challenge
 @api.post("/api/challenges")
 def new_challenge(challenge: Challenge, challenge_service: ChallengeService = Depends()) -> Challenge:
