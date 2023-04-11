@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Challenge, ChallengeService } from '../challenge.service';
 
 @Component({
   selector: 'app-past-challenges',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./past-challenges.component.css']
 })
 export class PastChallengesComponent {
+  public weChallenges$: Observable<Challenge[]>;
+  public challengeService: ChallengeService;
 
+  constructor(challengeService: ChallengeService) {
+    this.weChallenges$ = challengeService.getAllChallenges()
+    this.challengeService = challengeService
+  }
 }

@@ -30,11 +30,12 @@ with Session(engine) as session:
             id=0,
             posts=[],
             noun="bunny",
-            verb="jump",
+            verb="jumps",
             adj="cute",
             emotion="sad",
             style="realism",
             colors=[],
+            type="we",
             start=datetime.now(),
             end=datetime.now() + timedelta(days=7)))
     session.add(user_entity)

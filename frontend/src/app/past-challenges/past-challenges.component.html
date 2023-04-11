@@ -6,6 +6,11 @@
     </header>
     <div class="side-bar">
         <h1>challenges sidebar goes here</h1>
+        <div *ngfor="let challenge of weChallenges$ | async">
+            <div class="prompt we-prompt">
+                <p>{{ challenge.adj }} {{ challenge.noun }} {{ challenge.verb }}</p>
+            </div>
+        </div>
     </div>
     <div class="challenge">
         <h2>weChallenge #</h2>
