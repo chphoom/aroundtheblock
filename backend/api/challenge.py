@@ -18,7 +18,7 @@ def new_challenge(challenge: Challenge, challenge_service: ChallengeService = De
             return challenge_service.create(challenge)
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
-        
+     
 #api route retrieves challenge given id
 #TODO: implement a way to find challenge and get the correct id
 @api.get("/api/challenges/{id}", responses={404: {"model": None}})

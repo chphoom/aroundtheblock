@@ -2,7 +2,7 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..database import db_session
-from ..models import Challenge, meChallenge, weChallenge
+from ..models import Challenge
 from ..entities import ChallengeEntity
 from .generator import generate
 
@@ -20,8 +20,6 @@ class ChallengeService:
         return [entity.to_model() for entity in entities]
 
     def create(self, challenge: Challenge) -> Challenge:
-    # def create(self) -> Challenge:
-        # challenge = generate(3)
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")

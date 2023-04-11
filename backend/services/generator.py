@@ -1,4 +1,4 @@
-from ..models import Challenge, meChallenge, weChallenge
+from ..models import Challenge
 from urllib.request import urlopen
 import random
 import nltk
