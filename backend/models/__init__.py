@@ -2,7 +2,7 @@
 
 from .user import User
 from .post import Post
-from .challenge import Challenge, meChallenge, weChallenge
+from .challenge import Challenge
 from .comment import Comment
 
 __authors__ = ["Kris Jordan", "Chalisa Phoomsakha"]

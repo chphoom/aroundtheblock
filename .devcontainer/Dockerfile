@@ -85,6 +85,7 @@ COPY backend/requirements.txt /workspace/backend/requirements.txt
 WORKDIR /workspace/backend
 RUN python3 -m pip install -r requirements.txt
 RUN python3 -m nltk.downloader popular
+# -d /usr/local/nltk_data popular
 
 # Expose server ports
 EXPOSE 1560 1561 1562

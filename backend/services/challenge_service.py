@@ -14,12 +14,12 @@ class ChallengeService:
     def __init__(self, session: Session = Depends(db_session)):
         self._session = session
 
-    def all(self) -> list[Challenge | weChallenge | meChallenge]:
+    def all(self) -> list[Challenge]:
         query = select(ChallengeEntity)
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
 
-    def create(self, challenge: Challenge | weChallenge | meChallenge) -> Challenge | weChallenge | meChallenge:
+    def create(self, challenge: Challenge) -> Challenge:
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")

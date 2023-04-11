@@ -11,20 +11,16 @@ class Challenge(BaseModel):
     emotion: str = ""
     style: str = ""
     colors: list[str] = []
-    class Config:
-        orm_mode = True
-
-class weChallenge(Challenge):
+# class weChallenge(Challenge):
     start: datetime = datetime.now()
     end: datetime = start + timedelta(days=7)
- 
-class meChallenge(Challenge):
+# class meChallenge(Challenge):
     createdBy: str | None
+    class Config:
+        orm_mode = True
 
 
 # copied fro professor's databse code at the end of User Model.. Assuming theres some importance here
 # Python... :sob:... necessary due to circularity (TODO: refactor to remove circularity)
 from .post import Post
 Challenge.update_forward_refs()
-weChallenge.update_forward_refs()
-meChallenge.update_forward_refs()

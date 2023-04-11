@@ -13,7 +13,7 @@ def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Chal
 
 #api route registers a new challenge
 @api.post("/api/challenges")
-def new_challenge(challenge: Challenge | weChallenge | meChallenge, challenge_service: ChallengeService = Depends()) -> Challenge | weChallenge | meChallenge:
+def new_challenge(challenge: Challenge, challenge_service: ChallengeService = Depends()) -> Challenge:
         try:
             return challenge_service.create(challenge)
         except Exception as e:
