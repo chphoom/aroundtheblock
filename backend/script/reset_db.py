@@ -26,7 +26,7 @@ with Session(engine) as session:
             savedPosts=[], 
             savedChallenges=[]))
     challenge_entity: entities.ChallengeEntity = entities.ChallengeEntity.from_model(
-        models.weChallenge(
+        models.Challenge(
             id=0,
             posts=[],
             noun="bunny",
