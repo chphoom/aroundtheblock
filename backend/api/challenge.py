@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from ..services import ChallengeService
-from ..models import Challenge, weChallenge, meChallenge
+from ..models import Challenge
 
 
 api = APIRouter()
@@ -8,7 +8,7 @@ api = APIRouter()
 # ----------CHALLENGE API ROUTES----------------
 #api route retrieves ALL challenges
 @api.get("/api/challenges")
-def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Challenge | weChallenge | meChallenge]:
+def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
     return challenge_service.all()
 
 #api route registers a new challenge

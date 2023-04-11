@@ -2,7 +2,7 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..database import db_session
-from ..models import Challenge, meChallenge, weChallenge
+from ..models import Challenge
 from ..entities import ChallengeEntity
 from .generator import generate
 
@@ -36,14 +36,14 @@ class ChallengeService:
             self._session.commit()
             return challenge_entity.to_model() 
             
-    def get(self, id: int) -> Challenge | weChallenge | meChallenge | None:
+    def get(self, id: int) -> Challenge | None:
         challenge = self._session.get(ChallengeEntity, id)
         if challenge:
             return challenge.to_model()
         else:
             raise ValueError(f"Challenge not found.")
 
-    def delete(self, id: int) -> Challenge | weChallenge | meChallenge:
+    def delete(self, id: int) -> Challenge:
         # 
         challenge = self._session.get(ChallengeEntity, id)
         if challenge:

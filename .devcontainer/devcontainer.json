@@ -14,7 +14,8 @@
                 "ms-python.vscode-pylance",
                 "GitHub.vscode-pull-request-github",
                 "angular.ng-template",
-                "matthewpi.caddyfile-support"
+                "matthewpi.caddyfile-support",
+                "ckolkman.vscode-postgres"
             ]
         }
     }
