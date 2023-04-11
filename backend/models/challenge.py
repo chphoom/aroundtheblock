@@ -21,6 +21,7 @@ class weChallenge(Challenge):
 class meChallenge(Challenge):
     createdBy: str | None
 
+
 # copied fro professor's databse code at the end of User Model.. Assuming theres some importance here
 # Python... :sob:... necessary due to circularity (TODO: refactor to remove circularity)
 from .post import Post
