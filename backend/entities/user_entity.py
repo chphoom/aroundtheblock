@@ -19,7 +19,7 @@ class UserEntity(EntityBase):
     password: Mapped[str] = mapped_column(String(64))
     created: Mapped[datetime] = mapped_column(DateTime)
     private: Mapped[bool] = mapped_column(Boolean)
-    bio: Mapped[str] = mapped_column(String(64))
+    bio: Mapped[str] = mapped_column(String(256))
     pronouns: Mapped[str] = mapped_column(String(64))
     img: Mapped[str] = mapped_column(String(64))
     userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")

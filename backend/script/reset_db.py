@@ -1,3 +1,4 @@
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 from ..database import engine
 from .. import entities
@@ -7,24 +8,20 @@ from .. import models
 entities.EntityBase.metadata.drop_all(engine)
 entities.EntityBase.metadata.create_all(engine)
 
-# Enter Mock Data
+
+
+# Add Users
 with Session(engine) as session:
-    # : Add a UserEntity to the database session and commit it.
+    from .devdata import users
+    to_entity = entities.UserEntity.from_model
+    session.add_all([to_entity(model) for model in users.models])
+    # session.execute(text(f'ALTER SEQUENCE {entities.UserEntity.__table__}_id_seq RESTART WITH {len(users.models) + 1}'))
+    session.commit()
+
+
+# Enter Mock User Data
+with Session(engine) as session:
     from datetime import datetime, timedelta
-    user_entity: entities.UserEntity = entities.UserEntity.from_model(
-        models.User(
-            email="keaw@email.unc.com", 
-            displayName="keaw",
-            password="4ho00o76i1", 
-            created=datetime.now(), 
-            private=True, 
-            bio="", 
-            pronouns="they/them", 
-            img="", 
-            userPosts=[], 
-            connectedAccounts=["instagram.com/khaamkeaw", "pinterest.com/twofacedsatyr"], 
-            savedPosts=[], 
-            savedChallenges=[]))
     challenge_entity: entities.ChallengeEntity = entities.ChallengeEntity.from_model(
         models.Challenge(
             id=0,
@@ -37,6 +34,5 @@ with Session(engine) as session:
             colors=[],
             start=datetime.now(),
             end=datetime.now() + timedelta(days=7)))
-    session.add(user_entity)
     session.add(challenge_entity)
     session.commit()
