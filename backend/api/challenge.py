@@ -11,7 +11,7 @@ api = APIRouter()
 def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
     return challenge_service.all()
 
-@api.get("api/challenges/current")
+@api.get("/api/challenges/current")
 def get_current_challenge(challenge_service: ChallengeService = Depends()) -> Challenge:
     return challenge_service.current()
 
