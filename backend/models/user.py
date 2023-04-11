@@ -10,7 +10,7 @@ class User(BaseModel):
     private: bool
     bio: str = ""
     pronouns: str = ""
-    img: str = ""
+    pfp: str = ""
     userPosts: list['Post'] = []
     savedChallenges: list['Challenge'] = []
     savedPosts: list['Post'] = []
