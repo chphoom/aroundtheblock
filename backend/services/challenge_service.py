@@ -5,6 +5,7 @@ from ..database import db_session
 from ..models import Challenge
 from ..entities import ChallengeEntity
 from .generator import generate
+from datetime import datetime, timedelta
 
 
 class ChallengeService:
@@ -18,6 +19,23 @@ class ChallengeService:
         query = select(ChallengeEntity)
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
+
+    def allwe(self) -> list[Challenge]:
+        query = select(ChallengeEntity).where(ChallengeEntity.type == 'we')
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
+
+    def allme(self) -> list[Challenge]:
+        query = select(ChallengeEntity).where(ChallengeEntity.type == 'me')
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
+    
+    def currwe(self) -> Challenge:
+        query = select(ChallengeEntity).where(ChallengeEntity.start <= datetime.now())
+        entities = self._session.scalars(query).all()
+        for e in entities:
+            if e.end >= datetime.now():
+                return e.to_model()
 
     def create(self, challenge: Challenge) -> Challenge:
         temp = self._session.get(ChallengeEntity, challenge.id)
