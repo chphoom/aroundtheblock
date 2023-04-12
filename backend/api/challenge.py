@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
 from ..services import ChallengeService
 from ..models import Challenge
-import schedule
-import time
+from apscheduler.schedulers.background import BackgroundScheduler
+import asyncio
+
 
 api = APIRouter()
 
@@ -51,3 +52,16 @@ def delete_challenge(id: int, challenge_service = Depends(ChallengeService)) -> 
         return challenge_service.delete(id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+async def create_new_wechallenge(challenge_service: ChallengeService = Depends()):
+    try:
+        await challenge_service.createWe(Challenge())
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+def new_wechallenge(challenge_service: ChallengeService = Depends()):
+    asyncio.run(create_new_wechallenge(challenge_service))
+
+scheduler = BackgroundScheduler(daemon=True)
+scheduler.add_job(new_wechallenge, 'interval', seconds=30)
+scheduler.start()

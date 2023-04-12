@@ -54,7 +54,7 @@ class ChallengeService:
             self._session.commit()
             return challenge_entity.to_model() 
         
-    def createWe(self, challenge: Challenge):
+    async def createWe(self, challenge: Challenge):
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")
@@ -91,19 +91,3 @@ class ChallengeService:
             return challenge
         else:
             raise ValueError(f"Challenge not Found")
-
-    # def update(self, challenge: Challenge) -> Challenge:
-    #     temp = self._session.get(ChallengeEntity, challenge.id)
-    #     if temp:
-    #         #update value
-    #         temp.img = challenge.img
-    #         temp.bio = challenge.bio
-    #         temp.displayName = challenge.displayName
-    #         temp.password = challenge.password
-    #         temp.private = challenge.private
-    #         temp.pronouns = challenge.pronouns
-    #         temp.connectedAccounts = challenge.connectedAccounts
-    #         self._session.commit()
-    #         return temp.to_model()
-    #     else:
-    #         raise ValueError(f"No challenge found with ID: {challenge.id}")
