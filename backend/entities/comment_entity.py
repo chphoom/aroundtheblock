@@ -27,7 +27,8 @@ class CommentEntity(EntityBase):
             user_id=model.commenter, 
             post_id=model.post, 
             text=model.text, 
-            created=model.created
+            created=model.created,
+            replies=model.replies
             )
     
     def to_model(self) -> Comment:
@@ -36,5 +37,6 @@ class CommentEntity(EntityBase):
             commenter=self.user_id, 
             post=self.post_id, 
             text=self.text, 
-            created=self.created
+            created=self.created,
+            replies=self.replies
             )

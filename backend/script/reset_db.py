@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from ..database import engine
 from .. import entities
 from .. import models
+import random
 
 # Reset Tables
 entities.EntityBase.metadata.drop_all(engine)
@@ -61,6 +62,20 @@ with Session(engine) as session:
         session.add(e)
         session.add(user)
         session.add(post)
+    # session.execute(text(f'ALTER SEQUENCE {entities.PostEntity.__table__}_id_seq RESTART WITH {len(posts.models) + 1}'))
+    session.commit()
+
+# Add Reply
+with Session(engine) as session:
+    from .devdata import replies
+    to_entity = entities.CommentEntity.from_model
+    for model in replies.models:
+        comment = session.get(entities.CommentEntity,1)
+        if comment != None:
+            reply = to_entity(model)
+            reply.replyTo_id = comment.id
+            comment.replies.append(reply)
+            session.add(reply)
     # session.execute(text(f'ALTER SEQUENCE {entities.PostEntity.__table__}_id_seq RESTART WITH {len(posts.models) + 1}'))
     session.commit()
 
