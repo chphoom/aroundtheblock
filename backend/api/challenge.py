@@ -12,7 +12,7 @@ def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Chal
     return challenge_service.all()
 
 #api route retrieves all wechallenges
-@api.get("/api/challenges/we")
+@api.get("/api/wechallenges")
 def get_wechallenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
     return challenge_service.allwe()
 
