@@ -10,9 +10,9 @@ class Post(BaseModel):
     desc: str = ""
     private: bool
     created: datetime = datetime.now()
-    challenge: int | None | Challenge
-    postedBy: str | None | User
-    comments: list['Comment'] = []
+    challenge: int | None
+    postedBy: str | None
+    comments: list = []
     tags: list[str] = []
     class Config:
         orm_mode = True
