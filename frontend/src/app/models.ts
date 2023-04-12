@@ -28,15 +28,6 @@ export interface Challenge {
     createdBy: User
 }
 
-// export interface weChallenge extends Challenge {
-//     start: Date,
-//     end: Date
-// }
-
-// export interface meChallenge extends Challenge {
-//     createdBy: User
-// }
-
 export interface Post {    
     id: number | undefined,
     img: string, 

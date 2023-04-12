@@ -16,7 +16,6 @@ class Challenge(BaseModel):
     end: datetime | None #= start + timedelta(days=7)
 # class meChallenge(Challenge):
     createdBy: str | None
-    type: str = ""
     class Config:
         orm_mode = True
 
