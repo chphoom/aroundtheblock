@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RegistrationService } from '../registration.service';
 import { MatTabGroup } from '@angular/material/tabs';
-import {TokenResponse, User} from '../models';
+import { TokenResponse, User } from '../models';
 import { Router } from '@angular/router';
 
 

@@ -10,11 +10,17 @@
         <a id="title">Around the Block</a>
     </a>
     <div class="links">
-        <a routerLink="/about" id="about">About</a>
-        <a id="contact">Contact</a>
-        <a routerLink="/we-challenge" id="weChallenge">weChallenge</a>
-        <a routerLink="/past-challenges"id="past">Past weChallenges</a>
-        <a routerLink="/me-challenge"id="meChallenge">meChallenge</a>
+        <div class="links-section">
+            <a routerLink="/about" id="about">About</a>
+            <a id="contact">Contact</a>
+        </div>
+        <div class="links-section">
+            <a routerLink="/we-challenge" id="weChallenge">weChallenge</a>
+            <a routerLink="/past-challenges"id="past">Past weChallenges</a>
+        </div>
+        <div class="links-section">
+            <a routerLink="/me-challenge"id="meChallenge">meChallenge</a>
+        </div>
     </div>
     <p id="copyright">Copyright &copy; {{currentYear}} | Around the Block</p>
 </footer>
