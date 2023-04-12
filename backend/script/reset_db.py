@@ -37,8 +37,12 @@ with Session(engine) as session:
         user.userPosts.append(e)
         challenge.posts.append(e)
         session.add(e)
+        # print(f"e: {e.id} postedBy: {e.postedBy.displayName}")
         session.add(user)
         session.add(challenge)
+        # print(f"challenge: {challenge.id}\n")
+        # for i in challenge.posts:
+        #     print(f"\t{challenge.posts}")
     # session.execute(text(f'ALTER SEQUENCE {entities.PostEntity.__table__}_id_seq RESTART WITH {len(posts.models) + 1}'))
     session.commit()
 
