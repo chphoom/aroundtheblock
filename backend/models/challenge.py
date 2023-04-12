@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 #: Challenges
 class Challenge(BaseModel):
     id: int | None
-    posts: list['Post'] = []
+    posts: list = []
     noun: str = ""
     verb: str = ""
     adj: str = ""
