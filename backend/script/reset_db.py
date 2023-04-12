@@ -46,6 +46,23 @@ with Session(engine) as session:
     # session.execute(text(f'ALTER SEQUENCE {entities.PostEntity.__table__}_id_seq RESTART WITH {len(posts.models) + 1}'))
     session.commit()
 
+# Add Comment
+with Session(engine) as session:
+    from .devdata import comments
+    to_entity = entities.CommentEntity.from_model
+    for model in comments.models:
+        user = session.get(entities.UserEntity, model.commenter)
+        # model.postedBy = user
+        post = session.get(entities.PostEntity, model.post)
+        # model.post = post
+        e = to_entity(model)
+        post.comments.append(e)
+        # print(post.comments)
+        session.add(e)
+        session.add(user)
+        session.add(post)
+    # session.execute(text(f'ALTER SEQUENCE {entities.PostEntity.__table__}_id_seq RESTART WITH {len(posts.models) + 1}'))
+    session.commit()
 
 # # Enter Mock User Data
 # with Session(engine) as session:

@@ -24,8 +24,8 @@ class CommentEntity(EntityBase):
     @classmethod
     def from_model(cls, model: Comment) -> Self:
         return cls(
-            commenter=model.commenter, 
-            post=model.post, 
+            user_id=model.commenter, 
+            post_id=model.post, 
             text=model.text, 
             created=model.created
             )
