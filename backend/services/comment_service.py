@@ -18,10 +18,10 @@ class CommentService:
         return [entity.to_model() for entity in entities]
     
     def create(self, comment: Comment) -> Comment:
-        user = self._session.get(UserEntity, comment.commenter.email)
+        user = self._session.get(UserEntity, comment.commenter)
         if user:
             comment.commenter = user
-            post = self._session.get(PostEntity, comment.post.id)
+            post = self._session.get(PostEntity, comment.post)
             comment.post = post
             comment_entity: CommentEntity = CommentEntity.from_model(comment)
             post.comments.append(comment_entity)
@@ -29,7 +29,7 @@ class CommentService:
             self._session.commit()
             return comment_entity.to_model()
         else:
-            raise ValueError(f"No user found with PID: {comment.commenter.email}")
+            raise ValueError(f"No user found with PID: {comment.commenter}")
             
     def get(self, id: int) -> Comment | None:
         post = self._session.get(CommentEntity, id)

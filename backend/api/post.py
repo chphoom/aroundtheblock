@@ -7,7 +7,7 @@ api = APIRouter()
 
 # ----------POST API ROUTES----------------
 #api route retrieves ALL challenges
-#returns postedBy as the email (primary key) of the user
+#returns user_id as the email (primary key) of the user
 #  and challenge as the noun of the challenge (logic to generate a challenge name is to be implemented)
 @api.get("/api/posts")
 def get_posts(post_service: PostService = Depends()) -> list[Post]:

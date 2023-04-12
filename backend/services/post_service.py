@@ -18,10 +18,10 @@ class PostService:
         return [entity.to_model() for entity in entities]
     
     def create(self, post: Post) -> Post:
-        temp = self._session.get(UserEntity, post.postedBy.email)
+        temp = self._session.get(UserEntity, post.user_id)
         if temp:
-            post.postedBy = temp
-            temp2 = self._session.get(ChallengeEntity, post.challenge.id)
+            post.user_id = temp
+            temp2 = self._session.get(ChallengeEntity, post.challenge)
             post.challenge = temp2
             post_entity: PostEntity = PostEntity.from_model(post)
             temp.userPosts.append(post_entity)
@@ -30,7 +30,7 @@ class PostService:
             self._session.commit()
             return post
         else:
-            raise ValueError(f"No user found with PID: {post.postedBy.email}")
+            raise ValueError(f"No user found with email: {post.user_id}")
             
     def get(self, id: int) -> Post | None:
         # 
@@ -44,8 +44,8 @@ class PostService:
         # 
         post = self._session.get(PostEntity, id)
         if post:
-            temp = self._session.get(UserEntity, post.postedBy.email)
-            temp2 = self._session.get(ChallengeEntity, post.challenge.id)
+            temp = self._session.get(UserEntity, post.user_id)
+            temp2 = self._session.get(ChallengeEntity, post.challenge)
             temp.userPosts.remove(post)
             temp2.posts.remove(post)
             self._session.delete(post)

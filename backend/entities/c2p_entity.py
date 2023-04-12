@@ -3,7 +3,7 @@ from .entity_base import EntityBase
 
 
 #challenge -> posts relationship
-c2p = Table (
+c2p = Table(
     "c2p_table",
     EntityBase.metadata,
     Column("challenges", ForeignKey("challenges.id")),

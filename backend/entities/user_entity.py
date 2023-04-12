@@ -19,7 +19,7 @@ class UserEntity(EntityBase):
     password: Mapped[str] = mapped_column(String(64))
     created: Mapped[datetime] = mapped_column(DateTime)
     private: Mapped[bool] = mapped_column(Boolean)
-    bio: Mapped[str] = mapped_column(String(64))
+    bio: Mapped[str] = mapped_column(String(256))
     pronouns: Mapped[str] = mapped_column(String(64))
     pfp: Mapped[str] = mapped_column(String(64))
     userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
@@ -44,6 +44,15 @@ class UserEntity(EntityBase):
             savedChallenges=model.savedChallenges)
 
     def to_model(self) -> User:
+        _userPosts = []
+        for e in self.userPosts:
+            _userPosts.append(e.to_model())
+        _savedPosts = []
+        for e in self.savedPosts:
+            _savedPosts.append(e.to_model())
+        _savedChallenges = []
+        for e in self.savedChallenges:
+            _savedChallenges.append(e.to_model())
         return User(
             email=self.email, 
             displayName=self.displayName, 
@@ -53,7 +62,7 @@ class UserEntity(EntityBase):
             bio=self.bio, 
             pronouns=self.pronouns, 
             pfp=self.pfp, 
-            userPosts=self.userPosts, 
+            userPosts=_userPosts, 
             connectedAccounts=self.connectedAccounts, 
-            savedPosts=self.savedPosts, 
-            savedChallenges=self.savedChallenges)
+            savedPosts=_savedPosts, 
+            savedChallenges=_savedChallenges)
