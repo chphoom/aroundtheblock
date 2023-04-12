@@ -7,6 +7,7 @@ from ..entities import ChallengeEntity
 from .generator import generate, generatewe
 from datetime import datetime, timedelta
 
+
 class ChallengeService:
 
     _session: Session
@@ -53,7 +54,7 @@ class ChallengeService:
             self._session.commit()
             return challenge_entity.to_model() 
         
-    def createWe(self, challenge: Challenge) -> None:
+    def createWe(self, challenge: Challenge):
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")
@@ -68,8 +69,9 @@ class ChallengeService:
             challenge_entity: ChallengeEntity = ChallengeEntity.from_model(challenge)
             self._session.add(challenge_entity)
             self._session.commit()
+            print("New weChallenge generated")
             # return challenge_entity.to_model() 
-    
+
     def get(self, id: int) -> Challenge | None:
         challenge = self._session.get(ChallengeEntity, id)
         if challenge:
