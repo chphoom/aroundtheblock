@@ -51,7 +51,7 @@ class UserService:
         temp = self._session.get(UserEntity, user.email)
         if temp:
             #update value
-            temp.img = user.img
+            temp.pfp = user.pfp
             temp.bio = user.bio
             temp.displayName = user.displayName
             temp.password = user.password

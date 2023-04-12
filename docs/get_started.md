@@ -37,7 +37,10 @@ Once the Dev Container begins, open a terminal and complete the following:
     3. `popd`
 2. Create database and reset demo data:
     2. `python3 -m backend.script.create_database`
-    3. `python3 -m backend.script.reset_database`
+        Note from Keaw: if you need to delete the database do `python3 -m backend.script.delete_database` first
+            you need to delete it if you get an error that says the database already exists, 
+            or if reset_db can't drop the tables correctly.
+    3. `python3 -m backend.script.reset_db`
 3. Start dev server processes using the `honcho` process manager
     1. `honcho start`
         1. Wait until you see "frontend.1 | Compiled successfully" emitted from the Angular dev server.

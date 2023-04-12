@@ -21,7 +21,7 @@ class UserEntity(EntityBase):
     private: Mapped[bool] = mapped_column(Boolean)
     bio: Mapped[str] = mapped_column(String(64))
     pronouns: Mapped[str] = mapped_column(String(64))
-    img: Mapped[str] = mapped_column(String(64))
+    pfp: Mapped[str] = mapped_column(String(64))
     userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
     savedPosts: Mapped[list["PostEntity"]] = relationship(secondary=savedPost)
     savedChallenges: Mapped[list["ChallengeEntity"]] = relationship(secondary=savedChallenge)
@@ -37,7 +37,7 @@ class UserEntity(EntityBase):
             private=model.private, 
             bio=model.bio, 
             pronouns=model.pronouns, 
-            img=model.img, 
+            pfp=model.pfp, 
             userPosts=model.userPosts, 
             connectedAccounts=model.connectedAccounts, 
             savedPosts=model.savedPosts,  
@@ -52,7 +52,7 @@ class UserEntity(EntityBase):
             private=self.private, 
             bio=self.bio, 
             pronouns=self.pronouns, 
-            img=self.img, 
+            pfp=self.pfp, 
             userPosts=self.userPosts, 
             connectedAccounts=self.connectedAccounts, 
             savedPosts=self.savedPosts, 

@@ -18,5 +18,4 @@ Currently in Sprint 1 of development.
 - As an artist, I want to comment on other people's works so that I can provide constructive criticism.
 
  ## Development
- 
  see docs/getting_started for intructions to start development server
