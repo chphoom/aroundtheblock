@@ -1,4 +1,4 @@
-from sqlalchemy import text
+from sqlalchemy import text, select
 from sqlalchemy.orm import Session
 from ..database import engine
 from .. import entities
@@ -30,15 +30,15 @@ with Session(engine) as session:
     from .devdata import posts
     to_entity = entities.PostEntity.from_model
     for model in posts.models:
-        user = session.get(entities.UserEntity, model.postedBy)
-        # model.postedBy = user
+        user = session.get(entities.UserEntity, model.user_id)
+        # model.user_id = user
         challenge = session.get(entities.ChallengeEntity, model.challenge)
         # model.challenge = challenge
         e = to_entity(model)
         user.userPosts.append(e)
         challenge.posts.append(e)
         session.add(e)
-        # print(f"e: {e.id} postedBy: {e.postedBy.displayName}")
+        # print(f"e: {e.id} user_id: {e.user_id.displayName}")
         session.add(user)
         session.add(challenge)
         # print(f"challenge: {challenge.id}\n")
@@ -53,7 +53,7 @@ with Session(engine) as session:
     to_entity = entities.CommentEntity.from_model
     for model in comments.models:
         user = session.get(entities.UserEntity, model.commenter)
-        # model.postedBy = user
+        # model.user_id = user
         post = session.get(entities.PostEntity, model.post)
         # model.post = post
         e = to_entity(model)

@@ -8,17 +8,22 @@ footer {
 }
 
 .links {
-    display:grid;
+    display:flex;
+    flex-flow: row wrap;
     margin-left:6em;
     margin-right:6em;
-    grid-template-columns: repeat(1fr, 3);
-    grid-template-rows: repeat(1fr, 2);
     margin-bottom:2rem;
     max-width: 800px;
 }
 
+.links-section {
+    display:flex;
+    flex-direction: column;
+    margin-right:2rem;
+}
+
 a {
-    margin: 0.5rem 1rem;
+    margin: 0.5rem 2rem;
     font-size: 16px;
     color:rgb(225, 225, 225);
     transition: color 300ms;

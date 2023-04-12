@@ -32,10 +32,10 @@ mat-card {
 }
 
 button {
-    background-color: rgba(0, 0, 0, 0.686);;
-    color: white;
+    background-color: black;
+    color: rgb(212, 212, 212);
 }
 
 button:hover {
-    background-color: black;
+    color:white;
 }
