@@ -2,7 +2,10 @@
     <div class="challenge we">
         <h2>weChallenge #</h2>
         <p>Participate in this week's global art challenge!</p>
-        <div class="prompt we-prompt" *ngIf="(current$ | async) as current">{{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }}</div>
+        <div class="prompt we-prompt" *ngIf="(current$ | async) as current">
+            <p>Prompt:</p>
+            <p>{{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }}</p>
+        </div>
         <p *ngIf="(current$ | async) as current"> {{current.start | date: "MMM d, y"}} - {{current.end | date: "MMM d, y"}}</p>
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
