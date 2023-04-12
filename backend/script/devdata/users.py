@@ -94,11 +94,26 @@ liya = User(
             savedPosts=[], 
             savedChallenges=[])
 
+anonymous = User(
+            email="anonymous", 
+            displayName="anonymous",
+            password="test", 
+            created=datetime.now(), 
+            private=True, 
+            bio="the profile used for private or anonymous users", 
+            pronouns="they/them", 
+            pfp="", 
+            userPosts=[], 
+            connectedAccounts=[], 
+            savedPosts=[], 
+            savedChallenges=[])
+
 models = [
     keaw,
     lucy,
     olivia,
     ian,
     elaine,
-    liya
+    liya,
+    anonymous
 ]

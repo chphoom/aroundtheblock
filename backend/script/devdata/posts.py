@@ -41,7 +41,7 @@ post3 = Post(id=3,
             private=True,
             created=datetime.now(),
             challenge=10,
-            postedBy="lucy@lucy.com",
+            postedBy="anonymous",
             comments=[],
             tags=[])
 
