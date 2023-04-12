@@ -38,3 +38,28 @@ def generate(x) -> Challenge:
         emotion=random.choice(emotions),
         colors=generate_color(x))
     return result
+
+def generatewe() -> Challenge:
+    options = [random.choice(adjs), random.choice(emotions)]
+    third = random.choice(options)
+    if third == options[0]:
+        result = Challenge(
+            id=None,
+            posts=[],
+            noun=random.choice(nouns), 
+            verb=random.choice(verbs), 
+            adj=third, 
+            style="", 
+            emotion="",
+            colors=[])
+    elif third == options[1]:
+        result = Challenge(
+            id=None,
+            posts=[],
+            noun=random.choice(nouns), 
+            verb=random.choice(verbs), 
+            adj="", 
+            style="", 
+            emotion=third,
+            colors=[])
+    return result
