@@ -21,6 +21,11 @@ def get_wechallenges(challenge_service: ChallengeService = Depends()) -> list[Ch
 def get_mechallenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
     return challenge_service.allme()
 
+#api route retrieves all mechallenges
+@api.get("/api/current")
+def get_current_wechallenge(challenge_service: ChallengeService = Depends()) -> Challenge:
+    return challenge_service.currwe()
+
 #api route registers a new challenge
 @api.post("/api/challenges")
 def new_challenge(challenge: Challenge, challenge_service: ChallengeService = Depends()) -> Challenge:
