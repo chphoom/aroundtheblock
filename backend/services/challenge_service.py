@@ -4,9 +4,8 @@ from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Challenge
 from ..entities import ChallengeEntity
-from .generator import generate
+from .generator import generate, generatewe
 from datetime import datetime, timedelta
-
 
 class ChallengeService:
 
@@ -53,7 +52,24 @@ class ChallengeService:
             self._session.add(challenge_entity)
             self._session.commit()
             return challenge_entity.to_model() 
-            
+        
+    def createWe(self, challenge: Challenge) -> None:
+        temp = self._session.get(ChallengeEntity, challenge.id)
+        if temp:
+            raise ValueError(f"Duplicate Challenge: {temp.id}")
+        else:
+            temp = generatewe()
+            challenge.noun = temp.noun
+            challenge.verb = temp.verb
+            challenge.adj = temp.adj
+            challenge.emotion = temp.emotion
+            challenge.style = temp.style
+            challenge.colors = temp.colors
+            challenge_entity: ChallengeEntity = ChallengeEntity.from_model(challenge)
+            self._session.add(challenge_entity)
+            self._session.commit()
+            # return challenge_entity.to_model() 
+    
     def get(self, id: int) -> Challenge | None:
         challenge = self._session.get(ChallengeEntity, id)
         if challenge:
