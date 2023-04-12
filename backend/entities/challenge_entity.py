@@ -52,6 +52,5 @@ class ChallengeEntity(EntityBase):
             colors=self.colors,
             createdBy=self.createdBy,
             start=self.start,
-            end=self.end,
-            type=self.type
+            end=self.end
             )

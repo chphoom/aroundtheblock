@@ -19,6 +19,11 @@ class ChallengeService:
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
 
+    def allwe(self) -> list[Challenge]:
+        query = select(ChallengeEntity).where(ChallengeEntity.type == 'we')
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
+
     def create(self, challenge: Challenge) -> Challenge:
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
