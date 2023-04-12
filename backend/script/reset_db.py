@@ -1,4 +1,4 @@
-from sqlalchemy import text
+from sqlalchemy import text, select
 from sqlalchemy.orm import Session
 from ..database import engine
 from .. import entities
