@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
+from .challenge import Challenge
+from .user import User
 
 #: Post object
 class Post(BaseModel):
@@ -8,8 +10,8 @@ class Post(BaseModel):
     desc: str = ""
     private: bool
     created: datetime = datetime.now()
-    challenge: int | None
-    postedBy: str | None
+    challenge: int | None | Challenge
+    postedBy: str | None | User
     comments: list['Comment'] = []
     tags: list[str] = []
     class Config:
@@ -17,6 +19,5 @@ class Post(BaseModel):
 
 # copied fro professor's databse code at the end of User Model.. Assuming theres some importance here
 # Python... :sob:... necessary due to circularity (TODO: refactor to remove circularity)
-# from .user import User
 from .comment import Comment
 Post.update_forward_refs()

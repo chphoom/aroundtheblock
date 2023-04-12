@@ -28,14 +28,17 @@ with Session(engine) as session:
 with Session(engine) as session:
     from .devdata import posts
     to_entity = entities.PostEntity.from_model
-    entArr = [to_entity(model) for model in posts.models]
-    for e in entArr:
-        temp = session.get(entities.UserEntity, e.user_id)
-        e.postedBy = temp
-        temp2 = session.get(entities.ChallengeEntity, e.challenge_id)
-        e.challenge = temp2
+    for model in posts.models:
+        user = session.get(entities.UserEntity, model.postedBy)
+        # model.postedBy = user
+        challenge = session.get(entities.ChallengeEntity, model.challenge)
+        # model.challenge = challenge
+        e = to_entity(model)
+        user.userPosts.append(e)
+        challenge.posts.append(e)
         session.add(e)
-    # session.add_all(entArr)
+        session.add(user)
+        session.add(challenge)
     # session.execute(text(f'ALTER SEQUENCE {entities.PostEntity.__table__}_id_seq RESTART WITH {len(posts.models) + 1}'))
     session.commit()
 
