@@ -61,6 +61,9 @@ class ChallengeService:
         else:
             raise ValueError(f"Challenge not found.")
 
+    def current(self) -> Challenge:
+        return self._session.query(ChallengeEntity).order_by(ChallengeEntity.end.desc()).first()
+
     def delete(self, id: int) -> Challenge:
         # 
         challenge = self._session.get(ChallengeEntity, id)
