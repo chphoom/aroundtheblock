@@ -11,7 +11,7 @@ class Post(BaseModel):
     private: bool
     created: datetime = datetime.now()
     challenge: int | None
-    postedBy: str | None
+    user_id: str | None
     comments: list = []
     tags: list[str] = []
     class Config:

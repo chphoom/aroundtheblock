@@ -30,7 +30,7 @@ class PostEntity(EntityBase):
             desc=model.desc, 
             private=model.private, 
             created=model.created, 
-            user_id=model.postedBy, 
+            user_id=model.user_id, 
             comments=model.comments, 
             challenge_id=model.challenge, 
             tags=model.tags
@@ -44,7 +44,7 @@ class PostEntity(EntityBase):
             desc=self.desc, 
             private=self.private, 
             created=self.created, 
-            postedBy=self.user_id, 
+            user_id=self.user_id, 
             comments=self.comments, 
             challenge=self.challenge_id, 
             tags=self.tags)

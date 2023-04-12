@@ -11,7 +11,7 @@ post0 = Post(id=0,
             private=False,
             created=datetime.now(),
             challenge=3,
-            postedBy="lucy@lucy.com",
+            user_id="lucy@lucy.com",
             comments=[],
             tags=[])
 
@@ -21,7 +21,7 @@ post1 = Post(id=1,
             private=False,
             created=datetime.now(),
             challenge=5,
-            postedBy="lucy@lucy.com",
+            user_id="lucy@lucy.com",
             comments=[],
             tags=[])
 
@@ -31,7 +31,7 @@ post2 = Post(id=2,
             private=False,
             created=datetime.now(),
             challenge=6,
-            postedBy="lucy@lucy.com",
+            user_id="lucy@lucy.com",
             comments=[],
             tags=[])
 
@@ -41,7 +41,7 @@ post3 = Post(id=3,
             private=True,
             created=datetime.now(),
             challenge=10,
-            postedBy="anonymous",
+            user_id="anonymous",
             comments=[],
             tags=[])
 
