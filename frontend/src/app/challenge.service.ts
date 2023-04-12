@@ -26,7 +26,7 @@ export class ChallengeService {
    * @returns a the most recent weChallenge.
    */
   getCurrentChallenge(): Observable<Challenge> {
-    return this.http.get<Challenge>("api/challenges/current")
+    return this.http.get<Challenge>("api/current")
   }
 
   /**
@@ -34,9 +34,8 @@ export class ChallengeService {
    * 
    * @returns an observable array of Challenge objects.
    */
-  getWeChallenges(): Observable<Challenge[]> | null {
-    let challenges = this.http.get<Challenge[]>("/api/challenges");
-    return challenges.pipe(map(challenges => challenges.filter(challenges => challenges.type = "we")));
+  getWeChallenges(): Observable<Challenge[]> {
+    return this.http.get<Challenge[]>("/api/wechallenges");
   }
 
   /**
@@ -44,9 +43,8 @@ export class ChallengeService {
    * 
    * @returns an observable array of Challenge objects.
    */
-  getMeChallenges(): Observable<Challenge[]> | null {
-    let challenges = this.http.get<Challenge[]>("/api/challenges");
-    return challenges.pipe(map(challenges => challenges.filter(challenges => challenges.type = "me")));
+  getMeChallenges(): Observable<Challenge[]> {
+    return this.http.get<Challenge[]>("/api/mechallenges");
   }
 
 }

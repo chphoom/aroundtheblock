@@ -12,7 +12,7 @@ export class PastChallengesComponent {
   public challengeService: ChallengeService;
 
   constructor(challengeService: ChallengeService) {
-    this.weChallenges$ = challengeService.getAllChallenges()
+    this.weChallenges$ = challengeService.getWeChallenges()
     this.challengeService = challengeService
   }
 }

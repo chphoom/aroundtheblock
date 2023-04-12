@@ -2,8 +2,8 @@
     <div class="challenge we">
         <h2>weChallenge #</h2>
         <p>Participate in this week's global art challenge!</p>
-        <div class="prompt we-prompt"> Prompt </div>
-        <p>Date range</p>
+        <div class="prompt we-prompt" *ngIf="(current$ | async) as current">{{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }}</div>
+        <p *ngIf="(current$ | async) as current"> {{current.start}} - {{current.end}}</p>
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
         <button type="button" id="we" routerLink="/we-challenge">
