@@ -10,8 +10,7 @@ __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 
 
-keaw = User(
-            email="keaw@email.unc.edu", 
+keaw = User(email="keaw@email.unc.edu", 
             displayName="keaw",
             password="4ho00o76i1", 
             created=datetime.now(), 
@@ -24,15 +23,14 @@ keaw = User(
             savedPosts=[], 
             savedChallenges=[])
 
-lucy = User(
-            email="lucy@lucy.com", 
+lucy = User(email="lucy@lucy.com", 
             displayName="lucy123",
             password="test", 
             created=datetime.now(), 
             private=False, 
             bio="Hi there! I'm Lucy, a recent college grad with a passion for art. I work at an animation stupid in New York and love experimenting with new styles.", 
             pronouns="she/her", 
-            pfp="IMG_123", 
+            pfp="lucy", 
             userPosts=[], 
             connectedAccounts=[], 
             savedPosts=[], 
@@ -46,7 +44,7 @@ olivia = User(
             private=False, 
             bio="", 
             pronouns="she/her", 
-            pfp="IMG_567", 
+            pfp="olivia", 
             userPosts=[], 
             connectedAccounts=[], 
             savedPosts=[], 
@@ -60,14 +58,14 @@ ian = User(
             private=True, 
             bio="that guy", 
             pronouns="he/him", 
-            pfp="IMG_8910", 
+            pfp="ian", 
             userPosts=[], 
             connectedAccounts=[], 
             savedPosts=[], 
             savedChallenges=[])
 
 elaine = User(
-            email="eplaceholder@email.unc.edu", 
+            email="elaine13@email.unc.edu", 
             displayName="elaine",
             password="test", 
             created=datetime.now(), 
@@ -82,7 +80,7 @@ elaine = User(
 
 liya = User(
             email="lplaceholder@email.unc.edu", 
-            displayName="elaine",
+            displayName="liya",
             password="test", 
             created=datetime.now(), 
             private=True, 
