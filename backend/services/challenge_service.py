@@ -45,7 +45,7 @@ class ChallengeService:
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")
         else:
-            temp = generate(3)
+            temp = generate(True, True, True, True, True, 3)
             challenge.noun = temp.noun
             challenge.verb = temp.verb
             challenge.adj = temp.adj
