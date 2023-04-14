@@ -45,13 +45,13 @@ class ChallengeService:
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")
         else:
-            # temp = generate(3)
-            # challenge.noun = temp.noun
-            # challenge.verb = temp.verb
-            # challenge.adj = temp.adj
-            # challenge.emotion = temp.emotion
-            # challenge.style = temp.style
-            # challenge.colors = temp.colors
+            temp = generate(3)
+            challenge.noun = temp.noun
+            challenge.verb = temp.verb
+            challenge.adj = temp.adj
+            challenge.emotion = temp.emotion
+            challenge.style = temp.style
+            challenge.colors = temp.colors
             challenge_entity: ChallengeEntity = ChallengeEntity.from_model(challenge)
             self._session.add(challenge_entity)
             self._session.commit()
