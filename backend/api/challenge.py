@@ -1,9 +1,21 @@
 from fastapi import APIRouter, HTTPException, Depends
 from ..services import ChallengeService
 from ..models import Challenge
+import requests
 
 
 api = APIRouter()
+
+
+
+@api.get("/api/test")
+def test() -> dict:
+    api_url = 'https://api.api-ninjas.com/v1/randomword?type=noun'
+    response = requests.get(api_url, headers={'X-Api-Key': 'EQ5PD5h+g5WuBYjtB4g7ug==ugxjr3QhvAYKvN6l'})
+    if response.status_code == requests.codes.ok:
+        return response.json()
+    else:
+        return {"error": response.status_code, "message": response.text}
 
 # ----------CHALLENGE API ROUTES----------------
 #api route retrieves ALL challenges

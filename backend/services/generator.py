@@ -2,9 +2,9 @@ from ..models import Challenge, meChallenge, weChallenge
 from urllib.request import urlopen
 import random
 import nltk
-nltk.download('popular')
+# nltk.download('popular')
 
-word_site = "https://www.mit.edu/~ecprice/wordlist.10000"
+word_site = "https://random-word-api.herokuapp.com/all"
 
 response = urlopen(word_site)
 txt = response.read().decode()
