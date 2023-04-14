@@ -6,6 +6,12 @@
     </header>
     <div class="side-bar">
         <h1>challenges sidebar goes here</h1>
+        <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse()">
+            <div class="prompt we-prompt">
+                <p> {{ challenge.adj }} {{ challenge.noun }} {{ challenge.verb }} {{ challenge.style }} {{ challenge.emotion }} </p>
+                <p> {{ challenge.start | date: "MMM d, y" }} - {{ challenge.end | date: "MMM d, y" }}</p>
+            </div>
+        </div>
     </div>
     <div class="challenge">
         <h2>weChallenge #</h2>

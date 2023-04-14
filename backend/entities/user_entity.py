@@ -19,9 +19,9 @@ class UserEntity(EntityBase):
     password: Mapped[str] = mapped_column(String(64))
     created: Mapped[datetime] = mapped_column(DateTime)
     private: Mapped[bool] = mapped_column(Boolean)
-    bio: Mapped[str] = mapped_column(String(64))
+    bio: Mapped[str] = mapped_column(String(256))
     pronouns: Mapped[str] = mapped_column(String(64))
-    img: Mapped[str] = mapped_column(String(64))
+    pfp: Mapped[str] = mapped_column(String(64))
     userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
     savedPosts: Mapped[list["PostEntity"]] = relationship(secondary=savedPost)
     savedChallenges: Mapped[list["ChallengeEntity"]] = relationship(secondary=savedChallenge)
@@ -37,13 +37,22 @@ class UserEntity(EntityBase):
             private=model.private, 
             bio=model.bio, 
             pronouns=model.pronouns, 
-            img=model.img, 
+            pfp=model.pfp, 
             userPosts=model.userPosts, 
             connectedAccounts=model.connectedAccounts, 
             savedPosts=model.savedPosts,  
             savedChallenges=model.savedChallenges)
 
     def to_model(self) -> User:
+        _userPosts = []
+        for e in self.userPosts:
+            _userPosts.append(e.to_model())
+        _savedPosts = []
+        for e in self.savedPosts:
+            _savedPosts.append(e.to_model())
+        _savedChallenges = []
+        for e in self.savedChallenges:
+            _savedChallenges.append(e.to_model())
         return User(
             email=self.email, 
             displayName=self.displayName, 
@@ -52,8 +61,8 @@ class UserEntity(EntityBase):
             private=self.private, 
             bio=self.bio, 
             pronouns=self.pronouns, 
-            img=self.img, 
-            userPosts=self.userPosts, 
+            pfp=self.pfp, 
+            userPosts=_userPosts, 
             connectedAccounts=self.connectedAccounts, 
-            savedPosts=self.savedPosts, 
-            savedChallenges=self.savedChallenges)
+            savedPosts=_savedPosts, 
+            savedChallenges=_savedChallenges)

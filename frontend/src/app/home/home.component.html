@@ -2,11 +2,14 @@
     <div class="challenge we">
         <h2>weChallenge #</h2>
         <p>Participate in this week's global art challenge!</p>
-        <div class="prompt we-prompt">Prompt</div>
-        <p>Date range</p>
+        <div class="prompt we-prompt" *ngIf="(current$ | async) as current">
+            <p>Prompt:</p>
+            <p>{{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }}</p>
+        </div>
+        <p *ngIf="(current$ | async) as current"> {{current.start | date: "MMM d, y"}} - {{current.end | date: "MMM d, y"}}</p>
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
-        <button id="we" routerLink="/we-challenge">
+        <button type="button" id="we" routerLink="/we-challenge">
             <p>Go</p>
         </button>
     </div>
@@ -14,7 +17,7 @@
         <h2>meChallenge</h2>
         <p>Make your own custom art challenge!</p>
         <p>Randomly generate color palettes, styles, subjects, and more!</p>
-        <button id="me" routerLink="/me-challenge">
+        <button type="button" id="me" routerLink="/me-challenge">
             <p>Go</p>
         </button>
     </div>

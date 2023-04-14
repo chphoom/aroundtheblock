@@ -13,23 +13,18 @@ export interface User {
     connectedAccounts: string[] | undefined
 }
 
-export interface Challenge{ 
+export interface Challenge { 
     id: number | undefined,
-    posts: Post[]
+    posts: Post[],
     noun: string, 
     verb: string, 
     adj: string, 
     emotion: string, 
     style: string, 
-    colors: string[]
-}
-
-export interface weChallenge extends Challenge {
+    colors: string[],
+    type: string,
     start: Date,
-    end: Date
-}
-
-export interface meChallenge extends Challenge {
+    end: Date,
     createdBy: User
 }
 

@@ -62,6 +62,21 @@ def colors(number: int | None) -> list:
 def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
     return challenge_service.all()
 
+#api route retrieves all weChallenges
+@api.get("/api/wechallenges")
+def get_wechallenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
+    return challenge_service.allwe()
+
+#api route retrieves all meChallenges
+@api.get("/api/mechallenges")
+def get_mechallenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
+    return challenge_service.allme()
+
+#api route retrieves current weChallenge
+@api.get("/api/current")
+def get_current_wechallenge(challenge_service: ChallengeService = Depends()) -> Challenge:
+    return challenge_service.currwe()
+
 #api route registers a new challenge
 @api.post("/api/challenges")
 def new_challenge(challenge: Challenge, challenge_service: ChallengeService = Depends()) -> Challenge:
@@ -85,6 +100,7 @@ def new_challenge(challenge: Challenge, challenge_service: ChallengeService = De
         # except Exception as e:
         #     raise HTTPException(status_code=422, detail=str(e))
         
+     
 #api route retrieves challenge given id
 #TODO: implement a way to find challenge and get the correct id
 @api.get("/api/challenges/{id}", responses={404: {"model": None}})
