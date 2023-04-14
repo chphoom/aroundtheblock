@@ -4,7 +4,7 @@ import random
 import nltk
 # nltk.download('popular')
 
-word_site = "https://random-word-api.herokuapp.com/all"
+word_site = "https://www.mit.edu/~ecprice/wordlist.10000"
 
 response = urlopen(word_site)
 txt = response.read().decode()
