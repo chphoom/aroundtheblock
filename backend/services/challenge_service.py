@@ -37,7 +37,7 @@ class ChallengeService:
             if e.end >= datetime.now():
                 return e.to_model()
 
-    def create(self, challenge: Challenge) -> Challenge:
+    def create(self, challenge: Challenge, options: list) -> Challenge:
         print(challenge)
     # def create(self) -> Challenge:
         # challenge = generate(3)
@@ -45,7 +45,10 @@ class ChallengeService:
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")
         else:
-            temp = generate(True, True, True, True, True, 3)
+            for option in options:
+                if option == "True" or option == "true":
+                    option = True
+            temp = generate(options[0], options[1], options[2], options[3], options[4], options[5])
             challenge.noun = temp.noun
             challenge.verb = temp.verb
             challenge.adj = temp.adj

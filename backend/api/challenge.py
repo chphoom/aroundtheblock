@@ -27,9 +27,9 @@ def get_current_wechallenge(challenge_service: ChallengeService = Depends()) -> 
 
 #api route registers a new challenge
 @api.post("/api/challenges")
-def new_challenge(challenge: Challenge, challenge_service: ChallengeService = Depends()) -> Challenge:
+def new_challenge(challenge: Challenge, options: list = ["true", "true", True, "True", "True", 3], challenge_service: ChallengeService = Depends()) -> Challenge:
         try:
-            return challenge_service.create(challenge)
+            return challenge_service.create(challenge, options)
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
         
