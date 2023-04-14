@@ -2,20 +2,59 @@ from fastapi import APIRouter, HTTPException, Depends
 from ..services import ChallengeService
 from ..models import Challenge
 import requests
-
+import random
+from urllib.request import urlopen
+import nltk
 
 api = APIRouter()
 
+API_URL = "https://grizzly-fifth-citrine.glitch.me/api"
 
-
+# test api route... for testing.
 @api.get("/api/test")
-def test() -> dict:
-    api_url = 'https://api.api-ninjas.com/v1/randomword?type=noun'
-    response = requests.get(api_url, headers={'X-Api-Key': 'EQ5PD5h+g5WuBYjtB4g7ug==ugxjr3QhvAYKvN6l'})
-    if response.status_code == requests.codes.ok:
-        return response.json()
+def test() -> str:
+    return noun()
+
+@api.get("/api/noun") # routes are for resting purposes
+def noun() -> str:
+    params = {"generator": "common-noun", "list": "noun"}
+    return requests.get(API_URL, params=params).text
+
+@api.get("/api/verb")
+def verb() -> str:
+    params = {"generator": "verb", "list": "verb"}
+    return requests.get(API_URL, params=params).text
+
+@api.get("/api/adj")
+def adj() -> str:
+    params = {"generator": "adjective", "list": "adjective"}
+    return requests.get(API_URL, params=params).text
+
+@api.get("/api/style")
+def style() -> str:
+    params = {"generator": "artism", "list": "output"}
+    return requests.get(API_URL, params=params).text
+
+@api.get("/api/emotion")
+def emotion() -> str:
+    params = {"generator": "emotion", "list": "emotion"}
+    return requests.get(API_URL, params=params).text
+
+@api.get("/api/emotion")
+def emotion() -> str:
+    params = {"generator": "emotion", "list": "emotion"}
+    return requests.get(API_URL, params=params).text
+
+@api.get("/api/colors")
+def colors(number: int | None) -> list:
+    if number == None:
+        return []
     else:
-        return {"error": response.status_code, "message": response.text}
+        params = {"generator": "hex-code-gen", "list": "output"}
+        result = []
+        for i in range(number):
+            result.append(requests.get(API_URL, params=params).text)
+        return result
 
 # ----------CHALLENGE API ROUTES----------------
 #api route retrieves ALL challenges
@@ -27,9 +66,24 @@ def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Chal
 @api.post("/api/challenges")
 def new_challenge(challenge: Challenge, challenge_service: ChallengeService = Depends()) -> Challenge:
         try:
-            return challenge_service.create(challenge)
+            _id=3
+            _posts=[]
+            _noun=noun()
+            _verb=verb()
+            _adj=adj()
+            _emotion=emotion()
+            _style=style()
+            _colors=colors(3)
+            return challenge_service.create(Challenge(id=_id, posts=_posts, noun=_noun, verb=_verb, adj=_adj, emotion=_emotion,
+            style=_style, colors=_colors))
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
+
+# def new_challenge(challenge: Challenge = Challenge(id=None, posts=[], noun=noun(), verb=verb(),adj=adj(), emotion=emotion(), style=style(),colors=colors(3)), challenge_service: ChallengeService = Depends()) -> Challenge:
+        # try:
+        #     return challenge_service.create(challenge)
+        # except Exception as e:
+        #     raise HTTPException(status_code=422, detail=str(e))
         
 #api route retrieves challenge given id
 #TODO: implement a way to find challenge and get the correct id
