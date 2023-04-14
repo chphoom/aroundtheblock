@@ -60,7 +60,7 @@ async def create_new_wechallenge(challenge_service: ChallengeService = Depends()
         raise HTTPException(status_code=422, detail=str(e))
 
 def new_wechallenge(challenge_service: ChallengeService = Depends()):
-    asyncio.run(create_new_wechallenge(challenge_service))
+    asyncio.run(create_new_wechallenge())
 
 scheduler = BackgroundScheduler(daemon=True)
 scheduler.add_job(new_wechallenge, 'interval', seconds=30)
