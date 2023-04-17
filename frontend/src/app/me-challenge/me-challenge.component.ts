@@ -12,6 +12,7 @@ export class MeChallengeComponent {
   isLoggedin = this.registration_service.isLoggedIn();
   private options: String[];
   public form: FormGroup;
+  private valid: Boolean = false;
   
   constructor(private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder){
     this.options = [];
@@ -27,9 +28,17 @@ export class MeChallengeComponent {
 
   onSubmit() {
     for (var option in this.form.value) {
+      if (this.form.value[option]) {
+        this.valid = true;
+      }
       this.options.push(this.form.value[option])
     }
-    this.challengeService.createChallenge(this.options)
-    // console.log(this.options)
+    if (this.valid) {
+      this.challengeService.createChallenge(this.options)
+    } else {
+      window.alert("You must choose at least one option.")
+    }
+    
+    console.log(this.options)
   }
 }
