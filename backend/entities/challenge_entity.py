@@ -11,7 +11,7 @@ from datetime import datetime
 class ChallengeEntity(EntityBase):
     __tablename__ = "challenges"
 
-    id = mapped_column(Integer, primary_key=True)
+    id = mapped_column(Integer, primary_key=True, autoincrement=True)
     posts: Mapped[list["PostEntity"]] = relationship(secondary=c2p, back_populates="challenge")
     noun: Mapped[str] = mapped_column(String(64))
     verb: Mapped[str] = mapped_column(String(64))

@@ -22,10 +22,10 @@ export interface Challenge {
     emotion: string, 
     style: string, 
     colors: string[],
-    type: string,
-    start: Date,
-    end: Date,
-    createdBy: User
+    // type: string,
+    start: Date | null,
+    end: Date | null,
+    createdBy: User | null
 }
 
 export interface Post {    

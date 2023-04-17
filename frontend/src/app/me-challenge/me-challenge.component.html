@@ -2,17 +2,23 @@
     <div class="challenge">
         <h2>meChallenge</h2>
         <p>Make your own custom art challenge! Select different options and generate your challenge.</p>
-        <div class="options">
-            <mat-checkbox>Noun</mat-checkbox>
-            <mat-checkbox>Adj</mat-checkbox>
-            <mat-checkbox>Verb</mat-checkbox>
-            <mat-checkbox>Style</mat-checkbox>
-            <mat-checkbox>Emotion</mat-checkbox>
-            <mat-checkbox>Colors</mat-checkbox>
-        </div>
-        <button id="me" routerLink="/me-challenge">
-            <p>Generate</p>
-        </button>
+        <form class="options" [formGroup]="form">
+              <div>
+                <mat-checkbox type="checkbox" formControlName="noun">Noun</mat-checkbox>
+                <mat-checkbox type="checkbox" formControlName="verb">Verb</mat-checkbox>
+                <mat-checkbox type="checkbox" formControlName="adj">Adj</mat-checkbox>
+                <mat-checkbox type="checkbox" formControlName="emotion">Emotion</mat-checkbox>
+                <mat-checkbox type="checkbox" formControlName="style">Style</mat-checkbox>
+                <mat-checkbox type="checkbox" formControlName="colors">Colors</mat-checkbox>
+              </div>
+              <div>
+                <button id="me" type="button" (click)="onSubmit()">Generate</button>
+              </div>
+              <div *ngIf="(challenge$ | async) as challenge">
+                {{challenge.adj}} {{challenge.noun}} {{challenge.verb}} {{challenge.emotion}} {{challenge.style}}
+                <div *ngFor="let color of challenge.colors">{{color}}</div>
+              </div>
+          </form>
         <p *ngIf="isLoggedin">See saved challenges</p>
         
     </div>
