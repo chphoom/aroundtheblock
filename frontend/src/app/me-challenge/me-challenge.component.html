@@ -10,6 +10,19 @@
             <mat-checkbox>Emotion</mat-checkbox>
             <mat-checkbox>Colors</mat-checkbox>
         </div>
+        <form [formGroup]="form">
+            <div class="widget-container">
+              <input type="checkbox" formControlName="noun" /> Noun
+              <input type="checkbox" formControlName="verb" /> Verb
+              <input type="checkbox" formControlName="adj" /> Adj
+              <input type="checkbox" formControlName="emotion" /> Emotion
+              <input type="checkbox" formControlName="style" /> Style
+              <input type="checkbox" formControlName="colors" /> Colors
+              <div>
+                <button id="me" type="button" (click)="onSubmit()">Generate</button>
+              </div>
+            </div>
+          </form>
         <button id="me" routerLink="/me-challenge">
             <p>Generate</p>
         </button>

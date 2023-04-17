@@ -47,4 +47,23 @@ export class ChallengeService {
     return this.http.get<Challenge[]>("/api/mechallenges");
   }
 
+  /**
+   * Retrieve all meChallenges.
+   * 
+   * @returns an observable array of Challenge objects.
+   */
+  createChallenge(options: Array<String>): Observable<Challenge> {
+    return this.http.post<Challenge>("/api/challenges", 
+      {
+        "noun": options[0],
+        "verb": options[1],
+        "adj": options[2],
+        "last_name": options[3],
+        "emotion": options[4],
+        "style": options[5],
+        "colors": options[6],
+      }
+    );
+  }
+
 }
