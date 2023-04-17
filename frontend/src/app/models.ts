@@ -23,9 +23,9 @@ export interface Challenge {
     style: string, 
     colors: string[],
     // type: string,
-    start: Date,
-    end: Date,
-    // createdBy: User
+    start: Date | null,
+    end: Date | null,
+    createdBy: User | null
 }
 
 export interface Post {    
