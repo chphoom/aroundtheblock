@@ -48,7 +48,7 @@ class ChallengeService:
             for option in options:
                 if option == "True" or option == "true":
                     option = True
-            temp = generate(options[0], options[1], options[2], options[3], options[4], options[5])
+            temp = generate(options[0], options[1], options[2], options[3], options[4], 3)
             challenge.noun = temp.noun
             challenge.verb = temp.verb
             challenge.adj = temp.adj

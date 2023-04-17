@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./me-challenge.component.css']
 })
 export class MeChallengeComponent {
-  isLoggedin = this.registration_service.isLoggedIn();
+  public isLoggedin = this.registration_service.isLoggedIn();
   private options: String[];
   public form: FormGroup;
   private valid: Boolean = false;
@@ -27,12 +27,15 @@ export class MeChallengeComponent {
   }
 
   onSubmit() {
+    // get list of options
     for (var option in this.form.value) {
+      // check if at least one option is checked
       if (this.form.value[option]) {
         this.valid = true;
       }
       this.options.push(this.form.value[option])
     }
+
     if (this.valid) {
       this.challengeService.createChallenge(this.options)
     } else {
