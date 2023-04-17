@@ -48,8 +48,9 @@ export class MeChallengeComponent {
         emotion: "", 
         style: "", 
         colors: [],
-        start: new Date(),
-        end: new Date(),
+        start: null,
+        end: null,
+        createdBy: null
       }
       // Pass challenge and options to api
       this.challengeService.createChallenge(challenge, this.options)
