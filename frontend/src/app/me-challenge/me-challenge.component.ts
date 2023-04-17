@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RegistrationService } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Challenge } from '../challenge.service';
 
 @Component({
   selector: 'app-me-challenge',
@@ -37,7 +38,21 @@ export class MeChallengeComponent {
     }
 
     if (this.valid) {
-      this.challengeService.createChallenge(this.options)
+      // Construct new challenge
+      const challenge: Challenge = {
+        id: 0,
+        posts: [],
+        noun: "", 
+        verb: "", 
+        adj: "", 
+        emotion: "", 
+        style: "", 
+        colors: [],
+        start: new Date(),
+        end: new Date(),
+      }
+      // Pass challenge and options to api
+      this.challengeService.createChallenge(challenge, this.options)
     } else {
       window.alert("You must choose at least one option.")
     }
