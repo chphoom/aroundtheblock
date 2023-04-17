@@ -3,6 +3,7 @@ import { RegistrationService } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Challenge } from '../challenge.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-me-challenge',
@@ -14,6 +15,8 @@ export class MeChallengeComponent {
   private options: String[];
   public form: FormGroup;
   private valid: Boolean = false;
+  public challenge$: Observable<Challenge> | undefined;
+  // public fields: String[] | undefined;
   
   constructor(private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder){
     this.options = [];
@@ -53,7 +56,10 @@ export class MeChallengeComponent {
         createdBy: null
       }
       // Pass challenge and options to api
-      this.challengeService.createChallenge(challenge, this.options)
+      this.challenge$ = this.challengeService.createChallenge(challenge, this.options)
+      // Calling subscribe on this creates a new challenge fsr
+      // this.challenge$.subscribe(val => console.log(val))
+      this.options = []
     } else {
       window.alert("You must choose at least one option.")
     }

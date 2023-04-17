@@ -38,8 +38,6 @@ class ChallengeService:
                 return e.to_model()
 
     def create(self, challenge: Challenge, options: list) -> Challenge:
-        # def create(self) -> Challenge:
-        # challenge = generate(3)
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")

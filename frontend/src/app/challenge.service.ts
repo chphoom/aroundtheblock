@@ -53,8 +53,6 @@ export class ChallengeService {
    * @returns an observable array of Challenge objects.
    */
   createChallenge(challenge: Challenge, options: Array<String>): Observable<Challenge> {
-    console.log(options)
-    console.log(challenge)
     return this.http.post<Challenge>("/api/generate", 
       {
         "challenge": challenge,
@@ -62,5 +60,4 @@ export class ChallengeService {
       }
     );
   }
-
 }
