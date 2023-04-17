@@ -55,7 +55,7 @@ export class ChallengeService {
   createChallenge(challenge: Challenge, options: Array<String>): Observable<Challenge> {
     console.log(options)
     console.log(challenge)
-    return this.http.post<Challenge>("/api/challenges", 
+    return this.http.post<Challenge>("/api/generate", 
       {
         "challenge": challenge,
         "options": [options[0], options[1], options[2], options[3], options[4], options[5]]
