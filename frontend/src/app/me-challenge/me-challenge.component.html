@@ -14,13 +14,28 @@
               <div>
                 <button id="me" type="button" (click)="onSubmit()">Generate</button>
               </div>
-              <div *ngIf="(challenge$ | async) as challenge">
-                {{challenge.adj}} {{challenge.noun}} {{challenge.verb}} {{challenge.emotion}} {{challenge.style}}
-                <div *ngFor="let color of challenge.colors">{{color}}</div>
-              </div>
           </form>
+          <div *ngIf="(challenge)" class="prompt me-prompt">
+            <p>Prompt:</p>
+            <div>
+              <p>{{challenge.adj}} {{challenge.noun}} {{challenge.verb}} {{challenge.emotion}} {{challenge.style}}</p>
+            </div>
+            <div *ngIf="(challenge.colors).length > 0" class="colors">
+              <div class="color">
+                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
+                <p>{{challenge.colors[0]}}</p>
+              </div>
+              <div class="color">
+                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[1]}"></div>
+                <p>{{challenge.colors[1]}}</p>
+              </div>
+              <div class="color">
+                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[2]}"></div>
+                <p>{{challenge.colors[2]}}</p>
+              </div>
+            </div>
+          </div>
         <p *ngIf="isLoggedin">See saved challenges</p>
-        
     </div>
     <div class="posts-container">
             <h1>See what others made</h1>

@@ -29,6 +29,7 @@ import { WeChallengeComponent } from './we-challenge/we-challenge.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AboutComponent } from './about/about.component';
 import { PastChallengesComponent } from './past-challenges/past-challenges.component';
+import { GeneratedComponent } from './me-challenge/generated/generated.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { PastChallengesComponent } from './past-challenges/past-challenges.compo
     WeChallengeComponent,
     AboutComponent,
     PastChallengesComponent,
+    GeneratedComponent,
   ],
   imports: [
     BrowserModule,

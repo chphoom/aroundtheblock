@@ -13,7 +13,6 @@ export class HomeComponent {
   public challengeService: ChallengeService;
 
   constructor(challengeService: ChallengeService) {
-    console.log("home component")
     this.challenges$ = challengeService.getAllChallenges()
     this.current$ = challengeService.getCurrentChallenge()
     this.challengeService = challengeService

@@ -3,7 +3,7 @@ import { RegistrationService } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Challenge } from '../challenge.service';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-me-challenge',
@@ -15,10 +15,10 @@ export class MeChallengeComponent {
   private options: String[];
   public form: FormGroup;
   private valid: Boolean = false;
-  public challenge$: Observable<Challenge> | undefined;
-  // public fields: String[] | undefined;
+  public challenge: Challenge | undefined;
+  public colorBox = document.getElementsByClassName('color-box') as HTMLCollectionOf<HTMLElement>;
   
-  constructor(private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder){
+  constructor(private router: Router, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder){
     this.options = [];
     this.form = this.formBuilder.group({
       noun: [false],
@@ -55,15 +55,14 @@ export class MeChallengeComponent {
         end: null,
         createdBy: null
       }
-      // Pass challenge and options to api
-      this.challenge$ = this.challengeService.createChallenge(challenge, this.options)
-      // Calling subscribe on this creates a new challenge fsr
-      // this.challenge$.subscribe(val => console.log(val))
+      // Pass challenge and options to api and put returned challenge into variable
+      this.challengeService.createChallenge(challenge, this.options).subscribe(challenge => this.challenge = challenge)
+      // this.colorBox[0].style.backgroundColor = this.challenge!.colors[0]
+
       this.options = []
+      //this.router.navigate(['/generated'])
     } else {
       window.alert("You must choose at least one option.")
     }
-    
-    console.log(this.options)
   }
 }
