@@ -28,7 +28,6 @@ class UserService:
             self._session.commit()
             return user_entity.to_model() 
             
-
     def get(self, email: str) -> User | None:
         # 
         user = self._session.get(UserEntity, email)
