@@ -37,12 +37,12 @@ class ChallengeService:
             if e.end >= datetime.now():
                 return e.to_model()
 
-    def create(self, challenge: Challenge) -> Challenge:
+    def create(self, challenge: Challenge, options: list) -> Challenge:
         temp = self._session.get(ChallengeEntity, challenge.id)
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")
         else:
-            temp = generate(3)
+            temp = generate(options[0], options[1], options[2], options[3], options[4], options[5])
             challenge.noun = temp.noun
             challenge.verb = temp.verb
             challenge.adj = temp.adj
@@ -53,16 +53,16 @@ class ChallengeService:
             self._session.add(challenge_entity)
             self._session.commit()
             return challenge_entity.to_model() 
-            
+
+    def current(self) -> Challenge:
+        return self._session.query(ChallengeEntity).order_by(ChallengeEntity.end.desc()).first()
+
     def get(self, id: int) -> Challenge | None:
         challenge = self._session.get(ChallengeEntity, id)
         if challenge:
             return challenge.to_model()
         else:
             raise ValueError(f"Challenge not found.")
-
-    def current(self) -> Challenge:
-        return self._session.query(ChallengeEntity).order_by(ChallengeEntity.end.desc()).first()
 
     def delete(self, id: int) -> Challenge:
         # 

@@ -1,0 +1,25 @@
+<p>generated works!</p>
+<div *ngIf="(challenge)" class="prompt me-prompt">
+    <p>Prompt:</p>
+    <div>
+      <p>{{challenge.adj}} {{challenge.noun}} {{challenge.verb}} {{challenge.emotion}} {{challenge.style}}</p>
+    </div>
+    <div class="colors">
+      <!-- <div *ngFor="let color of challenge.colors" class="color">
+        <div class="color-box"></div>
+        <p>{{color}}</p>
+      </div> -->
+      <div class="color">
+        <div class="color-box color-1"></div>
+        {{challenge.colors[0]}}
+      </div>
+      <div class="color">
+        <div class="color-box color-2"></div>
+        {{challenge.colors[1]}}
+      </div>
+      <div class="color">
+        <div class="color-box color-3"></div>
+        {{challenge.colors[2]}}
+      </div>
+    </div>
+  </div>
