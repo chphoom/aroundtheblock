@@ -47,4 +47,26 @@ export class ChallengeService {
     return this.http.get<Challenge[]>("/api/mechallenges");
   }
 
+  /**
+   * Retrieve challenge from id.
+   * 
+   * @returns an observable Challenge object.
+   */
+  getChallenge(id: Number): Observable<Challenge> {
+    return this.http.get<Challenge>(`/api/challenges${id}`);
+  }
+
+  /**
+   * Create a challenge.
+   * 
+   * @returns a new challenge.
+   */
+  createChallenge(challenge: Challenge, options: Array<String>): Observable<Challenge> {
+    return this.http.post<Challenge>("/api/generate", 
+      {
+        "challenge": challenge,
+        "options": [options[0], options[1], options[2], options[3], options[4], options[5]]
+      }
+    );
+  }
 }
