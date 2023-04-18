@@ -29,7 +29,7 @@ class LoginService:
     def authenticate_user(self, email: str, password: str) -> Optional[User]:
         user = self._session.get(UserEntity, email)
         if not user:
-            raise ValueError(f"No uer found with that email and password combination.")
+            raise ValueError(f"No user found with that email and password combination.")
         if not password == user.password:
             raise ValueError(f"Passwords do not match")
         return user
