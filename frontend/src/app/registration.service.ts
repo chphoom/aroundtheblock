@@ -87,16 +87,25 @@ export class RegistrationService {
    * @returns boolean value
    */
   isLoggedIn(): boolean {
-    const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem('authToken');
     return token !== null;
   }
+
+  /**
+   * log out
+   */
+    logout(): void {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("bearerToken");
+    }
+  
 
   /**
    * Retrieves User thats logged in
    * @returns User
    */
   getUserInfo(): Observable<User> {
-    const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
