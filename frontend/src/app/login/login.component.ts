@@ -27,6 +27,8 @@ export class LoginComponent {
     confirm: ''
   });
 
+  public isLoggedin = this.registrationService.isLoggedIn();
+
   constructor(
     private registrationService: RegistrationService,
     private formBuilder: FormBuilder,
@@ -68,7 +70,6 @@ export class LoginComponent {
         console.error('Invalid credentials');
       }
     });
-    
   }
 
 
