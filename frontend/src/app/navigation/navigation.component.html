@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="account">
-        <div *ngIf="isLoggedin; else elseBlock" class="user-bar">
+        <div *ngIf="(registration_service.isAuthenticated$ | async); else elseBlock" class="user-bar">
             <mat-icon>notifications</mat-icon>
             <a class="user" routerLink="/profile">
                 <p>User</p> <!--TODO: Get current user's username-->

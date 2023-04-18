@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, map } from 'rxjs';
+import { Observable, throwError, map, catchError, tap, of, from, ReplaySubject } from 'rxjs';
 import { User } from './models';
 export { User } from './models';
+import { Router } from '@angular/router';
+
+const REPLAY_LAST = 1;
 
 /**
  * This class handles the registration concerns of the system including the ability
@@ -13,7 +16,43 @@ export { User } from './models';
 })
 export class RegistrationService {
 
-  constructor(private http: HttpClient) {}
+  private isAuthenticated: ReplaySubject<boolean> = new ReplaySubject(REPLAY_LAST);
+  public isAuthenticated$: Observable<boolean> = this.isAuthenticated.asObservable();
+
+  constructor(private http: HttpClient, private router: Router) {
+    this.authenticate();
+  }
+
+  private authenticate() {
+    let token: string | Promise<string> | null = localStorage.getItem('authToken');
+    if (token === null) {
+      this.isAuthenticated.next(false);
+    } else {
+      let observable: Observable<string>;
+      if (typeof token === 'string') {
+        observable = of(token);
+      } else {
+        observable = from(token);
+      }
+      observable.subscribe((token) => {
+        if (!(token)) {
+          localStorage.removeItem('bearerToken');
+          this.isAuthenticated.next(false);
+        } else {
+          this.isAuthenticated.next(true);
+        }
+      })
+    }
+  }
+
+  // Set if user is logged in or not
+  /* public setAuthenticated(value: boolean): void {
+    this.isAuthenticatedSubject.next(value);
+  }
+
+  public getAuthenticated(): Observable<boolean> {
+    return this.isAuthenticatedSubject.asObservable()
+  } */
 
   /**
    * Retrieve all users registered with the check-in system.
@@ -76,27 +115,38 @@ export class RegistrationService {
     const body = new URLSearchParams();
     body.set('username', email);
     body.set('password', password);
+    //this.setAuthenticated(true);
 
-    return this.http.post('/api/login', body.toString(), {
+    return this.http.post<any>('/api/login', body.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    });
+    }).pipe(
+      tap(res => {
+        localStorage.setItem('authToken', res.token);
+        this.isAuthenticated.next(true);
+      }),
+      catchError(error => {
+        console.error(error);
+        return throwError(() => new Error(error.message || 'An error occurred'));
+      })
+    );
   }
 
   /**
    * Retrieves whether User is logged in based on presence of valid JWT token in local storage
    * @returns boolean value
    */
-  isLoggedIn(): boolean {
+  isLoggedIn(): Observable<boolean> {
     const token = localStorage.getItem('authToken');
-    return token !== null;
+    return of(token !== null);
   }
 
   /**
    * log out
    */
-    logout(): void {
+  logout(): void {
       localStorage.removeItem("authToken");
-    }
+      this.isAuthenticated.next(false);
+  }
   
   /**
    * Retrieves User thats logged in
