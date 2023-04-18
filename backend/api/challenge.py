@@ -1,10 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from ..services import ChallengeService
 from ..models import Challenge
-from apscheduler.schedulers.blocking import BlockingScheduler
-import asyncio
-import httpx
-
 
 api = APIRouter()
 
@@ -61,26 +57,3 @@ def delete_challenge(id: int, challenge_service = Depends(ChallengeService)) -> 
         return challenge_service.delete(id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
-
-async def create_new_wechallenge():
-    async with httpx.AsyncClient() as client:
-        response = await client.post("http://localhost:1560/api/generate", 
-            json={ 
-            "challenge": {
-                "id": 0,
-                "posts": [],
-                "noun": "",
-                "verb": "",
-                "adj": "",
-                "emotion": "",
-                "style": "",
-                "colors": [],
-                "start": "2023-04-18T00:27:58.223Z",
-                "end": "2023-04-18T00:27:58.223Z",
-                "createdBy": "string"
-            }, "options": [True, True, True, False, False, False]})
-        response.raise_for_status()
-
-scheduler = BlockingScheduler()
-scheduler.add_job(create_new_wechallenge, 'interval', seconds=30)
-scheduler.start()

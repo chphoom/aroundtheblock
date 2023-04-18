@@ -52,25 +52,7 @@ class ChallengeService:
             challenge_entity: ChallengeEntity = ChallengeEntity.from_model(challenge)
             self._session.add(challenge_entity)
             self._session.commit()
-            return challenge_entity.to_model() 
-        
-    async def createWe(self, challenge: Challenge):
-        temp = self._session.get(ChallengeEntity, challenge.id)
-        if temp:
-            raise ValueError(f"Duplicate Challenge: {temp.id}")
-        else:
-            temp = generate(True, True, True, False, False, False)
-            challenge.noun = temp.noun
-            challenge.verb = temp.verb
-            challenge.adj = temp.adj
-            challenge.emotion = temp.emotion
-            challenge.style = temp.style
-            challenge.colors = temp.colors
-            challenge_entity: ChallengeEntity = ChallengeEntity.from_model(challenge)
-            self._session.add(challenge_entity)
-            self._session.commit()
-            print("New weChallenge generated")
-            # return challenge_entity.to_model() 
+            return challenge_entity.to_model()
 
     def current(self) -> Challenge:
         return self._session.query(ChallengeEntity).order_by(ChallengeEntity.end.desc()).first()
