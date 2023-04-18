@@ -15,7 +15,6 @@ export class HomeComponent {
   
 
   constructor(challengeService: ChallengeService) {
-    challengeService.getWeChallenges().subscribe(challenges => this.weChallenges = challenges)
     this.current$ = challengeService.getCurrentChallenge()
     this.challengeService = challengeService
     this.weChallenges?.pop
