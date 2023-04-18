@@ -16,22 +16,24 @@
               </div>
           </form>
           <div *ngIf="(challenge)" class="prompt me-prompt">
-            <p>Prompt:</p>
-            <div>
-              <p>{{challenge.adj}} {{challenge.noun}} {{challenge.verb}} {{challenge.emotion}} {{challenge.style}}</p>
+            <p class="prompt-title">Prompt:</p>
+            <div class="prompt-text">
+              <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.adj}} {{challenge.noun}} {{challenge.verb}}</p>
+              <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
+              <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
             </div>
             <div *ngIf="(challenge.colors).length > 0" class="colors">
               <div class="color">
                 <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
-                <p>{{challenge.colors[0]}}</p>
+                <p id="hex">{{challenge.colors[0]}}</p>
               </div>
               <div class="color">
                 <div class="color-box" [ngStyle]="{'background-color': challenge.colors[1]}"></div>
-                <p>{{challenge.colors[1]}}</p>
+                <p id="hex">{{challenge.colors[1]}}</p>
               </div>
               <div class="color">
                 <div class="color-box" [ngStyle]="{'background-color': challenge.colors[2]}"></div>
-                <p>{{challenge.colors[2]}}</p>
+                <p id="hex">{{challenge.colors[2]}}</p>
               </div>
             </div>
           </div>
