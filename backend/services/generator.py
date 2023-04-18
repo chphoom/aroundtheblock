@@ -40,7 +40,7 @@ def colors(number: int | None) -> list:
             result.append(requests.get(API_URL, params=params).text)
         return result
 
-def generate(n: bool, v: bool, a: bool, s: bool, e: bool, c: bool) -> Challenge:
+def generate(n: bool, v: bool, a: bool, e: bool, s: bool, c: bool) -> Challenge:
     _noun = _verb = _adj = _style = _emo = "" #init to empty strings
     _colors = []
 
@@ -50,10 +50,10 @@ def generate(n: bool, v: bool, a: bool, s: bool, e: bool, c: bool) -> Challenge:
         _verb = verb()
     if a:
         _adj = adj()
-    if s:
-        _style = style()
     if e:
         _emo = emotion()
+    if s:
+        _style = style()
     if c:
         _colors = colors(3)
 
