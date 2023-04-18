@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Challenge
 from ..entities import ChallengeEntity
-from .generator import generate, generatewe
+from .generator import generate
 from datetime import datetime, timedelta
 
 
@@ -59,7 +59,7 @@ class ChallengeService:
         if temp:
             raise ValueError(f"Duplicate Challenge: {temp.id}")
         else:
-            temp = generatewe()
+            temp = generate(True, True, True, False, False, False)
             challenge.noun = temp.noun
             challenge.verb = temp.verb
             challenge.adj = temp.adj

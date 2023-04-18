@@ -1,8 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from ..services import ChallengeService
 from ..models import Challenge
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 import asyncio
+import httpx
+
 
 api = APIRouter()
 
@@ -60,15 +62,25 @@ def delete_challenge(id: int, challenge_service = Depends(ChallengeService)) -> 
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
 
-async def create_new_wechallenge(challenge_service: ChallengeService = Depends()):
-    try:
-        await challenge_service.createWe(Challenge())
-    except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
+async def create_new_wechallenge():
+    async with httpx.AsyncClient() as client:
+        response = await client.post("http://localhost:1560/api/generate", 
+            json={ 
+            "challenge": {
+                "id": 0,
+                "posts": [],
+                "noun": "",
+                "verb": "",
+                "adj": "",
+                "emotion": "",
+                "style": "",
+                "colors": [],
+                "start": "2023-04-18T00:27:58.223Z",
+                "end": "2023-04-18T00:27:58.223Z",
+                "createdBy": "string"
+            }, "options": [True, True, True, False, False, False]})
+        response.raise_for_status()
 
-def new_wechallenge(challenge_service: ChallengeService = Depends()):
-    asyncio.run(create_new_wechallenge())
-
-scheduler = BackgroundScheduler(daemon=True)
-scheduler.add_job(new_wechallenge, 'interval', seconds=30)
+scheduler = BlockingScheduler()
+scheduler.add_job(create_new_wechallenge, 'interval', seconds=30)
 scheduler.start()
