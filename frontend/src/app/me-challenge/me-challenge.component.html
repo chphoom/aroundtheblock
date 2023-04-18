@@ -21,20 +21,16 @@
               <p>{{challenge.adj}} {{challenge.noun}} {{challenge.verb}} {{challenge.emotion}} {{challenge.style}}</p>
             </div>
             <div *ngIf="(challenge.colors).length > 0" class="colors">
-              <!-- <div *ngFor="let color of challenge.colors" class="color">
-                <div class="color-box"></div>
-                <p>{{color}}</p>
-              </div> -->
               <div class="color">
-                <div class="color-box color-1"></div>
+                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
                 <p>{{challenge.colors[0]}}</p>
               </div>
               <div class="color">
-                <div class="color-box color-2"></div>
+                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[1]}"></div>
                 <p>{{challenge.colors[1]}}</p>
               </div>
               <div class="color">
-                <div class="color-box color-3"></div>
+                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[2]}"></div>
                 <p>{{challenge.colors[2]}}</p>
               </div>
             </div>
