@@ -8,13 +8,13 @@ import { MeChallengeComponent } from './me-challenge/me-challenge.component';
 import { WeChallengeComponent } from './we-challenge/we-challenge.component';
 import { AboutComponent } from './about/about.component';
 import { PastChallengesComponent } from './past-challenges/past-challenges.component';
-import { GeneratedComponent } from './me-challenge/generated/generated.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'stats', component: StatsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent},
   { path: 'me-challenge', component: MeChallengeComponent },
   { path: 'we-challenge', component: WeChallengeComponent },
   { path: 'about', component: AboutComponent },

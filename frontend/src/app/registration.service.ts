@@ -145,6 +145,7 @@ export class RegistrationService {
    */
   logout(): void {
       localStorage.removeItem("authToken");
+      localStorage.removeItem("bearerToken");
       this.isAuthenticated.next(false);
   }
   
