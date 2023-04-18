@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RegistrationService, User } from '../registration.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,13 @@ export class ProfileComponent {
     });
   }
   
-  constructor(private registration_service: RegistrationService){}
+  constructor(private registration_service: RegistrationService, private router: Router){
+
+  }
+
+  logOut() {
+    this.registration_service.logout();
+    this.router.navigate(['/']);
+  }
 
 }

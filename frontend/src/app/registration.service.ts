@@ -96,10 +96,8 @@ export class RegistrationService {
    */
     logout(): void {
       localStorage.removeItem("authToken");
-      localStorage.removeItem("bearerToken");
     }
   
-
   /**
    * Retrieves User thats logged in
    * @returns User

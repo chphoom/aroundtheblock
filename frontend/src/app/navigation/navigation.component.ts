@@ -7,7 +7,13 @@ import { RegistrationService } from '../registration.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
-  isLoggedin = this.registration_service.isLoggedIn();
+  public isLoggedin = this.registration_service.isLoggedIn();
   
-  constructor(private registration_service: RegistrationService){}
+  constructor(private registration_service: RegistrationService){
+    
+  }
+
+  ngOnInit() {
+    this.isLoggedin = this.registration_service.isLoggedIn();
+  }
 }
