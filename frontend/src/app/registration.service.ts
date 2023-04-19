@@ -159,6 +159,6 @@ export class RegistrationService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<User>('https://example.com/api/user', { headers })
+    return this.http.get<User>(`/api/login`, { headers })
   }
 }

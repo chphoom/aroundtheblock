@@ -14,6 +14,11 @@
 // hue. Available color palettes: https://material.io/design/color/
 $frontend-primary: mat.define-palette(mat.$indigo-palette);
 $frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+/* $we-primary: mat.define-palette(#BBF1BA);
+$we-secondary: mat.define-palette(#88EA86);
+$me-primary: mat.define-palette(#FFBFE6);
+$me-secondary: mat.define-palette(#FFA7DC);
+$transition: mat.define-palette(#ffdfa0); */
 
 // The warn palette is optional (defaults to red).
 $frontend-warn: mat.define-palette(mat.$red-palette);
@@ -30,6 +35,10 @@ $frontend-theme: mat.define-light-theme((
 
 main {
   margin-bottom:2rem;
+}
+
+.background {
+  background: linear-gradient(180deg, rgba(255, 214, 238, 0.5) 0%, rgba(255, 223, 160, 0.424) 52.08%, rgba(187, 241, 186, 0.235) 100%);
 }
 
 /* Sitewide text style */
@@ -194,7 +203,7 @@ button {
 .logo {
   display:flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 
