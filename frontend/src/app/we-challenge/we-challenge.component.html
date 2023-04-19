@@ -5,9 +5,12 @@
         <p>Date range</p>
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
-        <button id="we" type="submit">
-            <p>Submit</p>
-        </button>
+        <form [formGroup]="uploadForm" (ngSubmit)="submit()">
+            <input type="file" formControlName="file">
+            <button id="we" type="submit">
+                <p>Submit</p>
+            </button>
+        </form>
         <a routerLink="/past-challenges" class="underline-hover">See past we challenges</a>
     </div>
     <div class="posts-container">
