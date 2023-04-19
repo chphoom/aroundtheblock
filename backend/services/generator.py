@@ -66,12 +66,13 @@ def generateWe() -> Challenge:
     _noun = _verb = _adj = _style = _emo = "" #init to empty strings
     _colors = []
     options = [False, False, False, False, False, False]
-    selected = random.sample(range(0,5), 3)
+    selected = random.sample(range(0,6), 3)
 
     #if one of the selected is colors
     #remove the third option
     if 5 in selected:
-        selected = selected.sort(reverse=True).pop()
+        selected.sort(reverse=True)
+        selected.pop()
 
     for i in selected:
         options[i] = True
