@@ -44,10 +44,19 @@ post3 = Post(id=3,
             user_id="anonymous",
             comments=[],
             tags=[])
+elaine1 = Post(id=4,
+              img="IMG_3058.jpeg",
+              private=False,
+              created=datetime.now(),
+              challenge=1,
+              user_id="elaine13@email.unc.edu",
+              comments=[],
+              tags=[])
 
 models = [
     post0,
     post1,
     post2,
-    post3
+    post3,
+    elaine1
 ]

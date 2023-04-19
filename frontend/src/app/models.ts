@@ -6,7 +6,7 @@ export interface User {
     private: boolean,
     bio: string,
     pronouns: string, 
-    img: string, 
+    pfp: string, 
     userPosts: Post[] | undefined,
     savedChallenges: Challenge[] | undefined,
     savedPosts: Post[] | undefined,

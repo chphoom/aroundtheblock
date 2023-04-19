@@ -99,7 +99,7 @@ export class RegistrationService {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
-    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", img: "", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
+    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", pfp: "", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
 
     return this.http.post<User>("api/registrations",user);
   }

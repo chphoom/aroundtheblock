@@ -53,7 +53,7 @@ h1 {
 h2 {
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
-  margin:0.5em;
+  
   font-style: normal;
   font-size: 32px;
   line-height: 38px;
@@ -268,6 +268,9 @@ a:before, a:after, a > span:before, a > span:after {
   position:relative;
   width:48%;
   background-color: rgba(151, 151, 151, 0.33);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .thumbnail::after {

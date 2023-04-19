@@ -12,6 +12,7 @@ export class ProfileComponent {
 
   private isLoggedin: Boolean | undefined;
   public user$: Observable<User> | undefined;
+  public user: User | undefined;
   
   constructor(private registration_service: RegistrationService, private router: Router){}
 
@@ -23,10 +24,14 @@ export class ProfileComponent {
     }
     // get current user information
     this.user$ = this.registration_service.getUserInfo();
+    this.registration_service.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
   }
 
   logOut() {
     this.registration_service.logout();
     this.router.navigate(['/']);
   }
+
 }
