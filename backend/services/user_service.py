@@ -46,18 +46,28 @@ class UserService:
         else:
             raise ValueError(f"No user found with PID: {email}")
 
-    def update(self, user: User) -> User:
-        temp = self._session.get(UserEntity, user.email)
+    def update(self, email: str, 
+                pronouns: str | None,
+                displayName: str | None, 
+                private: bool | None, 
+                pfp: str | None, 
+                bio: str | None, 
+                connectedAccounts: list[str] | None,) -> User:
+        temp = self._session.get(UserEntity, email)
         if temp:
-            #update value
-            temp.pfp = user.pfp
-            temp.bio = user.bio
-            temp.displayName = user.displayName
-            temp.password = user.password
-            temp.private = user.private
-            temp.pronouns = user.pronouns
-            temp.connectedAccounts = user.connectedAccounts
+            if pronouns != None:
+                temp.pronouns = pronouns
+            if displayName != None:
+                temp.displayName = displayName
+            if private != None:
+                temp.private = private
+            if pfp != None:
+                temp.pfp = pfp
+            if bio != None:
+                temp.bio = bio
+            if connectedAccounts != None:
+                temp.connectedAccounts = connectedAccounts
             self._session.commit()
             return temp.to_model()
         else:
-            raise ValueError(f"No user found with PID: {temp.email}")
+            raise ValueError(f"No user found with email: {temp.email}")
