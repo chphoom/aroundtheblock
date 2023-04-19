@@ -71,8 +71,9 @@ def generateWe() -> Challenge:
     #if one of the selected is colors
     #remove the third option
     if 5 in selected:
-        selected.sort(reverse=True)
+        selected.remove(5)
         selected.pop()
+        selected.append(5)
 
     for i in selected:
         options[i] = True
