@@ -17,13 +17,8 @@
     </div>
     <div *ngIf="user" class="tabs">
         <mat-tab-group #tabGroup>
-            <mat-tab label="Posts" *ngIf="user.userPosts">
-                <!-- TODO: Loop thru userPosts; I don't know why this doesn't work -->
-                <!-- <div *ngFor="let post in user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}">
-                    
-                </div> -->
-                <div class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + user.userPosts[0].img + ')'}">
-                </div>
+            <mat-tab label="Posts" *ngIf="user.userPosts" class="display-posts">
+                <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
             </mat-tab>
             <mat-tab label="Private">
                 <p>Coming Soon</p>

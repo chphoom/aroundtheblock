@@ -52,11 +52,20 @@ elaine1 = Post(id=4,
               user_id="elaine13@email.unc.edu",
               comments=[],
               tags=[])
+elaine2 = Post(id=5,
+               img="IMG_2954.jpeg",
+               private=False,
+               created=datetime.now(),
+               challenge=1,
+               user_id="elaine13@email.unc.edu",
+               comments=[],
+               tags=["impressionism"])
 
 models = [
     post0,
     post1,
     post2,
     post3,
-    elaine1
+    elaine1,
+    elaine2
 ]

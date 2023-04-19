@@ -57,6 +57,19 @@ main {
 
 .tabs {
     margin:1rem;
+    min-width: 70%;
+}
+
+.display-posts {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width:33%
+}
+
+.thumbnail {
+    width: 33%;
+
 }
 
 #logout {
