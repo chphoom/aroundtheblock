@@ -10,7 +10,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 session = Session(engine)
 
-INTERVAL = 5 # five minutes
+INTERVAL = 60 * 5 # five minutes
 
 def new():
     # print("Entered schedule function")
