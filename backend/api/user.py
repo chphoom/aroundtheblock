@@ -38,7 +38,7 @@ def update_user(email: str,
                 connectedAccounts: list[str] | None, 
                 user_service: UserService = Depends()) -> User:
     try:
-        return user_service.update(email)
+        return user_service.update(email, pronouns, displayName, private, pfp, bio, connectedAccounts)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 
