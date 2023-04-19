@@ -6,7 +6,7 @@
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
         <form [formGroup]="uploadForm" (ngSubmit)="submit()">
-            <input type="file" formControlName="file">
+            <input type="file" formControlName="file" (change)="onFileSelected($event)">
             <button id="we" type="submit">
                 <p>Submit</p>
             </button>
