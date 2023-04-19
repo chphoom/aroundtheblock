@@ -1,4 +1,4 @@
-from ..services.generator import generate
+from ..services.generator import generateWe
 from sqlalchemy.orm import Session
 from ..database import engine
 from ..models import Challenge
@@ -10,11 +10,11 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 session = Session(engine)
 
-INTERVAL = 60
+INTERVAL = 5 # five minutes
 
 def new():
     # print("Entered schedule function")
-    c: Challenge = generate(True, True, True, False, False, False)
+    c: Challenge = generateWe()
     c.start = datetime.now()
     c.end = c.start + timedelta(seconds=INTERVAL)
     c_entity: ChallengeEntity = ChallengeEntity.from_model(c)
@@ -23,4 +23,4 @@ def new():
     # print("Session committed")
 
 scheduler = BackgroundScheduler(daemon=True)
-scheduler.add_job(new, 'interval', seconds=INTERVAL) # Run the task every 5 seconds
+scheduler.add_job(new, 'interval', seconds=INTERVAL)

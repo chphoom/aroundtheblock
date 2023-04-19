@@ -1,5 +1,6 @@
 from ..models import Challenge
 import requests
+import random
 
 API_URL = "https://grizzly-fifth-citrine.glitch.me/api"
 
@@ -17,10 +18,6 @@ def adj() -> str:
 
 def style() -> str:
     params = {"generator": "artism", "list": "output"}
-    return requests.get(API_URL, params=params).text
-
-def emotion() -> str:
-    params = {"generator": "emotion", "list": "emotion"}
     return requests.get(API_URL, params=params).text
 
 def emotion() -> str:
@@ -53,6 +50,44 @@ def generate(n: bool, v: bool, a: bool, e: bool, s: bool, c: bool) -> Challenge:
         _style = style()
     if c:
         _colors = colors(3)
+
+    result = Challenge(
+        id=None,
+        posts=[],
+        noun=_noun, 
+        verb=_verb, 
+        adj=_adj, 
+        style=_style, 
+        emotion=_emo,
+        colors=_colors)
+    return result
+
+def generateWe() -> Challenge:
+    _noun = _verb = _adj = _style = _emo = "" #init to empty strings
+    _colors = []
+    options = [False, False, False, False, False, False]
+    selected = random.sample(range(0,5), 3)
+
+    #if one of the selected is colors
+    #remove the third option
+    if 5 in selected:
+        selected = selected.sort(reverse=True).pop()
+
+    for i in selected:
+        options[i] = True
+
+    if options[0]:
+        _noun = noun()
+    if options[1]:
+        _verb = verb()
+    if options[2]:
+        _adj = adj()
+    if options[3]:
+        _emo = emotion()
+    if options[4]:
+        _style = style()
+    if options[5]:
+        _colors = colors(1)
 
     result = Challenge(
         id=None,
