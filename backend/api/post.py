@@ -56,7 +56,7 @@ def get_me_posts(post_service: PostService = Depends()) -> list[Post]:
 
 #api route to get all wechallenge posts
 @api.get("/api/weposts")
-def get_me_posts(post_service: PostService = Depends()) -> list[Post]:
+def get_we_posts(post_service: PostService = Depends()) -> list[Post]:
     try:
         return post_service.get_we_posts()
     except Exception as e:
