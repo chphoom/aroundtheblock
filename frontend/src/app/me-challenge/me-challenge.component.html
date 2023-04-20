@@ -40,7 +40,9 @@
         <a *ngIf="isLoggedin" class="underline-hover" routerLink="/profile">See saved challenges</a>
     </div>
     <div class="posts-container">
-            <h1>See what others made</h1>
-            <div class="posts"></div>
+        <h1>See what others made</h1>
+        <div class="display-posts">
+          <div class="thumbnail" *ngFor="let post in mePosts$" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}">1</div>
+        </div>
     </div>
 </main>

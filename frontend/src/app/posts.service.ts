@@ -50,4 +50,22 @@ export class PostsService {
   deletePost(post: Post, options: Array<String>): Observable<Post> {
     return this.http.delete<Post>("/api/delete/posts/"+post.id);
   }
+
+  /**
+   * Retrieve all meChallenge Posts in the system.
+   * 
+   * @returns an observable array of Post objects.
+   */
+  getMePosts(): Observable<Post[]> {
+    return this.http.get<Post[]>("/api/meposts");
+  }
+
+  /**
+   * Retrieve all weChallenge Posts in the system.
+   * 
+   * @returns an observable array of Post objects.
+   */
+  getWePosts(): Observable<Post[]> {
+    return this.http.get<Post[]>("/api/weposts");
+  }
 }

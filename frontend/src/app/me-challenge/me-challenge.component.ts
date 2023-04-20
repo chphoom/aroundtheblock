@@ -4,6 +4,7 @@ import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Challenge } from '../challenge.service';
 import { Router } from '@angular/router';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-me-challenge',
@@ -17,8 +18,9 @@ export class MeChallengeComponent {
   private valid: Boolean = false;
   public challenge: Challenge | undefined;
   public colorBox = document.getElementsByClassName('color-box') as HTMLCollectionOf<HTMLElement>;
+  public mePosts$ = this.postsService.getMePosts();
   
-  constructor(private router: Router, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder){
+  constructor(private router: Router, private postsService: PostsService, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder){
     this.options = [];
     this.form = this.formBuilder.group({
       noun: [false],

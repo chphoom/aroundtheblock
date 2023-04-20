@@ -86,7 +86,7 @@ models.append(Challenge(id=15,
             emotion="melancholic",
             style="",
             colors=[],
-            start=None,                              
+            start=None,
             end=None,
             createdBy="elaine13@email.unc.edu")) 
 
