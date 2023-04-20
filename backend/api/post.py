@@ -45,3 +45,19 @@ def update_post(post: Post, post_service: PostService = Depends()) -> Post:
         return post_service.update(post)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
+
+#api route to get all mechallenge posts
+@api.get("/api/meposts")
+def get_me_posts(post_service: PostService = Depends()) -> list[Post]:
+    try:
+        return post_service.get_me_posts()
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+#api route to get all wechallenge posts
+@api.get("/api/weposts")
+def get_we_posts(post_service: PostService = Depends()) -> list[Post]:
+    try:
+        return post_service.get_we_posts()
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))

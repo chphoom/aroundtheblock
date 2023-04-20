@@ -2,7 +2,7 @@
 
 These were intially designed to be used by the `script.reset_db` module."""
 
-from ...models import User
+from ...models import User, Post
 from datetime import datetime, timedelta
 
 __authors__ = ["Kris Jordan"]
@@ -30,7 +30,7 @@ lucy = User(email="lucy@lucy.com",
             private=False, 
             bio="Hi there! I'm Lucy, a recent college grad with a passion for art. I work at an animation stupid in New York and love experimenting with new styles.", 
             pronouns="she/her", 
-            pfp="lucy", 
+            pfp="lucy.png", 
             userPosts=[], 
             connectedAccounts=[], 
             savedPosts=[], 
@@ -44,7 +44,7 @@ olivia = User(
             private=False, 
             bio="", 
             pronouns="she/her", 
-            pfp="olivia", 
+            pfp="olivia.png", 
             userPosts=[], 
             connectedAccounts=[], 
             savedPosts=[], 
@@ -58,7 +58,7 @@ ian = User(
             private=True, 
             bio="that guy", 
             pronouns="he/him", 
-            pfp="ian", 
+            pfp="ian.png", 
             userPosts=[], 
             connectedAccounts=[], 
             savedPosts=[], 
@@ -70,9 +70,9 @@ elaine = User(
             password="test", 
             created=datetime.now(), 
             private=True, 
-            bio="", 
+            bio="it's me", 
             pronouns="she/her", 
-            pfp="", 
+            pfp="78145235_p0_master1200.jpeg", 
             userPosts=[], 
             connectedAccounts=[], 
             savedPosts=[], 

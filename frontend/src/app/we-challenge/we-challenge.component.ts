@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Challenge, ChallengeService } from '../challenge.service';
+import { PostsService } from '../posts.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UploadService } from '../upload.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -9,14 +12,18 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./we-challenge.component.css']
 })
 export class WeChallengeComponent {
+  public current$: Observable<Challenge>;
+  public challengeService: ChallengeService;
+  public wePosts$ = this.postsService.getWePosts();
   uploadForm: FormGroup;
 
-  constructor(private uploadService: UploadService) {
+  constructor(challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService) {
+    this.current$ = challengeService.getCurrentChallenge()
+    this.challengeService = challengeService
     this.uploadForm = new FormGroup({
       file: new FormControl()
     });
   }
-
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];

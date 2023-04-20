@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, last } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
 
 @Component({
@@ -8,13 +8,16 @@ import { Challenge, ChallengeService } from '../challenge.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  public challenges$: Observable<Challenge[]>;
+  public weChallenges: Challenge[] | undefined;
   public current$: Observable<Challenge>;
   public challengeService: ChallengeService;
+  public previous: Challenge | undefined;
+  
 
   constructor(challengeService: ChallengeService) {
-    this.challenges$ = challengeService.getAllChallenges()
     this.current$ = challengeService.getCurrentChallenge()
     this.challengeService = challengeService
+    this.weChallenges?.pop
+    this.previous = this.weChallenges?.at(-1)
   }
 }
