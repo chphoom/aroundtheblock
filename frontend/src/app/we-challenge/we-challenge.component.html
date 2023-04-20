@@ -8,12 +8,9 @@
         <p *ngIf="(current$ | async) as current"> {{current.start | date: "MMM d, y"}} - {{current.end | date: "MMM d, y"}}</p>
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
-        <form [formGroup]="uploadForm" (ngSubmit)="submit()">
-            <input type="file" formControlName="file" (change)="onFileSelected($event)">
-            <button id="we" type="submit">
-                <p>Submit</p>
-            </button>
-        </form>
+        <button id="we" type="submit" routerLink="/upload">
+            <p>Submit</p>
+        </button>
         <a routerLink="/past-challenges" class="underline-hover">See past we challenges</a>
     </div>
     <div class="posts-container">

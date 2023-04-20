@@ -1,0 +1,19 @@
+<form class="upload" [formGroup]="uploadForm" (ngSubmit)="submit()">
+    <!-- <button id="neutral" type="button" formControlName="file" (click)="fileInput.click()" (change)="onFileSelected($event)">Choose File</button>
+    <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file"> -->
+    
+    <input id="input-file-id" type="file" formControlName="file" (change)="onFileSelected($event)">
+    
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Ex. My Art">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Ex. This is how I interpreted the prompt..."></textarea>
+    </mat-form-field>
+    <button id="we" type="submit">
+        <p>Submit</p>
+    </button>
+</form>

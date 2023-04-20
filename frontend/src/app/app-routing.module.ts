@@ -8,6 +8,7 @@ import { MeChallengeComponent } from './me-challenge/me-challenge.component';
 import { WeChallengeComponent } from './we-challenge/we-challenge.component';
 import { AboutComponent } from './about/about.component';
 import { PastChallengesComponent } from './past-challenges/past-challenges.component';
+import { UploadComponent } from './upload/upload.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'we-challenge', component: WeChallengeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'past-challenges', component: PastChallengesComponent },
-  // GeneratedComponent.Route
+  { path: 'upload', component: UploadComponent },
 ];
 
 @NgModule({
