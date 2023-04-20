@@ -31,5 +31,8 @@
             </mat-tab>
         </mat-tab-group>
     </div>
+    <div label="Posts" *ngIf="user.userPosts" class="display-posts">
+        <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+    </div>
     <button id="logout" type="submit" (click)="logOut()">Logout</button>
 </main>

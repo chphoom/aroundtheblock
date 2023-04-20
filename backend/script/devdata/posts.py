@@ -48,7 +48,7 @@ elaine1 = Post(id=4,
               img="IMG_3058.jpeg",
               private=False,
               created=datetime.now(),
-              challenge=1,
+              challenge=15,
               user_id="elaine13@email.unc.edu",
               comments=[],
               tags=[])
@@ -56,10 +56,18 @@ elaine2 = Post(id=5,
                img="IMG_2954.jpeg",
                private=False,
                created=datetime.now(),
-               challenge=1,
+               challenge=15,
                user_id="elaine13@email.unc.edu",
                comments=[],
                tags=["impressionism"])
+elaine3 = Post(id=6,
+               img="IMG_3054.jpeg",
+               private=False,
+               created=datetime.now(),
+               challenge=15,
+               user_id="elaine13@email.unc.edu",
+               comments=[],
+               tags=[])
 
 models = [
     post0,
@@ -67,5 +75,6 @@ models = [
     post2,
     post3,
     elaine1,
-    elaine2
+    elaine2,
+    elaine3
 ]

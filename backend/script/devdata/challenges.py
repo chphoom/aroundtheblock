@@ -78,6 +78,18 @@ models.append(Challenge(id=14,
             end=wks[14] + timedelta(days=num),
             createdBy=None))    
 
+models.append(Challenge(id=15,                    
+            posts=[],
+            noun="city",
+            verb="",
+            adj="pink",
+            emotion="melancholic",
+            style="",
+            colors=[],
+            start=None,                              
+            end=None,
+            createdBy="elaine13@email.unc.edu")) 
+
 print(models)
 # models = [
  

@@ -58,6 +58,7 @@ main {
 .tabs {
     margin:1rem;
     min-width: 70%;
+    max-width: 90%;
 }
 
 .display-posts {
