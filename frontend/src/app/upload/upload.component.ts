@@ -32,16 +32,24 @@ export class UploadComponent {
   submit() {
     const formData = new FormData();
     formData.append('file', this.uploadForm.get('file')?.value);
-    console.log(formData.getAll("file"))
+    const file = formData.get('file') as File;
+    // console.log(file.name); 
     this.uploadService.uploadFile(formData).subscribe(response => {
       console.log(response);
     }, (error: HttpErrorResponse)=> {
       console.log(error);
     });
 
-    // const newPost: Post = {
-    //   img: formData.get('file').
-
-    // }
+    const newPost: Post = {
+      id: undefined,
+      img: file.name,
+      desc: "",
+      private: true,
+      created: new Date(),
+      challenge: "",
+      postedBy: "",
+      comments: [],
+      tags: []
+    }
   }
 }
