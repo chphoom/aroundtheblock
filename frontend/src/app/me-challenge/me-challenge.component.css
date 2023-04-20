@@ -26,3 +26,7 @@ mat-checkbox {
     text-align: center;
     margin-top:2rem;
 }
+
+.thumbnail {
+    width: 24%;
+}

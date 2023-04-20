@@ -37,12 +37,12 @@
               </div>
             </div>
           </div>
-        <a *ngIf="isLoggedin" class="underline-hover" routerLink="/profile">See saved challenges</a>
+        <a *ngIf="user" class="underline-hover" routerLink="/profile">See saved challenges</a>
     </div>
     <div class="posts-container">
         <h1>See what others made</h1>
         <div class="display-posts">
-          <div class="thumbnail" *ngFor="let post of (mePosts$ | async)" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}">1</div>
+          <div class="thumbnail" *ngFor="let post of (mePosts$ | async)" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
         </div>
     </div>
 </main>
