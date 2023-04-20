@@ -17,7 +17,7 @@ def adj() -> str:
     return requests.get(API_URL, params=params).text
 
 def style() -> str:
-    params = {"generator": "artism", "list": "output"}
+    params = {"generator": "art-style", "list": "output"}
     return requests.get(API_URL, params=params).text
 
 def emotion() -> str:
