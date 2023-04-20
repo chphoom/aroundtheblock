@@ -16,6 +16,8 @@
     <div class="posts-container">
         <h1>See what others made</h1>
         <p>Show Spoilers</p>
-        <div class="posts"></div>
+        <div class="display-posts">
+            <div class="thumbnail" *ngFor="let post of (wePosts$ | async)" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+        </div>
     </div>
 </main>

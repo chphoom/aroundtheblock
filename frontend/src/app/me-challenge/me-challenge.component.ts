@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { RegistrationService } from '../registration.service';
+import { RegistrationService, User } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Challenge } from '../challenge.service';
 import { Router } from '@angular/router';
 import { PostsService } from '../posts.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-me-challenge',
@@ -19,8 +20,13 @@ export class MeChallengeComponent {
   public challenge: Challenge | undefined;
   public colorBox = document.getElementsByClassName('color-box') as HTMLCollectionOf<HTMLElement>;
   public mePosts$ = this.postsService.getMePosts();
+  public user: User | undefined;
   
   constructor(private router: Router, private postsService: PostsService, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder){
+    this.registration_service.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
+    
     this.options = [];
     this.form = this.formBuilder.group({
       noun: [false],
@@ -43,7 +49,7 @@ export class MeChallengeComponent {
     }
 
     if (this.valid) {
-      // Construct new challenge
+      // Check if user is logged in and creates a challenge with user as author
       const challenge: Challenge = {
         id: 0,
         posts: [],
@@ -57,10 +63,15 @@ export class MeChallengeComponent {
         end: null,
         createdBy: null
       }
+      if (this.user) {
+        challenge.createdBy = this.user.email
+      }
+
+      // Construct new challenge
       // Pass challenge and options to api and put returned challenge into variable
       this.challengeService.createChallenge(challenge, this.options).subscribe(challenge => this.challenge = challenge)
-      // this.colorBox[0].style.backgroundColor = this.challenge!.colors[0]
-
+      // keep this console log to keep track of created challenges
+      console.log(this.challenge)
       this.options = []
       //this.router.navigate(['/generated'])
     } else {

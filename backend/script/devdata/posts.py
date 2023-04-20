@@ -6,7 +6,7 @@ from ...models import Post
 from datetime import datetime, timedelta
 
 post0 = Post(id=0,
-            img="post0",
+            img="post0.png",
             desc="test",
             private=False,
             created=datetime.now(),
@@ -16,7 +16,7 @@ post0 = Post(id=0,
             tags=[])
 
 post1 = Post(id=1,
-            img="post1",
+            img="post1.png",
             desc="test",
             private=False,
             created=datetime.now(),
@@ -26,7 +26,7 @@ post1 = Post(id=1,
             tags=[])
 
 post2 = Post(id=2,
-            img="post2",
+            img="post2.png",
             desc="test",
             private=False,
             created=datetime.now(),

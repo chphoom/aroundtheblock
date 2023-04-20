@@ -25,7 +25,7 @@ export interface Challenge {
     // type: string,
     start: Date | null,
     end: Date | null,
-    createdBy: User | null
+    createdBy: string | null
 }
 
 export interface Post {    

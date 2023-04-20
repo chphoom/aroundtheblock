@@ -42,7 +42,7 @@
     <div class="posts-container">
         <h1>See what others made</h1>
         <div class="display-posts">
-          <div class="thumbnail" *ngFor="let post in mePosts$" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}">1</div>
+          <div class="thumbnail" *ngFor="let post of (mePosts$ | async)" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}">1</div>
         </div>
     </div>
 </main>
