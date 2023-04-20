@@ -1,30 +1,38 @@
-<button type="submit" (click)="logOut()">log out</button>
-<section style="height: 30%;">
-    <div style="display: flex; align-items: center;">
-        <img src="https://via.placeholder.com/200" alt="Post image"style="width: 15%; height: auto; flex-shrink: 1;">
-        <div>{{user.displayName}}</div>
+<main *ngIf="user$ | async as user">
+    <div class="user-info">
+        <div class="pfp" [ngStyle]="{'background-image':'url(/images/' + user.pfp + ')'}"></div>
+        <div class="test"></div>
+        <div class="user-text">
+            <div class="user-name-pronouns">
+                <h2 id="displayname">
+                    {{user.displayName}}
+                </h2>
+                <p>
+                    {{user.pronouns}}
+                </p>
+            </div>
+            <p>{{user.userPosts?.length}} Posts</p>
+            <p class="bio">{{user.bio}}</p>
+        </div>
     </div>
-</section>
-<section>
-    <mat-tab-group #tabGroup>
-        <mat-tab label="Posts">
-            <div>
-                <!-- Loop through user's posts and display them here -->
-                <img src="https://via.placeholder.com/300" alt="Post image">
-                <img src="https://via.placeholder.com/300" alt="Post image">
-                <img src="https://via.placeholder.com/300" alt="Post image">
-              </div>
-        </mat-tab>
-        <mat-tab label="Saved Posts">
-            <div>
-                <!-- Loop through user's saved posts and display them here -->
-                <img src="https://via.placeholder.com/300" alt="Post image">
-                <img src="https://via.placeholder.com/300" alt="Post image">
-                <img src="https://via.placeholder.com/300" alt="Post image">
-              </div>
-        </mat-tab>
-        <mat-tab label="Saved Challenges">
-            content
-        </mat-tab>
-    </mat-tab-group>
-</section>
+    <div *ngIf="user" class="tabs">
+        <mat-tab-group #tabGroup>
+            <mat-tab label="Posts" *ngIf="user.userPosts" class="display-posts">
+                <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+            </mat-tab>
+            <mat-tab label="Private">
+                <p>Coming Soon</p>
+            </mat-tab>
+            <mat-tab label="Favorite Posts">
+                <p>Coming Soon</p>
+            </mat-tab>
+            <mat-tab label="Saved Challenges">
+                <p>Coming Soon</p>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <div label="Posts" *ngIf="user.userPosts" class="display-posts">
+        <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+    </div>
+    <button id="logout" type="submit" (click)="logOut()">Logout</button>
+</main>

@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Post
 from ..entities import PostEntity, ChallengeEntity, UserEntity
+from sqlalchemy.sql.expression import and_
 
 class PostService:
 
@@ -64,3 +65,31 @@ class PostService:
             return temp.to_model()
         else:
             raise ValueError(f"Post not found")
+        
+    def get_me_posts(self) -> list[Post]:
+        query = (
+            select(PostEntity)
+            .join(ChallengeEntity)
+            .filter(ChallengeEntity.type == "me")
+        )
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
+    
+    
+    def get_we_posts(self) -> list[Post]:
+        query = (
+            select(PostEntity)
+            .join(ChallengeEntity)
+            .filter(ChallengeEntity.type == "we")
+        )
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
+    
+    def get_by_challenge(self, challenge_type: str) -> list[Post]:
+        query = (
+            self._session.query(PostEntity)
+            .join(PostEntity.challenge)
+            .filter(and_(PostEntity.challenge.type == challenge_type, PostEntity.deleted == False))
+        )
+        entities = query.all()
+        return [entity.to_model() for entity in entities]
