@@ -17,8 +17,8 @@ from ..models import Comment
 api = APIRouter()
 
 
-@api.get("/api/comments")
-def get_comments(comment_service: CommentService = Depends(), tags=['Comment']) -> list[Comment]:
+@api.get("/api/comments", tags=['Comment'])
+def get_comments(comment_service: CommentService = Depends()) -> list[Comment]:
     """API endpoint for retrieving all comments in the database
 
     Parameters:
@@ -36,7 +36,6 @@ def get_comments(comment_service: CommentService = Depends(), tags=['Comment']) 
     """
     return comment_service.all()
 
-#api route creates a new comment
 @api.post("/api/comment", tags=['Comment'])
 def new_comment(comment: Comment, comment_service: CommentService = Depends()) -> Comment:
         """API endpoint for creaitng a new comment
@@ -59,7 +58,6 @@ def new_comment(comment: Comment, comment_service: CommentService = Depends()) -
         except Exception as e:
             raise HTTPException(status_code=422, detail=str(e))
         
-#api route deletes comment
 @api.delete("/api/delete/comment/{id}", tags=['Comment'])
 def delete_comment(id: int, comment_service = Depends(CommentService)):
     """API endpoint for deleting a comment
@@ -83,7 +81,6 @@ def delete_comment(id: int, comment_service = Depends(CommentService)):
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
     
-#api route to update a comment's text
 @api.put("/api/comment/edit", tags=['Comment'])
 def update_comment(comment_id: int, newText: str, comment_service: CommentService = Depends()) -> Comment:
     """API endpoint for updating a comment
@@ -108,7 +105,6 @@ def update_comment(comment_id: int, newText: str, comment_service: CommentServic
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
     
-#api route to reply to a comment
 @api.post("/api/reply", tags=['Comment'])
 def create_reply(comment_id: int, reply: Comment, comment_service: CommentService = Depends()) -> Comment:
     """API endpoint for replying to a comment
