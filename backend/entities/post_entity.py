@@ -25,7 +25,6 @@ class PostEntity(EntityBase):
     @classmethod
     def from_model(cls, model: Post) -> Self:
         return cls(
-            id=model.id, 
             img=model.img, 
             desc=model.desc, 
             private=model.private, 
@@ -37,7 +36,6 @@ class PostEntity(EntityBase):
             )
 
     def to_model(self) -> Post:
-        #TODO: update logic to output name of the challenge
         return Post(
             id=self.id, 
             img=self.img, 
