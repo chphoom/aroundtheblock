@@ -23,16 +23,12 @@ class PostService:
         if temp:
             temp2 = self._session.get(ChallengeEntity, post.challenge)
             if temp2:
-                temp3 = self._session.get(PostEntity, post.id)
-                if temp3:
-                    post_entity: PostEntity = PostEntity.from_model(post)
-                    temp.userPosts.append(post_entity)
-                    temp2.posts.append(post_entity)
-                    self._session.add(post_entity)
-                    self._session.commit()
-                    return post_entity.to_model()
-                else:
-                    raise ValueError(f"Duplicate Post with id {post.id}")
+                post_entity: PostEntity = PostEntity.from_model(post)
+                temp.userPosts.append(post_entity)
+                temp2.posts.append(post_entity)
+                self._session.add(post_entity)
+                self._session.commit()
+                return post_entity.to_model()
             else:
                 raise ValueError(f"No challenge found with id: {post.challenge}")
         else:
