@@ -1,7 +1,7 @@
 """This module provides a RESTful API for interacting with the challenge application.
 
 Endpoints:
-- GET /challenges- Retrieve all Challenges
+- GET /challenges - Retrieve all Challenges
 - GET /wechallenges- Retrieve all weChallenges
 - GET /mechallenges- Retrieve all meChallenges
 - GET /current - Retrieve current active weChallenge
