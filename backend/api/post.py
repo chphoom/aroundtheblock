@@ -108,7 +108,7 @@ def delete_post(id: int, post_service = Depends(PostService)) -> Post:
     
 @api.put("/api/post/edit", tags=['Post'])
 def update_post(id: int, desc: str | None, tags: list[str] | None, post_service: PostService = Depends()) -> Post:
-    """API endpoint for updating a post *note this functino has been changed in another branch
+    """API endpoint for updating a post
 
     Parameters:
     - id: an int representing the primary key of the post
