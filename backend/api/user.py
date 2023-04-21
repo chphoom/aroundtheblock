@@ -29,10 +29,17 @@ def get_user(email: str, user_service: UserService = Depends()) -> User:
 
 #api route to update user info
 #TODO: Change update function use PUT instead of POST
-@api.post("/api/users", tags=['User'])
-def update_user(user: User, user_service: UserService = Depends()) -> User:
+@api.put("/api/users/{email}", tags=['User'])
+def update_user(email: str,
+                pronouns: str | None,
+                displayName: str | None, 
+                private: bool | None, 
+                pfp: str | None, 
+                bio: str | None, 
+                connectedAccounts: list[str] | None, 
+                user_service: UserService = Depends()) -> User:
     try:
-        return user_service.update(user)
+        return user_service.update(email, pronouns, displayName, private, pfp, bio, connectedAccounts)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 
