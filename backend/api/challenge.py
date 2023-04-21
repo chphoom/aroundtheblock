@@ -10,7 +10,7 @@ Endpoints:
 - DELETE delete/challenges/{id} - Delete a comment by it's id
 
 Usage:
-import comment
+import challenge
 """
 
 from fastapi import APIRouter, HTTPException, Depends
