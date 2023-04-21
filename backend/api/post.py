@@ -5,6 +5,9 @@ Endpoints:
 - POST /posts - Generate a new post
 - GET /posts/{id} - Retrieve a particular post
 - DELETE /delete/posts/{id} - Delete a post
+ - PUT /post/edit - Update a post
+ - GET /meposts - Retrieve all posts associated with weChallenges
+ - GET /weposts - Retrieve all posts associated with meChallenges
 
 Usage:
 import post
@@ -104,11 +107,13 @@ def delete_post(id: int, post_service = Depends(PostService)) -> Post:
         raise HTTPException(status_code=404, detail=str(e))
     
 @api.put("/api/post/edit", tags=['Post'])
-def update_post(post: Post, post_service: PostService = Depends()) -> Post:
+def update_post(id: int, desc: str | None, tags: list[str] | None, post_service: PostService = Depends()) -> Post:
     """API endpoint for updating a post *note this functino has been changed in another branch
 
     Parameters:
-    - post: a Post object representing the new information about the post
+    - id: an int representing the primary key of the post
+    - desc: a string representing the new desc fo the post
+    - tags: a list of strings representing the new tags for the post
     - post_service (PostService): dependency injection for the PostService class
 
     Returns:
@@ -122,7 +127,7 @@ def update_post(post: Post, post_service: PostService = Depends()) -> Post:
     - Returns a Post object representing the updated Post
     """
     try:
-        return post_service.update(post)
+        return post_service.update(id=id, tags=tags, desc=desc)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 
