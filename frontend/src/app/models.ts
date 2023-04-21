@@ -34,7 +34,7 @@ export interface Post {
     desc: string, 
     private: boolean,
     created: Date,
-    challenge: Challenge | string,
+    challenge: Challenge | number,
     postedBy: User | string,
     comments: Comment[],
     tags: string[]

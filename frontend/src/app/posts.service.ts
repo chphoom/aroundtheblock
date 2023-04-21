@@ -37,7 +37,7 @@ export class PostsService {
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>("/api/posts", 
       {
-        "Post": post
+        "post": post
       }
     );
   }

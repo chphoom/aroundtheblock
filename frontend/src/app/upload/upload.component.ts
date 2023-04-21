@@ -5,6 +5,7 @@ import { Post, PostsService } from '../posts.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UploadService } from '../upload.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RegistrationService, User } from '../registration.service';
 
 @Component({
   selector: 'app-upload',
@@ -13,10 +14,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UploadComponent {
   uploadForm: FormGroup;
+  public user: User | undefined;
 
-  constructor(challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService) {
+  constructor(challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private registrationService: RegistrationService) {
 /*     this.current$ = challengeService.getCurrentChallenge()
     this.challengeService = challengeService */
+    this.registrationService.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
+
     this.uploadForm = new FormGroup({
       file: new FormControl()
     });
@@ -44,12 +50,15 @@ export class UploadComponent {
       id: undefined,
       img: file.name,
       desc: "",
-      private: true,
+      private: false,
       created: new Date(),
-      challenge: "",
-      postedBy: "",
+      challenge: 0,
+      postedBy: this.user!.email,
       comments: [],
       tags: []
     }
+
+    this.postsService.createPost(newPost)
+
   }
 }
