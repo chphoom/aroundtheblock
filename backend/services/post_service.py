@@ -21,9 +21,9 @@ class PostService:
     def create(self, post: Post) -> Post:
         temp = self._session.get(UserEntity, post.user_id)
         if temp:
-            post.user_id = temp
+            # post.user_id = temp
             temp2 = self._session.get(ChallengeEntity, post.challenge)
-            post.challenge = temp2
+            # post.challenge = temp2
             post_entity: PostEntity = PostEntity.from_model(post)
             temp.userPosts.append(post_entity)
             temp2.posts.append(post_entity)

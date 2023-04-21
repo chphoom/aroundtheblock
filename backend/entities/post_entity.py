@@ -10,7 +10,7 @@ from datetime import datetime
 class PostEntity(EntityBase):
     __tablename__ = "posts"
 
-    id = mapped_column(Integer, primary_key=True)
+    id = mapped_column(Integer, primary_key=True, autoincrement=True)
     img: Mapped[str] = mapped_column(String(64))
     desc: Mapped[str] = mapped_column(String(64))
     private: Mapped[bool] = mapped_column(Boolean)
