@@ -25,7 +25,6 @@ class PostEntity(EntityBase):
     @classmethod
     def from_model(cls, model: Post) -> Self:
         return cls(
-            id=model.id, 
             img=model.img, 
             desc=model.desc, 
             private=model.private, 

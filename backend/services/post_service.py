@@ -21,15 +21,16 @@ class PostService:
     def create(self, post: Post) -> Post:
         temp = self._session.get(UserEntity, post.user_id)
         if temp:
-            post.user_id = temp
             temp2 = self._session.get(ChallengeEntity, post.challenge)
-            post.challenge = temp2
-            post_entity: PostEntity = PostEntity.from_model(post)
-            temp.userPosts.append(post_entity)
-            temp2.posts.append(post_entity)
-            self._session.add(post_entity)
-            self._session.commit()
-            return post
+            if temp2:
+                post_entity: PostEntity = PostEntity.from_model(post)
+                temp.userPosts.append(post_entity)
+                temp2.posts.append(post_entity)
+                self._session.add(post_entity)
+                self._session.commit()
+                return post_entity.to_model()
+            else:
+                raise ValueError(f"No challenge found with id: {post.challenge}")
         else:
             raise ValueError(f"No user found with email: {post.user_id}")
             
