@@ -4,8 +4,7 @@ import imghdr
 
 api = APIRouter()
 
-#-----------SAVING MEDIAUPLOADS------------
-@api.post("/api/uploadfile/")
+@api.post("/api/uploadfile/", tags=['Upload'])
 async def create_upload_file(file: UploadFile = File()): 
     contents = await file.read()
     file_type = imghdr.what(file.filename, contents)
