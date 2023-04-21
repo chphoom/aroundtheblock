@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Post
@@ -97,4 +97,14 @@ class PostService:
             .filter(and_(PostEntity.challenge.type == challenge_type, PostEntity.deleted == False))
         )
         entities = query.all()
+        return [entity.to_model() for entity in entities]
+    
+    #WIP
+    def search(self, query: str) -> list[Post] | None:      
+        statement = select(PostEntity)
+        criteria = or_(
+            PostEntity.desc.ilike(f'%{query}%')
+        )
+        statement = statement.where(criteria).limit(25)
+        entities = self._session.execute(statement).scalars()
         return [entity.to_model() for entity in entities]

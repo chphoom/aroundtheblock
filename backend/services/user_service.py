@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import User
@@ -71,3 +71,15 @@ class UserService:
                 return temp.to_model()
             else:
                 raise ValueError(f"No user found with email: {temp.email}")
+            
+    #WIP
+    def search(self, query: str) -> list[User] | None:      
+        statement = select(UserEntity)
+        criteria = or_(
+            UserEntity.email.ilike(f'%{query}%'),
+            UserEntity.displayName.ilike(f'%{query}%'),
+            UserEntity.bio.ilike(f'%{query}%')
+        )
+        statement = statement.where(criteria).limit(25)
+        entities = self._session.execute(statement).scalars()
+        return [entity.to_model() for entity in entities]
