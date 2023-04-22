@@ -24,6 +24,7 @@ export class UploadComponent {
     file: new FormControl(),
     title: '',
     description: '',
+    private: [false]
   });
 
   constructor(private router: Router, private formBuilder: FormBuilder, challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private registrationService: RegistrationService) {
@@ -62,11 +63,14 @@ export class UploadComponent {
       console.log(error);
     });
 
+    let form = this.form.value
+
     const newPost: Post = {
       id: undefined,
       img: file.name,
-      desc: this.form.value.description ?? "",
-      private: false,
+      title: form.title ?? "Untitled",
+      desc: form.description ?? "",
+      private: form.private ?? false,
       created: new Date(),
       challenge: 1,
       user_id: this.user!.email,

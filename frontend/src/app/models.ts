@@ -31,6 +31,7 @@ export interface Challenge {
 export interface Post {    
     id: number | undefined,
     img: string, 
+    title: string,
     desc: string, 
     private: boolean,
     created: Date,

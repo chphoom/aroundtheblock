@@ -12,6 +12,7 @@ class PostEntity(EntityBase):
 
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
     img: Mapped[str] = mapped_column(String(64))
+    title: Mapped[str] = mapped_column(String(64))
     desc: Mapped[str] = mapped_column(String(64))
     private: Mapped[bool] = mapped_column(Boolean)
     created: Mapped[datetime] = mapped_column(DateTime)
@@ -26,6 +27,7 @@ class PostEntity(EntityBase):
     def from_model(cls, model: Post) -> Self:
         return cls(
             img=model.img, 
+            title=model.title,
             desc=model.desc, 
             private=model.private, 
             created=model.created, 
@@ -38,7 +40,8 @@ class PostEntity(EntityBase):
     def to_model(self) -> Post:
         return Post(
             id=self.id, 
-            img=self.img, 
+            img=self.img,
+            title=self.title,
             desc=self.desc, 
             private=self.private, 
             created=self.created, 
