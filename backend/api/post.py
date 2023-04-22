@@ -14,7 +14,7 @@ def get_posts(post_service: PostService = Depends()) -> list[Post]:
     return post_service.all()
 
 #api route creates a new Post
-@api.post("/api/posts")
+@api.post("/api/createpost")
 def new_post(post: Post, post_service: PostService = Depends()) -> Post:
         try:
             return post_service.create(post)

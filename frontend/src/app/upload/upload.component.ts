@@ -29,17 +29,24 @@ export class UploadComponent {
   }
 
   onFileSelected(event: any) {
+
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.uploadForm.get('file')?.setValue(file);
     }
+
+    /* const file = event.target.files[0];
+    this.uploadForm.patchValue({
+      file: file
+    }); */
+
   }
 
-  submit() {
+  onSubmit() {
     const formData = new FormData();
     formData.append('file', this.uploadForm.get('file')?.value);
     const file = formData.get('file') as File;
-    // console.log(file.name); 
+    console.log(file.name); 
     this.uploadService.uploadFile(formData).subscribe(response => {
       console.log(response);
     }, (error: HttpErrorResponse)=> {
@@ -47,18 +54,17 @@ export class UploadComponent {
     });
 
     const newPost: Post = {
-      id: undefined,
+      id: 9,
       img: file.name,
       desc: "",
       private: false,
-      created: new Date(),
-      challenge: 0,
-      postedBy: this.user!.email,
+      created: null,
+      challenge: 1,
+      postedBy: "elaine13@email.unc.edu",
       comments: [],
       tags: []
-    }
+    };
 
     this.postsService.createPost(newPost)
-
   }
 }

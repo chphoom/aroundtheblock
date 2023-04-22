@@ -1,8 +1,19 @@
-<form class="upload" [formGroup]="uploadForm" (ngSubmit)="submit()">
+<form class="upload" [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
     <!-- <button id="neutral" type="button" formControlName="file" (click)="fileInput.click()" (change)="onFileSelected($event)">Choose File</button>
     <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file"> -->
     
-    <input id="input-file-id" type="file" formControlName="file" (change)="onFileSelected($event)">
+    <!-- <input id="input-file-id" type="file" formControlName="file" (change)="onFileSelected($event)"> -->
+
+    <button id="neutral" type="button" (click)="fileInput.click()">
+      Choose File
+    </button>
+    <input
+      hidden
+      type="file"
+      accept="image/*"
+      #fileInput
+      (change)="onFileSelected($event)"
+    />
     
     <mat-form-field class="example-full-width">
       <mat-label>Title</mat-label>
