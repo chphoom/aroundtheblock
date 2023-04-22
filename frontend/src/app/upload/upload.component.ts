@@ -6,6 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { UploadService } from '../upload.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RegistrationService, User } from '../registration.service';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-upload',
@@ -46,7 +47,6 @@ export class UploadComponent {
     const formData = new FormData();
     formData.append('file', this.uploadForm.get('file')?.value);
     const file = formData.get('file') as File;
-    console.log(file.name); 
     this.uploadService.uploadFile(formData).subscribe(response => {
       console.log(response);
     }, (error: HttpErrorResponse)=> {
@@ -58,13 +58,18 @@ export class UploadComponent {
       img: file.name,
       desc: "",
       private: false,
-      created: null,
+      created: new Date(),
       challenge: 1,
-      postedBy: "elaine13@email.unc.edu",
+      user_id: this.user!.email,
       comments: [],
       tags: []
     };
 
-    this.postsService.createPost(newPost)
+    console.log(newPost); 
+    this.postsService.createPost(newPost).subscribe(response => {
+      console.log(response);
+    }, (error: HttpErrorResponse)=> {
+      console.log(error);
+    });
   }
 }

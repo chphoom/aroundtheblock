@@ -29,13 +29,13 @@ export interface Challenge {
 }
 
 export interface Post {    
-    id: number | undefined | null,
+    id: number | undefined,
     img: string, 
     desc: string, 
     private: boolean,
-    created: Date | null,
-    challenge: Challenge | number,
-    postedBy: User | string,
+    created: Date,
+    challenge: number,
+    user_id: string,
     comments: Comment[],
     tags: string[]
 }

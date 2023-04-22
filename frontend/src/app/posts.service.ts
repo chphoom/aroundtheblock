@@ -47,11 +47,7 @@ export class PostsService {
       tags:[]
     } */
     console.log("reached service with image file: " + post.img)
-    return this.http.post<Post>("/api/createpost", 
-      {
-        "post": post
-      }
-    );
+    return this.http.post<Post>("/api/createpost", post);
   }
 
   /**
