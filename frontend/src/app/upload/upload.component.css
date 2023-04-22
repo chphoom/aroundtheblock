@@ -26,3 +26,11 @@ mat-card-content{
 #input-file-id {
   margin:1rem;
 }
+
+mat-card-header {
+  width:stretch;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

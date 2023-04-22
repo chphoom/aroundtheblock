@@ -21,7 +21,7 @@ export class UploadComponent {
   public user: User | undefined;
   private isLoggedin: Boolean | undefined;
   challenge$: Observable<Challenge> | undefined;
-  private challengeId: number | undefined;
+  challenge: Challenge | undefined;
 
   form = this.formBuilder.group({
     file: new FormControl(),
@@ -31,8 +31,7 @@ export class UploadComponent {
   });
 
   constructor(private router: Router, private formBuilder: FormBuilder, challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private registrationService: RegistrationService, private shareService: ShareService) {
-/*     this.current$ = challengeService.getCurrentChallenge()
-    this.challengeService = challengeService */
+    // check if user is authenticated
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });
@@ -41,10 +40,10 @@ export class UploadComponent {
     if (!this.isLoggedin) {
       this.router.navigate(['/login'])
     }
-
-    /* this.uploadForm = new FormGroup({
-      file: new FormControl()
-    }); */
+    
+    // check if there is a challenge and gets challenge
+    this.challenge$ = this.shareService.getCurrentValue();
+    this.challenge$.subscribe(challenge => this.challenge = challenge)
   }
 
   onFileSelected(event: any) {
@@ -66,13 +65,6 @@ export class UploadComponent {
       console.log(error);
     });
 
-    this.challenge$ = this.shareService.getCurrentValue();
-    this.challenge$.pipe(
-      map(challenge => challenge.id)
-    ).subscribe(id => {
-      this.challengeId = id
-    })
-
     let form = this.form.value
 
     const newPost: Post = {
@@ -82,7 +74,7 @@ export class UploadComponent {
       desc: form.description ?? "",
       private: form.private ?? false,
       created: new Date(),
-      challenge: this.challengeId ?? 1,
+      challenge: this.challenge?.id ?? 1, // if no challenge, post to dummy challenge
       user_id: this.user!.email,
       comments: [],
       tags: []
