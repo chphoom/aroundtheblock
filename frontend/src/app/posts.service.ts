@@ -35,18 +35,6 @@ export class PostsService {
    * @returns a new Post.
    */
   createPost(post: Post): Observable<Post> {
-    /* const post: Post = {
-      id:9,
-      img:"lucy.png",
-      desc:"testing",
-      private:true,
-      created:null,
-      postedBy:"elaine13@email.unc.edu",
-      challenge:1,
-      comments:[],
-      tags:[]
-    } */
-    console.log("reached service with image file: " + post.img)
     return this.http.post<Post>("/api/createpost", post);
   }
 

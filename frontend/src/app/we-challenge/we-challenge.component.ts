@@ -5,6 +5,8 @@ import { PostsService } from '../posts.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UploadService } from '../upload.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ShareService } from '../share.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-we-challenge',
@@ -15,13 +17,16 @@ export class WeChallengeComponent {
   public current$: Observable<Challenge>;
   public challengeService: ChallengeService;
   public wePosts$ = this.postsService.getWePosts();
-  uploadForm: FormGroup;
 
-  constructor(challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService) {
+  constructor(private router: Router, challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
     this.current$ = challengeService.getCurrentChallenge()
     this.challengeService = challengeService
-    this.uploadForm = new FormGroup({
-      file: new FormControl()
+  }
+
+  async onSubmit() {
+    this.current$.subscribe(challenge => {
+      this.shareService.setCurrentValue(challenge);
     });
+    await this.router.navigate(['/upload']);
   }
 }

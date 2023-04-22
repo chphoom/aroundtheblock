@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
 import { Post, PostsService } from '../posts.service';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -9,6 +9,7 @@ import { RegistrationService, User } from '../registration.service';
 import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { ShareService } from '../share.service';
 
 @Component({
   selector: 'app-upload',
@@ -19,6 +20,8 @@ export class UploadComponent {
   // uploadForm: FormGroup;
   public user: User | undefined;
   private isLoggedin: Boolean | undefined;
+  challenge$: Observable<Challenge> | undefined;
+  private challengeId: number | undefined;
 
   form = this.formBuilder.group({
     file: new FormControl(),
@@ -27,7 +30,7 @@ export class UploadComponent {
     private: [false]
   });
 
-  constructor(private router: Router, private formBuilder: FormBuilder, challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private registrationService: RegistrationService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private registrationService: RegistrationService, private shareService: ShareService) {
 /*     this.current$ = challengeService.getCurrentChallenge()
     this.challengeService = challengeService */
     this.registrationService.getUserInfo().subscribe((user: User) => {
@@ -63,6 +66,13 @@ export class UploadComponent {
       console.log(error);
     });
 
+    this.challenge$ = this.shareService.getCurrentValue();
+    this.challenge$.pipe(
+      map(challenge => challenge.id)
+    ).subscribe(id => {
+      this.challengeId = id
+    })
+
     let form = this.form.value
 
     const newPost: Post = {
@@ -72,7 +82,7 @@ export class UploadComponent {
       desc: form.description ?? "",
       private: form.private ?? false,
       created: new Date(),
-      challenge: 1,
+      challenge: this.challengeId ?? 1,
       user_id: this.user!.email,
       comments: [],
       tags: []
@@ -84,10 +94,7 @@ export class UploadComponent {
     }, (error: HttpErrorResponse)=> {
       console.log(error);
     });
-    this.router.navigate(['/we-challenge'])
-  }
-
-  ngOnInit() {
-    
+    // TODO: redirect to individual post page once that is created
+    this.router.navigate(['/'])
   }
 }
