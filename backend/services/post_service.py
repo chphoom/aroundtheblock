@@ -14,7 +14,7 @@ class PostService:
         self._session = session
 
     def all(self) -> list[Post]:
-        query = select(PostEntity)
+        query = select(PostEntity).where(PostEntity.private.is_(False))
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
     
@@ -86,6 +86,7 @@ class PostService:
             select(PostEntity)
             .join(ChallengeEntity)
             .filter(ChallengeEntity.type == "we")
+            .where(PostEntity.private.is_(False))
         )
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
@@ -95,6 +96,7 @@ class PostService:
             self._session.query(PostEntity)
             .join(PostEntity.challenge)
             .filter(and_(PostEntity.challenge.type == challenge_type, PostEntity.deleted == False))
+            .where(PostEntity.private.is_(False))
         )
         entities = query.all()
         return [entity.to_model() for entity in entities]

@@ -7,6 +7,7 @@ from .user import User
 class Post(BaseModel):
     id: int | None
     img: str = ""
+    title: str = ""
     desc: str = ""
     private: bool
     created: datetime = datetime.now()

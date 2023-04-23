@@ -37,7 +37,8 @@ def get_posts(post_service: PostService = Depends()) -> list[Post]:
     """
     return post_service.all()
 
-@api.post("/api/posts", tags=['Post'])
+#api route creates a new Post
+@api.post("/api/createpost", tags=['Post'])
 def new_post(post: Post, post_service: PostService = Depends()) -> Post:
     """API endpoint for creating a new post
 

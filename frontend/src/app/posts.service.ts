@@ -35,11 +35,7 @@ export class PostsService {
    * @returns a new Post.
    */
   createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>("/api/posts", 
-      {
-        "Post": post
-      }
-    );
+    return this.http.post<Post>("/api/createpost", post);
   }
 
   /**

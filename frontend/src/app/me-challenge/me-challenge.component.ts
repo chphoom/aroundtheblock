@@ -6,6 +6,7 @@ import { Challenge } from '../challenge.service';
 import { Router } from '@angular/router';
 import { PostsService } from '../posts.service';
 import { Observable } from 'rxjs';
+import { ShareService } from '../share.service';
 
 @Component({
   selector: 'app-me-challenge',
@@ -22,7 +23,7 @@ export class MeChallengeComponent {
   public mePosts$ = this.postsService.getMePosts();
   public user: User | undefined;
   
-  constructor(private router: Router, private postsService: PostsService, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder){
+  constructor(private router: Router, private postsService: PostsService, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService){
     this.registration_service.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });
@@ -38,7 +39,7 @@ export class MeChallengeComponent {
     });
   }
 
-  onSubmit() {
+  onGenerate() {
     // get list of options
     for (var option in this.form.value) {
       // check if at least one option is checked
@@ -77,5 +78,10 @@ export class MeChallengeComponent {
     } else {
       window.alert("You must choose at least one option.")
     }
+  }
+
+  async onSubmit() {
+    this.shareService.setCurrentValue(this.challenge)
+    await this.router.navigate(['/upload']);
   }
 }
