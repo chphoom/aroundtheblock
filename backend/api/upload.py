@@ -1,12 +1,35 @@
+"""This module provides a RESTful API for uploading files into the application
+
+Endpoints:
+- POST /uploadfile/ - Saves file into file system
+
+Usage:
+import post
+"""
+
 from fastapi import APIRouter, HTTPException, File, UploadFile
 import os
 import imghdr
 
 api = APIRouter()
 
-#-----------SAVING MEDIAUPLOADS------------
-@api.post("/api/uploadfile/")
-async def create_upload_file(file: UploadFile = File()): 
+@api.post("/api/uploadfile/", tags=['Upload'])
+async def create_upload_file(file: UploadFile = File()):
+    """API endpoint for uploading a file
+
+    Parameters:
+    - file: a file
+
+    Returns:
+    - dict: representing the json compatible success message
+
+    HTTP Methods:
+    -POST
+
+    Usage:
+    - Send a POST request to the endpoint
+    - Returns a json compatible success message
+    """
     contents = await file.read()
     file_type = imghdr.what(file.filename, contents)
     if not file_type:
