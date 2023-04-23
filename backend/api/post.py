@@ -14,7 +14,7 @@ def get_posts(post_service: PostService = Depends()) -> list[Post]:
     return post_service.all()
 
 #api route creates a new Post
-@api.post("/api/posts")
+@api.post("/api/createpost")
 def new_post(post: Post, post_service: PostService = Depends()) -> Post:
         try:
             return post_service.create(post)
@@ -39,7 +39,7 @@ def delete_post(id: int, post_service = Depends(PostService)) -> Post:
         raise HTTPException(status_code=404, detail=str(e))
     
 #api route to update post desc, tags, and comments
-@api.post("/api/post/edit")
+@api.put("/api/post/edit")
 def update_post(post: Post, post_service: PostService = Depends()) -> Post:
     try:
         return post_service.update(post)

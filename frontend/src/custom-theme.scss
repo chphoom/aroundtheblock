@@ -130,6 +130,15 @@ button {
   background: #FFA7DC;
 }
 
+#neutral {
+  background: linear-gradient(97.31deg, #FFBFE6 4.14%, #FFDFA0 53.52%, #BBF1BA 97.1%);
+  transition: all 300ms;
+}
+
+#neutral:hover {
+  background: #ffdfa0;
+}
+
 /* Prompt style */
 
 .prompt {

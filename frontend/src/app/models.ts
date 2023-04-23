@@ -31,11 +31,12 @@ export interface Challenge {
 export interface Post {    
     id: number | undefined,
     img: string, 
+    title: string,
     desc: string, 
     private: boolean,
     created: Date,
-    challenge: Challenge | string,
-    postedBy: User | string,
+    challenge: number,
+    user_id: string,
     comments: Comment[],
     tags: string[]
 }
