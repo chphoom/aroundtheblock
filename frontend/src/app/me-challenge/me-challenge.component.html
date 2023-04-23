@@ -12,8 +12,14 @@
                 <mat-checkbox type="checkbox" formControlName="colors">Colors</mat-checkbox>
               </div>
               <div>
-                <button id="me" type="button" (click)="onGenerate()">Generate</button>
+                <button id="me" type="button" (click)="onGenerate()">
+                  <p>Generate</p>
+                </button>
               </div>
+              <!-- <mat-progress-spinner *ngIf="generator === 'clicked'"
+              [color]="color"
+        [mode]="mode"
+        [value]="value"></mat-progress-spinner> -->
           </form>
           <div *ngIf="(challenge)" class="prompt me-prompt">
             <p class="prompt-title">Prompt:</p>
@@ -37,7 +43,7 @@
               </div>
             </div>
             <button id="me" type="submit" (click)="onSubmit()">
-              <p>Submit</p>
+              <p>Create Submission</p>
             </button>
           </div>
         <a *ngIf="user" class="underline-hover" routerLink="/profile">See saved challenges</a>

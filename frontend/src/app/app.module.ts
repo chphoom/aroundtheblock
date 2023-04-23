@@ -32,6 +32,7 @@ import { PastChallengesComponent } from './past-challenges/past-challenges.compo
 import { GeneratedComponent } from './me-challenge/generated/generated.component';
 import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { PostComponent } from './post/post.component';
     MatTabsModule,
     MatInputModule,
     MatGridListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,7 @@
+p, a {
+    margin:0.5em;
+}
+
 .challenge {
     display:flex;
     flex-direction: column;
