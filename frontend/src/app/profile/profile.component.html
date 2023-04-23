@@ -18,7 +18,9 @@
     <div *ngIf="user" class="tabs">
         <mat-tab-group #tabGroup>
             <mat-tab label="Posts" *ngIf="user.userPosts" class="display-posts">
-                <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+                <a *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
+                    <img class="thumbnail" [src]="'/images/' + post.img">
+                </a>
             </mat-tab>
             <mat-tab label="Private">
                 <p>Coming Soon</p>
@@ -32,7 +34,7 @@
         </mat-tab-group>
     </div>
     <div label="Posts" *ngIf="user.userPosts" class="display-posts">
-        <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+        <!-- <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div> -->
     </div>
     <button id="logout" type="submit" (click)="logOut()">Logout</button>
 </main>
