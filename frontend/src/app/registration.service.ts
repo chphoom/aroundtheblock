@@ -37,6 +37,7 @@ export class RegistrationService {
       observable.subscribe((token) => {
         if (!(token)) {
           localStorage.removeItem('bearerToken');
+          localStorage.removeItem('authToken');
           this.isAuthenticated.next(false);
         } else {
           this.isAuthenticated.next(true);
