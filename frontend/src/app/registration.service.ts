@@ -66,6 +66,10 @@ export class RegistrationService {
     })));
   }
 
+  getUser(email: string): Observable<User> {
+    return this.http.get<User>(`/api/users/${email}`)
+  }
+
   /**
    * Registers a user into database.
    * 

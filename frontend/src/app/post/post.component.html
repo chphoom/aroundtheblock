@@ -1,4 +1,36 @@
-<div *ngIf="post">
-    {{post.title}}
-    {{post.id}}
-</div>
+<main>
+    <div class="post-img-container" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+    <div class="post-content">
+        <div *ngIf="post && user">
+            <h2>{{post.title}}</h2>
+            <p>{{user.displayName}}</p>
+            <div class="tags">
+                <div *ngFor="let tag of post.tags" class="tag">#{{tag}}</div>
+            </div>
+            <div *ngIf="challenge" class="prompt">
+                <p class="prompt-title">Prompt:</p>
+                <div class="prompt-text">
+                  <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.adj}} {{challenge.noun}} {{challenge.verb}}</p>
+                  <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
+                  <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
+                </div>
+                <div *ngIf="(challenge.colors).length > 0" class="colors">
+                  <div class="color">
+                    <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
+                    <p id="hex">{{challenge.colors[0]}}</p>
+                  </div>
+                  <div class="color">
+                    <div class="color-box" [ngStyle]="{'background-color': challenge.colors[1]}"></div>
+                    <p id="hex">{{challenge.colors[1]}}</p>
+                  </div>
+                  <div class="color">
+                    <div class="color-box" [ngStyle]="{'background-color': challenge.colors[2]}"></div>
+                    <p id="hex">{{challenge.colors[2]}}</p>
+                  </div>
+                </div>
+            </div>
+            <p>{{post.desc}}</p>
+            <p>{{post.created| date: "MMM d, y"}}</p>
+        </div>
+    </div>
+</main>

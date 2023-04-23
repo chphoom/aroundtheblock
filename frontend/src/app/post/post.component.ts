@@ -1,6 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Route } from '@angular/router';
 import { Post, PostsService } from '../posts.service';
+import { Challenge, User } from '../models';
+import { RegistrationService } from '../registration.service';
+import { ChallengeService } from '../challenge.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -9,6 +13,8 @@ import { Post, PostsService } from '../posts.service';
 })
 export class PostComponent implements OnInit {
   public post: Post;
+  public user: User | undefined;
+  public challenge: Challenge | undefined;
   
   public static Route: Route = {
     path: 'post/:id',
@@ -21,9 +27,12 @@ export class PostComponent implements OnInit {
     }
   }
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private registrationService: RegistrationService, private challengeService: ChallengeService) {
     let data = route.snapshot.data as { post: Post };
     this.post = data.post;
+    registrationService.getUser(this.post.user_id).subscribe(user => this.user = user)
+    challengeService.getChallenge(this.post.challenge).subscribe(challenge => this.challenge = challenge)
+    console.log(this.post.challenge)
   }
 
   ngOnInit() {
