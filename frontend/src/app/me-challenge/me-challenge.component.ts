@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { PostsService } from '../posts.service';
 import { Observable } from 'rxjs';
 import { ShareService } from '../share.service';
+import {ThemePalette} from '@angular/material/core';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-me-challenge',
@@ -22,6 +24,11 @@ export class MeChallengeComponent {
   public colorBox = document.getElementsByClassName('color-box') as HTMLCollectionOf<HTMLElement>;
   public mePosts$ = this.postsService.getMePosts();
   public user: User | undefined;
+  //public generator = "false";
+
+  /* color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
+  value = 50; */
   
   constructor(private router: Router, private postsService: PostsService, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService){
     this.registration_service.getUserInfo().subscribe((user: User) => {
@@ -40,6 +47,7 @@ export class MeChallengeComponent {
   }
 
   onGenerate() {
+    //this.generator = "clicked"
     // get list of options
     for (var option in this.form.value) {
       // check if at least one option is checked
@@ -73,11 +81,11 @@ export class MeChallengeComponent {
       this.challengeService.createChallenge(challenge, this.options).subscribe(challenge => this.challenge = challenge)
       // keep this console log to keep track of created challenges
       console.log(this.challenge)
-      this.options = []
-      //this.router.navigate(['/generated'])
     } else {
       window.alert("You must choose at least one option.")
     }
+    //this.generator = "success";
+    this.options = [];
   }
 
   async onSubmit() {

@@ -47,34 +47,34 @@ post3 = Post(id=3,
             tags=[])
 elaine1 = Post(id=4,
               img="IMG_3058.jpeg",
-              title="Test Post 1",
-              description="This is my post",
+              title="Dreamy Mountains",
+              desc="I love the idea of using unique colors to paint landscapes.",
               private=False,
               created=datetime.now(),
               challenge=16,
               user_id="elaine13@email.unc.edu",
               comments=[],
-              tags=[])
+              tags=["landscape", "impressionism","meChallenge"])
 elaine2 = Post(id=5,
                img="IMG_2954.jpeg",
-               title="Test Post 2",
-               description="This is my post",
+               title="Venice on Fire",
+               desc="Made with acrylics, inspired by Leonid Afremov.",
                private=False,
                created=datetime.now(),
-               challenge=16,
+               challenge=17,
                user_id="elaine13@email.unc.edu",
                comments=[],
-               tags=["impressionism"])
+               tags=["impressionism", "meChallenge"])
 elaine3 = Post(id=6,
                img="IMG_3054.jpeg",
-               title="Test Post 3",
-               description="This is my post",
+               title="Love Birds",
+               desc="I wanted to draw a cityscape but also fit the prompt, so this is my rather loose interpretation.",
                private=False,
                created=datetime.now(),
-               challenge=16,
+               challenge=18,
                user_id="elaine13@email.unc.edu",
                comments=[],
-               tags=[])
+               tags=["urban", "meChallenge"])
 
 models = [
     post0,

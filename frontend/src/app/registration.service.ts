@@ -37,6 +37,7 @@ export class RegistrationService {
       observable.subscribe((token) => {
         if (!(token)) {
           localStorage.removeItem('bearerToken');
+          localStorage.removeItem('authToken');
           this.isAuthenticated.next(false);
         } else {
           this.isAuthenticated.next(true);
@@ -64,6 +65,10 @@ export class RegistrationService {
       user.created = new Date(user.created);
       return user;
     })));
+  }
+
+  getUser(email: string): Observable<User> {
+    return this.http.get<User>(`/api/users/${email}`)
   }
 
   /**
