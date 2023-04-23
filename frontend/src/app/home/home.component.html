@@ -9,7 +9,7 @@
         <p *ngIf="(current$ | async) as current"> {{current.start | date: "MMM d, y"}} - {{current.end | date: "MMM d, y"}}</p>
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
-        <button type="button" id="we" routerLink="/we-challenge">
+        <button type="button" class="go" id="we" routerLink="/we-challenge">
             <p>Go</p>
         </button>
     </div>
@@ -17,7 +17,7 @@
         <h2>meChallenge</h2>
         <p>Make your own custom art challenge!</p>
         <p>Randomly generate color palettes, styles, subjects, and more!</p>
-        <button type="button" id="me" routerLink="/me-challenge">
+        <button type="button" class="go" id="me" routerLink="/me-challenge">
             <p>Go</p>
         </button>
     </div>
@@ -29,6 +29,7 @@
             <p>{{ previous.adj }} {{ previous.noun }} {{ previous.verb }} {{ previous.emotion }}</p>
         </div>
         <div class="display-posts">
+            <!-- TODO: Replace with weposts -->
             <div class="thumbnail">
                 
             </div>
@@ -40,12 +41,9 @@
     <div class="past-me">
         <h2>meChallenges</h2>
         <div class="display-posts">
-            <div class="thumbnail">
-                <img src="/images/post1.png" alt="">
-            </div>
-            <div class="thumbnail">
-                <img src="/images/post2.png" alt="">
-            </div>
+            <a *ngFor="let post of mePosts$ | async" [href]="'post/' + post.id">
+                <img class="thumbnail" [src]="'/images/' + post.img">
+            </a>
         </div>
     </div>
 </main>

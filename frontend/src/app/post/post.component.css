@@ -1,0 +1,44 @@
+main {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h2 {
+    margin-bottom:0;
+}
+
+.post-img-container {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height:30rem;
+    width:100%;
+    background-color: rgb(174, 174, 174);
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.post-content {
+    width: 85%;
+}
+
+.tags {
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.tag {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color:white;
+    border-radius: 5px;
+    padding:4px;
+    margin:4px;
+}

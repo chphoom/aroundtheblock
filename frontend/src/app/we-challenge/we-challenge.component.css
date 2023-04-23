@@ -6,10 +6,6 @@ p, a {
     font-size: 24px;
 }
 
-.thumbnail {
-    width: 24%;
-}
-
 .challenge {
     display:flex;
     flex-direction: column;

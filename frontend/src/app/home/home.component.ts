@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable, last } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
+import { Post } from '../models';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +12,12 @@ import { Challenge, ChallengeService } from '../challenge.service';
 export class HomeComponent {
   public weChallenges: Challenge[] | undefined;
   public current$: Observable<Challenge>;
-  public challengeService: ChallengeService;
   public previous: Challenge | undefined;
-  
+  public mePosts$: Observable<Post[]>;
 
-  constructor(challengeService: ChallengeService) {
+  constructor(private challengeService: ChallengeService, private postService: PostsService) {
     this.current$ = challengeService.getCurrentChallenge()
-    this.challengeService = challengeService
-    this.weChallenges?.pop
-    this.previous = this.weChallenges?.at(-1)
+    this.mePosts$ = postService.getMePosts();
+    // TODO: get previous challenge
   }
 }

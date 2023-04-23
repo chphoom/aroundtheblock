@@ -13,7 +13,7 @@ class PostEntity(EntityBase):
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
     img: Mapped[str] = mapped_column(String(64))
     title: Mapped[str] = mapped_column(String(64))
-    desc: Mapped[str] = mapped_column(String(64))
+    desc: Mapped[str] = mapped_column(String(256))
     private: Mapped[bool] = mapped_column(Boolean)
     created: Mapped[datetime] = mapped_column(DateTime)
     user_id = mapped_column(ForeignKey("users.email"), onupdate="cascade")

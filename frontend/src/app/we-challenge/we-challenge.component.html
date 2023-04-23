@@ -9,15 +9,15 @@
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
         <button id="we" type="submit" (click)="onSubmit()">
-            <p>Submit</p>
+            <p>Create Submission</p>
         </button>
         <a routerLink="/past-challenges" class="underline-hover">See past we challenges</a>
     </div>
     <div class="posts-container">
         <h1>See what others made</h1>
         <p>Show Spoilers</p>
-        <div class="display-posts">
-            <div class="thumbnail" *ngFor="let post of (wePosts$ | async)" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
-        </div>
+        <a *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id">
+            <img class="thumbnail" [src]="'/images/' + post.img">
+        </a>
     </div>
 </main>
