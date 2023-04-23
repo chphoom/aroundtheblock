@@ -63,7 +63,7 @@ export class LoginComponent {
         // Store the authentication token for future use
         localStorage.setItem('authToken', token.access_token);
         console.log(token)
-        // // Redirect the user to the home page
+        // Redirect the user to the home page
         window.location.reload();
         window.location.href = "/";
         /* this.router.navigate(['/']); */

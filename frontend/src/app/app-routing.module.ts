@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'we-challenge', component: WeChallengeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'past-challenges', component: PastChallengesComponent },
+  { path: 'upload', component: UploadComponent },
   PostComponent.Route,
 ];
 

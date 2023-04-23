@@ -17,11 +17,12 @@ import { ShareService } from '../share.service';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent {
-  // uploadForm: FormGroup;
   public user: User | undefined;
   private isLoggedin: Boolean | undefined;
   challenge$: Observable<Challenge> | undefined;
   challenge: Challenge | undefined;
+  post: Post | undefined;
+  submitted = false;
 
   form = this.formBuilder.group({
     file: new FormControl(),
@@ -80,13 +81,16 @@ export class UploadComponent {
       tags: []
     };
 
-    console.log(newPost); 
-    this.postsService.createPost(newPost).subscribe(response => {
-      console.log(response);
+    let id: number
+
+    // console.log(newPost); 
+    
+    this.postsService.createPost(newPost).subscribe(post => {
+      console.log(post);
+      this.post = post
+      this.router.navigate([`/post/${this.post?.id}`]);
     }, (error: HttpErrorResponse)=> {
       console.log(error);
     });
-    // TODO: redirect to individual post page once that is created
-    this.router.navigate(['/'])
   }
 }
