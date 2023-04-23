@@ -64,7 +64,9 @@ export class LoginComponent {
         localStorage.setItem('authToken', token.access_token);
         console.log(token)
         // // Redirect the user to the home page
-        this.router.navigate(['/']);
+        window.location.reload();
+        window.location.href = "/";
+        /* this.router.navigate(['/']); */
       } else {
         // Handle the case where the login credentials are invalid
         console.error('Invalid credentials');
