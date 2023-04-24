@@ -10,7 +10,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 session = Session(engine)
 
-INTERVAL = 60 # five minutes for demo
+INTERVAL = 60 * 5 # five minutes for demo
 
 def new():
     c: Challenge = generateWe()
