@@ -27,6 +27,8 @@ export class LoginComponent {
     confirm: ''
   });
 
+  public isLoggedin = this.registrationService.isLoggedIn();
+
   constructor(
     private registrationService: RegistrationService,
     private formBuilder: FormBuilder,
@@ -61,14 +63,15 @@ export class LoginComponent {
         // Store the authentication token for future use
         localStorage.setItem('authToken', token.access_token);
         console.log(token)
-        // // Redirect the user to the home page
-        this.router.navigate(['/']);
+        // Redirect the user to the home page
+        window.location.reload();
+        window.location.href = "/";
+        /* this.router.navigate(['/']); */
       } else {
         // Handle the case where the login credentials are invalid
         console.error('Invalid credentials');
       }
     });
-    
   }
 
 

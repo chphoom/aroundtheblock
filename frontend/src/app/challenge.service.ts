@@ -53,7 +53,7 @@ export class ChallengeService {
    * @returns an observable Challenge object.
    */
   getChallenge(id: Number): Observable<Challenge> {
-    return this.http.get<Challenge>(`/api/challenges${id}`);
+    return this.http.get<Challenge>(`/api/challenges/${id}`);
   }
 
   /**

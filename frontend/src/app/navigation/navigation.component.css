@@ -92,3 +92,9 @@ input[type="text"]::placeholder {
 .user p:hover {
     color: white;
 }
+
+.user-bar {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}

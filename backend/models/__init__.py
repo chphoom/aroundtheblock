@@ -4,6 +4,7 @@ from .user import User
 from .post import Post
 from .challenge import Challenge
 from .comment import Comment
+from .token import Token
 
 __authors__ = ["Kris Jordan", "Chalisa Phoomsakha"]
 __copyright__ = "Copyright 2023"

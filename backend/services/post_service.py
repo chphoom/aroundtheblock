@@ -1,9 +1,10 @@
 from fastapi import Depends
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Post
 from ..entities import PostEntity, ChallengeEntity, UserEntity
+from sqlalchemy.sql.expression import and_
 
 class PostService:
 
@@ -13,22 +14,23 @@ class PostService:
         self._session = session
 
     def all(self) -> list[Post]:
-        query = select(PostEntity)
+        query = select(PostEntity).where(PostEntity.private.is_(False))
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
     
     def create(self, post: Post) -> Post:
         temp = self._session.get(UserEntity, post.user_id)
         if temp:
-            post.user_id = temp
             temp2 = self._session.get(ChallengeEntity, post.challenge)
-            post.challenge = temp2
-            post_entity: PostEntity = PostEntity.from_model(post)
-            temp.userPosts.append(post_entity)
-            temp2.posts.append(post_entity)
-            self._session.add(post_entity)
-            self._session.commit()
-            return post
+            if temp2:
+                post_entity: PostEntity = PostEntity.from_model(post)
+                temp.userPosts.append(post_entity)
+                temp2.posts.append(post_entity)
+                self._session.add(post_entity)
+                self._session.commit()
+                return post_entity.to_model()
+            else:
+                raise ValueError(f"No challenge found with id: {post.challenge}")
         else:
             raise ValueError(f"No user found with email: {post.user_id}")
             
@@ -54,13 +56,57 @@ class PostService:
         else:
             raise ValueError(f"No post found")
         
-    def update(self, post: Post) -> Post:
-        temp = self._session.get(PostEntity, post.id)
+    def update(self, 
+               id: int,
+               desc: str | None,
+               tags: list[str] | None) -> Post:
+        temp = self._session.get(PostEntity, id)
         if temp:
-            temp.desc = post.desc
-            temp.tags = post.tags
-            temp.comments = post.comments
+            if desc:
+                temp.desc = desc
+            if tags:
+                temp.tags = tags
             self._session.commit()
             return temp.to_model()
         else:
             raise ValueError(f"Post not found")
+        
+    def get_me_posts(self) -> list[Post]:
+        query = (
+            select(PostEntity)
+            .join(ChallengeEntity)
+            .filter(ChallengeEntity.type == "me")
+        )
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
+    
+    
+    def get_we_posts(self) -> list[Post]:
+        query = (
+            select(PostEntity)
+            .join(ChallengeEntity)
+            .filter(ChallengeEntity.type == "we")
+            .where(PostEntity.private.is_(False))
+        )
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
+    
+    def get_by_challenge(self, challenge_type: str) -> list[Post]:
+        query = (
+            self._session.query(PostEntity)
+            .join(PostEntity.challenge)
+            .filter(and_(PostEntity.challenge.type == challenge_type, PostEntity.deleted == False))
+            .where(PostEntity.private.is_(False))
+        )
+        entities = query.all()
+        return [entity.to_model() for entity in entities]
+    
+    #WIP
+    def search(self, query: str) -> list[Post] | None:      
+        statement = select(PostEntity)
+        criteria = or_(
+            PostEntity.desc.ilike(f'%{query}%')
+        )
+        statement = statement.where(criteria).limit(25)
+        entities = self._session.execute(statement).scalars()
+        return [entity.to_model() for entity in entities]

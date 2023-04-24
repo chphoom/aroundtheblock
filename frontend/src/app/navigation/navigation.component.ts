@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RegistrationService } from '../registration.service';
+import { User } from '../registration.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,7 +8,12 @@ import { RegistrationService } from '../registration.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
-  isLoggedin = this.registration_service.isLoggedIn();
-  
-  constructor(private registration_service: RegistrationService){}
+
+  public user: User | undefined;
+
+  constructor(public registration_service: RegistrationService) {
+    this.registration_service.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
+  }
 }

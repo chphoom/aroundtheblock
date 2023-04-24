@@ -3,7 +3,7 @@ FROM node:18 as build
 COPY ./frontend/package.json /workspace/frontend/package.json
 COPY ./frontend/angular.json /workspace/frontend/angular.json
 WORKDIR /workspace/frontend
-RUN npm install -g @angular/cli && npm install
+RUN npm install -g @angular/cli && npm install --force
 ENV SHELL=/bin/bash
 RUN ng analytics disable
 COPY ./frontend/src /workspace/frontend/src
@@ -15,7 +15,6 @@ FROM python:3.11
 RUN python3 -m pip install --upgrade pip
 COPY ./backend/requirements.txt /workspace/backend/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /workspace/backend/requirements.txt
-RUN python3 -m nltk.downloader -d /usr/local/nltk_data popular
 COPY --from=build /workspace/static /workspace/static
 COPY ./backend /workspace/backend
 WORKDIR /workspace

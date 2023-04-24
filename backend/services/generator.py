@@ -1,7 +1,5 @@
 from ..models import Challenge
 from urllib.request import urlopen
-import random
-import nltk
 import requests
 
 API_URL = "https://grizzly-fifth-citrine.glitch.me/api"

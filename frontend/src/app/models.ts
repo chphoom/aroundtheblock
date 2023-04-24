@@ -6,7 +6,7 @@ export interface User {
     private: boolean,
     bio: string,
     pronouns: string, 
-    img: string, 
+    pfp: string, 
     userPosts: Post[] | undefined,
     savedChallenges: Challenge[] | undefined,
     savedPosts: Post[] | undefined,
@@ -25,17 +25,18 @@ export interface Challenge {
     // type: string,
     start: Date | null,
     end: Date | null,
-    createdBy: User | null
+    createdBy: string | null
 }
 
 export interface Post {    
     id: number | undefined,
     img: string, 
+    title: string,
     desc: string, 
     private: boolean,
     created: Date,
-    challenge: Challenge | string,
-    postedBy: User | string,
+    challenge: number,
+    user_id: string,
     comments: Comment[],
     tags: string[]
 }
