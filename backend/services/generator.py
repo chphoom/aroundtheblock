@@ -1,4 +1,5 @@
 from ..models import Challenge
+from urllib.request import urlopen
 import requests
 import random
 

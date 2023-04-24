@@ -5,10 +5,6 @@ main {
     margin:0;
 }
 
-.background {
-    background: linear-gradient(180deg, rgba(255, 214, 238, 0.5) 0%, rgba(255, 223, 160, 0.425) 52.08%, rgba(187, 241, 186, 0.235) 100%);
-}
-
 .content {
     width: 615px;
     background: linear-gradient(180deg, #FFD6EE 0%, rgba(255, 223, 160, 0.85) 52.08%, rgba(187, 241, 186, 0.47) 100%);

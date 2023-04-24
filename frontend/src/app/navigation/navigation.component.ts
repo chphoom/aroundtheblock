@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RegistrationService } from '../registration.service';
+import { User } from '../registration.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,15 +8,12 @@ import { RegistrationService } from '../registration.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
-  // public isLoggedin = this.registration_service.isLoggedIn();
-  // public isAuthenticated: Boolean | undefined;
 
-  constructor(public registration_service: RegistrationService) { }
-  
+  public user: User | undefined;
 
-  ngOnInit() {
-    /* this.registration_service.getAuthenticated().subscribe((isAuthenticated) => {
-      this.isAuthenticated = isAuthenticated;
-    }); */
+  constructor(public registration_service: RegistrationService) {
+    this.registration_service.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
   }
 }

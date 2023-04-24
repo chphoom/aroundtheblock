@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, last } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
+import { Post } from '../models';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +10,14 @@ import { Challenge, ChallengeService } from '../challenge.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  public challenges$: Observable<Challenge[]>;
+  public weChallenges: Challenge[] | undefined;
   public current$: Observable<Challenge>;
-  public challengeService: ChallengeService;
+  public previous: Challenge | undefined;
+  public mePosts$: Observable<Post[]>;
 
-  constructor(challengeService: ChallengeService) {
-    this.challenges$ = challengeService.getAllChallenges()
+  constructor(private challengeService: ChallengeService, private postService: PostsService) {
     this.current$ = challengeService.getCurrentChallenge()
-    this.challengeService = challengeService
+    this.mePosts$ = postService.getMePosts();
+    // TODO: get previous challenge
   }
 }

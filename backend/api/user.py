@@ -1,76 +1,142 @@
+"""This module provides a RESTful API for interacting with the user application.
+
+Endpoints:
+- GET /registrations - Retrieve all registered users
+- POST /registrations - Generate a user
+- GET /users/{email} - Retrieve a particular user
+- PUT /users/{email}] - Update a user's info
+- DELETE /delete/users/{email} - Delete a user
+
+Usage:
+import user
+"""
 from fastapi import APIRouter, HTTPException, Depends
 from ..services import UserService, ChallengeService
 from ..models import User, Challenge
 
 api = APIRouter()
 
-
-# ----------USER API ROUTES----------------
-#api route retrieves ALL registered users
-@api.get("/api/registrations")
+@api.get("/api/registrations", tags=['User'])
 def get_registrations(user_service: UserService = Depends()) -> list[User]:
+    """API endpoint for retrieving all the users in the database
+
+    Parameters:
+    - user_service (UserService): dependency injection for the UserService class
+
+    Returns:
+    - list[User]: a list of User objects representing all the Users in the database
+
+    HTTP Methods:
+    - GET
+
+    Usage:
+    - Send a GET request to the endpoint
+    - Returns a list of User objects representing all the Users in the database
+    """
     return user_service.all()
 
-#api route registers a new user
-@api.post("/api/registrations")
+@api.post("/api/registrations", tags=['User'])
 def new_registration(user: User, user_service: UserService = Depends()) -> User:
-        try:
-            return user_service.create(user)
-        except Exception as e:
-            raise HTTPException(status_code=422, detail=str(e))
+    """API endpoint for creating a new User
 
-#api route retrieves user given email
-@api.get("/api/users/{email}", responses={404: {"model": None}})
+    Parameters:
+    - user: a User object representing the newly created User
+    - user_service (UserService): dependency injection for the UserService class
+
+    Returns:
+    - User: a User object representing the newly created User
+
+    HTTP Methods:
+    - POST
+
+    Usage:
+    - Send a POST request to the endpoint
+    - Returns a User object representing the newly created User
+    """
+    try:
+        return user_service.create(user)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+@api.get("/api/users/{email}", responses={404: {"model": None}}, tags=['User'])
 def get_user(email: str, user_service: UserService = Depends()) -> User:
+    """API endpoint for retrieving a User by email
+
+    Parameters:
+    - email: a string represnting the primary key of the User
+    - user_service (UserService): dependency injection for the UserService class
+
+    Returns:
+    - User: a User object representing the desired User
+
+    HTTP Methods:
+    - GET
+
+    Usage:
+    - Send a GET request to the endpoint
+    - Returns a User object representing the desired User
+    """
     try: 
         return user_service.get(email)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
 
-#api route to update user info
-#TODO: Change update function use PUT instead of POST
-@api.post("/api/users")
-def update_user(user: User, user_service: UserService = Depends()) -> User:
+@api.put("/api/users/{email}", tags=['User'])
+def update_user(email: str,
+                pronouns: str | None,
+                displayName: str | None, 
+                private: bool | None, 
+                pfp: str | None, 
+                bio: str | None, 
+                connectedAccounts: list[str] | None, 
+                user_service: UserService = Depends()) -> User:
+    """API endpoint for updating a post
+
+    Parameters:
+    - email: a string representing the primary key of the User
+    - pronouns: an optional string representing the new pronouns of the User
+    - displayName: an optional string representing the new displya name of the User
+    - private: an optional boolean representing the new privacy setting of the User
+    - pfp: an optional string representing the new filename of the User's pfp
+    - bio: an optional string representing the new bio of the User
+    - connectedAccounts: an optional list of strings representing the new connected accounts of the User
+    - user_service (UserService): dependency injection for the UserService class
+
+    Returns:
+    - User: a User object representing the updated User
+
+    HTTP Methods:
+    -PUT
+
+    Usage:
+    - Send a PUT request to the endpoint
+    - Returns a User object representing the updated User
+    """
     try:
-        return user_service.update(user)
+        return user_service.update(email, pronouns, displayName, private, pfp, bio, connectedAccounts)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 
 #api route deletes registered user
-@api.delete("/api/delete/users/{email}")
+@api.delete("/api/delete/users/{email}", tags=['User'])
 def delete_user(email: str, user_service = Depends(UserService)) -> User:
+    """API endpoint for deleting a User by it's email
+
+    Parameters:
+    - email: an string represnting the primary key of the User
+    - user_service (UserService): dependency injection for the UserService class
+
+    Returns:
+    - User: a User object representing the deleted User
+
+    HTTP Methods:
+    - DELETE
+
+    Usage:
+    - Send a DELETE request to the endpoint
+    - Returns a User object representing the deleted User
+    """
     try:
         return user_service.delete(email)
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
-
-# ----------CHALLENGE API ROUTES----------------
-#api route retrieves ALL challenges
-@api.get("/api/challenges")
-def get_challenges(challenge_service: ChallengeService = Depends()) -> list[Challenge]:
-    return challenge_service.all()
-
-#api route registers a new challenge
-@api.post("/api/challenges")
-def new_challenge(challenge: Challenge, challenge_service: ChallengeService = Depends()) -> Challenge:
-        try:
-            return challenge_service.create(challenge)
-        except Exception as e:
-            raise HTTPException(status_code=422, detail=str(e))
-        
-#api route retrieves challenge given id
-#TODO: implement a way to find challenge and get the correct id
-@api.get("/api/challenges/{id}", responses={404: {"model": None}})
-def get_challenge(id: int, challenge_service: ChallengeService = Depends()) -> Challenge:
-    try: 
-        return challenge_service.get(id)
-    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    
-#api route deletes challenge FROM THE DATABASE
-@api.delete("/api/delete/challenges/{id}")
-def delete_challenge(id: int, challenge_service = Depends(ChallengeService)) -> Challenge:
-    try:
-        return challenge_service.delete(id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))

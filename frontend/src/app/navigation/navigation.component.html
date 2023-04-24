@@ -42,7 +42,7 @@
         <div *ngIf="(registration_service.isAuthenticated$ | async); else elseBlock" class="user-bar">
             <mat-icon>notifications</mat-icon>
             <a class="user" routerLink="/profile">
-                <p>User</p> <!--TODO: Get current user's username-->
+                <p>{{user?.displayName}}</p>
                 <mat-icon>account_box</mat-icon>
             </a>
         </div>
