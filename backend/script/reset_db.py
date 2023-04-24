@@ -3,8 +3,6 @@ from sqlalchemy.orm import Session
 from ..database import engine
 from .. import entities
 from .. import models
-import random
-import schedule
 
 # Reset Tables
 entities.EntityBase.metadata.drop_all(engine)
@@ -79,8 +77,3 @@ with Session(engine) as session:
             session.add(reply)
     # session.execute(text(f'ALTER SEQUENCE {entities.PostEntity.__table__}_id_seq RESTART WITH {len(posts.models) + 1}'))
     session.commit()
-
-# # Enter Mock User Data
-# with Session(engine) as session:
-#     from datetime import datetime, timedelta
-#     session.commit()

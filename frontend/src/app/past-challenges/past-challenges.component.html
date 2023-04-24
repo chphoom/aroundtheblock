@@ -9,6 +9,12 @@
         <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse()">
             <div class="prompt we-prompt">
                 <p> {{ challenge.adj }} {{ challenge.noun }} {{ challenge.verb }} {{ challenge.style }} {{ challenge.emotion }} </p>
+                <div *ngIf="(challenge.colors).length > 0" class="colors">
+                    <div class="color">
+                      <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
+                      <p id="hex">{{challenge.colors[0]}}</p>
+                    </div>
+                  </div>
                 <p> {{ challenge.start | date: "MMM d, y" }} - {{ challenge.end | date: "MMM d, y" }}</p>
             </div>
         </div>

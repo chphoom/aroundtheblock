@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 #date variables
 num = 7
 wks = []
-wks.append(datetime.now())  #wk14 or wks[0] should be today's date
+wks.append(datetime.now()- timedelta(days=num))  #wk14 or wks[0] should be a wek from today's date
 for i in range(1,15):      #wk1-13 or wks[1:13] should automatically be the previously created week's start date minus 7 days
     wks.append(wks[i-1] - timedelta(days=num))
 
