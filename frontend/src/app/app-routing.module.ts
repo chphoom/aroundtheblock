@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'past-challenges', component: PastChallengesComponent },
   { path: 'upload', component: UploadComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'search/:query', component: SearchComponent },
   PostComponent.Route,
 ];
 

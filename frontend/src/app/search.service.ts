@@ -11,19 +11,19 @@ export class SearchService {
 
   constructor(private http: HttpClient) {}
 
-  searchPosts(query: string): Observable<Post[]>{
+  Posts(query: string): Observable<Post[]>{
     return this.http.get<Post[]>(`/api/searchposts/${query}`);
   }
 
-  searchTagged(query: string): Observable<Post[]>{
+  Tagged(query: string): Observable<Post[]>{
     return this.http.get<Post[]>(`/api/tagged/${query}`);
   }
 
-  searchChallenges(query: string): Observable<Challenge[]>{
+  Challenges(query: string): Observable<Challenge[]>{
     return this.http.get<Challenge[]>(`/api/searchchallenges/${query}`);
   } 
 
-  searchUsers(query: string): Observable<User[]>{
+  Users(query: string): Observable<User[]>{
     return this.http.get<User[]>(`/api/searchusers/${query}`);
   }
 }
