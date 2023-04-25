@@ -14,13 +14,18 @@ export class HomeComponent {
   public current$: Observable<Challenge>;
   public mePosts$: Observable<Post[]>;
   public weChallenges$: Observable<Challenge[]>; 
-  public prev$: Observable<Challenge>
+  public prev$!: Observable<Challenge>
 
   constructor(private challengeService: ChallengeService, private postService: PostsService) {
     this.current$ = this.challengeService.getCurrentChallenge()
     this.mePosts$ = this.postService.getMePosts()
     this.weChallenges$ = this.challengeService.getWeChallenges()
-    this.prev$ = this.getElementAtIndex(this.weChallenges$.length - 2)
+    this.challengeService.getWeChallenges().subscribe(
+      challenges => {
+        const prevIndex = challenges.length - 2;
+        this.prev$ = this.getElementAtIndex(prevIndex);
+      }
+    );
   }
 
   getElementAtIndex(index: number): Observable<Challenge> {
