@@ -35,8 +35,11 @@ export class EditProfileComponent {
 
   onSave() {
     let form = this.form.value
-    console.log(form)
     this.registrationService.updateUser(this.user!.email, form.pronouns!, form.displayName!, form.private!, null, form.bio!, null)
-  }
+    .subscribe((user: User) => {
+      console.log(user);
+    }, (error) => {
+      console.error(error);
+    });  }
   
 }

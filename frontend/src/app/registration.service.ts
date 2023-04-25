@@ -74,15 +74,29 @@ export class RegistrationService {
   }
 
   updateUser(email: string, pronouns: string | null, displayName: string | null, priv: boolean | null, pfp: string | null, bio: string | null, connectedAccounts: string[] | null) {
-    return this.http.put<User>(`api/users/${email}`, {
-      "email": email,
-      "pronouns": pronouns,
-      "displayName": displayName,
-      "private": priv,
-      "pfp": pfp,
-      "bio": bio,
-      "connectedAccounts": connectedAccounts,
-    })
+    let query = "";
+    if (pronouns) {
+        query += `pronouns=${pronouns}&`;
+    }
+    if (displayName) {
+        query += `displayName=${displayName}&`;
+    }
+    if (priv != null) {
+        query += `private=${priv}&`;
+    }
+    if (pfp) {
+        query += `pfp=${pfp}&`;
+    }
+    if (bio) {
+        query += `bio=${bio}&`;
+    }
+    if (connectedAccounts?.length) {
+        query += `connectedAccounts=${connectedAccounts.join(",")}&`;
+    }
+    if (query) {
+        query = "?" + query.slice(0, -1); // remove the trailing "&" or "?" if query is not empty
+    }
+    return this.http.put<User>(`api/users/${email}${query}`, connectedAccounts)
   }
 
   /**
