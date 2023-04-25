@@ -16,10 +16,6 @@
                   <p>Generate</p>
                 </button>
               </div>
-              <!-- <mat-progress-spinner *ngIf="generator === 'clicked'"
-              [color]="color"
-        [mode]="mode"
-        [value]="value"></mat-progress-spinner> -->
           </form>
           <mat-progress-spinner *ngIf="loadingService.loading$ | async" mode="indeterminate" color="accent"></mat-progress-spinner>
           <mat-progress-spinner *ngIf="loadingService.sending$ | async" mode="indeterminate" color="accent"></mat-progress-spinner>        
