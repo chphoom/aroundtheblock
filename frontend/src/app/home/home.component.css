@@ -71,6 +71,10 @@ p {
     padding-bottom:1rem;
 }
 
+.thumbnail {
+    background-image: url(/images/post1.png);
+}
+
 @media screen and (max-width: 756px) {
     main {
         display: grid;

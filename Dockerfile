@@ -3,7 +3,7 @@ FROM node:18 as build
 COPY ./frontend/package.json /workspace/frontend/package.json
 COPY ./frontend/angular.json /workspace/frontend/angular.json
 WORKDIR /workspace/frontend
-RUN npm install -g @angular/cli && npm install
+RUN npm install -g @angular/cli && npm install --force
 ENV SHELL=/bin/bash
 RUN ng analytics disable
 COPY ./frontend/src /workspace/frontend/src

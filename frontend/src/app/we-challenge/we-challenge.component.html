@@ -1,18 +1,29 @@
 <main>
     <div class="challenge">
-        <h2>weChallenge #</h2>
-        <div class="prompt we-prompt"></div>
-        <p>Date range</p>
+        <h2>weChallenge #{{(weChallenges$ | async)?.length}}</h2>
+        <div class="prompt we-prompt" *ngIf="(current$ | async) as current">
+            <p class="prompt-title">Prompt:</p>
+            <p>{{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }}</p>
+            <div *ngIf="(current.colors).length > 0" class="colors">
+                <div class="color">
+                  <div class="color-box" [ngStyle]="{'background-color': current.colors[0]}"></div>
+                  <p id="hex">{{current.colors[0]}}</p>
+                </div>
+              </div>
+        </div>
+        <p *ngIf="(current$ | async) as current"> {{current.start | date: "MMM d, y"}} - {{current.end | date: "MMM d, y"}}</p>
         <p>Time remaining:</p>
         <h1 id="countdown">Countdown</h1>
-        <button id="we" type="submit">
-            <p>Submit</p>
+        <button id="we" type="submit" (click)="onSubmit()">
+            <p>Create Submission</p>
         </button>
         <a routerLink="/past-challenges" class="underline-hover">See past we challenges</a>
     </div>
     <div class="posts-container">
         <h1>See what others made</h1>
         <p>Show Spoilers</p>
-        <div class="posts"></div>
+        <a *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id">
+            <img class="thumbnail" [src]="'/images/' + post.img">
+        </a>
     </div>
 </main>

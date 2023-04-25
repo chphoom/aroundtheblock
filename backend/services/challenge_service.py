@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Challenge
@@ -52,7 +52,7 @@ class ChallengeService:
             challenge_entity: ChallengeEntity = ChallengeEntity.from_model(challenge)
             self._session.add(challenge_entity)
             self._session.commit()
-            return challenge_entity.to_model() 
+            return challenge_entity.to_model()
 
     def current(self) -> Challenge:
         return self._session.query(ChallengeEntity).order_by(ChallengeEntity.end.desc()).first()
@@ -74,18 +74,16 @@ class ChallengeService:
         else:
             raise ValueError(f"Challenge not Found")
 
-    # def update(self, challenge: Challenge) -> Challenge:
-    #     temp = self._session.get(ChallengeEntity, challenge.id)
-    #     if temp:
-    #         #update value
-    #         temp.img = challenge.img
-    #         temp.bio = challenge.bio
-    #         temp.displayName = challenge.displayName
-    #         temp.password = challenge.password
-    #         temp.private = challenge.private
-    #         temp.pronouns = challenge.pronouns
-    #         temp.connectedAccounts = challenge.connectedAccounts
-    #         self._session.commit()
-    #         return temp.to_model()
-    #     else:
-    #         raise ValueError(f"No challenge found with ID: {challenge.id}")
+    # WIP
+    def search(self, query: str) -> list[Challenge] | None:      
+        statement = select(ChallengeEntity)
+        criteria = or_(
+            ChallengeEntity.noun.ilike(f'%{query}%'),
+            ChallengeEntity.verb.ilike(f'%{query}%'),
+            ChallengeEntity.emotion.ilike(f'%{query}%'),
+            ChallengeEntity.style.ilike(f'%{query}%') #,
+            # ChallengeEntity.colors.ilike(f'%{query}%')
+        )
+        statement = statement.where(criteria).limit(25)
+        entities = self._session.execute(statement).scalars()
+        return [entity.to_model() for entity in entities]

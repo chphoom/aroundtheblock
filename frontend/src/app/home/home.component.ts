@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Challenge, ChallengeService } from '../challenge.service';
+import { Post } from '../models';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +11,24 @@ import { Challenge, ChallengeService } from '../challenge.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  public challenges$: Observable<Challenge[]>;
   public current$: Observable<Challenge>;
-  public challengeService: ChallengeService;
+  public mePosts$: Observable<Post[]>;
+  public weChallenges$: Observable<Challenge[]>; 
+  public prev$!: Observable<Challenge>
 
-  constructor(challengeService: ChallengeService) {
-    this.challenges$ = challengeService.getAllChallenges()
-    this.current$ = challengeService.getCurrentChallenge()
-    this.challengeService = challengeService
+  constructor(private challengeService: ChallengeService, private postService: PostsService) {
+    this.current$ = this.challengeService.getCurrentChallenge()
+    this.mePosts$ = this.postService.getMePosts()
+    this.weChallenges$ = this.challengeService.getWeChallenges()
+    this.challengeService.getWeChallenges().subscribe(
+      challenges => {
+        const prevIndex = challenges.length - 2;
+        this.prev$ = this.getElementAtIndex(prevIndex);
+      }
+    );
+  }
+
+  getElementAtIndex(index: number): Observable<Challenge> {
+    return this.weChallenges$.pipe(map((array: Challenge[]) => array[index]))
   }
 }

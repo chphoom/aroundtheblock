@@ -1,3 +1,12 @@
+"""This module provides a RESTful API for interacting with the login application.
+
+Endpoints:
+- GET /login - Retrieve a User from JWT Token
+- POST /login - Generate a new JWT Token
+
+Usage:
+import login
+"""
 import jwt
 from fastapi import APIRouter, HTTPException, Depends, Response, Header
 from fastapi.security import OAuth2PasswordRequestForm
@@ -6,13 +15,26 @@ from ..services import LoginService
 from datetime import timedelta, datetime
 from typing import Optional
 
-api = APIRouter()
+api = APIRouter(prefix="/api/login")
 
-#-----------JWT TOKENS (for login) ---------
-
-#Define function to get user from token
-@api.get("/api/login")
+@api.get("", tags=['Login'])
 def get_token_info(authorization: str = Header(None), login_service: LoginService = Depends()) -> User:
+    """API endpoint for retrieving the currently logged in User
+
+    Parameters:
+    - authorication: a string representing the header of the JWT Token
+    - login_service (LoginService): dependency injection for the LoginService class
+
+    Returns:
+    - User: a User object representing the currently logged in User
+
+    HTTP Methods:
+    - GET
+
+    Usage:
+    - Send a GET request to the endpoint
+    - Returns a User object representing the currently logged in User
+    """
     if authorization is None:
         raise HTTPException(status_code=401, detail='Authorization header missing')
     try:
@@ -26,8 +48,25 @@ def get_token_info(authorization: str = Header(None), login_service: LoginServic
     return user
 
 # Define the login route
-@api.post("/api/login")
+@api.post("", tags=['Login'])
 async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), login_service: LoginService = Depends()) -> Token:
+    """API endpoint for creating a new JWT Token
+
+    Parameters:
+    - response: ???
+    - form_data (OAuth2PasswordRequestForm): dependency injection for the OAuth2PasswordRequestForm class
+    - login_service (LoginService): dependency injection for the LoginService class
+
+    Returns:
+    - Token: a Token object representing the currently logged in User
+
+    HTTP Methods:
+    - POST
+
+    Usage:
+    - Send a POST request to the endpoint
+    - Returns a Token object representing the currently logged in User
+    """
     user = login_service.authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect email or password")

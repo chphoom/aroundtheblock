@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import User
@@ -47,27 +47,39 @@ class UserService:
             raise ValueError(f"No user found with PID: {email}")
 
     def update(self, email: str, 
-                pronouns: str | None,
-                displayName: str | None, 
-                private: bool | None, 
-                pfp: str | None, 
-                bio: str | None, 
-                connectedAccounts: list[str] | None,) -> User:
-        temp = self._session.get(UserEntity, email)
-        if temp:
-            if pronouns != None:
-                temp.pronouns = pronouns
-            if displayName != None:
-                temp.displayName = displayName
-            if private != None:
-                temp.private = private
-            if pfp != None:
-                temp.pfp = pfp
-            if bio != None:
-                temp.bio = bio
-            if connectedAccounts != None:
-                temp.connectedAccounts = connectedAccounts
-            self._session.commit()
-            return temp.to_model()
-        else:
-            raise ValueError(f"No user found with email: {temp.email}")
+                    pronouns: str | None = None,
+                    displayName: str | None = None, 
+                    private: bool | None = None, 
+                    pfp: str | None = None, 
+                    bio: str | None = None, 
+                    connectedAccounts: list[str] | None = None,) -> User:
+            temp = self._session.get(UserEntity, email)
+            if temp:
+                if pronouns != None:
+                    temp.pronouns = pronouns
+                if displayName != None:
+                    temp.displayName = displayName
+                if private != None:
+                    temp.private = private
+                if pfp != None:
+                    temp.pfp = pfp
+                if bio != None:
+                    temp.bio = bio
+                if connectedAccounts != None:
+                    temp.connectedAccounts = connectedAccounts
+                self._session.commit()
+                return temp.to_model()
+            else:
+                raise ValueError(f"No user found with email: {temp.email}")
+            
+    #WIP
+    def search(self, query: str) -> list[User] | None:      
+        statement = select(UserEntity)
+        criteria = or_(
+            UserEntity.email.ilike(f'%{query}%'),
+            UserEntity.displayName.ilike(f'%{query}%'),
+            UserEntity.bio.ilike(f'%{query}%')
+        )
+        statement = statement.where(criteria).limit(25)
+        entities = self._session.execute(statement).scalars()
+        return [entity.to_model() for entity in entities]

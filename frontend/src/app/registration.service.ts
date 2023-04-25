@@ -4,6 +4,8 @@ import { Observable, throwError, map, catchError, tap, of, from, ReplaySubject }
 import { User } from './models';
 export { User } from './models';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 const REPLAY_LAST = 1;
 
@@ -19,7 +21,7 @@ export class RegistrationService {
   private isAuthenticated: ReplaySubject<boolean> = new ReplaySubject(REPLAY_LAST);
   public isAuthenticated$: Observable<boolean> = this.isAuthenticated.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private jwt: JwtHelperService, private http: HttpClient, private router: Router) {
     this.authenticate();
   }
 
@@ -35,7 +37,8 @@ export class RegistrationService {
         observable = from(token);
       }
       observable.subscribe((token) => {
-        if (!(token)) {
+        if (this.jwt.isTokenExpired(token)) {
+          localStorage.removeItem('authToken');
           localStorage.removeItem('bearerToken');
           this.isAuthenticated.next(false);
         } else {
@@ -64,6 +67,22 @@ export class RegistrationService {
       user.created = new Date(user.created);
       return user;
     })));
+  }
+
+  getUser(email: string): Observable<User> {
+    return this.http.get<User>(`/api/users/${email}`)
+  }
+
+  updateUser(email: string, pronouns: string | null, displayName: string | null, priv: boolean | null, pfp: string | null, bio: string | null, connectedAccounts: string[] | null) {
+    return this.http.put<User>(`api/users/${email}`, {
+      "email": email,
+      "pronouns": pronouns,
+      "displayName": displayName,
+      "private": priv,
+      "pfp": pfp,
+      "bio": bio,
+      "connectedAccounts": connectedAccounts,
+    })
   }
 
   /**
@@ -99,7 +118,7 @@ export class RegistrationService {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
-    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", img: "", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
+    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", pfp: "", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
 
     return this.http.post<User>("api/registrations",user);
   }
@@ -159,6 +178,6 @@ export class RegistrationService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get<User>('https://example.com/api/user', { headers })
+    return this.http.get<User>(`/api/login`, { headers })
   }
 }

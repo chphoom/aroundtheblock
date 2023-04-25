@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { RegistrationService } from '../registration.service';
 import { MatTabGroup } from '@angular/material/tabs';
 import { TokenResponse, User } from '../models';
@@ -16,15 +16,15 @@ export class LoginComponent {
   @ViewChild('tabGroup') tabGroup!: MatTabGroup;
 
   login = this.formBuilder.group({
-    email: '',
-    password: ''
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
 
   register = this.formBuilder.group({
-    email: '',
-    username: '',
-    password: '',
-    confirm: ''
+    email: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    confirm: new FormControl('', Validators.required)
   });
 
   public isLoggedin = this.registrationService.isLoggedIn();
@@ -63,8 +63,10 @@ export class LoginComponent {
         // Store the authentication token for future use
         localStorage.setItem('authToken', token.access_token);
         console.log(token)
-        // // Redirect the user to the home page
-        this.router.navigate(['/']);
+        // Redirect the user to the home page
+        window.location.reload();
+        window.location.href = "/";
+        /* this.router.navigate(['/']); */
       } else {
         // Handle the case where the login credentials are invalid
         console.error('Invalid credentials');
