@@ -140,3 +140,27 @@ def delete_user(email: str, user_service = Depends(UserService)) -> User:
         return user_service.delete(email)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+@api.get("/api/searchusers/{search_string}", response_model=list[User], tags=["User"])
+def search(search_string: str, user_serv: UserService = Depends()) -> list[User]:
+    """API endpoint for retrieving users that have email, display name, bio, or connected accounts that match with the search string.
+
+    Parameters:
+    - search_string: a string literal used as a search criteria
+    - user_serv: dependency injection from the post service 
+
+    Returns:
+    - list[User]: a list of User objects that have email, display name, bio, or connected accounts that match with the search string.
+
+    HTTP Methods:
+    - GET
+
+    Usage:
+    - Send a GET request to the endpoint api/searchusers/{search_string}
+    - Return a list of User objects that have email, display name, bio, or connected accounts that match with the search string.
+
+    """
+    try:
+        return user_serv.search(search_string)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))

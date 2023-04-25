@@ -72,13 +72,13 @@ class UserService:
             else:
                 raise ValueError(f"No user found with email: {temp.email}")
             
-    #WIP
     def search(self, query: str) -> list[User] | None:      
         statement = select(UserEntity)
         criteria = or_(
             UserEntity.email.ilike(f'%{query}%'),
             UserEntity.displayName.ilike(f'%{query}%'),
-            UserEntity.bio.ilike(f'%{query}%')
+            UserEntity.bio.ilike(f'%{query}%'),
+            UserEntity.connectedAccounts.any(query)
         )
         statement = statement.where(criteria).limit(25)
         entities = self._session.execute(statement).scalars()
