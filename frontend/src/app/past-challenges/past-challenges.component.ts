@@ -8,11 +8,9 @@ import { Challenge, ChallengeService } from '../challenge.service';
   styleUrls: ['./past-challenges.component.css']
 })
 export class PastChallengesComponent {
-  public weChallenges$: Observable<Challenge[]>;
-  public challengeService: ChallengeService;
+  public weChallenges$!: Observable<Challenge[]>;
 
-  constructor(challengeService: ChallengeService) {
+  constructor(private challengeService: ChallengeService) {
     this.weChallenges$ = challengeService.getWeChallenges()
-    this.challengeService = challengeService
   }
 }
