@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import select, or_
+from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Post
@@ -106,17 +106,13 @@ class PostService:
         criteria = or_(
             PostEntity.title.ilike(f'%{query}%'),
             PostEntity.desc.ilike(f'%{query}%'),
-            PostEntity.tags.any(query)
-        )
+            func.array_to_string(PostEntity.tags, ',').ilike(f'%{query}%')
+            )
         statement = statement.where(criteria).limit(25)
         entities = self._session.execute(statement).scalars()
         return [entity.to_model() for entity in entities]
 
     def tagged(self, query: str) -> list[Post] | None:      
-        statement = select(PostEntity)
-        criteria = or_(
-            PostEntity.tags.any(query)
-        )
-        statement = statement.where(criteria).limit(25)
+        statement = select(PostEntity).where(func.array_to_string(PostEntity.tags, ',').ilike(f'%{query}%')).limit(25)
         entities = self._session.execute(statement).scalars()
         return [entity.to_model() for entity in entities]
