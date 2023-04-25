@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import select, or_
+from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import User
@@ -78,7 +78,7 @@ class UserService:
             UserEntity.email.ilike(f'%{query}%'),
             UserEntity.displayName.ilike(f'%{query}%'),
             UserEntity.bio.ilike(f'%{query}%'),
-            UserEntity.connectedAccounts.any(query)
+            func.array_to_string(UserEntity.connectedAccounts, ',').ilike(f'%{query}%')
         )
         statement = statement.where(criteria).limit(25)
         entities = self._session.execute(statement).scalars()

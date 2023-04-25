@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import select, or_
+from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Challenge
@@ -81,7 +81,7 @@ class ChallengeService:
             ChallengeEntity.verb.ilike(f'%{query}%'),
             ChallengeEntity.emotion.ilike(f'%{query}%'),
             ChallengeEntity.style.ilike(f'%{query}%'),
-            ChallengeEntity.colors.any(query)
+            func.array_to_string(ChallengeEntity.colors, ',').ilike(f'%{query}%')
         )
         statement = statement.where(criteria).limit(25)
         entities = self._session.execute(statement).scalars()
