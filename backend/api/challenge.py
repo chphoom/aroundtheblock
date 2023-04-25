@@ -165,7 +165,7 @@ def delete_challenge(id: int, challenge_service = Depends(ChallengeService)) -> 
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
 
-@api.get("/api/seachchallenges/{search_string}", response_model=list[Challenge], tags=["Challenge"])
+@api.get("/api/searchchallenges/{search_string}", response_model=list[Challenge], tags=["Challenge"])
 def search(search_string: str, ch_serv: ChallengeService = Depends()) -> list[Challenge]:
     """API endpoint for retrieving users that have email, display name, bio, or connected accounts that match with the search string.
 
