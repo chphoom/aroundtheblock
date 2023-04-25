@@ -5,7 +5,7 @@
         <div></div>
     </header>
     <div class="side-bar">
-        <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse(); let i=index">
+        <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse(); let i=index" (click)="onClick(challenge, i)">
             <div class="prompt we-prompt past">
                 <h2 class="num">#{{((weChallenges$ | async)?.length)! - i}}</h2>
                 <div class="prompt-info">
@@ -22,11 +22,17 @@
         </div>
     </div>
     <div class="challenge">
-        <h2>weChallenge #</h2>
+        <h2>weChallenge #{{ selected.id }}</h2>
         <div class="prompt we-prompt">
-            <p class="prompt-title">Prompt:</p>
+            <p class="prompt-title">Prompt: {{ selected.adj }} {{ selected.noun }} {{ selected.verb }} {{ selected.style }} {{ selected.emotion }}</p>
+            <div *ngIf="(selected.colors).length > 0" class="colors">
+                <div class="color">
+                  <div class="color-box" [ngStyle]="{'background-color': selected.colors[0]}"></div>
+                  <p id="hex">{{selected.colors[0]}}</p>
+                </div>
+              </div>
         </div>
-        <p>Date range</p>
+        <p> {{ selected.start | date: "MMM d, y" }} - {{ selected.end | date: "MMM d, y" }}</p>
         <button id="we" type="submit">
             <p>Submit</p>
         </button>
