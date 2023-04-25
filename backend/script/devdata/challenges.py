@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 #date variables
 num = 7
 wks = []
-wks.append(datetime.now())  #wk14 or wks[0] should be today's date
+wks.append(datetime.now()- timedelta(days=num))  #wk14 or wks[0] should be a wek from today's date
 for i in range(1,15):      #wk1-13 or wks[1:13] should automatically be the previously created week's start date minus 7 days
     wks.append(wks[i-1] - timedelta(days=num))
 
@@ -77,6 +77,42 @@ models.append(Challenge(id=14,
             start=wks[14],                              
             end=wks[14] + timedelta(days=num),
             createdBy=None))    
+
+models.append(Challenge(id=15,                    
+            posts=[],
+            noun="mountains",
+            verb="",
+            adj="",
+            emotion="",
+            style="",
+            colors=["#c87987", "#636385", "#301312"],
+            start=None,
+            end=None,
+            createdBy="elaine13@email.unc.edu")) 
+
+models.append(Challenge(id=16,                    
+            posts=[],
+            noun="city",
+            verb="burn",
+            adj="",
+            emotion="",
+            style="impressionism",
+            colors=[],
+            start=None,
+            end=None,
+            createdBy="elaine13@email.unc.edu")) 
+
+models.append(Challenge(id=17,                    
+            posts=[],
+            noun="birds",
+            verb="watch",
+            adj="",
+            emotion="love",
+            style="",
+            colors=[],
+            start=None,
+            end=None,
+            createdBy="elaine13@email.unc.edu")) 
 
 print(models)
 # models = [

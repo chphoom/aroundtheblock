@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AboutComponent } from './about/about.component';
 import { PastChallengesComponent } from './past-challenges/past-challenges.component';
 import { GeneratedComponent } from './me-challenge/generated/generated.component';
+import { UploadComponent } from './upload/upload.component';
+import { PostComponent } from './post/post.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,8 @@ import { GeneratedComponent } from './me-challenge/generated/generated.component
     AboutComponent,
     PastChallengesComponent,
     GeneratedComponent,
+    UploadComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,15 @@ import { GeneratedComponent } from './me-challenge/generated/generated.component
     MatTabsModule,
     MatInputModule,
     MatGridListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("authToken")
+        }
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
