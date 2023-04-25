@@ -105,7 +105,9 @@ class PostService:
     def search(self, query: str) -> list[Post] | None:      
         statement = select(PostEntity)
         criteria = or_(
-            PostEntity.desc.ilike(f'%{query}%')
+            PostEntity.title.ilike(f'%{query}%'),
+            PostEntity.desc.ilike(f'%{query}%'),
+            # PostEntity.tags.contains(f'%{query}%')
         )
         statement = statement.where(criteria).limit(25)
         entities = self._session.execute(statement).scalars()
