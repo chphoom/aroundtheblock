@@ -107,7 +107,7 @@ class PostService:
         criteria = or_(
             PostEntity.title.ilike(f'%{query}%'),
             PostEntity.desc.ilike(f'%{query}%'),
-            # PostEntity.tags.contains(f'%{query}%')
+            PostEntity.tags.any(query)
         )
         statement = statement.where(criteria).limit(25)
         entities = self._session.execute(statement).scalars()
