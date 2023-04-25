@@ -21,6 +21,8 @@
         [mode]="mode"
         [value]="value"></mat-progress-spinner> -->
           </form>
+          <mat-progress-spinner *ngIf="loadingService.loading$ | async" mode="indeterminate" color="accent"></mat-progress-spinner>
+          <mat-progress-spinner *ngIf="loadingService.sending$ | async" mode="indeterminate" color="accent"></mat-progress-spinner>        
           <div *ngIf="(challenge)" class="prompt me-prompt">
             <p class="prompt-title">Prompt:</p>
             <div class="prompt-text">

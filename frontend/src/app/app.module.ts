@@ -11,7 +11,8 @@ import { MeChallengeComponent } from './me-challenge/me-challenge.component';
 import { LoginComponent } from './login/login.component';
 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequestInterceptor } from './http-request.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -78,7 +79,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       }
     }),
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpRequestInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
