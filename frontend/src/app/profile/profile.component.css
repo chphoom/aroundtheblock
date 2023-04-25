@@ -9,6 +9,10 @@ main {
     font-size: 24px;
 }
 
+.edit {
+    cursor: pointer;
+}
+
 .user-info {
     display: flex;
     flex-direction: row;

@@ -73,6 +73,18 @@ export class RegistrationService {
     return this.http.get<User>(`/api/users/${email}`)
   }
 
+  updateUser(email: string, pronouns: string | null, displayName: string | null, priv: boolean | null, pfp: string | null, bio: string | null, connectedAccounts: string[] | null) {
+    return this.http.put<User>(`api/users/${email}`, {
+      "email": email,
+      "pronouns": pronouns,
+      "displayName": displayName,
+      "private": priv,
+      "pfp": pfp,
+      "bio": bio,
+      "connectedAccounts": connectedAccounts,
+    })
+  }
+
   /**
    * Registers a user into database.
    * 

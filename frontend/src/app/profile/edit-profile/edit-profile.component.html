@@ -1,0 +1,31 @@
+<mat-card>
+    <form *ngIf="user" [formGroup]="form">
+        <mat-card-header>
+            <mat-card-title>
+                <h2>Edit Profile</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label for="email">Email</mat-label>
+                <input matInput id="email" type="text" readonly="readonly" [disabled]="true" [(ngModel)]="user.email" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label for="displayName">Display Name</mat-label>
+                <input matInput id="displayName" type="text" [(ngModel)]="user.displayName" formControlName="displayName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label for="pronouns">Pronouns</mat-label><br>
+                <input matInput id="pronouns" type="text" [(ngModel)]="user.pronouns" formControlName="pronouns">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label for="bio">Bio</mat-label><br>
+                <textarea matInput id="bio" type="text" [(ngModel)]="user.bio" formControlName="bio"></textarea>
+            </mat-form-field>
+            <mat-checkbox type="checkbox" formControlName="private" [(ngModel)]="user.private">Private Account (not implemeted yet)</mat-checkbox>
+        </mat-card-content>
+        <mat-card-actions>
+            <button>Save</button>
+        </mat-card-actions>
+    </form>
+</mat-card>
