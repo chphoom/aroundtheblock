@@ -4,6 +4,8 @@ import { Observable, throwError, map, catchError, tap, of, from, ReplaySubject }
 import { User } from './models';
 export { User } from './models';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 const REPLAY_LAST = 1;
 
@@ -19,7 +21,7 @@ export class RegistrationService {
   private isAuthenticated: ReplaySubject<boolean> = new ReplaySubject(REPLAY_LAST);
   public isAuthenticated$: Observable<boolean> = this.isAuthenticated.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private jwt: JwtHelperService, private http: HttpClient, private router: Router) {
     this.authenticate();
   }
 
@@ -35,9 +37,9 @@ export class RegistrationService {
         observable = from(token);
       }
       observable.subscribe((token) => {
-        if (!(token)) {
-          localStorage.removeItem('bearerToken');
+        if (this.jwt.isTokenExpired(token)) {
           localStorage.removeItem('authToken');
+          localStorage.removeItem('bearerToken');
           this.isAuthenticated.next(false);
         } else {
           this.isAuthenticated.next(true);
