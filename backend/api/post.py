@@ -199,3 +199,26 @@ def search_post(search_string: str, post_serv: PostService = Depends()) -> list[
         return post_serv.search(search_string)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
+
+@api.get("/api/tagged/{search_string}", response_model=list[Post], tags=["Post"])
+def tagged(search_string: str, post_serv: PostService = Depends()) -> list[Post]:
+    """API endpoint for retrieving posts that has content, description, title that match with the search string.
+
+    Parameters:
+    - search_string: a string literal used as a search criteria
+    - post_serv: dependency injection from the post service 
+
+    Returns:
+    - list[Post]: a list of Post objects that has content, title, description that match the search string
+
+    HTTP Methods:
+    - GET
+
+    Usage:
+    - Send a GET request to the endpoint api/post/{search_string}
+    - Return a list of Post objects that has content, title, description that match the search string
+    """
+    try:
+        return post_serv.tagged(search_string)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
