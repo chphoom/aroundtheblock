@@ -32,6 +32,12 @@
         <h2>weChallenge #{{ prevNum }}</h2>
         <div class="prompt we-prompt" *ngIf="(prev$ | async) as prev">
             <p>{{ prev.adj }} {{ prev.noun }} {{ prev.verb }} {{ prev.style }} {{ prev.emotion }}</p>
+            <div *ngIf="(prev.colors).length > 0" class="colors">
+                <div class="color">
+                  <div class="color-box" [ngStyle]="{'background-color': prev.colors[0]}"></div>
+                  <p id="hex">{{prev.colors[0]}}</p>
+                </div>
+              </div>
         </div>
         <div class="display-posts" *ngIf="(prev$ | async) as prev">
             <a *ngFor="let post of prev.posts" [href]="'post/' + post.id">
