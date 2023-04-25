@@ -17,10 +17,23 @@ export class WeChallengeComponent {
   public current$: Observable<Challenge>;
   public wePosts$ = this.postsService.getWePosts();
   public weChallenges$: Observable<Challenge[]>;
+  countdown!: string;
 
   constructor(private router: Router, private challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
     this.current$ = this.challengeService.getCurrentChallenge()
     this.weChallenges$ = this.challengeService.getWeChallenges()
+    this.current$.subscribe(current => {
+      const end = new Date(current.end!).getTime();
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = end - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');;
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');;
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');;
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');;
+        this.countdown = days + ':' + hours + ':' + minutes + ':' + seconds;
+      }, 1000);
+    });
   }
 
   async onSubmit() {
