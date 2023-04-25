@@ -1,6 +1,6 @@
 <main>
     <div class="challenge we">
-        <h2>weChallenge #</h2>
+        <h2>weChallenge #{{(weChallenges$ | async)?.length}}</h2>
         <p>Participate in this week's global art challenge!</p>
         <div class="prompt we-prompt" *ngIf="(current$ | async) as current">
             <p class="prompt-title">Prompt:</p>
@@ -22,20 +22,10 @@
         </button>
     </div>
     <h1 id="divider-text">Past Challenges</h1>
-    <div class="past-we">
-        <h2>weChallenge #</h2>
-        <div class="prompt we-prompt" *ngIf="previous">
-            <p class="prompt-title">Prompt:</p>
-            <p>{{ previous.adj }} {{ previous.noun }} {{ previous.verb }} {{ previous.emotion }}</p>
-        </div>
-        <div class="display-posts">
-            <!-- TODO: Replace with weposts -->
-            <div class="thumbnail">
-                
-            </div>
-            <div class="thumbnail">
-                <img src="/images/post0.png" alt="">
-            </div>
+    <div class="past-we" *ngIf="((weChallenges$ | async)!.length - 1) as prevNum">
+        <h2>weChallenge #{{ prevNum }}</h2>
+        <div class="prompt we-prompt" *ngIf="(prev$ | async) as prev">
+            <p>{{ prev.adj }} {{ prev.noun }} {{ prev.verb }} {{ prev.style }} {{ prev.emotion }}</p>
         </div>
     </div>
     <div class="past-me">
