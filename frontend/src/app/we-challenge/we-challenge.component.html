@@ -1,6 +1,6 @@
 <main>
     <div class="challenge">
-        <h2>weChallenge #</h2>
+        <h2>weChallenge #{{(weChallenges$ | async)?.length}}</h2>
         <div class="prompt we-prompt" *ngIf="(current$ | async) as current">
             <p class="prompt-title">Prompt:</p>
             <p>{{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }}</p>

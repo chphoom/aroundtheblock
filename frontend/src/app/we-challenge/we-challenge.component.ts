@@ -15,12 +15,12 @@ import { Router } from '@angular/router';
 })
 export class WeChallengeComponent {
   public current$: Observable<Challenge>;
-  public challengeService: ChallengeService;
   public wePosts$ = this.postsService.getWePosts();
+  public weChallenges$: Observable<Challenge[]>;
 
-  constructor(private router: Router, challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
-    this.current$ = challengeService.getCurrentChallenge()
-    this.challengeService = challengeService
+  constructor(private router: Router, private challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
+    this.current$ = this.challengeService.getCurrentChallenge()
+    this.weChallenges$ = this.challengeService.getWeChallenges()
   }
 
   async onSubmit() {
