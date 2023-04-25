@@ -6,6 +6,7 @@ import { RegistrationService, User } from '../../registration.service';
 import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { TokenResponse } from 'src/app/models';
 
 @Component({
   selector: 'app-edit-profile',
@@ -38,6 +39,24 @@ export class EditProfileComponent {
     this.registrationService.updateUser(this.user!.email, form.pronouns!, form.displayName!, form.private!, null, form.bio!, null)
     .subscribe((user: User) => {
       console.log(user);
+      // Update authToken in local storage
+      this.registrationService
+      .loginUser(user.email, user.password)
+      .subscribe((response) => {
+        const token = response as TokenResponse;
+        if (token) {
+          // Store the authentication token for future use
+          localStorage.setItem('authToken', token.access_token);
+          console.log(token)
+          // Redirect the user to the home page
+          window.location.reload();
+          // window.location.href = "/";
+          /* this.router.navigate(['/']); */
+        } else {
+          // Handle the case where the login credentials are invalid
+          console.error('Invalid credentials');
+        }
+      })
     }, (error) => {
       console.error(error);
     });  }
