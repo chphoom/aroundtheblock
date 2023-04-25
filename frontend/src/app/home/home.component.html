@@ -27,6 +27,11 @@
         <div class="prompt we-prompt" *ngIf="(prev$ | async) as prev">
             <p>{{ prev.adj }} {{ prev.noun }} {{ prev.verb }} {{ prev.style }} {{ prev.emotion }}</p>
         </div>
+        <div class="display-posts" *ngIf="(prev$ | async) as prev">
+            <a *ngFor="let post of prev.posts" [href]="'post/' + post.id">
+                <img class="thumbnail" [src]="'/images/' + post.img">
+            </a>
+        </div>
     </div>
     <div class="past-me">
         <h2>meChallenges</h2>
