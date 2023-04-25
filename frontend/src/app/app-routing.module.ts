@@ -10,6 +10,7 @@ import { AboutComponent } from './about/about.component';
 import { PastChallengesComponent } from './past-challenges/past-challenges.component';
 import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
+import { SearchComponent } from './search/search.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'past-challenges', component: PastChallengesComponent },
   { path: 'upload', component: UploadComponent },
+  { path: 'search', component: SearchComponent },
   PostComponent.Route,
 ];
 
