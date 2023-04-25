@@ -16,11 +16,11 @@ export class EditProfileComponent {
   public user: User | undefined;
   private isLoggedin: Boolean | undefined;
   form = this.formBuilder.group({
-      email: new FormControl(''),
+      email: new FormControl({disabled: true}),
       displayName: new FormControl('', Validators.required),
       pronouns: new FormControl(''),
       bio: new FormControl(''),
-      private: new FormControl(''),
+      private: [false]
   })
 
   constructor(private router: Router, private formBuilder: FormBuilder, private registrationService: RegistrationService) {
@@ -33,5 +33,10 @@ export class EditProfileComponent {
     }
   }
 
+  onSave() {
+    let form = this.form.value
+    console.log(form)
+    this.registrationService.updateUser(this.user!.email, form.pronouns!, form.displayName!, form.private!, null, form.bio!, null)
+  }
   
 }
