@@ -19,13 +19,22 @@ export class HomeComponent {
   public prev$!: Observable<Challenge>
   public user: User | undefined;
   public isLoggedin: Boolean | undefined;
-  public saved: Boolean | undefined;
+  public saved: { [key: number]: boolean } = {};
   countdown!: string;
 
   constructor(private challengeService: ChallengeService,
      private postService: PostsService,
      private registrationService: RegistrationService,
      protected snackBar: MatSnackBar) {
+      this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
+    this.registrationService.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+      user.savedChallenges?.forEach(challenge => {
+        this.saved[challenge.id!] = !!user.savedChallenges?.find(chall => chall.id === challenge.id);
+      });
+      console.log(user);
+      console.log(this.saved);
+    });
     this.current$ = this.challengeService.getCurrentChallenge()
     this.mePosts$ = this.postService.getMePosts()
     this.weChallenges$ = this.challengeService.getWeChallenges()
@@ -57,7 +66,7 @@ export class HomeComponent {
     this.registrationService.saveChallenge(this.user!.email, c.id ?? 1).subscribe((user: User) => {
       console.log(user);
       this.user=user
-      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === c.id);
+      this.saved[c.id!] = !!user.savedChallenges?.find(chall => chall.id === c.id)
       console.log(this.saved);
       this.snackBar.open(`Challenge saved!`, "", { duration: 2000 });
     }, (error) => {
@@ -69,7 +78,7 @@ export class HomeComponent {
     this.registrationService.unsaveChallenge(this.user!.email, c.id ?? 1).subscribe((user: User) => {
       console.log(user);
       this.user = user
-      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === c.id);
+      this.saved[c.id!] = !!user.savedChallenges?.find(chall => chall.id === c.id);
       console.log(this.saved);
       this.snackBar.open(`Challenge unsaved.`, "", { duration: 2000 });
     }, (error) => {
