@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
 import { PostsService } from '../posts.service';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -19,24 +19,24 @@ export class WeChallengeComponent {
   public current$: Observable<Challenge>;
   public current: Challenge | undefined;
   public wePosts$ = this.postsService.getWePosts();
-  public weChallenges$: Observable<Challenge[]>;
-  public user$: Observable<User> | undefined;
+  public weChallenges$ = this.challengeService.getWeChallenges()
   public user: User | undefined;
   public isLoggedin: Boolean | undefined;
-  public saved: Boolean | undefined;
+  public saved: Boolean | undefined
+
 
   constructor(private router: Router, private challengeService: ChallengeService, private registrationService: RegistrationService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
     this.current$ = this.challengeService.getCurrentChallenge()
     this.challengeService.getCurrentChallenge().subscribe((chall: Challenge) => {
       this.current = chall;
     });
-    this.weChallenges$ = this.challengeService.getWeChallenges()
     this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
-    this.user$ = this.registrationService.getUserInfo();
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.current?.id);
+      console.log(user);
+      console.log(this.saved);
     });
-    this.saved = this.user?.savedChallenges?.includes(this.current!)
   }
 
   async onSubmit() {
@@ -49,12 +49,12 @@ export class WeChallengeComponent {
   save() {
     this.registrationService.saveChallenge(this.user!.email, this.current!.id ?? 1).subscribe((user: User) => {
       console.log(user);
-      this.saved = this.user?.savedChallenges?.includes(this.current!)
-      console.log(this.saved)
+      this.user=user
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.current?.id);
+      console.log(this.saved);
     }, (error) => {
       console.error(error);
     });
-
 
     // change icon upon saving
     /* const icon = document.getElementById('save-icon');
@@ -65,8 +65,9 @@ export class WeChallengeComponent {
     // TODO: implement unsave
     this.registrationService.unsaveChallenge(this.user!.email, this.current!.id ?? 1).subscribe((user: User) => {
       console.log(user);
-      this.saved = this.user?.savedChallenges?.includes(this.current!)
-      console.log(this.saved)
+      this.user = user
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.current?.id);
+      console.log(this.saved);
     }, (error) => {
       console.error(error);
     });
