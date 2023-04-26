@@ -23,7 +23,7 @@
         <mat-tab-group #tabGroup>
             <mat-tab label="Posts" *ngIf="user.userPosts" class="display-posts">
                 <a *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
-                    <img class="thumbnail" [src]="'/images/' + post.img">
+                    <img class="thumbnail" [src]="post.img">
                 </a>
             </mat-tab>
             <mat-tab label="Private">

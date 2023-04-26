@@ -29,27 +29,14 @@
         </div>
       </mat-card-header>
       <mat-card-content>
-        <!-- <button id="neutral" type="button" formControlName="file" (click)="fileInput.click()" (change)="onFileSelected($event)">Choose File</button>
-        <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file"> -->
-        <!-- TODO: figure out how to make file input display file name on selection with a prettier button -->
-        <input id="input-file-id" type="file" (change)="onFileSelected($event)">
-  
-        <!-- <button id="neutral" type="button" (click)="fileInput.click()">
-          Choose File
-        </button>
-        <input
-          hidden
-          type="file"
-          accept="image/*"
-          #fileInput
-          (change)="onFileSelected($event)"
-        /> -->
-        
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label for="file">Paste image URL</mat-label>
+          <input type="text" id="file" formControlName="file" matInput placeholder="https://...">
+        </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label for="posttitle">Title</mat-label>
           <input type="text" id="posttitle" formControlName="title" matInput placeholder="Ex. My Art">
         </mat-form-field>
-      
         <mat-form-field class="example-full-width">
           <mat-label for="description">Description</mat-label>
           <textarea type="text" id="description" formControlName="description" matInput placeholder="Ex. This is how I interpreted the prompt..."></textarea>

@@ -51,7 +51,7 @@
         <div class="display-posts">
           <!-- <a class="thumbnail" *ngFor="let post of (mePosts$ | async)" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}" [href]="'post/' + post.id"></a> -->
           <a *ngFor="let post of (mePosts$ | async)" [href]="'post/' + post.id">
-            <img class="thumbnail" [src]="'/images/' + post.img">
+            <img class="thumbnail" [src]="post.img">
           </a>
         </div>
     </div>
