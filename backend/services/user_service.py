@@ -47,12 +47,12 @@ class UserService:
             raise ValueError(f"No user found with PID: {email}")
 
     def update(self, email: str, 
-                    pronouns: str | None,
-                    displayName: str | None, 
-                    private: bool | None, 
-                    pfp: str | None, 
-                    bio: str | None, 
-                    connectedAccounts: list[str] | None,) -> User:
+                    pronouns: str | None = None,
+                    displayName: str | None = None, 
+                    private: bool | None = None, 
+                    pfp: str | None = None, 
+                    bio: str | None = None, 
+                    connectedAccounts: list[str] | None = None,) -> User:
             temp = self._session.get(UserEntity, email)
             if temp:
                 if pronouns != None:

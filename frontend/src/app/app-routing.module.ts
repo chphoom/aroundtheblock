@@ -11,6 +11,7 @@ import { PastChallengesComponent } from './past-challenges/past-challenges.compo
 import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
 import { SearchComponent } from './search/search.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'upload', component: UploadComponent },
   { path: 'search/:query', component: SearchComponent },
   PostComponent.Route,
+  { path: 'profile/edit', component: EditProfileComponent}
 ];
 
 @NgModule({

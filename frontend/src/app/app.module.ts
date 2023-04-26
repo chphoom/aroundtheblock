@@ -11,7 +11,8 @@ import { MeChallengeComponent } from './me-challenge/me-challenge.component';
 import { LoginComponent } from './login/login.component';
 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequestInterceptor } from './http-request.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -35,6 +36,7 @@ import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SearchComponent } from './search/search.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { SearchComponent } from './search/search.component';
     UploadComponent,
     PostComponent,
     SearchComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,11 @@ import { SearchComponent } from './search/search.component';
       }
     }),
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpRequestInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -83,14 +83,14 @@ def get_user(email: str, user_service: UserService = Depends()) -> User:
 
 @api.put("/api/users/{email}", tags=['User'])
 def update_user(email: str,
-                pronouns: str | None,
-                displayName: str | None, 
-                private: bool | None, 
-                pfp: str | None, 
-                bio: str | None, 
-                connectedAccounts: list[str] | None, 
+                pronouns: str | None = None,
+                displayName: str | None = None, 
+                private: bool | None = None, 
+                pfp: str | None = None, 
+                bio: str | None = None, 
+                connectedAccounts: list[str] | None = None, 
                 user_service: UserService = Depends()) -> User:
-    """API endpoint for updating a post
+    """API endpoint for updating a user
 
     Parameters:
     - email: a string representing the primary key of the User

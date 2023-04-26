@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
 import { Post, PostsService } from '../posts.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from '../upload.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RegistrationService, User } from '../registration.service';
