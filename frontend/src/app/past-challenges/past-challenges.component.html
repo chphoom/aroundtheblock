@@ -5,8 +5,8 @@
         <div></div>
     </header>
     <div class="side-bar">
-        <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse(); let i=index">
-            <div class="prompt we-prompt past">
+        <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse(); let i=index" (click)="onClick(challenge, i)">
+            <div class="prompt we-prompt past" id="past">
                 <h2 class="num">#{{((weChallenges$ | async)?.length)! - i}}</h2>
                 <div class="prompt-info">
                     <p>{{ challenge.verb }} {{ challenge.adj }} {{ challenge.noun }} {{ challenge.style }} {{ challenge.emotion }} </p>
@@ -15,19 +15,29 @@
                           <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
                           <p id="hex">{{challenge.colors[0]}}</p>
                         </div>
-                      </div>
+                    </div>
                     <p> {{ challenge.start | date: "MMM d, y" }} - {{ challenge.end | date: "MMM d, y" }}</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="challenge">
-        <h2>weChallenge #</h2>
+        <h2>weChallenge #{{ selected.id }}</h2>
         <div class="prompt we-prompt">
             <p class="prompt-title">Prompt:</p>
+            <div class="prompt-text">
+                <p *ngIf="(selected.adj) || (selected.noun) || (selected.verb)">{{selected.adj}} {{selected.noun}} {{selected.verb}}</p>
+                <p *ngIf="(selected.emotion)"> displaying "{{selected.emotion}}"</p>
+            </div>
+            <div *ngIf="(selected.colors).length > 0" class="colors">
+                <div class="color">
+                  <div class="color-box" [ngStyle]="{'background-color': selected.colors[0]}"></div>
+                  <p id="hex">{{selected.colors[0]}}</p>
+                </div>
+            </div>
         </div>
-        <p>Date range</p>
-        <button id="we" type="submit">
+        <p> {{ selected.start | date: "MMM d, y" }} - {{ selected.end | date: "MMM d, y" }}</p>
+        <button id="we" type="submit" *ngIf="isLoggedin" (click)="onSubmit()">
             <p>Submit</p>
         </button>
     </div>

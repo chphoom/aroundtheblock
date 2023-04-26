@@ -13,17 +13,9 @@
             <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
           </div>
           <div *ngIf="(challenge.colors).length > 0" class="colors">
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
-              <p id="hex">{{challenge.colors[0]}}</p>
-            </div>
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[1]}"></div>
-              <p id="hex">{{challenge.colors[1]}}</p>
-            </div>
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[2]}"></div>
-              <p id="hex">{{challenge.colors[2]}}</p>
+            <div class="color" *ngFor="let color of challenge.colors">
+              <div class="color-box" [ngStyle]="{'background-color': color}"></div>
+              <p id="hex">{{color}}</p>
             </div>
           </div>
         </div>
