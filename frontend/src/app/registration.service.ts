@@ -159,7 +159,7 @@ export class RegistrationService {
       }),
       catchError(error => {
         console.error(error);
-        return throwError(() => new Error(error.message || 'An error occurred'));
+        return throwError(() => error);
       })
     );
   }

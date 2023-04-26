@@ -66,12 +66,8 @@ export class LoginComponent {
         // Redirect the user to the home page
         window.location.reload();
         window.location.href = "/";
-        /* this.router.navigate(['/']); */
-      } else {
-        // Handle the case where the login credentials are invalid
-        console.error('Invalid credentials');
       }
-    });
+    }, (error) => this.onError);
   }
 
 
