@@ -1,5 +1,5 @@
 <main>
-    <div class="post-img-container" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+    <div class="post-img-container" [ngStyle]="{'background-image':'url('+post.img+')'}"></div>
     <div class="post-content">
         <div *ngIf="post && user">
             <h2>{{post.title}}</h2>
