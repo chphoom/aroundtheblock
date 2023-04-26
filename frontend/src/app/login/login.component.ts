@@ -79,7 +79,7 @@ export class LoginComponent {
 
   private onError(err: Error) {
     if (err.message) {
-      window.alert(err.message);
+      window.alert(`Login failed. Check email or password.`);
     } else {
       window.alert("Unknown error: " + JSON.stringify(err));
     }
