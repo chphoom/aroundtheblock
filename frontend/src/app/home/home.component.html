@@ -44,7 +44,7 @@
     </div>
     <h1 id="divider-text">Past Challenges</h1>
     <div class="past-we" *ngIf="((weChallenges$ | async)!.length - 1) as prevNum">
-        <h2>weChallenge #{{ prevNum }}</h2>
+        <h2 routerLink="/past-challenges">weChallenge #{{ prevNum }}</h2>
         <div class="prompt we-prompt" *ngIf="(prev$ | async) as prev">
             <div class="prompt-content">
                 <p class="prompt-title">Prompt:</p>
