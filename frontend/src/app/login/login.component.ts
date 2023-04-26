@@ -67,7 +67,7 @@ export class LoginComponent {
         window.location.reload();
         window.location.href = "/";
       }
-    }, (error) => this.onError);
+    }, (error) => this.onError(error));
   }
 
 
