@@ -42,7 +42,11 @@ export class WeChallengeComponent {
   }
 
   save() {
-    this.registrationService.saveChallenge(this.user!.email, this.current!.id ?? 1)
+    this.registrationService.saveChallenge(this.user!.email, this.current!.id ?? 1).subscribe((user: User) => {
+      console.log(user);
+    }, (error) => {
+      console.error(error);
+    });  
     console.log("button clicked " + this.user!.email + " " + this.current!.id)
   }
 }
