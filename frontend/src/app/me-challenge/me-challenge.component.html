@@ -22,7 +22,7 @@
           <div *ngIf="(challenge)" class="prompt me-prompt">
             <p class="prompt-title">Prompt:</p>
             <div class="prompt-text">
-              <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.adj}} {{challenge.noun}} {{challenge.verb}}</p>
+              <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.verb}} {{challenge.adj}} {{challenge.noun}}</p>
               <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
               <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
             </div>

@@ -3,7 +3,7 @@
         <h2>weChallenge #{{(weChallenges$ | async)?.length}}</h2>
         <div class="prompt we-prompt" *ngIf="(current$ | async) as current">
             <p class="prompt-title">Prompt:</p>
-            <p>{{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }}</p>
+            <p>{{ current.verb }} {{ current.adj }} {{ current.noun }} {{ current.style }} {{ current.emotion }}</p>
             <div *ngIf="(current.colors).length > 0" class="colors">
                 <div class="color">
                   <div class="color-box" [ngStyle]="{'background-color': current.colors[0]}"></div>
