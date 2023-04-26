@@ -6,6 +6,7 @@ import { RegistrationService } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { CommentService } from '../comment.service';
 
 @Component({
   selector: 'app-post',
@@ -37,7 +38,8 @@ export class PostComponent implements OnInit {
     private route: ActivatedRoute,
     private registrationService: RegistrationService,
     private challengeService: ChallengeService,
-    private router: Router) {
+    private router: Router,
+    private commentService: CommentService) {
     this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
     if (this.isLoggedin) {
        // get current user information
@@ -70,22 +72,12 @@ export class PostComponent implements OnInit {
       this.user = user;
     });
 
-    // this.registrationService
-    // .loginUser(email, password)
-    // .subscribe((response) => {
-    //   const token = response as TokenResponse;
-    //   if (token) {
-    //     // Store the authentication token for future use
-    //     localStorage.setItem('authToken', token.access_token);
-    //     console.log(token)
-    //     // Redirect the user to the home page
-    //     window.location.reload();
-    //     window.location.href = "/";
-    //     /* this.router.navigate(['/']); */
-    //   } else {
-    //     // Handle the case where the login credentials are invalid
-    //     console.error('Invalid credentials');
-    //   }
-    // });
+    this.commentService.createComment(_c, this.user!, this.post.id!)
+      .subscribe((response) => {
+          console.log(response)
+          window.location.reload();
+        }, (error) => {
+          console.error(error);
+        });
   }
 }

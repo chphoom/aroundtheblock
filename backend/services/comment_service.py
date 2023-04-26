@@ -20,9 +20,7 @@ class CommentService:
     def create(self, comment: Comment) -> Comment:
         user = self._session.get(UserEntity, comment.commenter)
         if user:
-            comment.commenter = user
             post = self._session.get(PostEntity, comment.post)
-            comment.post = post
             comment_entity: CommentEntity = CommentEntity.from_model(comment)
             post.comments.append(comment_entity)
             self._session.add(comment_entity)
