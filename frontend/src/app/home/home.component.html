@@ -37,7 +37,7 @@
                   <div class="color-box" [ngStyle]="{'background-color': prev.colors[0]}"></div>
                   <p id="hex">{{prev.colors[0]}}</p>
                 </div>
-              </div>
+            </div>
         </div>
         <div class="display-posts" *ngIf="(prev$ | async) as prev">
             <a *ngFor="let post of prev.posts" [href]="'post/' + post.id">
