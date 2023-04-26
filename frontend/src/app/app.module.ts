@@ -33,7 +33,8 @@ import { PastChallengesComponent } from './past-challenges/past-challenges.compo
 import { GeneratedComponent } from './me-challenge/generated/generated.component';
 import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatGridListModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

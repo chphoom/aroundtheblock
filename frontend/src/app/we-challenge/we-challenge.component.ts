@@ -6,6 +6,7 @@ import { UploadService } from '../upload.service';
 import { ShareService } from '../share.service';
 import { Router } from '@angular/router';
 import { RegistrationService, User } from '../registration.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-we-challenge',
@@ -21,8 +22,7 @@ export class WeChallengeComponent {
   public isLoggedin: Boolean | undefined;
   public saved: Boolean | undefined
 
-
-  constructor(private router: Router, private challengeService: ChallengeService, private registrationService: RegistrationService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
+  constructor(private router: Router, private challengeService: ChallengeService, private registrationService: RegistrationService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService, protected snackBar: MatSnackBar) {
     this.current$ = this.challengeService.getCurrentChallenge()
     this.challengeService.getCurrentChallenge().subscribe((chall: Challenge) => {
       this.current = chall;
@@ -49,13 +49,10 @@ export class WeChallengeComponent {
       this.user=user
       this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.current?.id);
       console.log(this.saved);
+      this.snackBar.open(`Challenge saved!`, "", { duration: 2000 });
     }, (error) => {
       console.error(error);
     });
-
-    // change icon upon saving
-    /* const icon = document.getElementById('save-icon');
-    icon!.innerHTML = '<path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/><path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>'; */
   }
 
   unsave() {
@@ -65,9 +62,9 @@ export class WeChallengeComponent {
       this.user = user
       this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.current?.id);
       console.log(this.saved);
+      this.snackBar.open(`Challenge unsaved.`, "", { duration: 2000 });
     }, (error) => {
       console.error(error);
     });
-
   }
 }
