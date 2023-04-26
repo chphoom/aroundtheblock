@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { PostsService } from '../posts.service';
 import { Observable } from 'rxjs';
 import { ShareService } from '../share.service';
-import {ThemePalette} from '@angular/material/core';
-import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { LoadingService } from '../loading.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-me-challenge',
@@ -25,13 +25,9 @@ export class MeChallengeComponent {
   public colorBox = document.getElementsByClassName('color-box') as HTMLCollectionOf<HTMLElement>;
   public mePosts$ = this.postsService.getMePosts();
   public user: User | undefined;
-  //public generator = "false";
-
-  /* color: ThemePalette = 'primary';
-  mode: ProgressSpinnerMode = 'indeterminate';
-  value = 50; */
+  public saved: Boolean | undefined;
   
-  constructor(private router: Router, private postsService: PostsService, private registrationService: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService, protected loadingService: LoadingService){
+  constructor(private router: Router, private postsService: PostsService, private registrationService: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService, protected loadingService: LoadingService, protected snackBar: MatSnackBar){
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });
@@ -50,6 +46,7 @@ export class MeChallengeComponent {
   onGenerate() {
     //this.generator = "clicked"
     // get list of options
+    
     for (var option in this.form.value) {
       // check if at least one option is checked
       if (this.form.value[option]) {
@@ -79,7 +76,10 @@ export class MeChallengeComponent {
 
       // Construct new challenge
       // Pass challenge and options to api and put returned challenge into variable
-      this.challengeService.createChallenge(challenge, this.options).subscribe(challenge => this.challenge = challenge)
+      this.challengeService.createChallenge(challenge, this.options).subscribe((challenge) => {
+        this.challenge = challenge
+        this.saved = !!this.user?.savedChallenges?.find(challenge => challenge.id === this.challenge?.id);
+      });
       // keep this console log to keep track of created challenges
       console.log(this.challenge)
     } else {
@@ -97,11 +97,24 @@ export class MeChallengeComponent {
   save() {
     this.registrationService.saveChallenge(this.user!.email, this.challenge!.id ?? 1).subscribe((user: User) => {
       console.log(user);
+      this.user=user
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.challenge?.id);
+      console.log(this.saved);
+      this.snackBar.open(`Challenge saved!`, "", { duration: 2000 });
     }, (error) => {
       console.error(error);
     });
-    // change icon upon saving
-    const icon = document.getElementById('save-icon');
-    icon!.innerHTML = '<path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/><path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>';
+  }
+
+  unsave() {
+    this.registrationService.unsaveChallenge(this.user!.email, this.challenge!.id ?? 1).subscribe((user: User) => {
+      console.log(user);
+      this.user = user
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.challenge?.id);
+      console.log(this.saved);
+      this.snackBar.open(`Challenge unsaved.`, "", { duration: 2000 });
+    }, (error) => {
+      console.error(error);
+    });
   }
 }

@@ -20,7 +20,7 @@ export class WeChallengeComponent {
   public weChallenges$ = this.challengeService.getWeChallenges()
   public user: User | undefined;
   public isLoggedin: Boolean | undefined;
-  public saved: Boolean | undefined
+  public saved: Boolean | undefined;
   countdown!: string;
 
   constructor(private router: Router, private challengeService: ChallengeService, private registrationService: RegistrationService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService, protected snackBar: MatSnackBar) {
@@ -69,7 +69,6 @@ export class WeChallengeComponent {
   }
 
   unsave() {
-    // TODO: implement unsave
     this.registrationService.unsaveChallenge(this.user!.email, this.current!.id ?? 1).subscribe((user: User) => {
       console.log(user);
       this.user = user
