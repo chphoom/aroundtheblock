@@ -83,9 +83,10 @@ p {
 .thumbnail-container {
     display: inline-block;
     position: relative;
-    width: 24vw;
-    height: 24vw;
+    width: 23vw;
+    height: 23vw;
     margin: 2px;
+    cursor: pointer;
 }
 
 .thumbnail {
