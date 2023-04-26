@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Challenge, ChallengeService } from '../challenge.service';
-import { Post } from '../models';
+import { Post, User } from '../models';
 import { PostsService } from '../posts.service';
+import { RegistrationService } from '../registration.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +17,15 @@ export class HomeComponent {
   public mePosts$: Observable<Post[]>;
   public weChallenges$: Observable<Challenge[]>; 
   public prev$!: Observable<Challenge>
+  public user: User | undefined;
+  public isLoggedin: Boolean | undefined;
+  public saved: Boolean | undefined;
   countdown!: string;
 
-  constructor(private challengeService: ChallengeService, private postService: PostsService) {
+  constructor(private challengeService: ChallengeService,
+     private postService: PostsService,
+     private registrationService: RegistrationService,
+     protected snackBar: MatSnackBar) {
     this.current$ = this.challengeService.getCurrentChallenge()
     this.mePosts$ = this.postService.getMePosts()
     this.weChallenges$ = this.challengeService.getWeChallenges()
@@ -43,5 +51,29 @@ export class HomeComponent {
 
   getElementAtIndex(index: number): Observable<Challenge> {
     return this.weChallenges$.pipe(map((array: Challenge[]) => array[index]))
+  }
+
+  save(c: Challenge) {
+    this.registrationService.saveChallenge(this.user!.email, c.id ?? 1).subscribe((user: User) => {
+      console.log(user);
+      this.user=user
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === c.id);
+      console.log(this.saved);
+      this.snackBar.open(`Challenge saved!`, "", { duration: 2000 });
+    }, (error) => {
+      console.error(error);
+    });
+  }
+
+  unsave(c: Challenge) {
+    this.registrationService.unsaveChallenge(this.user!.email, c.id ?? 1).subscribe((user: User) => {
+      console.log(user);
+      this.user = user
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === c.id);
+      console.log(this.saved);
+      this.snackBar.open(`Challenge unsaved.`, "", { duration: 2000 });
+    }, (error) => {
+      console.error(error);
+    });
   }
 }
