@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RegistrationService, User } from '../registration.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Challenge } from '../models';
+import { ShareService } from '../share.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +16,7 @@ export class ProfileComponent {
   public user$: Observable<User> | undefined;
   public user: User | undefined;
   
-  constructor(private registration_service: RegistrationService, private router: Router){}
+  constructor(private registration_service: RegistrationService, private router: Router, private shareService: ShareService){}
 
   ngOnInit() {
     // verify authentication
@@ -27,6 +29,11 @@ export class ProfileComponent {
     this.registration_service.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });
+  }
+
+  async onSubmit(challenge: Challenge) {
+    this.shareService.setCurrentValue(challenge)
+    await this.router.navigate(['/upload']);
   }
 
   logOut() {
