@@ -20,7 +20,7 @@ export class SearchComponent {
     map(posts => posts.filter(post => !post.private))
   );
   public challenges$ = this.ch_serv.getAllChallenges()
-  public query: string = ""
+  public query: string = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private search: SearchService, private post_serv: PostsService, private user_serv: RegistrationService, private ch_serv: ChallengeService) {
   }
