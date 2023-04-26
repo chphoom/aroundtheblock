@@ -266,14 +266,16 @@ a:before, a:after, a > span:before, a > span:after {
   transform: translateX(0);
 }
 
-.logo svg {
+.logo svg, .icon svg {
   margin:0.5rem 1rem;
   transition: all 300ms ease-out; 
 }
 
-.logo svg:hover {
+.logo svg:hover, .icon svg:hover {
   transform: scale(1.1); 
 }
+
+
 
 // Thumbnail
 

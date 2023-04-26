@@ -7,6 +7,7 @@ import { UploadService } from '../upload.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ShareService } from '../share.service';
 import { Router } from '@angular/router';
+import { RegistrationService, User } from '../registration.service';
 
 @Component({
   selector: 'app-we-challenge',
@@ -15,12 +16,22 @@ import { Router } from '@angular/router';
 })
 export class WeChallengeComponent {
   public current$: Observable<Challenge>;
+  public current: Challenge | undefined;
   public wePosts$ = this.postsService.getWePosts();
   public weChallenges$: Observable<Challenge[]>;
+  public user$: Observable<User> | undefined;
+  public user: User | undefined;
 
-  constructor(private router: Router, private challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
+  constructor(private router: Router, private challengeService: ChallengeService, private registrationService: RegistrationService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
     this.current$ = this.challengeService.getCurrentChallenge()
+    this.challengeService.getCurrentChallenge().subscribe((chall: Challenge) => {
+      this.current = chall;
+    });
     this.weChallenges$ = this.challengeService.getWeChallenges()
+    this.user$ = this.registrationService.getUserInfo();
+    this.registrationService.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
   }
 
   async onSubmit() {
@@ -28,5 +39,10 @@ export class WeChallengeComponent {
       this.shareService.setCurrentValue(challenge);
     });
     await this.router.navigate(['/upload']);
+  }
+
+  save() {
+    this.registrationService.saveChallenge(this.user!.email, this.current!.id ?? 1)
+    console.log("button clicked " + this.user!.email + " " + this.current!.id)
   }
 }
