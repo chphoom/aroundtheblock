@@ -16,7 +16,7 @@ import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
   styleUrls: ['./me-challenge.component.css']
 })
 export class MeChallengeComponent {
-  public isLoggedin = this.registration_service.isLoggedIn();
+  public isLoggedin = this.registrationService.isLoggedIn();
   private options: String[];
   public form: FormGroup;
   private valid: Boolean = false;
@@ -30,8 +30,8 @@ export class MeChallengeComponent {
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50; */
   
-  constructor(private router: Router, private postsService: PostsService, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService){
-    this.registration_service.getUserInfo().subscribe((user: User) => {
+  constructor(private router: Router, private postsService: PostsService, private registrationService: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService){
+    this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });
     
@@ -91,5 +91,16 @@ export class MeChallengeComponent {
   async onSubmit() {
     this.shareService.setCurrentValue(this.challenge)
     await this.router.navigate(['/upload']);
+  }
+
+  save() {
+    this.registrationService.saveChallenge(this.user!.email, this.challenge!.id ?? 1).subscribe((user: User) => {
+      console.log(user);
+    }, (error) => {
+      console.error(error);
+    });
+    // change icon upon saving
+    const icon = document.getElementById('save-icon');
+    icon!.innerHTML = '<path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/><path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>';
   }
 }

@@ -74,14 +74,7 @@ export class RegistrationService {
   }
 
   saveChallenge(email: string, challenge_id: number) {
-    /* let query = `?email=${email}&challenge_id=${id}`
-    console.log(query)
-    const body = { email: email, challenge_id: id };
-    return this.http.put<User>(`api/savec`, body) */
-    //?email=elaine13@email.unc.edu&challenge_id=16
-    //?email=elaine13%40email.unc.edu&challenge_id=16
     return this.http.put<User>(`/api/savec?email=${email}&challenge_id=${challenge_id}`,{})
-    // return this.http.put<User> (`/api/savec`, {email, challenge_id})
   }
 
   /**
