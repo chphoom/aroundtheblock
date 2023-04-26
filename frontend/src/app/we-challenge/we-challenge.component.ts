@@ -23,6 +23,7 @@ export class WeChallengeComponent {
   public user$: Observable<User> | undefined;
   public user: User | undefined;
   public isLoggedin: Boolean | undefined;
+  public saved: Boolean | undefined;
 
   constructor(private router: Router, private challengeService: ChallengeService, private registrationService: RegistrationService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService) {
     this.current$ = this.challengeService.getCurrentChallenge()
@@ -35,6 +36,7 @@ export class WeChallengeComponent {
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });
+    this.saved = this.user?.savedChallenges?.includes(this.current!)
   }
 
   async onSubmit() {
@@ -47,32 +49,12 @@ export class WeChallengeComponent {
   save() {
     this.registrationService.saveChallenge(this.user!.email, this.current!.id ?? 1).subscribe((user: User) => {
       console.log(user);
-      // Update authToken in local storage
-      this.registrationService
-      .loginUser(user.email, user.password)
-      .subscribe((response) => {
-        const token = response as TokenResponse;
-        if (token) {
-          // Store the authentication token for future use
-          localStorage.setItem('authToken', token.access_token);
-          console.log(token)
-          // Redirect the user to the home page
-          // window.location.href = "/";
-          /* this.router.navigate(['/']); */
-        } else {
-          // Handle the case where the login credentials are invalid
-          console.error('Invalid credentials');
-        }
-      })
+      this.saved = this.user?.savedChallenges?.includes(this.current!)
+      console.log(this.saved)
     }, (error) => {
       console.error(error);
     });
 
-
-    this.user$ = this.registrationService.getUserInfo();
-    this.registrationService.getUserInfo().subscribe((user: User) => {
-      this.user = user;
-    });
 
     // change icon upon saving
     /* const icon = document.getElementById('save-icon');
@@ -83,8 +65,11 @@ export class WeChallengeComponent {
     // TODO: implement unsave
     this.registrationService.unsaveChallenge(this.user!.email, this.current!.id ?? 1).subscribe((user: User) => {
       console.log(user);
+      this.saved = this.user?.savedChallenges?.includes(this.current!)
+      console.log(this.saved)
     }, (error) => {
       console.error(error);
     });
+
   }
 }
