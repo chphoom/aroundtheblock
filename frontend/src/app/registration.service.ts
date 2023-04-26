@@ -77,6 +77,10 @@ export class RegistrationService {
     return this.http.put<User>(`/api/savec?email=${email}&challenge_id=${challenge_id}`,{})
   }
 
+  unsaveChallenge(email: string, challenge_id: number) {
+    return this.http.put<User>(`/api/unsavec?email=${email}&challenge_id=${challenge_id}`,{})
+  }
+
   /**
    * Registers a user into database.
    * 
