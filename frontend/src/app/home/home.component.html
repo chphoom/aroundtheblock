@@ -3,12 +3,13 @@
         <h2>weChallenge #{{(weChallenges$ | async)?.length}}</h2>
         <p>Participate in this week's global art challenge!</p>
         <div class="prompt we-prompt" *ngIf="(current$ | async) as current">
-            <p class="prompt-title">Prompt:</p>
-            <p> {{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }} </p>
-            <div *ngIf="(current.colors).length > 0" class="colors">
-                <div class="color">
-                  <div class="color-box" [ngStyle]="{'background-color': current.colors[0]}"></div>
-                  <p id="hex">{{current.colors[0]}}</p>
+            <div class="prompt-content">
+                <p class="prompt-title">Prompt:</p>
+                <p> {{ current.adj }} {{ current.noun }} {{ current.verb }} {{ current.style }} {{ current.emotion }} </p>
+                <div *ngIf="(current.colors).length > 0" class="colors">
+                    <div class="color">
+                    <div class="color-box" [ngStyle]="{'background-color': current.colors[0]}"></div>
+                    <p id="hex">{{current.colors[0]}}</p>
                 </div>
             </div>
             <div class="icon" (click)="save(current)" *ngIf="isLoggedin && !(saved[current.id!])">
@@ -16,6 +17,7 @@
                     <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
                     <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
                 </svg>
+            </div>
             </div>
             <div class="icon" (click)="unsave(current)" *ngIf="isLoggedin && (saved[current.id!])">
                 <!-- (user$ | async)?.savedChallenges?.includes(current) -->
@@ -44,11 +46,14 @@
     <div class="past-we" *ngIf="((weChallenges$ | async)!.length - 1) as prevNum">
         <h2>weChallenge #{{ prevNum }}</h2>
         <div class="prompt we-prompt" *ngIf="(prev$ | async) as prev">
-            <p>{{ prev.adj }} {{ prev.noun }} {{ prev.verb }} {{ prev.style }} {{ prev.emotion }}</p>
-            <div *ngIf="(prev.colors).length > 0" class="colors">
-                <div class="color">
-                  <div class="color-box" [ngStyle]="{'background-color': prev.colors[0]}"></div>
-                  <p id="hex">{{prev.colors[0]}}</p>
+            <div class="prompt-content">
+                <p class="prompt-title">Prompt:</p>
+                <p>{{ prev.adj }} {{ prev.noun }} {{ prev.verb }} {{ prev.style }} {{ prev.emotion }}</p>
+                <div *ngIf="(prev.colors).length > 0" class="colors">
+                    <div class="color">
+                    <div class="color-box" [ngStyle]="{'background-color': prev.colors[0]}"></div>
+                    <p id="hex">{{prev.colors[0]}}</p>
+                    </div>
                 </div>
             </div>
             <div class="icon" (click)="save(prev)" *ngIf="isLoggedin && !(saved[prev.id!])">
@@ -58,7 +63,6 @@
                 </svg>
             </div>
             <div class="icon" (click)="unsave(prev)" *ngIf="isLoggedin && (saved[prev.id!])">
-                <!-- (user$ | async)?.savedChallenges?.includes(current) -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
                     <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
                     <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
