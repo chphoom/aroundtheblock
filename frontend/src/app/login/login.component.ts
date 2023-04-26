@@ -46,7 +46,7 @@ export class LoginComponent {
       .registerUser(email, displayName, password, confirm)
       .subscribe({
         next: (user) => this.onSuccess(user),
-        error: (err) => this.onError(err)
+        error: (err) => this.onRegisterError(err)
       });
   }
 
@@ -67,7 +67,7 @@ export class LoginComponent {
         window.location.reload();
         window.location.href = "/";
       }
-    }, (error) => this.onError(error));
+    }, (error) => this.onLoginError(error));
   }
 
 
@@ -77,9 +77,17 @@ export class LoginComponent {
     this.tabGroup.selectedIndex = 0;
   }
 
-  private onError(err: Error) {
+  private onRegisterError(err: Error) {
     if (err.message) {
-      window.alert(`Login failed. Check email or password.`);
+      window.alert(`Registration failed. Please check fields again.`);
+    } else {
+      window.alert("Unknown error: " + JSON.stringify(err));
+    }
+  }
+
+  private onLoginError(err: Error) {
+    if (err.message) {
+      window.alert(`Login failed. Check email or password again.`);
     } else {
       window.alert("Unknown error: " + JSON.stringify(err));
     }
