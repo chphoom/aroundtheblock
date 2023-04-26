@@ -35,6 +35,7 @@ import { GeneratedComponent } from './me-challenge/generated/generated.component
 import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SearchComponent } from './search/search.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 
 @NgModule({
@@ -53,6 +54,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     GeneratedComponent,
     UploadComponent,
     PostComponent,
+    SearchComponent,
     EditProfileComponent,
   ],
   imports: [

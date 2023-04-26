@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import select, or_
+from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import Challenge
@@ -74,15 +74,14 @@ class ChallengeService:
         else:
             raise ValueError(f"Challenge not Found")
 
-    # WIP
     def search(self, query: str) -> list[Challenge] | None:      
         statement = select(ChallengeEntity)
         criteria = or_(
             ChallengeEntity.noun.ilike(f'%{query}%'),
             ChallengeEntity.verb.ilike(f'%{query}%'),
             ChallengeEntity.emotion.ilike(f'%{query}%'),
-            ChallengeEntity.style.ilike(f'%{query}%') #,
-            # ChallengeEntity.colors.ilike(f'%{query}%')
+            ChallengeEntity.style.ilike(f'%{query}%'),
+            func.array_to_string(ChallengeEntity.colors, ',').ilike(f'%{query}%')
         )
         statement = statement.where(criteria).limit(25)
         entities = self._session.execute(statement).scalars()
