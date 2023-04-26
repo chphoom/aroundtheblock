@@ -1,20 +1,23 @@
-<div class="display-users" *ngIf="(users$ | async)?.length">
-    <h2>Users</h2>
+<main>
+    <div class="display-users" *ngIf="(users$ | async)?.length">
+    <h2>Users matching "{{query}}"</h2>
     <!-- <a *ngFor="let user of users$ | async" [href]="'post/' + post.id"> -->
-    <a *ngFor="let user of users$ | async">
+    <!-- TODO: once public profile pages are made, link to profile -->
+        <a *ngFor="let user of users$ | async">
         <p> {{user.displayName}} </p>
         <!-- <img class="thumbnail" [src]="'/images/' + user.pfp"> -->
     </a>
-</div>
-<div class="display-posts" *ngIf="(posts$ | async)?.length">
-    <h2>Posts</h2>
-    <a *ngFor="let post of posts$ | async" [href]="'post/' + post.id">
-        <img class="thumbnail" [src]="'/images/' + post.img">
-    </a>
-</div>
-<!-- <div class="display-challenges">
-    <h2>Challenges2>
-    <a *ngFor="let challenge of challenges$ | async">
-        <img class="thumbnail" [src]="'/images/' + user.pfp">
-    </a>
-</div> -->
+    </div>
+    <div *ngIf="(posts$ | async)?.length">
+        <h2>Posts matching "{{query}}"</h2>
+        <a *ngFor="let post of posts$ | async" [href]="'post/' + post.id">
+            <img class="thumbnail" [src]="'/images/' + post.img">
+        </a>
+    </div>
+    <!-- <div class="display-challenges">
+        <h2>Challenges2>
+        <a *ngFor="let challenge of challenges$ | async">
+            <img class="thumbnail" [src]="'/images/' + user.pfp">
+        </a>
+    </div> -->
+</main>
