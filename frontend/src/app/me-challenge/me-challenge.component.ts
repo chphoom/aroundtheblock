@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { ShareService } from '../share.service';
 import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import { LoadingService } from '../loading.service';
 
 @Component({
   selector: 'app-me-challenge',
@@ -30,7 +31,7 @@ export class MeChallengeComponent {
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50; */
   
-  constructor(private router: Router, private postsService: PostsService, private registrationService: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService){
+  constructor(private router: Router, private postsService: PostsService, private registrationService: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService, protected loadingService: LoadingService){
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });

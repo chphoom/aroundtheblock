@@ -15,6 +15,7 @@ export class HomeComponent {
   public mePosts$: Observable<Post[]>;
   public weChallenges$: Observable<Challenge[]>; 
   public prev$!: Observable<Challenge>
+  countdown!: string;
 
   constructor(private challengeService: ChallengeService, private postService: PostsService) {
     this.current$ = this.challengeService.getCurrentChallenge()
@@ -26,6 +27,18 @@ export class HomeComponent {
         this.prev$ = this.getElementAtIndex(prevIndex);
       }
     );
+    this.current$.subscribe(current => {
+      const end = new Date(current.end!).getTime();
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = end - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');;
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');;
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');;
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');;
+        this.countdown = days + ':' + hours + ':' + minutes + ':' + seconds;
+      }, 1000);
+    });
   }
 
   getElementAtIndex(index: number): Observable<Challenge> {

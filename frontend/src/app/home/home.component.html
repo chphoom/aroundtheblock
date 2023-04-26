@@ -14,7 +14,7 @@
         </div>
         <p *ngIf="(current$ | async) as current"> {{current.start | date: "MMM d, y"}} - {{current.end | date: "MMM d, y"}}</p>
         <p>Time remaining:</p>
-        <h1 id="countdown">Countdown</h1>
+        <h1 id="countdown">{{ countdown}}</h1>
         <button type="button" class="go" id="we" routerLink="/we-challenge">
             <p>Go</p>
         </button>
@@ -37,11 +37,11 @@
                   <div class="color-box" [ngStyle]="{'background-color': prev.colors[0]}"></div>
                   <p id="hex">{{prev.colors[0]}}</p>
                 </div>
-              </div>
+            </div>
         </div>
         <div class="display-posts" *ngIf="(prev$ | async) as prev">
             <a *ngFor="let post of prev.posts" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="'/images/' + post.img">
+                <img class="thumbnail" [src]="post.img">
             </a>
         </div>
     </div>
@@ -49,7 +49,7 @@
         <h2>meChallenges</h2>
         <div class="display-posts">
             <a *ngFor="let post of mePosts$ | async" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="'/images/' + post.img">
+                <img class="thumbnail" [src]="post.img">
             </a>
         </div>
     </div>

@@ -21,6 +21,7 @@ export class WeChallengeComponent {
   public user: User | undefined;
   public isLoggedin: Boolean | undefined;
   public saved: Boolean | undefined
+  countdown!: string;
 
   constructor(private router: Router, private challengeService: ChallengeService, private registrationService: RegistrationService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService, protected snackBar: MatSnackBar) {
     this.current$ = this.challengeService.getCurrentChallenge()
@@ -33,6 +34,18 @@ export class WeChallengeComponent {
       this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.current?.id);
       console.log(user);
       console.log(this.saved);
+    });
+    this.current$.subscribe(current => {
+      const end = new Date(current.end!).getTime();
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = end - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');;
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');;
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');;
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');;
+        this.countdown = days + ':' + hours + ':' + minutes + ':' + seconds;
+      }, 1000);
     });
   }
 

@@ -29,12 +29,12 @@ for i in range(11):                                 #for each week in wks[0:10]
             start=wks[i],                               #and start date = wks[1]
             end=wks[i] + timedelta(days=num),
             createdBy=None))                        #so models[0] = wks[0] = wk0 = the 0th week if today is the 14th week
-    
+
 models.append(Challenge(id=11,                    
             posts=[],
-            noun="cat",
-            verb="sunbathes",
-            adj="stout",
+            noun="woman",
+            verb="wields",
+            adj="fierce",
             emotion="",
             style="",
             colors=[],
@@ -114,7 +114,14 @@ models.append(Challenge(id=17,
             end=None,
             createdBy="elaine13@email.unc.edu")) 
 
-print(models)
-# models = [
- 
-# ]
+models.append(Challenge(id=18,                    
+            posts=[],
+            noun="intelligence",
+            verb="",
+            adj="artificial",
+            emotion="",
+            style="",
+            colors=[],
+            start=None,                              
+            end=None,
+            createdBy="olivia@olivia.com")) 
