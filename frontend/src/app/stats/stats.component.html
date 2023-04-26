@@ -14,7 +14,30 @@
             <td>{{ user.displayName}}</td>
             <td>{{ user.password }}</td>
             <td>{{ user.created }}</td>
-            <td><input type="button" value="delete" (click)="onSubmit(user)" /></td>
+            <td><input type="button" value="delete" (click)="onSubmitU(user)" /></td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>All Challenges</h2>
+<table>
+    <thead>
+        <td>Prompt</td>
+        <td>Range</td>
+        <td>Type</td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let challenge of challenges$ | async">
+            <td id="email"> {{ challenge.adj }} {{ challenge.noun }} {{ challenge.verb }} {{ challenge.style }} {{ challenge.emotion }}
+                <div *ngIf="(challenge.colors).length > 0" class="colors">
+                    <div class="color">
+                      <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
+                      <p id="hex">{{challenge.colors[0]}}</p>
+                    </div>
+                  </div>
+            </td>
+            <td>{{ challenge.start | date: "MMM d, y" }} - {{ challenge.end | date: "MMM d, y" }}</td>
+            <td><input type="button" value="delete" (click)="onSubmitC(challenge)" /></td>
         </tr>
     </tbody>
 </table>
