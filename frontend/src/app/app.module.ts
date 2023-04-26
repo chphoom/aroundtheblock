@@ -37,6 +37,7 @@ import { PostComponent } from './post/post.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SearchComponent } from './search/search.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { OtherProfComponent } from './other-prof/other-prof.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     PostComponent,
     SearchComponent,
     EditProfileComponent,
+    OtherProfComponent,
   ],
   imports: [
     BrowserModule,
