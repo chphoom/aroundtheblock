@@ -41,7 +41,7 @@
         </div>
         <div class="display-posts" *ngIf="(prev$ | async) as prev">
             <a *ngFor="let post of prev.posts" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="'/images/' + post.img">
+                <img class="thumbnail" [src]="post.img">
             </a>
         </div>
     </div>
@@ -49,7 +49,7 @@
         <h2>meChallenges</h2>
         <div class="display-posts">
             <a *ngFor="let post of mePosts$ | async" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="'/images/' + post.img">
+                <img class="thumbnail" [src]="post.img">
             </a>
         </div>
     </div>

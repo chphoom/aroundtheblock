@@ -23,7 +23,7 @@
         <h1>See what others made</h1>
         <p>Show Spoilers</p>
         <a *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id">
-            <img class="thumbnail" [src]="'/images/' + post.img">
+            <img class="thumbnail" [src]="post.img">
         </a>
     </div>
 </main>
