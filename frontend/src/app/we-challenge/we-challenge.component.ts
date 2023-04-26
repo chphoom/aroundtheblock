@@ -2,13 +2,10 @@ import { Component } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
 import { PostsService } from '../posts.service';
-import { FormControl, FormGroup } from '@angular/forms';
 import { UploadService } from '../upload.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ShareService } from '../share.service';
 import { Router } from '@angular/router';
 import { RegistrationService, User } from '../registration.service';
-import { TokenResponse } from '../models';
 
 @Component({
   selector: 'app-we-challenge',
