@@ -10,7 +10,7 @@ def noun() -> str:
     return requests.get(API_URL, params=params).text
 
 def verb() -> str:
-    params = {"generator": "verb", "list": "verb"}
+    params = {"generator": "gerund-verbs", "list": "output"}
     return requests.get(API_URL, params=params).text
 
 def adj() -> str:
