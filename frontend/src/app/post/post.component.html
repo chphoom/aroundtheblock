@@ -33,4 +33,22 @@
             <p>{{post.created| date: "MMM d, y"}}</p>
         </div>
     </div>
+    <div class="post-comments-container">
+      <h2>Comments {{post.comments.length}}</h2>
+      <div>
+        <!-- comment form container -->
+        <form [formGroup]="comment" class="commentForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="roundedInput">
+              <mat-label>Comment</mat-label>
+              <input matInput placeholder="Comment" formControlName="comment" id="comment" type="comment">
+          </mat-form-field>
+          <button mat-button type="Submit"><p>Commment</p></button>
+      </form>
+      </div>
+      <div class="comments" *ngFor="let comment of post.comments">
+        <!-- listing comments containers -->
+        <h3>{{comment.commenter}} {{comment.created | date: "MMM d, y"}}</h3>
+        <p> {{ comment.text }}</p>
+      </div>
+    </div>
 </main>
