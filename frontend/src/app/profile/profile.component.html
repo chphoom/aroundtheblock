@@ -18,8 +18,11 @@
     <div *ngIf="user" class="tabs">
         <mat-tab-group #tabGroup>
             <mat-tab label="Posts" *ngIf="user.userPosts" class="display-posts">
-                <a *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
+                <a class="thumbnail-container" *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
                     <img class="thumbnail" [src]="'/images/' + post.img">
+                    <div class="overlay">
+                        <div class="text">{{post.title}}</div>
+                    </div>
                 </a>
             </mat-tab>
             <mat-tab label="Private">
