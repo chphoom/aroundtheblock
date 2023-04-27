@@ -6,8 +6,8 @@ from .post import Post
 #: Comments
 class Comment(BaseModel):
     id: int | None
-    commenter: str | User
-    post: int | Post
+    commenter: str
+    post: int
     replies: list['Comment'] = []
     text: str = ""
     created: datetime = datetime.now()
