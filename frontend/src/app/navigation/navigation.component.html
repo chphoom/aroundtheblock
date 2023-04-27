@@ -40,7 +40,15 @@
     </div>
     <div class="account">
         <div *ngIf="(registration_service.isAuthenticated$ | async); else elseBlock" class="user-bar">
-            <mat-icon>notifications</mat-icon>
+            <!-- <mat-icon>notifications</mat-icon> -->
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="notifications">
+                <mat-icon matBadge="{{notifs!.length}}" matBadgeColor="warn">notifications</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let notif in notifs" (click)="onClickN(notif)">
+                    {{ notif.id }}
+                </button>
+            </mat-menu>
             <a class="user" routerLink="/profile">
                 <p>{{user?.displayName}}</p>
                 <mat-icon>account_box</mat-icon>

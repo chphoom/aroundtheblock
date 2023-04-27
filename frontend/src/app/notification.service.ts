@@ -61,7 +61,7 @@ export class NotificationService {
    * 
    * @returns an observable Notif object.
    */
-   getFromUser(email: string): Observable<Notification[]> {
+  getFromUser(email: string): Observable<Notification[]> {
     return this.http.get<Notification[]>(`/api/notifs/from/${email}`);
   }
 
