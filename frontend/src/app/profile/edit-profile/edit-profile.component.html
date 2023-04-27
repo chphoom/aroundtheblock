@@ -7,8 +7,12 @@
         </mat-card-header>
         <mat-card-content>
             <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label for="email">Email</mat-label>
+                <mat-label for="email">Email (read only)</mat-label>
                 <input matInput id="email" type="text" readonly="readonly" [(ngModel)]="user.email" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label for="pfp">Profile Picture URL</mat-label>
+                <input matInput id="pfp" type="text" [(ngModel)]="user.pfp" formControlName="pfp" placeholder="https://...">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label for="displayName">Display Name</mat-label>

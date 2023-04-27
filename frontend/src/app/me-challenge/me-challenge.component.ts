@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { PostsService } from '../posts.service';
 import { Observable } from 'rxjs';
 import { ShareService } from '../share.service';
-import {ThemePalette} from '@angular/material/core';
-import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { LoadingService } from '../loading.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-me-challenge',
@@ -17,7 +17,7 @@ import { LoadingService } from '../loading.service';
   styleUrls: ['./me-challenge.component.css']
 })
 export class MeChallengeComponent {
-  public isLoggedin = this.registration_service.isLoggedIn();
+  public isLoggedin: Boolean | undefined;
   private options: String[];
   public form: FormGroup;
   private valid: Boolean = false;
@@ -25,16 +25,13 @@ export class MeChallengeComponent {
   public colorBox = document.getElementsByClassName('color-box') as HTMLCollectionOf<HTMLElement>;
   public mePosts$ = this.postsService.getMePosts();
   public user: User | undefined;
-  //public generator = "false";
-
-  /* color: ThemePalette = 'primary';
-  mode: ProgressSpinnerMode = 'indeterminate';
-  value = 50; */
+  public saved: Boolean | undefined;
   
-  constructor(private router: Router, private postsService: PostsService, private registration_service: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService, protected loadingService: LoadingService){
-    this.registration_service.getUserInfo().subscribe((user: User) => {
+  constructor(private router: Router, private postsService: PostsService, private registrationService: RegistrationService, private challengeService: ChallengeService, private formBuilder: FormBuilder, private shareService: ShareService, protected loadingService: LoadingService, protected snackBar: MatSnackBar){
+    this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });
+    this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
     
     this.options = [];
     this.form = this.formBuilder.group({
@@ -50,6 +47,7 @@ export class MeChallengeComponent {
   onGenerate() {
     //this.generator = "clicked"
     // get list of options
+    
     for (var option in this.form.value) {
       // check if at least one option is checked
       if (this.form.value[option]) {
@@ -79,7 +77,10 @@ export class MeChallengeComponent {
 
       // Construct new challenge
       // Pass challenge and options to api and put returned challenge into variable
-      this.challengeService.createChallenge(challenge, this.options).subscribe(challenge => this.challenge = challenge)
+      this.challengeService.createChallenge(challenge, this.options).subscribe((challenge) => {
+        this.challenge = challenge
+        this.saved = !!this.user?.savedChallenges?.find(challenge => challenge.id === this.challenge?.id);
+      });
       // keep this console log to keep track of created challenges
       console.log(this.challenge)
     } else {
@@ -92,5 +93,29 @@ export class MeChallengeComponent {
   async onSubmit() {
     this.shareService.setCurrentValue(this.challenge)
     await this.router.navigate(['/upload']);
+  }
+
+  save() {
+    this.registrationService.saveChallenge(this.user!.email, this.challenge!.id ?? 1).subscribe((user: User) => {
+      console.log(user);
+      this.user=user
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.challenge?.id);
+      console.log(this.saved);
+      this.snackBar.open(`Challenge saved!`, "", { duration: 2000 });
+    }, (error) => {
+      console.error(error);
+    });
+  }
+
+  unsave() {
+    this.registrationService.unsaveChallenge(this.user!.email, this.challenge!.id ?? 1).subscribe((user: User) => {
+      console.log(user);
+      this.user = user
+      this.saved = !!user.savedChallenges?.find(challenge => challenge.id === this.challenge?.id);
+      console.log(this.saved);
+      this.snackBar.open(`Challenge unsaved.`, "", { duration: 2000 });
+    }, (error) => {
+      console.error(error);
+    });
   }
 }

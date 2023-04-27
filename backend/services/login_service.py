@@ -27,7 +27,11 @@ class LoginService:
         
     # Authenticate the user
     def authenticate_user(self, email: str, password: str) -> Optional[User]:
-        user = self._session.get(UserEntity, email)
+        # email could be the display name i'm just too lazy to change the variabel names
+        if "@" in email:
+            user = self._session.get(UserEntity, email)
+        else:
+            user = self._session.query(UserEntity).filter_by(displayName=email).one()
         if not user:
             raise ValueError(f"No user found with that email and password combination.")
         if not password == user.password:

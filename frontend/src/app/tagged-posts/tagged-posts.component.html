@@ -1,0 +1,16 @@
+<main>
+    <div *ngIf="(posts$ | async)?.length">
+    <h2>Posts tagged as "{{query}}"</h2>
+    <div class="display-posts">
+        <a class="thumbnail-container" *ngFor="let post of posts$ | async" [href]="'post/' + post.id">
+            <img class="thumbnail" [src]="post.img">
+            <div class="overlay">
+                <div class="text">{{post.title}}</div>
+            </div>
+        </a>
+    </div>
+    </div>
+    <div *ngIf="!((posts$ | async)?.length)">
+        <h2>No results matching "{{query}}"</h2>
+    </div>
+</main>

@@ -34,9 +34,12 @@ import { PastChallengesComponent } from './past-challenges/past-challenges.compo
 import { GeneratedComponent } from './me-challenge/generated/generated.component';
 import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SearchComponent } from './search/search.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { OtherProfComponent } from './other-prof/other-prof.component';
+import { TaggedPostsComponent } from './tagged-posts/tagged-posts.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,8 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     PostComponent,
     SearchComponent,
     EditProfileComponent,
+    OtherProfComponent,
+    TaggedPostsComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +80,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     MatGridListModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

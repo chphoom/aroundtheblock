@@ -1,0 +1,26 @@
+<main *ngIf="user$ | async as user">
+    <div class="user-info">
+        <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}"></div>
+        <div class="test"></div>
+        <div class="user-text">
+            <div class="user-name-pronouns">
+                <h2 id="displayname">
+                    {{user.displayName}}
+                </h2>
+                <p>
+                    {{user.pronouns}}
+                </p>
+            </div>
+            <p>{{user.userPosts?.length}} Posts</p>
+            <p class="bio">{{user.bio}}</p>
+        </div>
+    </div>
+    <div class="display-posts">
+        <a class="thumbnail-container" *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
+            <img class="thumbnail" [src]="post.img">
+            <div class="overlay">
+                <div class="text">{{post.title}}</div>
+            </div>
+        </a>
+    </div>
+</main>

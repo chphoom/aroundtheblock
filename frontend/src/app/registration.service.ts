@@ -73,6 +73,10 @@ export class RegistrationService {
     return this.http.get<User>(`/api/users/${email}`)
   }
 
+  getUserN(name: string): Observable<User> {
+    return this.http.get<User>(`/api/username/${name}`)
+  }
+
   updateUser(email: string, pronouns: string | null, displayName: string | null, priv: boolean | null, pfp: string | null, bio: string | null, connectedAccounts: string[] | null) {
     let query = "";
     if (pronouns) {
@@ -97,6 +101,22 @@ export class RegistrationService {
         query = "?" + query.slice(0, -1); // remove the trailing "&" or "?" if query is not empty
     }
     return this.http.put<User>(`api/users/${email}${query}`, connectedAccounts)
+  }
+
+  saveChallenge(email: string, challenge_id: number) {
+    return this.http.put<User>(`/api/savec?email=${email}&challenge_id=${challenge_id}`,{})
+  }
+
+  unsaveChallenge(email: string, challenge_id: number) {
+    return this.http.put<User>(`/api/unsavec?email=${email}&challenge_id=${challenge_id}`,{})
+  }
+
+  savePost(email: string, post_id: number) {
+    return this.http.put<User>(`/api/savep?email=${email}&post_id=${post_id}`,{})
+  }
+
+  unsavePost(email: string, post_id: number) {
+    return this.http.put<User>(`/api/unsavep?email=${email}&post_id=${post_id}`,{})
   }
 
   /**
@@ -128,11 +148,41 @@ export class RegistrationService {
       errors.push('Please confirm that your passwords match')
     }
 
+    if (password.length < 8) {
+      errors.push('Please use at least 8 characters in your password')
+    }
+
+    if (!(/[A-Z]/.test(password))) {
+      errors.push('Please use at least 1 uppercase letter in your password')
+    }
+
+    if (!(/[0-9]/.test(password))) {
+      errors.push('Please use at least 1 number in your password')
+    }
+
+    if (!(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password))) {
+      errors.push('Please use at least 1 special character in your password')
+    }
+
+    if (!email.includes("@")) {
+      errors.push(`Please enter a valid email.`);
+    }
+
+    try {
+      this.getUserN(displayName).subscribe((user: User) => 
+      {if(user.displayName===displayName){
+        errors.push(`A user with that name already exists`);
+      }})
+      
+    } catch {
+      
+    } 
+
     if (errors.length > 0) {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
-    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", pfp: "", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
+    let user: User = {email, displayName, password, created: new Date(), private: false, bio: "New to the block", pronouns: "", pfp: "https://i.imgur.com/1MwzVBB.png", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
 
     return this.http.post<User>("api/registrations",user);
   }
@@ -148,7 +198,6 @@ export class RegistrationService {
     const body = new URLSearchParams();
     body.set('username', email);
     body.set('password', password);
-    //this.setAuthenticated(true);
 
     return this.http.post<any>('/api/login', body.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -159,7 +208,7 @@ export class RegistrationService {
       }),
       catchError(error => {
         console.error(error);
-        return throwError(() => new Error(error.message || 'An error occurred'));
+        return throwError(() => error);
       })
     );
   }

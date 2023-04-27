@@ -17,6 +17,10 @@ header {
     padding:0 1rem;
 }
 
+header h1 {
+    margin:1rem;
+}
+
 .side-bar {
     grid-column: 1 / 2;
     grid-row: 2 / 4;
