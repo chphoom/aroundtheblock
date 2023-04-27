@@ -148,6 +148,10 @@ export class RegistrationService {
       errors.push('Please confirm that your passwords match')
     }
 
+    if (!email.includes("@")) {
+      errors.push(`Please enter a valid email.`);
+    }
+
     if (errors.length > 0) {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
@@ -168,7 +172,6 @@ export class RegistrationService {
     const body = new URLSearchParams();
     body.set('username', email);
     body.set('password', password);
-    //this.setAuthenticated(true);
 
     return this.http.post<any>('/api/login', body.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
