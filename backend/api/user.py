@@ -80,6 +80,29 @@ def get_user(email: str, user_service: UserService = Depends()) -> User:
         return user_service.get(email)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+    
+@api.get("/api/username/{name}", responses={404: {"model": None}}, tags=['User'])
+def get_userbyName(name: str, user_service: UserService = Depends()) -> User:
+    """API endpoint for retrieving a User by name
+
+    Parameters:
+    - name: a string represnting the primary key of the User
+    - user_service (UserService): dependency injection for the UserService class
+
+    Returns:
+    - User: a User object representing the desired User
+
+    HTTP Methods:
+    - GET
+
+    Usage:
+    - Send a GET request to the endpoint
+    - Returns a User object representing the desired User
+    """
+    try: 
+        return user_service.getbyName(name)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 @api.put("/api/users/{email}", tags=['User'])
 def update_user(email: str,

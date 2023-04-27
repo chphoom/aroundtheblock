@@ -73,6 +73,10 @@ export class RegistrationService {
     return this.http.get<User>(`/api/users/${email}`)
   }
 
+  getUserN(name: string): Observable<User> {
+    return this.http.get<User>(`/api/username/${name}`)
+  }
+
   updateUser(email: string, pronouns: string | null, displayName: string | null, priv: boolean | null, pfp: string | null, bio: string | null, connectedAccounts: string[] | null) {
     let query = "";
     if (pronouns) {

@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import User
 from ..entities import UserEntity
+from sqlalchemy.orm.exc import NoResultFound
 
 
 class UserService:
@@ -35,6 +36,13 @@ class UserService:
             return user.to_model()
         else:
             raise ValueError(f"No user found with PID: {email}")
+        
+    def getbyName(self, name: str) -> User | None:
+        try:
+            user_entity = self._session.query(UserEntity).filter_by(displayName=name).one()
+            return user_entity.to_model()
+        except NoResultFound:
+            raise ValueError(f"No user found with display name: {name}")
 
     def delete(self, email: str) -> User:
         # 

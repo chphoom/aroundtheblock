@@ -1,6 +1,6 @@
 '''User accounts for all registered users in the application.'''
 
-from sqlalchemy import String, DateTime, Boolean, ARRAY
+from sqlalchemy import String, DateTime, Boolean, ARRAY, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.mutable import MutableList
 from typing import Self
@@ -26,6 +26,10 @@ class UserEntity(EntityBase):
     savedPosts: Mapped[list["PostEntity"]] = relationship(secondary=savedPost)
     savedChallenges: Mapped[list["ChallengeEntity"]] = relationship(secondary=savedChallenge)
     connectedAccounts: Mapped[list[str]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
+
+    __table_args__ = (
+        UniqueConstraint('displayName', name='uq_displayName'),
+    )
 
     @classmethod
     def from_model(cls, model: User) -> Self:

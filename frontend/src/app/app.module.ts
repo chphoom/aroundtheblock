@@ -38,6 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SearchComponent } from './search/search.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { OtherProfComponent } from './other-prof/other-prof.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PostComponent,
     SearchComponent,
     EditProfileComponent,
+    OtherProfComponent,
   ],
   imports: [
     BrowserModule,
