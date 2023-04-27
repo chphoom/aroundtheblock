@@ -49,6 +49,8 @@
         <!-- listing comments containers -->
         <h3>{{comment.commenter}} {{comment.created | date: "MMM d, y"}}</h3>
         <p> {{ comment.text }}</p>
+        <!-- *ngIf="comment.commenter == user?.email"  -->
+        <input type="button" value="delete" (click)="onSubmitComm(comment)" />
       </div>
     </div>
 </main>

@@ -6,7 +6,7 @@ import { RegistrationService } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CommentService } from '../comment.service';
+import { CommentService, Comment } from '../comment.service';
 
 @Component({
   selector: 'app-post',
@@ -79,5 +79,20 @@ export class PostComponent implements OnInit {
         }, (error) => {
           console.error(error);
         });
+  }
+
+  onSubmitComm(c: Comment): void {
+    this.commentService.deleteComment(c).subscribe({
+      next: (challenge) => {
+        //update window
+        window.location.reload();
+        // window.alert(`The deleted challenge is': ${c.id}`);
+      },
+      error: (err) => { 
+        if (err.message) {
+          window.alert(err.message);
+        } else {
+          window.alert("Unknown error: " + JSON.stringify(err));
+        }}})
   }
 }
