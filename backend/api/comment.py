@@ -36,6 +36,25 @@ def get_comments(comment_service: CommentService = Depends()) -> list[Comment]:
     """
     return comment_service.all()
 
+@api.get("/api/getcomment/{id}", tags=['Comment'])
+def get_comment(id: int, comment_service: CommentService = Depends()) -> list[Comment]:
+    """API endpoint for retrieving all comments in the database
+
+    Parameters:
+    - comment_service (CommentService): dependency injection for the CommentService class
+
+    Returns:
+    - list[Comment]: a list of Comment objects representing all Comments stored in the database
+
+    HTTP Methods:
+    - GET
+
+    Usage:
+    - Send a GET request to the endpoint
+    - Returns a list of Comment objects representing all Comments stored in the database
+    """
+    return comment_service.get(id)
+
 @api.post("/api/comment", tags=['Comment'])
 def new_comment(comment: Comment, comment_service: CommentService = Depends()) -> Comment:
         """API endpoint for creaitng a new comment

@@ -4,7 +4,8 @@ import { User } from '../registration.service';
 import { Router } from '@angular/router';
 import { NotificationService, Notification } from '../notification.service';
 import { PostsService } from '../posts.service';
-import { CommentService } from '../comment.service';
+import { CommentService, Comment } from '../comment.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -12,7 +13,7 @@ import { CommentService } from '../comment.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
-  public notifs: Notification[] | undefined
+  public notifs$!: Observable<Notification[]>
   public user: User | undefined;
   @ViewChild('search', { static: true }) search!: ElementRef;
 
@@ -22,9 +23,7 @@ export class NavigationComponent {
      private commentService: CommentService) {
     this.registration_service.getUserInfo().subscribe((user: User) => {
       this.user = user;
-    });
-    this.notificationService.getToUser(this.user?.email!).subscribe((result: Notification[]) => {
-      this.notifs = result;
+      this.notifs$ = this.notificationService.getToUser(user.email)
     });
   }
 
@@ -35,7 +34,18 @@ export class NavigationComponent {
 
   onClickN(notif: Notification) {
     if(notif.comment_id) {
-      this.router.navigate(['/post', notif.challenge_id]);
+      let post_id = 0
+      this.commentService.get(notif.comment_id).subscribe(
+        (comment: Comment) => {
+          post_id = comment.post
+        }
+      )
+      this.router.navigate(['/post', post_id]);
+    } else if (notif.challenge_id) {
+      this.router.navigate(['/we-challenge']);
+    }
+    else {
+      // handle some error idk
     }
   }
 }

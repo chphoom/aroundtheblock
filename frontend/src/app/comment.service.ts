@@ -15,6 +15,10 @@ export class CommentService {
     return this.http.get<Comment>("/api/comments")
   }
 
+  get(id: number) {
+    return this.http.get<Comment>("/api/getcomment/"+id)
+  }
+
   createComment(_text: string, user: User, post_id: number) {
     let newcomment: Comment = {id:undefined, commenter:user.email, post:post_id, replies:[], text:_text, created:new Date()}
     return this.http.post<Comment>("/api/comment", newcomment)
