@@ -2,7 +2,7 @@
 
 Endpoints:
 - GET /notifs - Retrieve all Notifs
-- POST /notifs/new- Generate a new Notif
+- POST /notifs/new - Generate a new Notif
 - DELETE /delete/notif/{id} - Delete a Notif
 - GET /notifs/to/{email} - Retrieve all Notifs to a user
 - GET /notifs/from/{email} - Retrieve all Notifs from a user

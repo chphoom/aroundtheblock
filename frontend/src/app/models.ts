@@ -53,5 +53,14 @@ export interface Comment {
 export interface TokenResponse {
     access_token: string;
     token_type: string;
-  }
+}
   
+export interface Notification {
+    id: number | undefined,
+    toUser_id: string | undefined,
+    fromUser_id: string | undefined,
+    comment_id: number | undefined,
+    last_read: Date | undefined,
+    challenge_id: number | undefined, 
+    read: boolean
+}
