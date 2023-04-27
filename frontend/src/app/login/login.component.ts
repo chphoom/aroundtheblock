@@ -72,7 +72,7 @@ export class LoginComponent {
 
 
   private onSuccess(user: User): void {
-    window.alert(`Thanks for registering: ${user.displayName}`);
+    window.alert(`Thanks for registering ${user.displayName}!`);
     this.register.reset();
     this.registrationService
     .loginUser(user.email, user.password)
