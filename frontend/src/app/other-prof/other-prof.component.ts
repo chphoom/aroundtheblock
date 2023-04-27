@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./other-prof.component.css']
 })
 export class OtherProfComponent {
-  public email: string = "";
   public displayName: string = "";
   public user$!: Observable<User>;
   public user!: User;
@@ -18,8 +17,8 @@ export class OtherProfComponent {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.email = params.get('email') || ""
-      this.user$ = this.registration_service.getUser(this.email)
+      this.displayName = params.get('displayName') || ""
+      this.user$ = this.registration_service.getUserN(this.displayName)
       this.user$.subscribe(
         (user: User) => this.user = user
       )

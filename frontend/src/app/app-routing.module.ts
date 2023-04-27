@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'search/:query', component: SearchComponent },
   PostComponent.Route,
   { path: 'profile/edit', component: EditProfileComponent},
-  { path: ':email', component: OtherProfComponent }
+  { path: ':displayName', component: OtherProfComponent }
 ];
 
 @NgModule({
