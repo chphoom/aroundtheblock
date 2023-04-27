@@ -16,35 +16,40 @@
                   <p>Generate</p>
                 </button>
               </div>
-              <!-- <mat-progress-spinner *ngIf="generator === 'clicked'"
-              [color]="color"
-        [mode]="mode"
-        [value]="value"></mat-progress-spinner> -->
           </form>
+          <mat-progress-spinner *ngIf="loadingService.loading$ | async" mode="indeterminate" color="accent"></mat-progress-spinner>
+          <mat-progress-spinner *ngIf="loadingService.sending$ | async" mode="indeterminate" color="accent"></mat-progress-spinner>        
           <div *ngIf="(challenge)" class="prompt me-prompt">
-            <p class="prompt-title">Prompt:</p>
-            <div class="prompt-text">
-              <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.adj}} {{challenge.noun}} {{challenge.verb}}</p>
-              <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
-              <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
+            <span class="prompt-content">
+              <p class="prompt-title">Prompt:</p>
+              <div class="prompt-text">
+                <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.verb}} {{challenge.adj}} {{challenge.noun}}</p>
+                <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
+                <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
+              </div>
+              <div *ngIf="(challenge.colors).length > 0" class="colors">
+                <div class="color" *ngFor="let color of challenge.colors">
+                  <div class="color-box" [ngStyle]="{'background-color': color}"></div>
+                  <p id="hex">{{color}}</p>
+                </div>
+              </div>
+              <button id="me" type="submit" (click)="onSubmit()">
+                <p>Create Submission</p>
+              </button>
+            </span>
+            <div class="icon" (click)="save()" *ngIf="isLoggedin && !(saved)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks" viewBox="0 0 16 16" aria-label="Save challenge" id="save-icon">
+                  <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
+                  <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
+              </svg>
             </div>
-            <div *ngIf="(challenge.colors).length > 0" class="colors">
-              <div class="color">
-                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
-                <p id="hex">{{challenge.colors[0]}}</p>
-              </div>
-              <div class="color">
-                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[1]}"></div>
-                <p id="hex">{{challenge.colors[1]}}</p>
-              </div>
-              <div class="color">
-                <div class="color-box" [ngStyle]="{'background-color': challenge.colors[2]}"></div>
-                <p id="hex">{{challenge.colors[2]}}</p>
-              </div>
+            <div class="icon" (click)="unsave()" *ngIf="isLoggedin && (saved)">
+                <!-- (user$ | async)?.savedChallenges?.includes(current) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
+                    <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+                    <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
+                </svg>
             </div>
-            <button id="me" type="submit" (click)="onSubmit()">
-              <p>Create Submission</p>
-            </button>
           </div>
         <a *ngIf="user" class="underline-hover" routerLink="/profile">See saved challenges</a>
     </div>
@@ -52,7 +57,7 @@
         <h1>See what others made</h1>
         <div class="display-posts">
           <a class="thumbnail-container" *ngFor="let post of mePosts$ | async" [href]="'post/' + post.id">
-              <img class="thumbnail" [src]="'/images/' + post.img">
+              <img class="thumbnail" [src]="post.img">
               <div class="overlay">
                   <div class="text">{{post.title}}</div>
               </div>

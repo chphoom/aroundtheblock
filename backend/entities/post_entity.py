@@ -1,4 +1,5 @@
-from sqlalchemy import String, DateTime, Boolean, ARRAY, Integer, ForeignKey
+from sqlalchemy import String, DateTime, Boolean, Integer, ForeignKey
+from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.mutable import MutableList
 from typing import Self
@@ -11,7 +12,7 @@ class PostEntity(EntityBase):
     __tablename__ = "posts"
 
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
-    img: Mapped[str] = mapped_column(String(64))
+    img: Mapped[str] = mapped_column(String(256))
     title: Mapped[str] = mapped_column(String(64))
     desc: Mapped[str] = mapped_column(String(256))
     private: Mapped[bool] = mapped_column(Boolean)

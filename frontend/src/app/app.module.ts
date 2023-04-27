@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +11,8 @@ import { MeChallengeComponent } from './me-challenge/me-challenge.component';
 import { LoginComponent } from './login/login.component';
 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequestInterceptor } from './http-request.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -32,7 +34,10 @@ import { PastChallengesComponent } from './past-challenges/past-challenges.compo
 import { GeneratedComponent } from './me-challenge/generated/generated.component';
 import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SearchComponent } from './search/search.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -50,6 +55,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     GeneratedComponent,
     UploadComponent,
     PostComponent,
+    SearchComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +75,21 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatInputModule,
     MatGridListModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("authToken")
+        }
+      }
+    }),
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpRequestInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

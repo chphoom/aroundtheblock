@@ -6,50 +6,31 @@
           <h2>Upload Post</h2>
         </mat-card-title>
         <div *ngIf="(challenge$ | async) as challenge" class="prompt">
-          <p class="prompt-title">Prompt:</p>
-          <div class="prompt-text">
-            <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.adj}} {{challenge.noun}} {{challenge.verb}}</p>
-            <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
-            <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
-          </div>
-          <div *ngIf="(challenge.colors).length > 0" class="colors">
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
-              <p id="hex">{{challenge.colors[0]}}</p>
+          <div class="prompt-content">
+            <p class="prompt-title">Prompt:</p>
+            <div class="prompt-text">
+              <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.verb}} {{challenge.adj}} {{challenge.noun}} </p>
+              <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
+              <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
             </div>
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[1]}"></div>
-              <p id="hex">{{challenge.colors[1]}}</p>
-            </div>
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[2]}"></div>
-              <p id="hex">{{challenge.colors[2]}}</p>
+            <div *ngIf="(challenge.colors).length > 0" class="colors">
+              <div class="color" *ngFor="let color of challenge.colors">
+                <div class="color-box" [ngStyle]="{'background-color': color}"></div>
+                <p id="hex">{{color}}</p>
+              </div>
             </div>
           </div>
         </div>
       </mat-card-header>
       <mat-card-content>
-        <!-- <button id="neutral" type="button" formControlName="file" (click)="fileInput.click()" (change)="onFileSelected($event)">Choose File</button>
-        <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file"> -->
-        <!-- TODO: figure out how to make file input display file name on selection with a prettier button -->
-        <input id="input-file-id" type="file" (change)="onFileSelected($event)">
-  
-        <!-- <button id="neutral" type="button" (click)="fileInput.click()">
-          Choose File
-        </button>
-        <input
-          hidden
-          type="file"
-          accept="image/*"
-          #fileInput
-          (change)="onFileSelected($event)"
-        /> -->
-        
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label for="file">Paste image URL</mat-label>
+          <input type="text" id="file" formControlName="file" matInput placeholder="https://...">
+        </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label for="posttitle">Title</mat-label>
           <input type="text" id="posttitle" formControlName="title" matInput placeholder="Ex. My Art">
         </mat-form-field>
-      
         <mat-form-field class="example-full-width">
           <mat-label for="description">Description</mat-label>
           <textarea type="text" id="description" formControlName="description" matInput placeholder="Ex. This is how I interpreted the prompt..."></textarea>

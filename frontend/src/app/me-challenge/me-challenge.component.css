@@ -1,5 +1,5 @@
 p, a {
-    margin:0.5em;
+    margin:0.5em 3px;
 }
 
 .challenge {
@@ -82,3 +82,28 @@ mat-checkbox {
     transform: translate(-50%, -50%);
     text-align: center;
   }
+
+.prompt svg {
+    margin-left: 1rem;
+}
+
+.prompt {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+}
+
+.prompt-content {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+}

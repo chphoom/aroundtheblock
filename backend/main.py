@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from .api import challenge, static_files, comment, login, user, post, upload
+from .script.schedule import scheduler
 
 __authors__ = ["Kris Jordan"]
 __copyright__ = "Copyright 2023"
@@ -27,3 +28,10 @@ app.include_router(challenge.api)
 app.mount("/images", StaticFiles(directory="backend/images"), name="images")
 app.mount("/", static_files.StaticFileMiddleware(directory="./static"))
 
+# start the scheduler
+scheduler.start()
+
+# add a shutdown event handler to stop the scheduler when the application shuts down
+@app.on_event("shutdown")
+def shutdown_event():
+    scheduler.shutdown()

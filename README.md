@@ -10,14 +10,16 @@ Currently in Sprint 1 of development.
 - As an artist, I want to upload my work so that I can show my interpretation of a challenge.
 - As an artist, I want to learn more about this website so that I can understand it better.
 - As an artist, I want to see what others have worked on so that I can gain inspiration for my own art.
-
-## Stories implemented in Spring 2
 - As a beginner artist, I want to post my work privately so that I can keep my art somewhere even though I don't want others to see it yet.
+
+## Stories to be implemented in Sprint 2
 - As an artist, I want to save challenges so that I can go back to them later.
+- As an artist, I want to make my own profile so that I can display my information to others.
 
 ## Future stories
 - As an artist, I want to search through all the art on the website and filter by tags so that I can find works that are relevant to me.
 - As an artist, I want to comment on other people's works so that I can provide constructive criticism.
+- As a user, I want to receive notifcations so that I can be reminded when a weChallenge is about to end or when someone comments on my post.
 
 ## Development
 see docs/getting_started for intructions to start development server

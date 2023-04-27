@@ -4,6 +4,8 @@ import { Observable, throwError, map, catchError, tap, of, from, ReplaySubject }
 import { User } from './models';
 export { User } from './models';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 const REPLAY_LAST = 1;
 
@@ -19,7 +21,7 @@ export class RegistrationService {
   private isAuthenticated: ReplaySubject<boolean> = new ReplaySubject(REPLAY_LAST);
   public isAuthenticated$: Observable<boolean> = this.isAuthenticated.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private jwt: JwtHelperService, private http: HttpClient, private router: Router) {
     this.authenticate();
   }
 
@@ -35,9 +37,9 @@ export class RegistrationService {
         observable = from(token);
       }
       observable.subscribe((token) => {
-        if (!(token)) {
-          localStorage.removeItem('bearerToken');
+        if (this.jwt.isTokenExpired(token)) {
           localStorage.removeItem('authToken');
+          localStorage.removeItem('bearerToken');
           this.isAuthenticated.next(false);
         } else {
           this.isAuthenticated.next(true);
@@ -69,6 +71,48 @@ export class RegistrationService {
 
   getUser(email: string): Observable<User> {
     return this.http.get<User>(`/api/users/${email}`)
+  }
+
+  updateUser(email: string, pronouns: string | null, displayName: string | null, priv: boolean | null, pfp: string | null, bio: string | null, connectedAccounts: string[] | null) {
+    let query = "";
+    if (pronouns) {
+        query += `pronouns=${pronouns}&`;
+    }
+    if (displayName) {
+        query += `displayName=${displayName}&`;
+    }
+    if (priv != null) {
+        query += `private=${priv}&`;
+    }
+    if (pfp) {
+        query += `pfp=${pfp}&`;
+    }
+    if (bio) {
+        query += `bio=${bio}&`;
+    }
+    if (connectedAccounts?.length) {
+        query += `connectedAccounts=${connectedAccounts.join(",")}&`;
+    }
+    if (query) {
+        query = "?" + query.slice(0, -1); // remove the trailing "&" or "?" if query is not empty
+    }
+    return this.http.put<User>(`api/users/${email}${query}`, connectedAccounts)
+  }
+
+  saveChallenge(email: string, challenge_id: number) {
+    return this.http.put<User>(`/api/savec?email=${email}&challenge_id=${challenge_id}`,{})
+  }
+
+  unsaveChallenge(email: string, challenge_id: number) {
+    return this.http.put<User>(`/api/unsavec?email=${email}&challenge_id=${challenge_id}`,{})
+  }
+
+  savePost(email: string, post_id: number) {
+    return this.http.put<User>(`/api/savep?email=${email}&post_id=${post_id}`,{})
+  }
+
+  unsavePost(email: string, post_id: number) {
+    return this.http.put<User>(`/api/unsavep?email=${email}&post_id=${post_id}`,{})
   }
 
   /**
@@ -104,7 +148,7 @@ export class RegistrationService {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
-    let user: User = {email, displayName, password, created: new Date(), private: true, bio: "", pronouns: "", pfp: "", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
+    let user: User = {email, displayName, password, created: new Date(), private: false, bio: "", pronouns: "", pfp: "https://i.imgur.com/1MwzVBB.png", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
 
     return this.http.post<User>("api/registrations",user);
   }
@@ -131,7 +175,7 @@ export class RegistrationService {
       }),
       catchError(error => {
         console.error(error);
-        return throwError(() => new Error(error.message || 'An error occurred'));
+        return throwError(() => error);
       })
     );
   }

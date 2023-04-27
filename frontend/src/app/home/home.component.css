@@ -71,6 +71,10 @@ p {
     padding-bottom:1rem;
 }
 
+.past-we h2 {
+    cursor: pointer;
+}
+
 .display-posts {
     display: flex;
     flex-wrap: wrap;

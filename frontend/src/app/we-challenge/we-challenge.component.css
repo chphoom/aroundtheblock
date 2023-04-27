@@ -44,3 +44,51 @@ p, a {
     opacity: 0.5;
     transition: 0.5s ease;
 }
+
+.display-posts {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+}
+
+.thumbnail {
+    width: 20vw;
+    height: 20vw;   
+    object-fit: cover;
+    cursor: pointer;
+    margin-top: 5px;
+    filter: blur(8px);
+}
+
+.thumbnail:hover {
+    opacity: 0.5;
+    transition: 0.5s ease;
+}
+
+.prompt svg {
+    margin-left: 1rem;
+}
+
+.prompt {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+}
+
+.prompt-content {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+}

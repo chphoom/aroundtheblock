@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
 import { Post, PostsService } from '../posts.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from '../upload.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RegistrationService, User } from '../registration.service';
@@ -25,7 +25,7 @@ export class UploadComponent {
   submitted = false;
 
   form = this.formBuilder.group({
-    file: new FormControl(),
+    file: new FormControl('', Validators.required),
     title: '',
     description: '',
     private: [false]
@@ -55,22 +55,11 @@ export class UploadComponent {
   }
 
   onSubmit() {
-    console.log(this.form.value)
-    
-    const formData = new FormData();
-    formData.append('file', this.form.get('file')?.value);
-    const file = formData.get('file') as File;
-    this.uploadService.uploadFile(formData).subscribe(response => {
-      console.log(response);
-    }, (error: HttpErrorResponse)=> {
-      console.log(error);
-    });
-
     let form = this.form.value
 
     const newPost: Post = {
       id: undefined,
-      img: file.name,
+      img: form.file ?? "",
       title: form.title ?? "Untitled",
       desc: form.description ?? "",
       private: form.private ?? false,

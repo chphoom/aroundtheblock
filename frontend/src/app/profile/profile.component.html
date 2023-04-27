@@ -1,6 +1,6 @@
-<main *ngIf="user$ | async as user">
+<main *ngIf="user">
     <div class="user-info">
-        <div class="pfp" [ngStyle]="{'background-image':'url(/images/' + user.pfp + ')'}"></div>
+        <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}"></div>
         <div class="test"></div>
         <div class="user-text">
             <div class="user-name-pronouns">
@@ -10,6 +10,10 @@
                 <p>
                     {{user.pronouns}}
                 </p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16" routerLink="/profile/edit">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
             </div>
             <p>{{user.userPosts?.length}} Posts</p>
             <p class="bio">{{user.bio}}</p>
@@ -19,7 +23,7 @@
         <mat-tab-group #tabGroup>
             <mat-tab label="Posts" *ngIf="user.userPosts" class="display-posts">
                 <a class="thumbnail-container" *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
-                    <img class="thumbnail" [src]="'/images/' + post.img">
+                    <img class="thumbnail" [src]="post.img">
                     <div class="overlay">
                         <div class="text">{{post.title}}</div>
                     </div>
@@ -32,14 +36,45 @@
                 <p>Coming Soon</p>
             </mat-tab>
             <mat-tab label="Saved Challenges">
-                <p>Coming Soon</p>
+                <div *ngFor="let challenge of user.savedChallenges" class="prompt">
+                    <span class="prompt-content">
+                        <p class="prompt-title">Prompt:</p>
+                        <div class="prompt-text">
+                        <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.adj}} {{challenge.noun}} {{challenge.verb}}</p>
+                        <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
+                        <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
+                        </div>
+                        <div *ngIf="(challenge.colors).length > 0" class="colors">
+                            <div class="color" *ngFor="let color of challenge.colors">
+                            <div class="color-box" [ngStyle]="{'background-color': color}"></div>
+                            <p id="hex">{{color}}</p>
+                            </div>
+                        </div>
+                        <button id="me" type="submit" (click)="onSubmit(challenge)">
+                            <p>Create Submission</p>
+                        </button>
+                    </span>
+                    <div class="icon" (click)="save(challenge)" *ngIf="!(saved[challenge.id!])">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks" viewBox="0 0 16 16" aria-label="Save challenge" id="save-icon">
+                            <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
+                            <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
+                        </svg>
+                    </div>
+                    <div class="icon" (click)="unsave(challenge)" *ngIf="(saved[challenge.id!])">
+                        <!-- (user$ | async)?.savedChallenges?.includes(current) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
+                            <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+                            <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
+                        </svg>
+                    </div>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </div>
     <div label="Posts" *ngIf="user.userPosts" class="display-posts">
         <!-- <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div> -->
     </div>
-    <button id="logout" type="submit" (click)="logOut()">
+    <button id="black" type="submit" (click)="logOut()">
         <p>Logout</p>
     </button>
 </main>
