@@ -474,11 +474,12 @@ a:before, a:after, a > span:before, a > span:after {
   margin-right:1rem;
 }
 
-.user {
+.user-thumbnail {
   display:flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  margin:1rem;
 }
 
 // Include theme styles for core and each component used in your app.
