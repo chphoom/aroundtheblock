@@ -17,7 +17,7 @@
             </div>
             <a class="underline-hover" [href]="'/'+_user.displayName">{{_user.displayName}}</a>
             <div class="tags">
-                <div *ngFor="let tag of post.tags" class="tag">#{{tag}}</div>
+                <div *ngFor="let tag of post.tags" class="tag" (click)="tagClick(tag)">#{{tag}}</div>
             </div>
             <div *ngIf="challenge" class="prompt">
                 <div class="prompt-content">

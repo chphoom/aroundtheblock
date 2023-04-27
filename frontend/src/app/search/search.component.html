@@ -2,7 +2,6 @@
     <div class="display-users" *ngIf="(users$ | async)?.length">
         <h2>Users matching "{{query}}"</h2>
     <!-- <a *ngFor="let user of users$ | async" [href]="'post/' + post.id"> -->
-    <!-- TODO: once public profile pages are made, link to profile -->
         <div *ngFor="let user of users$ | async" class="user-thumbnail">
             <img class="pfp-thumbnail" [src]="user.pfp">
             <a [href]="'/'+user.displayName" class="underline-hover"> {{user.displayName}} </a>

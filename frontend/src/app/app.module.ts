@@ -39,6 +39,7 @@ import { SearchComponent } from './search/search.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OtherProfComponent } from './other-prof/other-prof.component';
+import { TaggedPostsComponent } from './tagged-posts/tagged-posts.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { OtherProfComponent } from './other-prof/other-prof.component';
     SearchComponent,
     EditProfileComponent,
     OtherProfComponent,
+    TaggedPostsComponent,
   ],
   imports: [
     BrowserModule,

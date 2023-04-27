@@ -106,4 +106,9 @@ export class PostComponent implements OnInit {
       console.error(error);
     });
   }
+
+  tagClick(tag: string) {
+    window.location.reload();
+    window.location.href = "/tagged/"+tag;
+  }
 }
