@@ -1,8 +1,6 @@
 <main *ngIf="user$ | async as user">
     <div class="user-info">
-        <div class="pfp">
-            <img [src]="user.pfp">
-        </div>
+        <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}"></div>
         <div class="test"></div>
         <div class="user-text">
             <div class="user-name-pronouns">
