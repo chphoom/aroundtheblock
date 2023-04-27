@@ -69,4 +69,19 @@ export class ChallengeService {
       }
     );
   }
+
+  /**
+   * Update a challenge.
+   * 
+   * @returns a new challenge.
+   */
+  updateChallenge(challenge: Challenge, options: Array<String>, keep: Array<String>): Observable<Challenge> {
+    return this.http.post<Challenge>("/api/generate", 
+      {
+        "challenge": challenge,
+        "options": [options[0], options[1], options[2], options[3], options[4], options[5]],
+        "keep": [keep[0], keep[1], keep[2], keep[3], keep[4], keep[5]]
+      }
+    );
+  }
 }
