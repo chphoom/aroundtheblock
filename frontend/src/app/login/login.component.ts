@@ -72,14 +72,26 @@ export class LoginComponent {
 
 
   private onSuccess(user: User): void {
-    window.alert(`Thanks for registering: ${user.displayName}`);
+    window.alert(`Thanks for registering ${user.displayName}!`);
     this.register.reset();
-    this.tabGroup.selectedIndex = 0;
+    this.registrationService
+    .loginUser(user.email, user.password)
+    .subscribe((response) => {
+      const token = response as TokenResponse;
+      if (token) {
+        // Store the authentication token for future use
+        localStorage.setItem('authToken', token.access_token);
+        console.log(token)
+        // Redirect the user to the home page
+        window.location.reload();
+        window.location.href = "/profile";
+      }
+    }, (error) => this.onLoginError(error));
   }
 
   private onRegisterError(err: Error) {
     if (err.message) {
-      window.alert(`Registration failed. Please check fields again.`);
+      window.alert(err.message);
     } else {
       window.alert("Unknown error: " + JSON.stringify(err));
     }

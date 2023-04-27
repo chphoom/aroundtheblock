@@ -148,9 +148,35 @@ export class RegistrationService {
       errors.push('Please confirm that your passwords match')
     }
 
+    if (password.length < 8) {
+      errors.push('Please use at least 8 characters in your password')
+    }
+
+    if (!(/[A-Z]/.test(password))) {
+      errors.push('Please use at least 1 uppercase letter in your password')
+    }
+
+    if (!(/[0-9]/.test(password))) {
+      errors.push('Please use at least 1 number in your password')
+    }
+
+    if (!(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password))) {
+      errors.push('Please use at least 1 special character in your password')
+    }
+
     if (!email.includes("@")) {
       errors.push(`Please enter a valid email.`);
     }
+
+    try {
+      this.getUserN(displayName).subscribe((user: User) => 
+      {if(user.displayName===displayName){
+        errors.push(`A user with that name already exists`);
+      }})
+      
+    } catch {
+      
+    } 
 
     if (errors.length > 0) {
       return throwError(() => { return new Error(errors.join("\n")) });

@@ -17,6 +17,7 @@ export class PostComponent implements OnInit {
   public _user: User | undefined;
   public challenge: Challenge | undefined;
   public saved: { [key: number]: boolean } = {};
+  public favorited: { [key: number]: boolean } = {};
   public user: User | undefined;
   public isLoggedin: Boolean | undefined;
 
@@ -46,6 +47,14 @@ export class PostComponent implements OnInit {
       console.log(user);
       console.log(this.saved);
     });
+    this.registrationService.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+      user.savedPosts?.forEach(post => {
+        this.favorited[post.id!] = !!user.savedPosts?.find(post => post.id === post.id);
+      });
+      console.log(user);
+      console.log(this.favorited);
+    });
   }
 
   ngOnInit() {
@@ -71,6 +80,28 @@ export class PostComponent implements OnInit {
       this.saved[c.id!] = !!user.savedChallenges?.find(chall => chall.id === c.id);
       console.log(this.saved);
       this.snackBar.open(`Challenge unsaved.`, "", { duration: 2000 });
+    }, (error) => {
+      console.error(error);
+    });
+  }
+
+  favorite(p: Post) {
+    this.registrationService.savePost(this.user!.email, p.id ?? 1).subscribe((user: User) => {
+      this.user=user
+      this.favorited[p.id!] = !!user.savedPosts?.find(post => post.id === p.id)
+      console.log(this.favorited);
+      this.snackBar.open(`Post added to favorites!`, "", { duration: 2000 });
+    }, (error) => {
+      console.error(error);
+    });
+  }
+
+  unfavorite(p: Post) {
+    this.registrationService.unsavePost(this.user!.email, p.id ?? 1).subscribe((user: User) => {
+      this.user = user
+      this.favorited[p.id!] = !!user.savedPosts?.find(post => post.id === p.id);
+      console.log(this.favorited);
+      this.snackBar.open(`Removed post from favorites.`, "", { duration: 2000 });
     }, (error) => {
       console.error(error);
     });

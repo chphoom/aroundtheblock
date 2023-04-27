@@ -48,3 +48,25 @@ h2 {
 .tag:hover {
     transform: scale(1.05)
 }
+
+.post-title {
+    display:flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.fav-icon {
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.post-title {
+    display:flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.fav-icon {
+    cursor: pointer;
+    margin-left: 1rem;
+}
