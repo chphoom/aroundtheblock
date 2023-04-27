@@ -15,7 +15,7 @@ import { CommentService, Comment } from '../comment.service';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  private isLoggedin: Boolean | undefined;
+  public isLoggedin: Boolean | undefined;
   public user$: Observable<User> | undefined;
   public post: Post;
   public _user: User | undefined;
@@ -23,7 +23,6 @@ export class PostComponent implements OnInit {
   public saved: { [key: number]: boolean } = {};
   public favorited: { [key: number]: boolean } = {};
   public user: User | undefined;
-  public isLoggedin: Boolean | undefined;
   comment = this.formBuilder.group({
     comment: new FormControl(''),
   });
