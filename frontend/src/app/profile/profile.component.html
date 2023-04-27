@@ -33,7 +33,12 @@
                 <p>Coming Soon</p>
             </mat-tab>
             <mat-tab label="Favorite Posts">
-                <p>Coming Soon</p>
+                <a class="thumbnail-container" *ngFor="let post of user.savedPosts" [href]="'post/' + post.id">
+                    <img class="thumbnail" [src]="post.img">
+                    <div class="overlay">
+                        <div class="text">{{post.title}}</div>
+                    </div>
+                </a>
             </mat-tab>
             <mat-tab label="Saved Challenges">
                 <div *ngFor="let challenge of user.savedChallenges" class="prompt">
