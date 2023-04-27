@@ -69,17 +69,30 @@
                 </svg>
             </div>
         </div>
-        <div class="display-posts" *ngIf="(prev$ | async) as prev">
-            <a *ngFor="let post of prev.posts" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="post.img">
-            </a>
+        <div class="display-posts">
+            <div class="thumbnail-container">
+                <img class="thumbnail" src="/images/post0.png" alt="">
+                <div class="overlay">
+                    <div class="text">Title</div>
+                </div>
+            </div>
+            
+            <div class="thumbnail-container">
+                <img class="thumbnail" src="/images/post1.png" alt="">
+                <div class="overlay">
+                    <div class="text">Title</div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="past-me">
         <h2>meChallenges</h2>
         <div class="display-posts">
-            <a *ngFor="let post of mePosts$ | async" [href]="'post/' + post.id">
+            <a class="thumbnail-container" *ngFor="let post of mePosts$ | async" [href]="'post/' + post.id">
                 <img class="thumbnail" [src]="post.img">
+                <div class="overlay">
+                    <div class="text">{{post.title}}</div>
+                </div>
             </a>
         </div>
     </div>
