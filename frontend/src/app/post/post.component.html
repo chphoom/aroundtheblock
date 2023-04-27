@@ -3,7 +3,7 @@
     <div class="post-content">
         <div *ngIf="post && user">
             <h2>{{post.title}}</h2>
-            <p>{{user.displayName}}</p>
+            <a class="underline-hover" [href]="'/'+user.displayName">{{user.displayName}}</a>
             <div class="tags">
                 <div *ngFor="let tag of post.tags" class="tag">#{{tag}}</div>
             </div>
