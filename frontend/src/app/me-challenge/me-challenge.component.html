@@ -17,6 +17,21 @@
                 </button>
               </div>
           </form>
+          <form *ngIf="(challenge)" class="keep" [formGroup]="keepform">
+            <div>
+              <mat-checkbox type="checkbox" formControlName="noun">Noun</mat-checkbox>
+              <mat-checkbox type="checkbox" formControlName="verb">Verb</mat-checkbox>
+              <mat-checkbox type="checkbox" formControlName="adj">Adj</mat-checkbox>
+              <mat-checkbox type="checkbox" formControlName="emotion">Emotion</mat-checkbox>
+              <mat-checkbox type="checkbox" formControlName="style">Style</mat-checkbox>
+              <mat-checkbox type="checkbox" formControlName="colors">Colors</mat-checkbox>
+            </div>
+            <div>
+              <button id="me" type="button" (click)="onKeep()">
+                <p>Generate</p>
+              </button>
+            </div>
+        </form>
           <mat-progress-spinner *ngIf="loadingService.loading$ | async" mode="indeterminate" color="accent"></mat-progress-spinner>
           <mat-progress-spinner *ngIf="loadingService.sending$ | async" mode="indeterminate" color="accent"></mat-progress-spinner>        
           <div *ngIf="(challenge)" class="prompt me-prompt">

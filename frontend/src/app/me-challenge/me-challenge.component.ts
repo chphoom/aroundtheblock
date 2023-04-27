@@ -19,7 +19,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MeChallengeComponent {
   public isLoggedin: Boolean | undefined;
   private options: String[];
+  private keep: String[];
   public form: FormGroup;
+  public keepform: FormGroup;
   private valid: Boolean = false;
   public challenge: Challenge | undefined;
   public colorBox = document.getElementsByClassName('color-box') as HTMLCollectionOf<HTMLElement>;
@@ -35,6 +37,16 @@ export class MeChallengeComponent {
     
     this.options = [];
     this.form = this.formBuilder.group({
+      noun: [false],
+      verb: [false],
+      adj: [false],
+      emotion: [false],
+      style: [false],
+      colors: [false]
+    });
+
+    this.keep = [];
+    this.keepform = this.formBuilder.group({
       noun: [false],
       verb: [false],
       adj: [false],
@@ -88,6 +100,44 @@ export class MeChallengeComponent {
     }
     //this.generator = "success";
     this.options = [];
+  }
+
+  onKeep() {
+    //this.generator = "clicked"
+    // get list of options
+    
+    for (var option in this.form.value) {
+      // check if at least one option is checked
+      if (this.form.value[option]) {
+        this.valid = true;
+      }
+      this.options.push(this.form.value[option])
+    }
+
+    for (var k in this.keepform.value) {
+      // check if at least one option is checked
+      if (this.keepform.value[k]) {
+        this.valid = true;
+      }
+      this.keep.push(this.keepform.value[k])
+    }
+
+    if (this.valid) {
+      // Check if user is logged in
+
+      // Construct new challenge
+      // Pass challenge and options to api and put returned challenge into variable
+      this.challengeService.updateChallenge(this.challenge!.id!, this.options, this.keep).subscribe((challenge) => {
+        this.challenge = challenge
+        this.saved = !!this.user?.savedChallenges?.find(challenge => challenge.id === this.challenge?.id);
+      });
+      // keep this console log to keep track of created challenges
+      console.log(this.challenge)
+    } else {
+      window.alert("You must choose at least one option.")
+    }
+    // //this.generator = "success";
+    // this.options = [];
   }
 
   async onSubmit() {

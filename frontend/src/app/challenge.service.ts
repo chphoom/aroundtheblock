@@ -75,10 +75,9 @@ export class ChallengeService {
    * 
    * @returns a new challenge.
    */
-  updateChallenge(challenge: Challenge, options: Array<String>, keep: Array<String>): Observable<Challenge> {
-    return this.http.post<Challenge>("/api/generate", 
+  updateChallenge(challenge_id: number, options: Array<String>, keep: Array<String>): Observable<Challenge> {
+    return this.http.put<Challenge>(`/api/update?challenge_id=${challenge_id}`, 
       {
-        "challenge": challenge,
         "options": [options[0], options[1], options[2], options[3], options[4], options[5]],
         "keep": [keep[0], keep[1], keep[2], keep[3], keep[4], keep[5]]
       }
