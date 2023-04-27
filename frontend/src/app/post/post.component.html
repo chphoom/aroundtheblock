@@ -52,14 +52,13 @@
         </div>
         <div class="post-comments-container">
           <h2>{{post.comments.length}} Comments</h2>
-          <div>
-            <!-- comment form container -->
+          <div id="form">
             <form [formGroup]="comment" class="comment-form" (ngSubmit)="onSubmit()">
               <mat-form-field class="roundedInput">
                   <mat-label>Comment</mat-label>
                   <input matInput placeholder="Comment" formControlName="comment" id="comment" type="text">
               </mat-form-field>
-              <button mat-button type="Submit"><p>Comment</p></button>
+              <button mat-button type="Submit" id="black"><p>Comment</p></button>
             </form>
           </div>
           <div class="comments" *ngFor="let comment of post.comments">
