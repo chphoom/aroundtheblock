@@ -18,6 +18,7 @@ export class EditProfileComponent {
   private isLoggedin: Boolean | undefined;
   form = this.formBuilder.group({
       email: new FormControl({disabled: true}),
+      pfp: new FormControl(''),
       displayName: new FormControl('', Validators.required),
       pronouns: new FormControl(''),
       bio: new FormControl(''),
@@ -36,7 +37,7 @@ export class EditProfileComponent {
 
   onSave() {
     let form = this.form.value
-    this.registrationService.updateUser(this.user!.email, form.pronouns!, form.displayName!, form.private!, null, form.bio!, null)
+    this.registrationService.updateUser(this.user!.email, form.pronouns!, form.displayName!, form.private!, form.pfp ?? "https://i.imgur.com/1MwzVBB.png", form.bio!, null)
     .subscribe((user: User) => {
       console.log(user);
       // Update authToken in local storage
