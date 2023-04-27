@@ -118,6 +118,31 @@ def new_challenge(challenge: Challenge, options: list[bool], challenge_service: 
         return challenge_service.create(challenge, options)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
+    
+@api.put("/api/update", tags=['Challenge'])
+def new_challenge(challenge_id: int, options: list[bool], keep: list[bool], challenge_service: ChallengeService = Depends()) -> Challenge:
+    """API endpoint for generating a new Challenge and inserting it into the database
+
+    Parameters:
+    - challenge: A Challenge object
+    - options: A list of boolean values to determine which attributes of the Challenge should be generated
+    - list: A list of boolean values to determine which attributes of the Challenge should be kept
+    - challenge_service (ChallengeService): dependency injection for the ChallengeService class
+
+    Returns:
+    - Challenge: a Challenge object representing the currently active global Challenge
+
+    HTTP Methods:
+    - POST
+
+    Usage:
+    - Send a POST request to the endpoint
+    - Returns a Challenge object representing the currently active global Challenge
+    """
+    try:
+        return challenge_service.update(challenge_id, options, keep)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
         
 @api.get("/api/challenges/{id}", responses={404: {"model": None}}, tags=['Challenge'])
 def get_challenge(id: int, challenge_service: ChallengeService = Depends()) -> Challenge:

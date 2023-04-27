@@ -54,6 +54,27 @@ class ChallengeService:
             self._session.commit()
             return challenge_entity.to_model()
 
+    def update(self, challenge_id: int, options: list, keep: list) -> Challenge:
+        challenge_entity = self._session.get(ChallengeEntity, challenge_id)
+        if challenge_entity:
+            temp = generate(options[0], options[1], options[2], options[3], options[4], options[5])
+            if options[0] and not keep[0]:
+                challenge_entity.noun = temp.noun
+            if options[1] and not keep[1]:
+                challenge_entity.verb = temp.verb
+            if options[2] and not keep[2]:
+                challenge_entity.adj = temp.adj
+            if options[3] and not keep[3]:
+                challenge_entity.emotion = temp.emotion
+            if options[4] and not keep[4]:
+                challenge_entity.style = temp.style
+            if options[5] and not keep[5]:
+                challenge_entity.style = temp.style
+            self._session.commit()
+            return challenge_entity.to_model()
+        else:
+            raise ValueError(f"Challenge not found {temp.id}")
+
     def current(self) -> Challenge:
         return self._session.query(ChallengeEntity).order_by(ChallengeEntity.end.desc()).first()
 
