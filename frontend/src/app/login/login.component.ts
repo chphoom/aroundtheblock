@@ -46,7 +46,7 @@ export class LoginComponent {
       .registerUser(email, displayName, password, confirm)
       .subscribe({
         next: (user) => this.onSuccess(user),
-        error: (err) => this.onError(err)
+        error: (err) => this.onRegisterError(err)
       });
   }
 
@@ -66,12 +66,8 @@ export class LoginComponent {
         // Redirect the user to the home page
         window.location.reload();
         window.location.href = "/";
-        /* this.router.navigate(['/']); */
-      } else {
-        // Handle the case where the login credentials are invalid
-        console.error('Invalid credentials');
       }
-    });
+    }, (error) => this.onLoginError(error));
   }
 
 
@@ -81,9 +77,17 @@ export class LoginComponent {
     this.tabGroup.selectedIndex = 0;
   }
 
-  private onError(err: Error) {
+  private onRegisterError(err: Error) {
     if (err.message) {
-      window.alert(err.message);
+      window.alert(`Registration failed. Please check fields again.`);
+    } else {
+      window.alert("Unknown error: " + JSON.stringify(err));
+    }
+  }
+
+  private onLoginError(err: Error) {
+    if (err.message) {
+      window.alert(`Login failed. Check email or password again.`);
     } else {
       window.alert("Unknown error: " + JSON.stringify(err));
     }

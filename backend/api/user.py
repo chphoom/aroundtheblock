@@ -11,7 +11,7 @@ Usage:
 import user
 """
 from fastapi import APIRouter, HTTPException, Depends
-from ..services import UserService, ChallengeService
+from ..services import UserService, SaveService
 from ..models import User, Challenge
 
 api = APIRouter()
@@ -114,6 +114,102 @@ def update_user(email: str,
     """
     try:
         return user_service.update(email, pronouns, displayName, private, pfp, bio, connectedAccounts)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+@api.put("/api/savec", tags=['User'])
+def save_post(email: str, challenge_id: int, ss: SaveService = Depends()) -> User:
+    """API endpoint for saving a challenge
+
+    Parameters:
+    - email: a string representing the primary key of the User
+    - challenge_id: a int representing the primary key of the Challenge
+    - ss (SaveService): dependency injection for the SaveService class
+
+    Returns:
+    - User: a User object representing the updated User
+
+    HTTP Methods:
+    -PUT
+
+    Usage:
+    - Send a PUT request to the endpoint
+    - Returns a User object representing the updated User
+    """
+    try:
+        return ss.saveChallenge(email=email,challenge_id=challenge_id)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+@api.put("/api/savep", tags=['User'])
+def save_challenge(email: str, post_id: int, ss: SaveService = Depends()) -> User:
+    """API endpoint for saving a post
+
+    Parameters:
+    - email: a string representing the primary key of the User
+    - post_id: a int representing the primary key of the Post
+    - ss (SaveService): dependency injection for the SaveService class
+
+    Returns:
+    - User: a User object representing the updated User
+
+    HTTP Methods:
+    -PUT
+
+    Usage:
+    - Send a PUT request to the endpoint
+    - Returns a User object representing the updated User
+    """
+    try:
+        return ss.savePost(email=email,post_id=post_id)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+@api.put("/api/unsavec", tags=['User'])
+def unsave_challenge(email: str, challenge_id: int, ss: SaveService = Depends()) -> User:
+    """API endpoint for unsaving a challenge
+
+    Parameters:
+    - email: a string representing the primary key of the User
+    - challenge_id: a int representing the primary key of the Challenge
+    - ss (SaveService): dependency injection for the SaveService class
+
+    Returns:
+    - User: a User object representing the updated User
+
+    HTTP Methods:
+    -PUT
+
+    Usage:
+    - Send a PUT request to the endpoint
+    - Returns a User object representing the updated User
+    """
+    try:
+        return ss.removeChallenge(email=email,challenge_id=challenge_id)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+@api.put("/api/unsavep", tags=['User'])
+def unsave_post(email: str, post_id: int, ss: SaveService = Depends()) -> User:
+    """API endpoint for unsaving a post
+
+    Parameters:
+    - email: a string representing the primary key of the User
+    - post_id: a int representing the primary key of the Post
+    - ss (SaveService): dependency injection for the SaveService class
+
+    Returns:
+    - User: a User object representing the updated User
+
+    HTTP Methods:
+    -PUT
+
+    Usage:
+    - Send a PUT request to the endpoint
+    - Returns a User object representing the updated User
+    """
+    try:
+        return ss.removePost(email=email,post_id=post_id)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 

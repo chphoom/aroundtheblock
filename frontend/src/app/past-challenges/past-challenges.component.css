@@ -5,7 +5,7 @@ main {
 }
 
 p {
-    margin:0.5em;
+    margin:0.5em 3px;
 }
 
 header {
@@ -15,6 +15,10 @@ header {
     align-items: center;
     justify-content: space-between;
     padding:0 1rem;
+}
+
+header h1 {
+    margin:1rem;
 }
 
 .side-bar {

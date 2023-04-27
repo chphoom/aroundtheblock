@@ -67,10 +67,12 @@ async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
     - Send a POST request to the endpoint
     - Returns a Token object representing the currently logged in User
     """
-    user = login_service.authenticate_user(form_data.username, form_data.password)
-    if not user:
+    try:
+        user = login_service.authenticate_user(form_data.username, form_data.password)
+        if not user:
+            raise HTTPException(status_code=400, detail="Incorrect email or password")
+        _access_token = login_service.create_access_token(expires_delta=timedelta(hours=15), email=user.email)
+        response.set_cookie(key="access_token", value=_access_token, httponly=True, max_age=3600, expires=3600, path="/")
+        return {"access_token": _access_token, "token_type": "bearer"}
+    except:
         raise HTTPException(status_code=400, detail="Incorrect email or password")
-    _access_token = login_service.create_access_token(expires_delta=timedelta(hours=15), email=user.email)
-    response.set_cookie(key="access_token", value=_access_token, httponly=True, max_age=3600, expires=3600, path="/")
-
-    return {"access_token": _access_token, "token_type": "bearer"}

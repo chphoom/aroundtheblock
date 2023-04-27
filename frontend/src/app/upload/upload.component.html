@@ -6,24 +6,18 @@
           <h2>Upload Post</h2>
         </mat-card-title>
         <div *ngIf="(challenge$ | async) as challenge" class="prompt">
-          <p class="prompt-title">Prompt:</p>
-          <div class="prompt-text">
-            <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.verb}} {{challenge.adj}} {{challenge.noun}} </p>
-            <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
-            <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
-          </div>
-          <div *ngIf="(challenge.colors).length > 0" class="colors">
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[0]}"></div>
-              <p id="hex">{{challenge.colors[0]}}</p>
+          <div class="prompt-content">
+            <p class="prompt-title">Prompt:</p>
+            <div class="prompt-text">
+              <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.verb}} {{challenge.adj}} {{challenge.noun}} </p>
+              <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
+              <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
             </div>
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[1]}"></div>
-              <p id="hex">{{challenge.colors[1]}}</p>
-            </div>
-            <div class="color">
-              <div class="color-box" [ngStyle]="{'background-color': challenge.colors[2]}"></div>
-              <p id="hex">{{challenge.colors[2]}}</p>
+            <div *ngIf="(challenge.colors).length > 0" class="colors">
+              <div class="color" *ngFor="let color of challenge.colors">
+                <div class="color-box" [ngStyle]="{'background-color': color}"></div>
+                <p id="hex">{{color}}</p>
+              </div>
             </div>
           </div>
         </div>
