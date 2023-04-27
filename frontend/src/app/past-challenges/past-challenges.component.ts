@@ -16,6 +16,7 @@ export class PastChallengesComponent {
   public selected!: Challenge;
   public isLoggedin: Boolean | undefined;
   public user: User | undefined;
+  public newID: number = 0;
   public saved: { [key: number]: boolean } = {};
 
 
@@ -27,7 +28,7 @@ export class PastChallengesComponent {
     this.weChallenges$ = challengeService.getWeChallenges()
     this.weChallenges$.subscribe((challenges) => {
       this.selected = challenges[challenges.length - 1];
-      this.selected.id = challenges.length
+      this.newID = challenges.length
     });
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
@@ -43,7 +44,7 @@ export class PastChallengesComponent {
   onClick(challenge: Challenge, i: number) {
     this.selected = challenge
     this.weChallenges$.subscribe(challenges => {
-      this.selected.id = challenges?.length - i;
+      this.newID = challenges?.length - i;
     });
   }
 
