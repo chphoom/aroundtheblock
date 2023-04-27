@@ -38,5 +38,5 @@ class CommentEntity(EntityBase):
             post=self.post_id, 
             text=self.text, 
             created=self.created,
-            replies=self.replies
+            replies=[reply.to_model() for reply in self.replies]
             )
