@@ -4,9 +4,11 @@ Endpoints:
 - GET /notifs - Retrieve all Notifs
 - POST /notifs/new- Generate a new Notif
 - DELETE /delete/notif/{id} - Delete a Notif
-- GET /notifs/{id} - Retrieve a particular Notif by it's ID
 - GET /notifs/to/{email} - Retrieve all Notifs to a user
 - GET /notifs/from/{email} - Retrieve all Notifs from a user
+- GET /notifs/id/{id} - Retrieve a particular Notif by it's ID
+- PUT /notifs/read - Read a notification
+- PUT /notifs/unread - Mark a notification as unread
 
 Usage:
 import comment
@@ -143,3 +145,49 @@ def get_notif(id: int, notif_service: NotifService = Depends()) -> Notif:
         return notif_service.get(id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+    
+@api.put("/api/notifs/read/{id}", tags=['Notifications'])
+def read(id: int, notif_service: NotifService = Depends()) -> Notif:
+    """API endpoint for updating a notification
+
+    Parameters:
+    - id: an int representing the prinmary key of of the Notif object
+    - notif_service (NotifService): dependency injection for the NotifService class
+
+    Returns:
+    - Notif: a Notif object representing the newly updated Notif
+
+    HTTP Methods:
+    - PUT
+
+    Usage:
+    - Send a PUT request to the endpoint
+    - Returns a Notif object representing the updated Notif
+    """
+    try:
+        return notif_service.read(id)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    
+@api.put("/api/notifs/unread/{id}", tags=['Notifications'])
+def unread(id: int, notif_service: NotifService = Depends()) -> Notif:
+    """API endpoint for updating a notification
+
+    Parameters:
+    - id: an int representing the prinmary key of of the Notif object
+    - notif_service (NotifService): dependency injection for the NotifService class
+
+    Returns:
+    - Notif: a Notif object representing the newly updated Notif
+
+    HTTP Methods:
+    - PUT
+
+    Usage:
+    - Send a PUT request to the endpoint
+    - Returns a Notif object representing the updated Notif
+    """
+    try:
+        return notif_service.unread(id)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))

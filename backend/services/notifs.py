@@ -5,6 +5,7 @@ from ..database import db_session
 from ..models import Notif
 from ..entities import CommentEntity, ChallengeEntity, UserEntity, NotifEntity
 from sqlalchemy.sql.expression import and_
+from datetime import datetime
 
 class NotifService:
 
@@ -68,3 +69,23 @@ class NotifService:
         statement = select(NotifEntity).where(NotifEntity.fromUser_id == email).limit(25)
         entities = self._session.execute(statement).scalars()
         return [entity.to_model() for entity in entities]
+
+    def read(self, notification_id: int) -> Notif:
+        notif = self._session.get(NotifEntity, notification_id)
+        if notif:
+            notif.last_read = datetime.now()
+            notif.read = True
+            self._session.commit()
+            return notif.to_model()
+        else:
+            raise ValueError(f"No notification found")
+
+    def unread(self, notification_id: int) -> Notif:
+        notif = self._session.get(NotifEntity, notification_id)
+        if notif:
+            notif.last_read = datetime.now()
+            notif.read = False
+            self._session.commit()
+            return notif.to_model()
+        else:
+            raise ValueError(f"No notification found")
