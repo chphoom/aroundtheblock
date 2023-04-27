@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./me-challenge.component.css']
 })
 export class MeChallengeComponent {
-  public isLoggedin = this.registrationService.isLoggedIn();
+  public isLoggedin: Boolean | undefined;
   private options: String[];
   public form: FormGroup;
   private valid: Boolean = false;
@@ -31,6 +31,7 @@ export class MeChallengeComponent {
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
     });
+    this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
     
     this.options = [];
     this.form = this.formBuilder.group({
