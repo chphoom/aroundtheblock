@@ -34,3 +34,28 @@ mat-checkbox {
 .thumbnail {
     width: 24%;
 }
+
+.prompt svg {
+    margin-left: 1rem;
+}
+
+.prompt {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+}
+
+.prompt-content {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+}
