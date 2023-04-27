@@ -15,8 +15,9 @@
             <p class="bio">{{user.bio}}</p>
         </div>
     </div>
-   
-    <div label="Posts" *ngIf="user.userPosts" class="display-posts">
-        <div *ngFor="let post of user.userPosts" class="thumbnail" [ngStyle]="{'background-image':'url(/images/' + post.img + ')'}"></div>
+    <div class="display-posts">
+        <a *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
+            <img class="thumbnail" [src]="post.img">
+        </a>
     </div>
 </main>

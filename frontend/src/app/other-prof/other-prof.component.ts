@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./other-prof.component.css']
 })
 export class OtherProfComponent {
-  public email: string = ""
+  public email: string = "";
+  public displayName: string = "";
   public user$!: Observable<User>;
   public user!: User;
   
