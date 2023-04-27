@@ -152,7 +152,7 @@ export class RegistrationService {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
-    let user: User = {email, displayName, password, created: new Date(), private: false, bio: "", pronouns: "", pfp: "https://i.imgur.com/1MwzVBB.png", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
+    let user: User = {email, displayName, password, created: new Date(), private: false, bio: "New to the block", pronouns: "", pfp: "https://i.imgur.com/1MwzVBB.png", userPosts: [], savedChallenges: [], savedPosts: [], connectedAccounts: []};
 
     return this.http.post<User>("api/registrations",user);
   }
