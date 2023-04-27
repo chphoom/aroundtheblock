@@ -18,7 +18,7 @@ class CommentEntity(EntityBase):
     replyTo_id = mapped_column(ForeignKey("comments.id"))
     replies: Mapped[list["CommentEntity"]] = relationship(secondary="reply", primaryjoin=id==reply_table.c.comment_id,
                             secondaryjoin=id==reply_table.c.reply_id, back_populates="replies", post_update=True)
-    text: Mapped[str] = mapped_column(String(64))
+    text: Mapped[str] = mapped_column(String(1024))
     created: Mapped[datetime] = mapped_column(DateTime)
 
     @classmethod

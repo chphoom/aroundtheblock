@@ -21,7 +21,7 @@ class UserEntity(EntityBase):
     private: Mapped[bool] = mapped_column(Boolean)
     bio: Mapped[str] = mapped_column(String(256))
     pronouns: Mapped[str] = mapped_column(String(64))
-    pfp: Mapped[str] = mapped_column(String(256))
+    pfp: Mapped[str] = mapped_column(String(512))
     userPosts: Mapped[list["PostEntity"]] = relationship(back_populates="postedBy")
     savedPosts: Mapped[list["PostEntity"]] = relationship(secondary=savedPost)
     savedChallenges: Mapped[list["ChallengeEntity"]] = relationship(secondary=savedChallenge)
