@@ -91,7 +91,7 @@ export class LoginComponent {
 
   private onRegisterError(err: Error) {
     if (err.message) {
-      window.alert(`Registration failed. Please check fields again.`);
+      window.alert(err.message);
     } else {
       window.alert("Unknown error: " + JSON.stringify(err));
     }
