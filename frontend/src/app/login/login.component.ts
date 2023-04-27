@@ -74,7 +74,19 @@ export class LoginComponent {
   private onSuccess(user: User): void {
     window.alert(`Thanks for registering: ${user.displayName}`);
     this.register.reset();
-    this.tabGroup.selectedIndex = 0;
+    this.registrationService
+    .loginUser(user.email, user.password)
+    .subscribe((response) => {
+      const token = response as TokenResponse;
+      if (token) {
+        // Store the authentication token for future use
+        localStorage.setItem('authToken', token.access_token);
+        console.log(token)
+        // Redirect the user to the home page
+        window.location.reload();
+        window.location.href = "/profile";
+      }
+    }, (error) => this.onLoginError(error));
   }
 
   private onRegisterError(err: Error) {
