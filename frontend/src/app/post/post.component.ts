@@ -75,4 +75,10 @@ export class PostComponent implements OnInit {
       console.error(error);
     });
   }
+
+  tagClick(tag: string) {
+    // Redirect the user to the home page
+    window.location.reload();
+    window.location.href = "/tagged/"+tag;
+  }
 }
