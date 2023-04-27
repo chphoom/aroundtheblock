@@ -42,3 +42,14 @@ h2 {
     padding:4px;
     margin:4px;
 }
+
+.post-title {
+    display:flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.fav-icon {
+    cursor: pointer;
+    margin-left: 1rem;
+}
