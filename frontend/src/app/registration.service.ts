@@ -148,6 +148,10 @@ export class RegistrationService {
       errors.push('Please confirm that your passwords match')
     }
 
+    if (password.length < 8) {
+      errors.push('Please use at least 8 characters in your password')
+    }
+
     if (!email.includes("@")) {
       errors.push(`Please enter a valid email.`);
     }
