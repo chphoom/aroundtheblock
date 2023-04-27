@@ -1,6 +1,6 @@
 <main>
     <div *ngIf="(posts$ | async)?.length">
-    <h2>Posts matching "{{query}}"</h2>
+    <h2>Posts tagged as "{{query}}"</h2>
     <div class="display-posts">
         <a class="thumbnail-container" *ngFor="let post of posts$ | async" [href]="'post/' + post.id">
             <img class="thumbnail" [src]="post.img">
