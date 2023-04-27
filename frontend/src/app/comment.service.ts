@@ -19,4 +19,16 @@ export class CommentService {
     let newcomment: Comment = {id:undefined, commenter:user.email, post:post_id, replies:[], text:_text, created:new Date()}
     return this.http.post<Comment>("/api/comment", newcomment)
   }
+
+  deleteComment(comment: Comment){
+    return this.http.delete<Comment>("api/delete/comment/"+comment.id)
+  }
+
+  editComment(comment_id: number, newText: string){
+    return this.http.put<Comment>(`api/comment/edit?comment_id=${comment_id}&newText=${newText}`,{})
+  }
+
+  createReply(comment_id: number, reply: Comment){
+    return this.http.post<Comment>(`api/reply?comment_id=${comment_id}`, reply)
+  }
 }
