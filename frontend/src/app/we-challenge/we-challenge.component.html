@@ -36,17 +36,11 @@
     </div>
     <div class="posts-container">
         <h1>See what others made</h1>
-        <p class="underline-hover">Show Spoilers</p>
-        <!--<div class="display-posts">
-            <a *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="'/images/' + post.img">
-            </a>
-        </div>-->
-
+        <button class="spoiler" (click)="toggleSpoilerText()">{{ spoilerText }}</button>
         <div class="display-posts">
             <a class="thumbnail-container" *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id">
                 <img class="thumbnail" [src]="'/images/' + post.img">
-                <div class="overlay">
+                <div *ngIf="spoilerText == 'Hide Spoilers'" class="overlay">
                     <div class="text">{{post.title}}</div>
                 </div>
             </a>
