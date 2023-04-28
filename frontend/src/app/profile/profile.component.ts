@@ -16,6 +16,7 @@ export class ProfileComponent {
   private isLoggedin: Boolean | undefined;
   public user: User | undefined;
   public saved: { [key: number]: boolean } = {};
+  // public publicPosts: Challenge[];
   
   constructor(private registrationService: RegistrationService, private router: Router, private shareService: ShareService, protected snackBar: MatSnackBar){}
 
