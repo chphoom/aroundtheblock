@@ -22,16 +22,21 @@
     </div>
     <div *ngIf="user" class="tabs">
         <mat-tab-group #tabGroup>
-            <mat-tab label="Posts" *ngIf="user.userPosts" class="display-posts">
-                <a class="thumbnail-container" *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
+            <mat-tab label="Posts" *ngIf="publicPosts" class="display-posts">
+                <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id">
                     <img class="thumbnail" [src]="post.img">
                     <div class="overlay">
                         <div class="text">{{post.title}}</div>
                     </div>
                 </a>
             </mat-tab>
-            <mat-tab label="Private">
-                <p>Coming Soon</p>
+            <mat-tab label="Private" *ngIf="privatePosts" class="display-posts">
+                <a class="thumbnail-container" *ngFor="let post of privatePosts" [href]="'post/' + post.id">
+                    <img class="thumbnail" [src]="post.img">
+                    <div class="overlay">
+                        <div class="text">{{post.title}}</div>
+                    </div>
+                </a>
             </mat-tab>
             <mat-tab label="Favorite Posts">
                 <a class="thumbnail-container" *ngFor="let post of user.savedPosts" [href]="'post/' + post.id">
