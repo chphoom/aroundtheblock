@@ -76,6 +76,7 @@ class PostService:
             select(PostEntity)
             .join(ChallengeEntity)
             .filter(ChallengeEntity.type == "me")
+            .where(PostEntity.private.is_(False))
         )
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
