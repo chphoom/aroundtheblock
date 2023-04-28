@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RegistrationService, User } from '../registration.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Challenge } from '../models';
+import { Challenge, Post } from '../models';
 import { ShareService } from '../share.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -16,6 +16,9 @@ export class ProfileComponent {
   private isLoggedin: Boolean | undefined;
   public user: User | undefined;
   public saved: { [key: number]: boolean } = {};
+  public privatePosts!: Post[];
+  public publicPosts!: Post[];
+
   
   constructor(private registrationService: RegistrationService, private router: Router, private shareService: ShareService, protected snackBar: MatSnackBar){}
 
@@ -33,7 +36,13 @@ export class ProfileComponent {
       });
       console.log(user);
       console.log(this.saved);
+      this.privatePosts = this.user!.userPosts!.filter(post => post.private);
+      this.publicPosts = this.user!.userPosts!.filter(post => !post.private);
     });
+    for (let post in this.publicPosts) {
+      console.log(post)
+    }
+
   }
 
   async onSubmit(challenge: Challenge) {
