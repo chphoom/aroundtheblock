@@ -43,11 +43,10 @@ class PostService:
             raise ValueError(f"Post not found")
 
     def delete(self, id: int) -> Post:
-        # 
         post = self._session.get(PostEntity, id)
         if post:
             temp = self._session.get(UserEntity, post.user_id)
-            temp2 = self._session.get(ChallengeEntity, post.challenge)
+            temp2 = self._session.get(ChallengeEntity, post.challenge_id)
             temp.userPosts.remove(post)
             temp2.posts.remove(post)
             self._session.delete(post)
