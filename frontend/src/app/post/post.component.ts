@@ -5,7 +5,7 @@ import { Challenge, User } from '../models';
 import { RegistrationService } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, map, shareReplay } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommentService, Comment } from '../comment.service';
 
@@ -167,5 +167,20 @@ export class PostComponent implements OnInit {
         } else {
           window.alert("Unknown error: " + JSON.stringify(err));
         }}})
+  }
+
+  private userCache: { [key: string]: Observable<string> } = {};
+
+  getUsername(comment: Comment): Observable<string> {
+    const cachedValue = this.userCache[comment.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(comment.user_id).pipe(
+      map(user => user ? `${user.displayName}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache[comment.user_id] = newValue;
+    return newValue;
   }
 }
