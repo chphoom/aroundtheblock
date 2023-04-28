@@ -29,7 +29,8 @@ export class CommentService {
     return this.http.put<Comment>(`api/comment/edit?comment_id=${comment_id}&newText=${newText}`,{})
   }
 
-  createReply(comment_id: number, reply: Comment){
-    return this.http.post<Comment>(`api/reply?comment_id=${comment_id}`, reply)
+  createReply(comment_id: number, _text: string, user: User){
+    let newcomment: Comment = {id:undefined, commenter:user.email, user_id:user.email, post:0, replies:[], text:_text, created:new Date()}
+    return this.http.post<Comment>(`api/reply?comment_id=${comment_id}`, newcomment)
   }
 }

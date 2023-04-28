@@ -131,7 +131,7 @@ export class PostComponent implements OnInit {
     window.location.href = "/tagged/"+tag;
   }
 
-  onComment(): void {
+  onComment(replyTo: number|undefined): void {
     let form = this.comment.value;
     let _c = form.comment ?? "";
 
@@ -144,7 +144,16 @@ export class PostComponent implements OnInit {
       this.user = user;
     });
 
-    this.commentService.createComment(_c, this.user!, this.post.id!)
+    if(replyTo){
+      this.commentService.createReply(replyTo,_c, this.user!)
+      .subscribe((response) => {
+          console.log(response)
+          window.location.reload();
+        }, (error) => {
+          console.error(error);
+        });
+    } else {
+      this.commentService.createComment(_c, this.user!, this.post.id!)
       .subscribe((response) => {
           console.log(response)
           window.location.reload();
@@ -153,6 +162,7 @@ export class PostComponent implements OnInit {
         });
 
         console.log("LOOK HERE" + JSON.stringify(this.post.comments))
+    }
   }
 
   delComment(c: Comment): void {
