@@ -183,4 +183,20 @@ export class PostComponent implements OnInit {
     this.userCache[comment.user_id] = newValue;
     return newValue;
   }
+
+  private userCache2: { [key: string]: Observable<string> } = {};
+
+  getPfp(comment: Comment): Observable<string> {
+    const cachedValue = this.userCache2[comment.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(comment.user_id).pipe(
+      map(user => user ? `${user.pfp}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache2[comment.user_id] = newValue;
+    console.log("here" + newValue)
+    return newValue;
+  }
 }
