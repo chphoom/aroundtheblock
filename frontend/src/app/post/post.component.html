@@ -50,6 +50,10 @@
             <p>{{post.desc}}</p>
             <p>{{post.created| date: "MMM d, y"}} <span *ngIf="post.private">• Private Post</span></p>
         </div>
+        <div class="buttons" *ngIf="user?.displayName == _user?.displayName">
+          <button id="btn-edit" type="button">Edit</button>
+          <button (click)="delPost()" type="button" id="btn-delete">Delete Post</button>
+        </div>
         <div class="post-comments-container">
           <h2>{{post.comments.length}} Comments</h2>
           <div id="form" *ngIf="isLoggedin">
@@ -73,5 +77,4 @@
           </div>
         </div>
     </div>
-    <button (click)="delPost()" type="button" id="btn-delete" *ngIf="user?.displayName == _user?.displayName">Delete Post</button>
 </main>

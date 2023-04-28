@@ -206,7 +206,7 @@ export class PostComponent implements OnInit {
   delPost() {
     this.postsService.deletePost(this.post).subscribe({
       next: () => {
-        
+        this.router.navigate(['/profile']);
       },
       error: (err) => { 
         if (err.message) {
