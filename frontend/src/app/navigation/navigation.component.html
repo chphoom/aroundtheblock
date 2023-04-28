@@ -45,6 +45,9 @@
                 <p>{{user?.displayName}}</p>
                 <mat-icon>account_box</mat-icon>
             </a>
+            <button id="black" type="submit" (click)="logOut()">
+                <p>Logout</p>
+            </button>
         </div>
         <ng-template #elseBlock>
             <a class="user" routerLink="/login">

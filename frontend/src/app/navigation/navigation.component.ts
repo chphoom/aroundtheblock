@@ -23,4 +23,9 @@ export class NavigationComponent {
     const query = this.search.nativeElement.value;
     // For example, you could navigate to the search page and pass the search term as a query parameter
     this.router.navigate(['/search', query]);  }
+
+  logOut() {
+    this.registration_service.logout();
+    this.router.navigate(['/']);
+  }
 }
