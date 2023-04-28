@@ -160,7 +160,6 @@ export class PostComponent implements OnInit {
       next: (challenge) => {
         //update window
         window.location.reload();
-        // window.alert(`The deleted challenge is': ${c.id}`);
       },
       error: (err) => { 
         if (err.message) {

@@ -62,11 +62,13 @@
             </form>
           </div>
           <div class="comments" *ngFor="let comment of post.comments">
-            <!-- listing comments containers -->
-            <h3>{{ comment.user_id }} {{comment.created | date: "MMM d, y"}}</h3>
-            <p> {{ comment.text }}</p>
-            <!-- *ngIf="comment.commenter == user?.email"  -->
-            <input *ngIf="comment.user_id == user?.email" type="button" value="delete" (click)="delComment(comment)"/>
+            <div class="comment">
+              <!-- listing comments containers -->
+              <h3>{{ comment.user_id }} <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
+              <p> {{ comment.text }}</p>
+              <!-- *ngIf="comment.commenter == user?.email"  -->
+              <input *ngIf="comment.user_id == user?.email" type="button" value="delete" (click)="delComment(comment)"/>
+            </div> 
           </div>
         </div>
     </div>
