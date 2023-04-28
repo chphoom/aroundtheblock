@@ -44,7 +44,8 @@ export interface Post {
 export interface Comment {
     id: number | undefined,
     commenter: User | string,
-    post: Post | number,
+    user_id: string,
+    post: number,
     replies: Comment[],
     text: string,
     created: Date

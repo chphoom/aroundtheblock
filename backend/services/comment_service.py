@@ -20,9 +20,7 @@ class CommentService:
     def create(self, comment: Comment) -> Comment:
         user = self._session.get(UserEntity, comment.commenter)
         if user:
-            comment.commenter = user
             post = self._session.get(PostEntity, comment.post)
-            comment.post = post
             comment_entity: CommentEntity = CommentEntity.from_model(comment)
             post.comments.append(comment_entity)
             self._session.add(comment_entity)
@@ -61,10 +59,11 @@ class CommentService:
     def reply(self, comment_id: int, reply: Comment) -> Comment:
         temp = self._session.get(CommentEntity, comment_id)
         if temp:
-            reply = self._session.get(CommentEntity, reply.id)
-            reply.replyTo_id = temp.id
-            temp.replies.append(reply)
-            self._session.add(reply)
+            reply.post = temp.post_id
+            reply_entity: CommentEntity = CommentEntity.from_model(reply)
+            reply_entity.replyTo_id = temp.id
+            temp.replies.append(reply_entity)
+            self._session.add(reply_entity)
             self._session.commit()
             return temp.to_model()
         else:
