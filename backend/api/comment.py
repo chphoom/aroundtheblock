@@ -37,7 +37,7 @@ def get_comments(comment_service: CommentService = Depends()) -> list[Comment]:
     return comment_service.all()
 
 @api.get("/api/getcomment/{id}", tags=['Comment'])
-def get_comment(id: int, comment_service: CommentService = Depends()) -> list[Comment]:
+def get_comment(id: int, comment_service: CommentService = Depends()) -> Comment:
     """API endpoint for retrieving all comments in the database
 
     Parameters:
