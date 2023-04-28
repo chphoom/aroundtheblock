@@ -101,7 +101,6 @@ mat-form-field {
 }
 
 .comment {
-    margin-bottom: 2rem;
     display:flex;
     flex-direction: row;
     align-items: flex-start;
