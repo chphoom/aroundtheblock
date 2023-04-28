@@ -63,10 +63,10 @@
           </div>
           <div class="comments" *ngFor="let comment of post.comments">
             <!-- listing comments containers -->
-            <h3>{{ comment.commenter }} {{comment.created | date: "MMM d, y"}}</h3>
+            <h3>{{ comment.user_id }} {{comment.created | date: "MMM d, y"}}</h3>
             <p> {{ comment.text }}</p>
             <!-- *ngIf="comment.commenter == user?.email"  -->
-            <input *ngIf="comment.commenter == user?.email" type="button" value="delete" (click)="delComment(comment)"/>
+            <input *ngIf="comment.user_id == user?.email" type="button" value="delete" (click)="delComment(comment)"/>
           </div>
         </div>
     </div>
