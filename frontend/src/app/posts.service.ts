@@ -43,8 +43,8 @@ export class PostsService {
    * 
    * @returns the deleted Post.
    */
-  deletePost(post: Post, options: Array<String>): Observable<Post> {
-    return this.http.delete<Post>("/api/delete/posts/"+post.id);
+  deletePost(post: Post): Observable<Post> {
+    return this.http.delete<Post>(`/api/delete/posts/${post.id}`);
   }
 
   /**
