@@ -53,20 +53,20 @@
         <div class="post-comments-container">
           <h2>{{post.comments.length}} Comments</h2>
           <div id="form">
-            <form [formGroup]="comment" class="comment-form" (ngSubmit)="onSubmit()">
+            <form [formGroup]="comment" class="comment-form" (ngSubmit)="onComment()">
               <mat-form-field class="roundedInput">
                   <mat-label>Comment</mat-label>
-                  <input matInput placeholder="Comment" formControlName="comment" id="comment" type="text">
+                  <textarea matInput placeholder="Comment" formControlName="comment" id="comment" type="text"></textarea>
               </mat-form-field>
               <button mat-button type="Submit" id="black"><p>Comment</p></button>
             </form>
           </div>
           <div class="comments" *ngFor="let comment of post.comments">
             <!-- listing comments containers -->
-            <h3>{{comment.commenter}} {{comment.created | date: "MMM d, y"}}</h3>
+            <h3>{{ comment.commenter }} {{comment.created | date: "MMM d, y"}}</h3>
             <p> {{ comment.text }}</p>
             <!-- *ngIf="comment.commenter == user?.email"  -->
-            <input type="button" value="delete" (click)="onSubmitComm(comment)" />
+            <input *ngIf="comment.commenter == user?.email" type="button" value="delete" (click)="delComment(comment)"/>
           </div>
         </div>
     </div>
