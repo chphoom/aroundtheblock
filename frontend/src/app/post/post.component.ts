@@ -131,7 +131,7 @@ export class PostComponent implements OnInit {
     window.location.href = "/tagged/"+tag;
   }
 
-  onSubmit(): void {
+  onComment(): void {
     let form = this.comment.value;
     let _c = form.comment ?? "";
 
@@ -151,9 +151,11 @@ export class PostComponent implements OnInit {
         }, (error) => {
           console.error(error);
         });
+
+        console.log("LOOK HERE" + JSON.stringify(this.post.comments))
   }
 
-  onSubmitComm(c: Comment): void {
+  delComment(c: Comment): void {
     this.commentService.deleteComment(c).subscribe({
       next: (challenge) => {
         //update window

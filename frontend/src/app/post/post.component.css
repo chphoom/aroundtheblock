@@ -85,11 +85,11 @@ h2 {
 
 .comment-form {
     display:flex;
-    flex-direction: row;
+    flex-flow: row wrap;
 }
 
 mat-form-field {
-    width:stretch;
+    min-width: 70%;
 }
 
 #black {
