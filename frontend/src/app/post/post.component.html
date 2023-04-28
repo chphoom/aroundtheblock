@@ -52,7 +52,7 @@
         </div>
         <div class="post-comments-container">
           <h2>{{post.comments.length}} Comments</h2>
-          <div id="form">
+          <div id="form" *ngIf="isLoggedin">
             <form [formGroup]="comment" class="comment-form" (ngSubmit)="onComment()">
               <mat-form-field class="roundedInput">
                   <mat-label>Comment</mat-label>
