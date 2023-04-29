@@ -47,7 +47,7 @@
                 </a>
             </mat-tab>
             <mat-tab label="Saved Challenges">
-                <div *ngFor="let challenge of user.savedChallenges" class="prompt">
+                <div *ngFor="let challenge of user.savedChallenges" [class]="'prompt '+getType(challenge)+'-prompt'">
                     <span class="prompt-content">
                         <p class="prompt-title">Prompt:</p>
                         <div class="prompt-text">
@@ -61,7 +61,7 @@
                             <p id="hex">{{color}}</p>
                             </div>
                         </div>
-                        <button id="me" type="submit" (click)="onSubmit(challenge)">
+                        <button [id]="getType(challenge)" type="submit" (click)="onSubmit(challenge)">
                             <p>Create Submission</p>
                         </button>
                     </span>

@@ -21,6 +21,7 @@ export class UploadComponent {
   private isLoggedin: Boolean | undefined;
   challenge$: Observable<Challenge> | undefined;
   challenge: Challenge | undefined;
+  challengeType!: String;
   post: Post | undefined;
   submitted = false;
 
@@ -45,6 +46,12 @@ export class UploadComponent {
     // check if there is a challenge and gets challenge
     this.challenge$ = this.shareService.getCurrentValue();
     this.challenge$.subscribe(challenge => this.challenge = challenge)
+    if (this.challenge?.createdBy) {
+      this.challengeType = "me"
+    } else {
+      this.challengeType = "we"
+    }
+    console.log(this.challengeType)
   }
 
   onFileSelected(event: any) {
@@ -57,10 +64,14 @@ export class UploadComponent {
   onSubmit() {
     let form = this.form.value
 
+    if (form.title == '') {
+      form.title = "Untitled"
+    }
+
     const newPost: Post = {
       id: undefined,
       img: form.file ?? "",
-      title: form.title ?? "Untitled",
+      title: form.title ?? "",
       desc: form.description ?? "",
       private: form.private ?? false,
       created: new Date(),
@@ -70,16 +81,29 @@ export class UploadComponent {
       tags: []
     };
 
-    let id: number
+    if (this.challenge?.createdBy) {
+      newPost.tags.push("meChallenge")
+    } else {
+      newPost.tags.push("weChallenge")
+    }
 
-    // console.log(newPost); 
-    
-    this.postsService.createPost(newPost).subscribe(post => {
-      console.log(post);
-      this.post = post
-      this.router.navigate([`/post/${this.post?.id}`]);
-    }, (error: HttpErrorResponse)=> {
-      console.log(error);
-    });
+    this.postsService.createPost(newPost).subscribe({
+        next: (post) => this.onSuccess(post),
+        error: (err) => this.onError(err)
+    })
   }
+
+  onSuccess(post: Post) {
+    this.post = post
+    this.router.navigate([`/post/${this.post?.id}`]);
+  }
+
+  onError(err: Error) {
+    if (err.message) {
+      window.alert(err.message);
+    } else {
+      window.alert("Unknown error: " + JSON.stringify(err));
+    }
+  }
+
 }

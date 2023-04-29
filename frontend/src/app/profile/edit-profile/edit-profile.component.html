@@ -17,6 +17,7 @@
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label for="displayName">Display Name</mat-label>
                 <input matInput id="displayName" type="text" [(ngModel)]="user.displayName" formControlName="displayName">
+                <mat-error *ngIf="form.get('displayName')?.hasError('required')">Username required</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label for="pronouns">Pronouns</mat-label>

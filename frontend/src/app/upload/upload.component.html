@@ -5,7 +5,7 @@
         <mat-card-title>
           <h2>Upload Post</h2>
         </mat-card-title>
-        <div *ngIf="(challenge$ | async) as challenge" class="prompt">
+        <div *ngIf="(challenge$ | async) as challenge" [class]="'prompt '+challengeType+'-prompt'">
           <div class="prompt-content">
             <p class="prompt-title">Prompt:</p>
             <div class="prompt-text">
@@ -25,7 +25,8 @@
       <mat-card-content>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label for="file">Paste image URL</mat-label>
-          <input type="text" id="file" formControlName="file" matInput placeholder="https://...">
+          <input type="text" id="file" formControlName="file" matInput placeholder="URL ending in a file type">
+          <mat-error *ngIf="form.get('file')?.hasError('required')">This field is required</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label for="posttitle">Title</mat-label>
