@@ -48,13 +48,17 @@
                     New comment from {{ (getUsername(notif) | async) }} 
                 </button>
             </mat-menu>
-            <a class="user" routerLink="/profile">
-                <p>{{user?.displayName}}</p>
-                <mat-icon>account_box</mat-icon>
-            </a>
-            <button id="black" type="submit" (click)="logOut()">
-                <p>Logout</p>
-            </button>
+            <div mat-menu-trigger [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger">
+                <a style="cursor:pointer;" class="user">
+                  <p>{{user?.displayName}}</p>
+                  <mat-icon>account_box</mat-icon>
+                </a>
+            </div>
+            <mat-menu #userMenu="matMenu" (mouseleave)="userMenuTrigger.closeMenu()">
+                <a mat-menu-item routerLink="/profile">Profile</a>
+                <a mat-menu-item routerLink="/profile/edit">Settings</a>
+                <a mat-menu-item (click)="logOut()">Logout</a>
+            </mat-menu>
         </div>
         <ng-template #guest>
             <a class="user" routerLink="/login">
