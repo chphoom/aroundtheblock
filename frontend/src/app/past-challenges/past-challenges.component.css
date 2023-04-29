@@ -71,6 +71,6 @@ header h1 {
     flex-direction: row;
 }
 
-.selected {
+.clicked {
     background-color: #BBF1BA;
   }
