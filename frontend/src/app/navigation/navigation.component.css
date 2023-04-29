@@ -28,9 +28,9 @@ p {
 .nav-challenge {
     display:flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
-    transition: font-weight 300ms ease-out;
+    transition: all 300ms ease-out;
     min-width: 65px;
 }
 
@@ -97,4 +97,15 @@ input[type="text"]::placeholder {
     display:flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-around;
+    gap:4px;
+}
+
+.unread {
+    font-weight: bold;
+}
+
+::ng-deep .mat-badge-content {
+    font-size: 12px;
+    text-align: center;
 }

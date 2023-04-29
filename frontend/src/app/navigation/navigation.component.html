@@ -39,8 +39,15 @@
         </div>
     </div>
     <div class="account">
-        <div *ngIf="(registration_service.isAuthenticated$ | async); else elseBlock" class="user-bar">
-            <mat-icon>notifications</mat-icon>
+        <div *ngIf="(registration_service.isAuthenticated$ | async); else guest" class="user-bar">
+            <mat-icon *ngIf="(numUnread == 0)" style="cursor: pointer;" [matMenuTriggerFor]="menu" aria-label="notifications">notifications</mat-icon>
+            <mat-icon *ngIf="(numUnread > 0)" #unread matBadge="{{numUnread}}" matBadgeSize="small" matBadgeColor="warn" style="cursor: pointer;" [matMenuTriggerFor]="menu" aria-label="notifications">notifications</mat-icon>
+            <mat-menu #menu="matMenu">
+                <label *ngIf="notifs.length == 0" style="margin: 1rem;">Nothing to see here!</label>
+                <button *ngFor="let notif of notifs?.slice()?.reverse()" mat-menu-item (click)="onClickN(notif)" [ngClass]="{'unread': !notif.read}"> 
+                    New comment from {{ (getUsername(notif) | async) }} 
+                </button>
+            </mat-menu>
             <a class="user" routerLink="/profile">
                 <p>{{user?.displayName}}</p>
                 <mat-icon>account_box</mat-icon>
@@ -49,7 +56,7 @@
                 <p>Logout</p>
             </button>
         </div>
-        <ng-template #elseBlock>
+        <ng-template #guest>
             <a class="user" routerLink="/login">
                 <p>Sign In</p>
                 <mat-icon>account_box</mat-icon>

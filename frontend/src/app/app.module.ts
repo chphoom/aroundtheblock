@@ -40,6 +40,9 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OtherProfComponent } from './other-prof/other-prof.component';
 import { TaggedPostsComponent } from './tagged-posts/tagged-posts.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatBadgeModule} from '@angular/material/badge';
+
 
 @NgModule({
   declarations: [
@@ -80,6 +83,8 @@ import { TaggedPostsComponent } from './tagged-posts/tagged-posts.component';
     MatGridListModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatMenuModule,
+    MatBadgeModule,
     MatSnackBarModule,
     JwtModule.forRoot({
       config: {

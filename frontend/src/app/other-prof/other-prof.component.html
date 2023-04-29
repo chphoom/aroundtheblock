@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="display-posts">
-        <a class="thumbnail-container" *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
+        <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id">
             <img class="thumbnail" [src]="post.img">
             <div class="overlay">
                 <div class="text">{{post.title}}</div>
