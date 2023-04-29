@@ -17,11 +17,11 @@ class PostEntity(EntityBase):
     desc: Mapped[str] = mapped_column(String(1024))
     private: Mapped[bool] = mapped_column(Boolean)
     created: Mapped[datetime] = mapped_column(DateTime)
-    user_id = mapped_column(ForeignKey("users.email"), onupdate="cascade")
+    user_id = mapped_column(ForeignKey("users.email"))
     postedBy: Mapped['UserEntity'] = relationship(back_populates="userPosts", post_update=True)
     comments: Mapped[list["CommentEntity"]] = relationship(back_populates="post")
     tags: Mapped[list[str]] = mapped_column(MutableList.as_mutable(ARRAY(String(64))))
-    challenge_id = mapped_column(ForeignKey("challenges.id"), onupdate="cascade")
+    challenge_id = mapped_column(ForeignKey("challenges.id"))
     challenge: Mapped['ChallengeEntity'] = relationship(back_populates="posts", post_update=True)
 
     @classmethod

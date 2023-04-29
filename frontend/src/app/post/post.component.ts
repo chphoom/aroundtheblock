@@ -18,11 +18,11 @@ export class PostComponent implements OnInit {
   public isLoggedin: Boolean | undefined;
   public user$: Observable<User> | undefined;
   public post: Post;
-  public _user: User | undefined;
+  public _user: User | undefined; // author of post
   public challenge: Challenge | undefined;
   public saved: { [key: number]: boolean } = {};
   public favorited: { [key: number]: boolean } = {};
-  public user: User | undefined;
+  public user: User | undefined; // current user
   comment = this.formBuilder.group({
     comment: new FormControl(''),
   });
@@ -39,6 +39,7 @@ export class PostComponent implements OnInit {
   }
 
   constructor(protected snackBar: MatSnackBar, private formBuilder: FormBuilder,
+    private postsService: PostsService,
     private route: ActivatedRoute,
     private registrationService: RegistrationService,
     private challengeService: ChallengeService,
@@ -166,7 +167,9 @@ export class PostComponent implements OnInit {
           window.alert(err.message);
         } else {
           window.alert("Unknown error: " + JSON.stringify(err));
-        }}})
+        }
+      }
+    })
   }
 
   private userCache: { [key: string]: Observable<string> } = {};
@@ -198,5 +201,20 @@ export class PostComponent implements OnInit {
     this.userCache2[comment.user_id] = newValue;
     console.log("here" + newValue)
     return newValue;
+  }
+
+  delPost() {
+    this.postsService.deletePost(this.post).subscribe({
+      next: () => {
+        this.router.navigate(['/profile']);
+      },
+      error: (err) => { 
+        if (err.message) {
+          window.alert(err.message);
+        } else {
+          window.alert("Unknown error: " + JSON.stringify(err));
+        }
+      }
+    })
   }
 }
