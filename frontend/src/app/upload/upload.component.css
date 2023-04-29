@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.less-width {
+  width:70%;
+}
+
 form {
   display:flex;
   flex-direction: column;
