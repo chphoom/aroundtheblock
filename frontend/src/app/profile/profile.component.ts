@@ -79,4 +79,12 @@ export class ProfileComponent {
     this.router.navigate(['/']);
   }
 
+  getType(challenge: Challenge){
+    if(challenge.start){
+      return "we"
+    } else {
+      return "me"
+    }
+  }
+
 }
