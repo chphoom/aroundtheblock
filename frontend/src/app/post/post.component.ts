@@ -23,6 +23,9 @@ export class PostComponent implements OnInit {
   public saved: { [key: number]: boolean } = {};
   public favorited: { [key: number]: boolean } = {};
   public user: User | undefined;
+  public isReply = 0;
+  public trueLength: number;
+
   comment = this.formBuilder.group({
     comment: new FormControl(''),
   });
@@ -54,6 +57,24 @@ export class PostComponent implements OnInit {
     }
     let data = route.snapshot.data as { post: Post };
     this.post = data.post;
+    this.trueLength = this.post.comments.length
+    console.log(this.post.comments)
+    this.post.comments = this.post.comments.filter((comment) => {
+      // Check if this comment is a reply to another comment
+      if (comment.replyTo_id !== null) {
+        // Find the parent comment and add the current comment to its replies array
+        const parentComment = this.post.comments.find((c) => c.id === comment.replyTo_id);
+        if (parentComment) {
+          parentComment.replies = parentComment.replies || [];
+          parentComment.replies.push(comment);
+        }
+        return false;
+      } else {
+        // This comment is not a reply to another comment, so it's not a duplicate
+        return true;
+      }
+    });
+    console.log(this.post.comments)
     registrationService.getUser(this.post.user_id).subscribe(user => this._user = user)
     challengeService.getChallenge(this.post.challenge).subscribe(challenge => this.challenge = challenge)
     console.log(this.post.challenge)
@@ -131,7 +152,7 @@ export class PostComponent implements OnInit {
     window.location.href = "/tagged/"+tag;
   }
 
-  onComment(replyTo: number|undefined): void {
+  onComment(replyTo: number): void {
     let form = this.comment.value;
     let _c = form.comment ?? "";
 
@@ -144,8 +165,8 @@ export class PostComponent implements OnInit {
       this.user = user;
     });
 
-    if(replyTo){
-      this.commentService.createReply(replyTo,_c, this.user!)
+    if(replyTo>0){
+      this.commentService.createReply(replyTo, _c, this.user!)
       .subscribe((response) => {
           console.log(response)
           window.location.reload();
@@ -208,5 +229,9 @@ export class PostComponent implements OnInit {
     this.userCache2[comment.user_id] = newValue;
     console.log("here" + newValue)
     return newValue;
+  }
+
+  setReply(id: number){
+    this.isReply = id;
   }
 }

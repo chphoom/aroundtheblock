@@ -16,7 +16,7 @@ export class CommentService {
   }
 
   createComment(_text: string, user: User, post_id: number) {
-    let newcomment: Comment = {id:undefined, commenter:user.email, user_id:user.email, post:post_id, replies:[], text:_text, created:new Date()}
+    let newcomment: Comment = {id:undefined, commenter:user.email, user_id:user.email, post:post_id, replyTo_id:null, replies:[], text:_text, created:new Date()}
     
     return this.http.post<Comment>("/api/comment", newcomment)
   }
@@ -30,7 +30,7 @@ export class CommentService {
   }
 
   createReply(comment_id: number, _text: string, user: User){
-    let newcomment: Comment = {id:undefined, commenter:user.email, user_id:user.email, post:0, replies:[], text:_text, created:new Date()}
+    let newcomment: Comment = {id:undefined, commenter:user.email, user_id:user.email, post:0, replyTo_id:comment_id, replies:[], text:_text, created:new Date()}
     return this.http.post<Comment>(`api/reply?comment_id=${comment_id}`, newcomment)
   }
 }

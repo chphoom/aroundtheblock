@@ -120,3 +120,7 @@ mat-form-field {
     background-color: black;
     color: white;
 }
+
+.replies {
+    margin-left: 60px; /* Adjust the value as needed */
+  }

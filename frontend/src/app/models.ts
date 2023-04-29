@@ -46,6 +46,7 @@ export interface Comment {
     commenter: User | string,
     user_id: string,
     post: number,
+    replyTo_id: number | null,
     replies: Comment[],
     text: string,
     created: Date
