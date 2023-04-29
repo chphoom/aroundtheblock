@@ -47,7 +47,7 @@
                 </a>
             </mat-tab>
             <mat-tab label="Saved Challenges">
-                <div *ngFor="let challenge of user.savedChallenges" class="prompt">
+                <div *ngFor="let challenge of user.savedChallenges" [class]="'prompt '+getType(challenge)+'-prompt'">
                     <span class="prompt-content">
                         <p class="prompt-title">Prompt:</p>
                         <div class="prompt-text">
