@@ -4,6 +4,7 @@
         <h1>Past Challenges</h1>
         <div></div>
     </header>
+    <content>
     <div class="side-bar">
         <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse(); let i=index" (click)="onClick(challenge, i)">
             <div class="prompt we-prompt past" id="past" style="cursor:pointer;" [ngClass]="{clicked: selected === challenge || (selected.id === challenge.id && i === 0)}">
@@ -62,4 +63,5 @@
             <div class="posts"></div>
         </div>
     </div>
+    </content>
 </main>
