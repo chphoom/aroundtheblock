@@ -61,7 +61,7 @@
                             <p id="hex">{{color}}</p>
                             </div>
                         </div>
-                        <button id="me" type="submit" (click)="onSubmit(challenge)">
+                        <button [id]="getType(challenge)" type="submit" (click)="onSubmit(challenge)">
                             <p>Create Submission</p>
                         </button>
                     </span>
