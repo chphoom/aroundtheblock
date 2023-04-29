@@ -55,6 +55,31 @@ export class PostsService {
   }
 
   /**
+   * Update a Post.
+   * 
+   * @returns the deleted Post.
+   */
+  updatePost(id: number, title: string | null, desc: string | null, priv: boolean | null, tags: string[] | null): Observable<Post> {
+    let query = "";
+    if (title) {
+        query += `title=${title}&`;
+    }
+    if (desc) {
+        query += `desc=${desc}&`;
+    }
+    if (priv != null) {
+      query += `private=${priv}&`;
+    }
+    if (tags?.length) {
+        query += `connectedAccounts=${tags.join(",")}&`;
+    }
+    if (query) {
+      query = "?" + query.slice(0, -1); // remove the trailing "&" or "?" if query is not empty
+    }
+    return this.http.put<Post>(`/api/post/edit/${id}${query}`, tags);
+  }
+
+  /**
    * Retrieve all meChallenge Posts in the system.
    * 
    * @returns an observable array of Post objects.

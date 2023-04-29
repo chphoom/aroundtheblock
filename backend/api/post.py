@@ -107,7 +107,7 @@ def delete_post(id: int, post_service = Depends(PostService)) -> Post:
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
     
-@api.put("/api/post/edit", tags=['Post'])
+@api.put("/api/post/edit/{id}", tags=['Post'])
 def update_post(id: int,
                 title: str | None = None,
                 desc: str | None = None,
