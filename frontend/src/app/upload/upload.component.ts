@@ -74,18 +74,11 @@ export class UploadComponent {
       tags: []
     };
 
-    let id: number
-
-    // console.log(newPost); 
-    
-    /* this.postsService
-      .createPost(newPost)
-      .subscribe(post => {
-      this.post = post
-      this.router.navigate([`/post/${this.post?.id}`]);
-    }, (error: HttpErrorResponse)=> {
-      console.log(error);
-    }); */
+    if (this.challenge?.createdBy) {
+      newPost.tags.push("meChallenge")
+    } else {
+      newPost.tags.push("weChallenge")
+    }
 
     this.postsService.createPost(newPost).subscribe({
         next: (post) => this.onSuccess(post),
