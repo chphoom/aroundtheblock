@@ -43,6 +43,7 @@
             <mat-icon *ngIf="(numUnread == 0)" style="cursor: pointer;" [matMenuTriggerFor]="menu" aria-label="notifications">notifications</mat-icon>
             <mat-icon *ngIf="(numUnread > 0)" #unread matBadge="{{numUnread}}" matBadgeSize="small" matBadgeColor="warn" style="cursor: pointer;" [matMenuTriggerFor]="menu" aria-label="notifications">notifications</mat-icon>
             <mat-menu #menu="matMenu">
+                <label *ngIf="notifs.length == 0" style="margin: 1rem;">Nothing to see here!</label>
                 <button *ngFor="let notif of notifs?.slice()?.reverse()" mat-menu-item (click)="onClickN(notif)" [ngClass]="{'unread': !notif.read}"> 
                     New comment from {{ (getUsername(notif) | async) }} 
                 </button>
