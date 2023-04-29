@@ -48,7 +48,7 @@
               </div>
             </div>
             <p>{{post.desc}}</p>
-            <p>{{post.created| date: "MMM d, y"}}</p>
+            <p>{{post.created| date: "MMM d, y"}} <span *ngIf="post.private">• Private Post</span></p>
         </div>
         <div class="post-comments-container">
           <h2>{{post.comments.length}} Comments</h2>
