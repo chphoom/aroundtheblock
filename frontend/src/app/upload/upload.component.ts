@@ -23,13 +23,16 @@ export class UploadComponent {
   challenge: Challenge | undefined;
   challengeType!: String;
   post: Post | undefined;
-  submitted = false;
+  mediumTags: string[] = ['Digital 2D', 'Digital 3D', 'Real-time', '3D Printing', 'Traditional Ink', 'Traditional Dry Media', 'Traditional Paint', 'Traditional Sculpture', 'Mixed Media'];
+  subjectTags: string[] = ['Abstract', 'Anatomy', 'Animals & Wildlife', 'Architectural', 'Automotive', 'Game Art', 'Book Illustration', 'Urban', 'Portait', 'Anime & Manga'];
 
   form = this.formBuilder.group({
     file: new FormControl('', Validators.required),
     title: '',
     description: '',
-    private: [false]
+    private: [false],
+    mediums: [[]],
+    subjects: [[]]
   });
 
   constructor(private router: Router, private formBuilder: FormBuilder, challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private registrationService: RegistrationService, private shareService: ShareService) {
@@ -51,7 +54,6 @@ export class UploadComponent {
     } else {
       this.challengeType = "we"
     }
-    console.log(this.challengeType)
   }
 
   onFileSelected(event: any) {
@@ -81,11 +83,20 @@ export class UploadComponent {
       tags: []
     };
 
+    for (let tag of form.mediums ?? "") {
+      newPost.tags.push(tag)
+    }
+    for (let tag of form.subjects ?? "") {
+      newPost.tags.push(tag)
+    }
+
     if (this.challenge?.createdBy) {
       newPost.tags.push("meChallenge")
     } else {
       newPost.tags.push("weChallenge")
     }
+
+    console.log(newPost.tags)
 
     this.postsService.createPost(newPost).subscribe({
         next: (post) => this.onSuccess(post),
