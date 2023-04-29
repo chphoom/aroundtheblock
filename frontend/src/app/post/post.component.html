@@ -65,7 +65,7 @@
             <div class="comment">
               <img class="pfp-thumbnail" [src]="getPfp(comment) | async" style="margin-top:1rem;">
               <div class="comment-text">
-                <h3>{{getUsername(comment) | async}} <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
+                <h3><span [routerLink]="'/'+(getUsername(comment) | async)" style="cursor: pointer;">{{getUsername(comment) | async}} </span> <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
                 <p>{{ comment.text }}</p>
                 <input *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
               </div>
