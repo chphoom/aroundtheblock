@@ -6,25 +6,32 @@ from ...models import Comment
 from datetime import datetime, timedelta
 
 c0 = Comment(
-    id=0,
+    id=1,
     commenter="lucy@lucy.com",
-    post=3,
+    post=7,
     replies=[],
-    text="some comment",
+    text="Very nice.",
     created=datetime.now()
 )
 
 c1 = Comment(
-    id=1,
+    id=2,
     commenter="olivia@olivia.com",
-    post=3,
+    post=1,
     replies=[],
-    text="some comment",
+    text="I love it!",
     created=datetime.now()
 )
 
-
+c2 = Comment(
+    id=3,
+    commenter="elaine13@email.unc.edu",
+    post=18,
+    replies=[],
+    text="sorry <3",
+    created=datetime.now()
+)
 
 models = [
-    c0, c1
+    c0, c1, c2
 ]
