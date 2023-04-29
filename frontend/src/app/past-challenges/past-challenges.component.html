@@ -4,6 +4,7 @@
         <h1>Past Challenges</h1>
         <div></div>
     </header>
+    <content>
     <div class="side-bar">
         <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse(); let i=index" (click)="onClick(challenge, i)">
             <div class="prompt we-prompt past" id="past" style="cursor:pointer;" [ngClass]="{clicked: selected === challenge || (selected.id === challenge.id && i === 0)}">
@@ -57,9 +58,10 @@
         <button id="we" type="submit" *ngIf="isLoggedin" (click)="onSubmit()">
             <p>Submit</p>
         </button>
+        <div class="posts-container">
+            <h1>User Submissions</h1>
+            <div class="posts"></div>
+        </div>
     </div>
-    <div class="posts-container">
-        <h1>User Submissions</h1>
-        <div class="posts"></div>
-    </div>
+    </content>
 </main>
