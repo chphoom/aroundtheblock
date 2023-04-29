@@ -2,8 +2,8 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..database import db_session
-from ..models import Comment
-from ..entities import PostEntity, CommentEntity, UserEntity
+from ..models import Comment, Notif
+from ..entities import PostEntity, CommentEntity, UserEntity, NotifEntity
 
 class CommentService:
 
@@ -24,6 +24,9 @@ class CommentService:
             comment_entity: CommentEntity = CommentEntity.from_model(comment)
             post.comments.append(comment_entity)
             self._session.add(comment_entity)
+            self._session.commit()
+            notif_entity: NotifEntity = NotifEntity.from_model(Notif(id=None, toUser_id=post.user_id, fromUser_id=user.email, comment_id=comment_entity.id, last_read=None, challenge_id=None, read=False))
+            self._session.add(notif_entity)
             self._session.commit()
             return comment_entity.to_model()
         else:
@@ -65,6 +68,9 @@ class CommentService:
             temp.replies.append(reply_entity)
             self._session.add(reply_entity)
             self._session.commit()
-            return temp.to_model()
+            notif_entity: NotifEntity = NotifEntity.from_model(Notif(id=None, toUser_id=temp.user_id, fromUser_id=reply_entity.user_id, comment_id=reply_entity.id, last_read=None, challenge_id=None, read=False))
+            self._session.add(notif_entity)
+            self._session.commit()
+            return reply_entity.to_model()
         else:
             raise ValueError(f"Comment not found")
