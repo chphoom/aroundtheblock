@@ -134,4 +134,16 @@ models.append(Challenge(id=10,
             colors=[],
             start=None,                              
             end=None,
+            createdBy="elaine13@email.unc.edu"))
+
+models.append(Challenge(id=11,                    
+            posts=[],
+            noun="",
+            verb="suffering",
+            adj="",
+            emotion="",
+            style="",
+            colors=[],
+            start=None,                              
+            end=None,
             createdBy="elaine13@email.unc.edu")) 

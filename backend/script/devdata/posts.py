@@ -214,3 +214,14 @@ models.append(Post(id=19,
                user_id="elaine13@email.unc.edu",
                comments=[],
                tags=["meme"]))
+
+models.append(Post(id=20,
+               img="https://i.imgur.com/yBMD0lE.png",
+               title="a call for help",
+               desc=":)",
+               private=False,
+               created=datetime.now(),
+               challenge=11,
+               user_id="elaine13@email.unc.edu",
+               comments=[],
+               tags=["meme"]))
