@@ -35,6 +35,13 @@ export class PostsService {
    * @returns a new Post.
    */
   createPost(post: Post): Observable<Post> {
+    let errors: string[] = []
+    if (post.img.toString().length < 1) {
+      errors.push(`Image is required.`);
+    }
+    if (errors.length > 0) {
+      return throwError(() => { return new Error(errors.join("\n")) });
+    }
     return this.http.post<Post>("/api/createpost", post);
   }
 

@@ -18,15 +18,15 @@ models = []
 
 models.append(Challenge(id=1,                    
             posts=[],
-            noun="fairy",
-            verb="swimming",
-            adj="",
-            emotion="happy",
+            noun="",
+            verb="",
+            adj="default",
+            emotion="",
             style="",
             colors=[],
-            start=wks[10],                              
-            end=wks[10] + timedelta(days=num),
-            createdBy=None)) 
+            start=None,                              
+            end=None,
+            createdBy="elaine13@email.unc.edu")) 
 
 models.append(Challenge(id=2,                    
             posts=[],

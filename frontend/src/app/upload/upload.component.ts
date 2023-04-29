@@ -57,10 +57,14 @@ export class UploadComponent {
   onSubmit() {
     let form = this.form.value
 
+    if (form.title == '') {
+      form.title = "Untitled"
+    }
+
     const newPost: Post = {
       id: undefined,
       img: form.file ?? "",
-      title: form.title ?? "Untitled",
+      title: form.title ?? "",
       desc: form.description ?? "",
       private: form.private ?? false,
       created: new Date(),
@@ -74,12 +78,32 @@ export class UploadComponent {
 
     // console.log(newPost); 
     
-    this.postsService.createPost(newPost).subscribe(post => {
-      console.log(post);
+    /* this.postsService
+      .createPost(newPost)
+      .subscribe(post => {
       this.post = post
       this.router.navigate([`/post/${this.post?.id}`]);
     }, (error: HttpErrorResponse)=> {
       console.log(error);
-    });
+    }); */
+
+    this.postsService.createPost(newPost).subscribe({
+        next: (post) => this.onSuccess(post),
+        error: (err) => this.onError(err)
+    })
   }
+
+  onSuccess(post: Post) {
+    this.post = post
+    this.router.navigate([`/post/${this.post?.id}`]);
+  }
+
+  onError(err: Error) {
+    if (err.message) {
+      window.alert(err.message);
+    } else {
+      window.alert("Unknown error: " + JSON.stringify(err));
+    }
+  }
+
 }
