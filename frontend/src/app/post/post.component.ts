@@ -20,6 +20,7 @@ export class PostComponent implements OnInit {
   public post: Post;
   public _user: User | undefined;
   public challenge: Challenge | undefined;
+  public challengeType!: String;
   public saved: { [key: number]: boolean } = {};
   public favorited: { [key: number]: boolean } = {};
   public user: User | undefined;
@@ -55,9 +56,18 @@ export class PostComponent implements OnInit {
     let data = route.snapshot.data as { post: Post };
     this.post = data.post;
     registrationService.getUser(this.post.user_id).subscribe(user => this._user = user)
-    challengeService.getChallenge(this.post.challenge).subscribe(challenge => this.challenge = challenge)
+    challengeService.getChallenge(this.post.challenge).subscribe(challenge => {
+      this.challenge = challenge;
+      if (this.challenge?.createdBy) {
+        this.challengeType = "me";
+      } else {
+        this.challengeType = "we";
+      }
+    })
+
     console.log(this.post.challenge)
     this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
+    // get user's saved challenges
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
       user.savedChallenges?.forEach(challenge => {
@@ -66,6 +76,7 @@ export class PostComponent implements OnInit {
       console.log(user);
       console.log(this.saved);
     });
+    //get user's favorited posts
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
       user.savedPosts?.forEach(post => {

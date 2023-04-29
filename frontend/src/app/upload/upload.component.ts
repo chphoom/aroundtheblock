@@ -21,6 +21,7 @@ export class UploadComponent {
   private isLoggedin: Boolean | undefined;
   challenge$: Observable<Challenge> | undefined;
   challenge: Challenge | undefined;
+  challengeType!: String;
   post: Post | undefined;
   submitted = false;
 
@@ -45,6 +46,12 @@ export class UploadComponent {
     // check if there is a challenge and gets challenge
     this.challenge$ = this.shareService.getCurrentValue();
     this.challenge$.subscribe(challenge => this.challenge = challenge)
+    if (this.challenge?.createdBy) {
+      this.challengeType = "me"
+    } else {
+      this.challengeType = "we"
+    }
+    console.log(this.challengeType)
   }
 
   onFileSelected(event: any) {

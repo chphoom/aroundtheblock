@@ -19,7 +19,7 @@
             <div class="tags">
                 <div *ngFor="let tag of post.tags" class="tag" (click)="tagClick(tag)">#{{tag}}</div>
             </div>
-            <div *ngIf="challenge" class="prompt">
+            <div *ngIf="challenge" [class]="'prompt '+challengeType+'-prompt'">
                 <div class="prompt-content">
                   <p class="prompt-title">Prompt:</p>
                   <div class="prompt-text">
