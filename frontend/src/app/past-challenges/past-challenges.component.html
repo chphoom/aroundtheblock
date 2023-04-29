@@ -6,7 +6,7 @@
     </header>
     <div class="side-bar">
         <div *ngFor="let challenge of (weChallenges$ | async)?.slice()?.reverse(); let i=index" (click)="onClick(challenge, i)">
-            <div class="prompt we-prompt past" id="past">
+            <div class="prompt we-prompt past" id="past" [ngClass]="{selected: selected === challenge}">
                 <h2 class="num">#{{((weChallenges$ | async)?.length)! - i}}</h2>
                 <div class="prompt-info">
                     <div class="prompt-content">
