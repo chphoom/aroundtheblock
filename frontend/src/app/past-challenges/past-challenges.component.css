@@ -70,3 +70,7 @@ header h1 {
     align-items: center;
     flex-direction: row;
 }
+
+.clicked {
+    background-color: #BBF1BA;
+  }
