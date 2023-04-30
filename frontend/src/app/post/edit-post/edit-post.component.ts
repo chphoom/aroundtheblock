@@ -82,7 +82,9 @@ export class EditPostComponent {
       form.tags?.push("weChallenge");
     }
 
-    this.postsService.updatePost(this.post.id!, form.title!, form.description!, form.private!, form.tags!).subscribe({
+    const tagset = [...new Set(form.tags)];
+
+    this.postsService.updatePost(this.post.id!, form.title!, form.description!, form.private!, tagset).subscribe({
       next: (post) => this.onSuccess(post),
       error: (err) => this.onError(err)
     })
