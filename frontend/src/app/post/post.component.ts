@@ -35,7 +35,7 @@ export class PostComponent implements OnInit {
       post: (route: ActivatedRouteSnapshot) => {
         const id = parseInt(route.paramMap.get('id')!);
         return inject(PostsService).getPost(id); 
-    }
+      }
     }
   }
 
@@ -227,5 +227,9 @@ export class PostComponent implements OnInit {
         }
       }
     })
+  }
+
+  edit() {
+    this.router.navigate([`/post/edit/${this.post.id}`]);
   }
 }

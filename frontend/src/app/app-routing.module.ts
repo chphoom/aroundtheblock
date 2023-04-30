@@ -10,6 +10,7 @@ import { AboutComponent } from './about/about.component';
 import { PastChallengesComponent } from './past-challenges/past-challenges.component';
 import { UploadComponent } from './upload/upload.component';
 import { PostComponent } from './post/post.component';
+import { EditPostComponent } from './post/edit-post/edit-post.component';
 import { SearchComponent } from './search/search.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { OtherProfComponent } from './other-prof/other-prof.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'search/:query', component: SearchComponent },
   { path: 'tagged/:query', component: TaggedPostsComponent },
   PostComponent.Route,
+  EditPostComponent.Route,
   { path: 'profile/edit', component: EditProfileComponent},
   { path: ':displayName', component: OtherProfComponent }
 ];
