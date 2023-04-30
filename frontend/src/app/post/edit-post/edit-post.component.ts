@@ -24,8 +24,8 @@ export class EditPostComponent {
   }
 
   public post: Post;
-  public _user: User | undefined; // author of post
   public user: User | undefined; // current user
+  public isLoggedin: Boolean | undefined;
   challenge: Challenge | undefined;
   mediumTags: string[] = ['Digital 2D', 'Digital 3D', 'Real-time', '3D Printing', 'Traditional Ink', 'Traditional Dry Media', 'Traditional Paint', 'Traditional Sculpture', 'Mixed Media'];
   subjectTags: string[] = ['Abstract', 'Anatomy', 'Animals & Wildlife', 'Architectural', 'Automotive', 'Game Art', 'Book Illustration', 'Urban', 'Portait', 'Anime & Manga'];
@@ -50,6 +50,20 @@ export class EditPostComponent {
     // get post from route
     let data = route.snapshot.data as { post: Post };
     this.post = data.post;
+
+    this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
+
+    if (this.isLoggedin) {
+      // get current user information
+      this.registrationService.getUserInfo().subscribe((user: User) => {
+        this.user = user;
+        if (this.user!.email != this.post.user_id) {
+          this.router.navigate([`post/${this.post.id}`])
+        }
+      });
+    } else {
+      this.router.navigate([`post/${this.post.id}`])
+    }
 
     this.challengeService.getChallenge(this.post.challenge).subscribe(challenge => this.challenge = challenge)
     

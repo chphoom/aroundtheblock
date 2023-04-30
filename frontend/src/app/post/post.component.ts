@@ -163,8 +163,6 @@ export class PostComponent implements OnInit {
         }, (error) => {
           console.error(error);
         });
-
-        console.log("LOOK HERE" + JSON.stringify(this.post.comments))
   }
 
   delComment(c: Comment): void {
