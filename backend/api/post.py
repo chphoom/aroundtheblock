@@ -107,8 +107,13 @@ def delete_post(id: int, post_service = Depends(PostService)) -> Post:
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
     
-@api.put("/api/post/edit", tags=['Post'])
-def update_post(id: int, desc: str | None, tags: list[str] | None, post_service: PostService = Depends()) -> Post:
+@api.put("/api/post/edit/{id}", tags=['Post'])
+def update_post(id: int,
+                title: str | None = None,
+                desc: str | None = None,
+                private: bool | None = None,
+                tags: list[str] | None = None,
+                post_service: PostService = Depends()) -> Post:
     """API endpoint for updating a post
 
     Parameters:
@@ -128,7 +133,7 @@ def update_post(id: int, desc: str | None, tags: list[str] | None, post_service:
     - Returns a Post object representing the updated Post
     """
     try:
-        return post_service.update(id=id, tags=tags, desc=desc)
+        return post_service.update(id, title, desc, private, tags)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 

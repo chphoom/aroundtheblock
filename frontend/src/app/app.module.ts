@@ -43,6 +43,7 @@ import { TaggedPostsComponent } from './tagged-posts/tagged-posts.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSelectModule } from '@angular/material/select';
+import { EditPostComponent } from './post/edit-post/edit-post.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { MatSelectModule } from '@angular/material/select';
     EditProfileComponent,
     OtherProfComponent,
     TaggedPostsComponent,
+    EditPostComponent,
   ],
   imports: [
     BrowserModule,

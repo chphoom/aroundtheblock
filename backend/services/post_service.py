@@ -57,16 +57,22 @@ class PostService:
         
     def update(self, 
                id: int,
-               desc: str | None,
-               tags: list[str] | None) -> Post:
-        temp = self._session.get(PostEntity, id)
-        if temp:
-            if desc:
-                temp.desc = desc
-            if tags:
-                temp.tags = tags
+               title: str | None = None,
+               desc: str | None = None,
+               private: bool | None = None,
+               tags: list[str] | None = None) -> Post:
+        post = self._session.get(PostEntity, id)
+        if post:
+            if title != None:
+                post.title = title
+            if desc != None:
+                post.desc = desc
+            if private != None:
+                post.private = private
+            if tags != None:
+                post.tags = tags
             self._session.commit()
-            return temp.to_model()
+            return post.to_model()
         else:
             raise ValueError(f"Post not found")
         
