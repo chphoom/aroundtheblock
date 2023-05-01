@@ -51,7 +51,7 @@
             <p>{{post.created| date: "MMM d, y"}} <span *ngIf="post.private">• Private Post</span></p>
         </div>
         <div class="post-comments-container">
-          <h2>{{trueLength}} Comments</h2>
+          <h2>{{post.comments.length}} Comments</h2>
           <div id="form" *ngIf="isLoggedin">
             <form [formGroup]="comment" class="comment-form" (ngSubmit)="onComment(isReply)">
               <mat-form-field class="roundedInput">
@@ -67,21 +67,11 @@
               <img class="pfp-thumbnail" [src]="getPfp(comment) | async" style="margin-top:1rem;">
               <div class="comment-text">
                 <h3>{{getUsername(comment) | async}} <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
+                <p *ngIf=" comment.replyTo_id !== null "> replied to "{{getComment(comment.replyTo_id)!.text}}" - {{getUsername(getComment(comment.replyTo_id)!) | async}}</p>
                 <p>{{ comment.text }}</p>
                 <input *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
                 <input type="button" value="Reply" (click)="setReply(comment.id!)"/>
               </div>
-            </div>
-            <div class="replies" *ngFor="let reply of comment.replies">
-              <div class="comment">
-                <img class="pfp-thumbnail" [src]="getPfp(reply) | async" style="margin-top:1rem;">
-                <div class="comment-text">
-                  <h3>{{getUsername(reply) | async}} <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{reply.created | date: "MMM d, y"}}</span></h3>
-                  <p>{{ reply.text }}</p>
-                  <input *ngIf="(getUsername(reply) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(reply)"/>
-                  <input type="button" value="Reply" (click)="setReply(reply.id!)"/>
-                </div>
-              </div> 
             </div>
           </div>
         </div>
