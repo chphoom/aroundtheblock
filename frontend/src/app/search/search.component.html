@@ -9,11 +9,10 @@
     </div>
     <div *ngIf="(posts$ | async)?.length">
         <h2>Posts matching "{{query}}"</h2>
-        <div class="display-posts">
-            <a class="thumbnail-container" *ngFor="let post of posts$ | async" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="post.img">
+        <div class="post-grid">
+            <a class="thumbnail" *ngFor="let post of posts$ | async" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'">
                 <div class="overlay">
-                    <div class="text">{{post.title}}</div>
+                    <h4>{{post.title}}</h4>
                 </div>
             </a>
         </div>
