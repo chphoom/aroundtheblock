@@ -12,7 +12,10 @@
         <div class="post-grid">
             <a class="thumbnail" *ngFor="let post of posts$ | async" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'">
                 <div class="overlay">
-                    <h4>{{post.title}}</h4>
+                    <div>
+                        <div class="thumbnail-title">{{post.title}}</div>
+                        <div class="thumbnail-user">{{post.user_id}}</div>
+                    </div>
                 </div>
             </a>
         </div>

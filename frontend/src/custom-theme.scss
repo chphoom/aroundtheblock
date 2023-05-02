@@ -411,20 +411,20 @@ a:before, a:after, a > span:before, a > span:after {
   text-align: center;
 } */
 
-/* // New thumbnail display
+/* New thumbnail display */
 
 .post-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 5px;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns on large screens */
+  grid-gap: 5px; /* margin between images */
 }
 
 .thumbnail {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 23vw;
-  width: 23vw;
+  height: 24vw;
+  width: 24vw;
   position: relative;
   overflow: hidden;
 }
@@ -449,11 +449,45 @@ a:before, a:after, a > span:before, a > span:after {
   box-sizing: border-box;
 }
 
-.overlay h1 {
-  margin: 0;
-  color: white;
-  font-size: 22px;
-} */
+.thumbnail-title {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 19px;
+    color: white;
+    margin: 6px 0;
+}
+
+.thumbnail-user {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 16px;
+    text-align: center;
+    color: white;
+}
+
+@media (max-width: 968px) { /* adjust for smaller screens */
+    .post-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+    }
+    .thumbnail {
+        height: 31vw;
+        width: 31vw;
+    }
+}
+
+@media (max-width: 576px) { /* adjust for even smaller screens */
+    .post-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+}
+    .thumbnail {
+        height: 46vw;
+        width: 46vw;
+    }
+}
 
 // Users
 
