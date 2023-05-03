@@ -15,7 +15,7 @@ class CommentEntity(EntityBase):
     commenter: Mapped['UserEntity'] = relationship(post_update=True)
     post_id = mapped_column(ForeignKey("posts.id"))
     post: Mapped['PostEntity'] = relationship(back_populates="comments", post_update=True)
-    replyTo_id = mapped_column(ForeignKey("comments.id"))
+    replyTo_id = mapped_column(ForeignKey("comments.id", ondelete='CASCADE'))
     replies: Mapped[list["CommentEntity"]] = relationship(secondary="reply", primaryjoin=id==reply_table.c.comment_id,
                             secondaryjoin=id==reply_table.c.reply_id, back_populates="replies", post_update=True)
     text: Mapped[str] = mapped_column(String(1024))
