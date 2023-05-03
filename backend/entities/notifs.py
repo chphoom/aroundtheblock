@@ -9,9 +9,9 @@ class NotifEntity(EntityBase):
     __tablename__ = "notifications"
 
     id = mapped_column(Integer, primary_key=True)
-    toUser_id = mapped_column(ForeignKey("users.email"))
-    fromUser_id = mapped_column(ForeignKey("users.email"), nullable=True)
-    comment_id = mapped_column(ForeignKey("comments.id"), nullable=True)
+    toUser_id = mapped_column(ForeignKey("users.email", ondelete='CASCADE'))
+    fromUser_id = mapped_column(ForeignKey("users.email", ondelete='CASCADE'), nullable=True)
+    comment_id = mapped_column(ForeignKey("comments.id", ondelete='CASCADE'), nullable=True)
     last_read: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     challenge_id = mapped_column(ForeignKey("challenges.id"), nullable=True)
     read: Mapped[bool] = mapped_column(Boolean, nullable=True)
