@@ -29,10 +29,10 @@ export class OtherProfComponent {
         }
       )
     });
-    /* this.registrationService.getUserInfo().subscribe((user: User) => {
+    this.registrationService.getUserInfo().subscribe((user: User) => {
       this.currUser = user;
       console.log(user);
-    }); */
+    })
     /* if (this.user.private && (this.currUser.email != this.user.email)) {
       this.router.navigate(['/'])
     } */

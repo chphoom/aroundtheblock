@@ -323,95 +323,7 @@ a:before, a:after, a > span:before, a > span:after {
   transform: scale(1.1); 
 }
 
-// Thumbnail / post display
-
-/* .display-posts {
-  display: flex;
-  flex-flow: row wrap;
-  width:100%;
-  height:100%;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.thumbnail {
-  position:relative;
-  width:48%;
-  background-color: rgba(151, 151, 151, 0.33);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.thumbnail::after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-.thumbnail img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
-}
-
-.display-posts {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 5px;
-}
-
-.thumbnail-container {
-  display: inline-block;
-  width: 22vw;
-  height: 22vw;
-  margin: 2px;
-}
-
-.thumbnail {
-  width: 100%;
-  height: 100%;   
-  margin: 2px;
-  object-fit: cover;
-  cursor: pointer;
-}
-
-.overlay {
-  position: absolute;
-  margin: 2px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: 0.5s ease;
-  background-color: #000;
-}
-
-.thumbnail-container:hover .overlay {
-  opacity: 0.6;
-}
-
-.text {
-  color: white;
-  font-size: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
-} */
-
-/* New thumbnail display */
+/* Thumbnail display */
 
 .posts-container {
   display:flex;
@@ -510,7 +422,7 @@ a:before, a:after, a > span:before, a > span:after {
 .user-info {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   padding: 0px;
   gap: 2rem;
@@ -520,6 +432,7 @@ a:before, a:after, a > span:before, a > span:after {
 }
 
 .pfp {
+  margin-top:1.5rem;
   height:200px;
   width:200px;
   background-size: cover;
@@ -565,7 +478,7 @@ a:before, a:after, a > span:before, a > span:after {
 }
 
 .bio {
-  width:20rem;
+  max-width: 45vw;
   min-height:2rem;
 }
 

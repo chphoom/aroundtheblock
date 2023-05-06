@@ -1,29 +1,35 @@
 <main *ngIf="user$ | async as user">
-    <div class="user-info">
-        <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}"></div>
-        <div class="test"></div>
-        <div class="user-text">
-            <div class="user-name-pronouns">
-                <h2 id="displayname">
-                    {{user.displayName}}
-                </h2>
-                <p>
-                    {{user.pronouns}}
-                </p>
-            </div>
-            <p>{{user.userPosts?.length}} Posts</p>
-            <p class="bio">{{user.bio}}</p>
-        </div>
-    </div>
-    <div class="display-posts">
-        <div class="post-grid">
-            <a class="thumbnail" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'">
-                <div class="overlay">
-                    <div>
-                        <div class="thumbnail-title">{{post.title}}</div>
-                    </div>
+    <div class="main-content" *ngIf="(!user.private || (currUser && (user.email === currUser.email))); else private">
+        <div class="user-info">
+            <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}"></div>
+            <div class="test"></div>
+            <div class="user-text">
+                <div class="user-name-pronouns">
+                    <h2 id="displayname">
+                        {{user.displayName}}
+                    </h2>
+                    <p>
+                        {{user.pronouns}}
+                    </p>
                 </div>
-            </a>
+                <p *ngIf="user.private" style="margin:0;">Private</p>
+                <p>{{publicPosts.length}} Posts</p>
+                <p class="bio">{{user.bio}}</p>
+            </div>
+        </div>
+        <div class="display-posts">
+            <div class="post-grid">
+                <a class="thumbnail" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'">
+                    <div class="overlay">
+                        <div>
+                            <div class="thumbnail-title">{{post.title}}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
+    <ng-template #private>
+        <h2>Private Account</h2>
+    </ng-template>
 </main>

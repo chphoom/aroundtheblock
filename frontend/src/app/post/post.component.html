@@ -1,80 +1,85 @@
-<main>
-    <div class="post-img-container" [ngStyle]="{'background-image':'url('+post.img+')'}"></div>
-    <div class="post-content">
-        <div *ngIf="post && _user">
-            <div class="post-title">
-              <h2>{{post.title}}</h2>
-              <div class="fav-icon" (click)="favorite(post)" *ngIf="isLoggedin && !(favorited[post.id!])">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                </svg>
+<main *ngIf="post && _user">
+    <div *ngIf="(!post.private || (user && (_user!.email === user!.email))); else privateblock" class="main-content">
+      <div class="post-img-container" [ngStyle]="{'background-image':'url('+post!.img+')'}"></div>
+      <div class="post-content">
+          <div *ngIf="post && _user">
+              <div class="post-title">
+                <h2>{{post.title}}</h2>
+                <div class="fav-icon" (click)="favorite(post)" *ngIf="isLoggedin && !(favorited[post.id!])">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                </div>
+                <div class="fav-icon" (click)="unfavorite(post)" *ngIf="isLoggedin && (favorited[post.id!])">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                  </svg>
+                </div>
               </div>
-              <div class="fav-icon" (click)="unfavorite(post)" *ngIf="isLoggedin && (favorited[post.id!])">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg>
+              <a class="underline-hover" [href]="'/'+_user.displayName">{{_user.displayName}}</a>
+              <div class="tags">
+                  <div *ngFor="let tag of post.tags" class="tag" (click)="tagClick(tag)">#{{tag}}</div>
               </div>
-            </div>
-            <a class="underline-hover" [href]="'/'+_user.displayName">{{_user.displayName}}</a>
-            <div class="tags">
-                <div *ngFor="let tag of post.tags" class="tag" (click)="tagClick(tag)">#{{tag}}</div>
-            </div>
-            <div *ngIf="challenge" [class]="'prompt '+challengeType+'-prompt'">
-                <div class="prompt-content">
-                  <p class="prompt-title">Prompt:</p>
-                  <div class="prompt-text">
-                    <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.verb}} {{challenge.adj}} {{challenge.noun}}</p>
-                    <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
-                    <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
-                  </div>
-                  <div *ngIf="(challenge.colors).length > 0" class="colors">
-                    <div class="color" *ngFor="let color of challenge.colors">
-                      <div class="color-box" [ngStyle]="{'background-color': color}"></div>
-                      <p id="hex">{{color}}</p>
+              <div *ngIf="challenge" [class]="'prompt '+challengeType+'-prompt'">
+                  <div class="prompt-content">
+                    <p class="prompt-title">Prompt:</p>
+                    <div class="prompt-text">
+                      <p *ngIf="(challenge.adj) || (challenge.noun) || (challenge.verb)">{{challenge.verb}} {{challenge.adj}} {{challenge.noun}}</p>
+                      <p *ngIf="(challenge.emotion)"> displaying "{{challenge.emotion}}"</p>
+                      <p *ngIf="(challenge.style)"> in the style "{{challenge.style}}"</p>
+                    </div>
+                    <div *ngIf="(challenge.colors).length > 0" class="colors">
+                      <div class="color" *ngFor="let color of challenge.colors">
+                        <div class="color-box" [ngStyle]="{'background-color': color}"></div>
+                        <p id="hex">{{color}}</p>
+                      </div>
                     </div>
                   </div>
+                <div class="icon" (click)="save(challenge)" *ngIf="isLoggedin && !(saved[challenge.id!])">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks" viewBox="0 0 16 16" aria-label="Save challenge" id="save-icon">
+                        <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
+                        <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
+                    </svg>
                 </div>
-              <div class="icon" (click)="save(challenge)" *ngIf="isLoggedin && !(saved[challenge.id!])">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks" viewBox="0 0 16 16" aria-label="Save challenge" id="save-icon">
-                      <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
-                      <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
-                  </svg>
+                <div class="icon" (click)="unsave(challenge)" *ngIf="isLoggedin && (saved[challenge.id!])">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
+                        <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+                        <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
+                    </svg>
+                </div>
               </div>
-              <div class="icon" (click)="unsave(challenge)" *ngIf="isLoggedin && (saved[challenge.id!])">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
-                      <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
-                      <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
-                  </svg>
-              </div>
+              <p>{{post.desc}}</p>
+              <p>{{post.created| date: "MMM d, y"}} <span *ngIf="post.private">• Private Post</span></p>
+          </div>
+          <div class="buttons" *ngIf="user?.displayName == _user?.displayName">
+            <button id="btn-edit" type="button" (click)="edit()">Edit</button>
+            <button (click)="delPost()" type="button" id="btn-delete">Delete Post</button>
+          </div>
+          <div class="post-comments-container">
+            <h2>{{post!.comments.length}} Comments</h2>
+            <div id="form" *ngIf="isLoggedin">
+              <form [formGroup]="comment" class="comment-form" (ngSubmit)="onComment()">
+                <mat-form-field class="roundedInput">
+                    <mat-label>Comment</mat-label>
+                    <textarea matInput placeholder="Comment" formControlName="comment" id="comment" type="text"></textarea>
+                </mat-form-field>
+                <button mat-button type="Submit" id="black"><p>Comment</p></button>
+              </form>
             </div>
-            <p>{{post.desc}}</p>
-            <p>{{post.created| date: "MMM d, y"}} <span *ngIf="post.private">• Private Post</span></p>
-        </div>
-        <div class="buttons" *ngIf="user?.displayName == _user?.displayName">
-          <button id="btn-edit" type="button" (click)="edit()">Edit</button>
-          <button (click)="delPost()" type="button" id="btn-delete">Delete Post</button>
-        </div>
-        <div class="post-comments-container">
-          <h2>{{post.comments.length}} Comments</h2>
-          <div id="form" *ngIf="isLoggedin">
-            <form [formGroup]="comment" class="comment-form" (ngSubmit)="onComment()">
-              <mat-form-field class="roundedInput">
-                  <mat-label>Comment</mat-label>
-                  <textarea matInput placeholder="Comment" formControlName="comment" id="comment" type="text"></textarea>
-              </mat-form-field>
-              <button mat-button type="Submit" id="black"><p>Comment</p></button>
-            </form>
+            <div class="comments" *ngFor="let comment of post!.comments">
+              <div class="comment">
+                <img class="pfp-thumbnail" [src]="getPfp(comment) | async" style="margin-top:1rem;">
+                <div class="comment-text">
+                  <h3><span [routerLink]="'/'+(getUsername(comment) | async)" style="cursor: pointer;">{{getUsername(comment) | async}} </span> <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
+                  <p>{{ comment.text }}</p>
+                  <input *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
+                </div>
+              </div> 
+            </div>
           </div>
-          <div class="comments" *ngFor="let comment of post.comments">
-            <div class="comment">
-              <img class="pfp-thumbnail" [src]="getPfp(comment) | async" style="margin-top:1rem;">
-              <div class="comment-text">
-                <h3><span [routerLink]="'/'+(getUsername(comment) | async)" style="cursor: pointer;">{{getUsername(comment) | async}} </span> <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
-                <p>{{ comment.text }}</p>
-                <input *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
-              </div>
-            </div> 
-          </div>
-        </div>
+      </div>
     </div>
+    <ng-template #privateblock>
+      <h2 class="private-notice">Private Post</h2>
+    </ng-template>
 </main>
