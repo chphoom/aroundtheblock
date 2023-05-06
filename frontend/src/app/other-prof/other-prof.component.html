@@ -16,11 +16,14 @@
         </div>
     </div>
     <div class="display-posts">
-        <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id">
-            <img class="thumbnail" [src]="post.img">
-            <div class="overlay">
-                <div class="text">{{post.title}}</div>
-            </div>
-        </a>
+        <div class="post-grid">
+            <a class="thumbnail" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'">
+                <div class="overlay">
+                    <div>
+                        <div class="thumbnail-title">{{post.title}}</div>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </main>

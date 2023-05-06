@@ -528,6 +528,26 @@ a:before, a:after, a > span:before, a > span:after {
   border-radius: 50%;
 }
 
+@media (max-width: 756px) {
+  .pfp {
+    height:150px;
+    width:150px;
+  }
+  .user-info {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 556px) {
+  .pfp {
+    height:100px;
+    width:100px;
+  }
+  .user-info {
+    gap: 1rem;
+  }
+}
+
 .user-text {
   display: flex;
   flex-direction: column;
