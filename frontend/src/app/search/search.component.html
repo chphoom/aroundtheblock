@@ -14,7 +14,7 @@
                 <div class="overlay">
                     <div>
                         <div class="thumbnail-title">{{post.title}}</div>
-                        <div class="thumbnail-user">{{post.user_id}}</div>
+                        <!-- <div class="thumbnail-user" *ngIf="user_serv.getUser(post.user_id) | async as user">{{user.displayName}}</div> -->
                     </div>
                 </div>
             </a>

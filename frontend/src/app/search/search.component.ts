@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from '../search.service';
-import { PostsService } from '../posts.service';
-import { RegistrationService } from '../registration.service';
+import { Post, PostsService } from '../posts.service';
+import { RegistrationService, User } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -21,8 +21,10 @@ export class SearchComponent {
   );
   public challenges$ = this.ch_serv.getAllChallenges()
   public query: string = "";
+  
+  public _user: User | undefined
 
-  constructor(private route: ActivatedRoute, private router: Router, private search: SearchService, private post_serv: PostsService, private user_serv: RegistrationService, private ch_serv: ChallengeService) {
+  constructor(private route: ActivatedRoute, private router: Router, private search: SearchService, public post_serv: PostsService, public user_serv: RegistrationService, private ch_serv: ChallengeService) {
   }
 
   ngOnInit() {

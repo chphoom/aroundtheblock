@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HomeComponent {
   public current$: Observable<Challenge>;
   public mePosts$: Observable<Post[]>;
+  public wePosts$: Observable<Post[]>;
   public weChallenges$: Observable<Challenge[]>; 
   public prev$!: Observable<Challenge>
   public user: User | undefined;
@@ -37,6 +38,7 @@ export class HomeComponent {
     });
     this.current$ = this.challengeService.getCurrentChallenge()
     this.mePosts$ = this.postService.getMePosts()
+    this.wePosts$ = this.postService.getWePosts()
     this.weChallenges$ = this.challengeService.getWeChallenges()
     this.challengeService.getWeChallenges().subscribe(
       challenges => {
