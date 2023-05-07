@@ -21,30 +21,34 @@
         </div>
     </div>
     <div *ngIf="user" class="tabs">
-        <mat-tab-group #tabGroup>
+        <mat-tab-group #tabGroup dynamicHeight>
             <mat-tab label="Posts" *ngIf="publicPosts" class="display-posts">
-                <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id">
-                    <img class="thumbnail" [src]="post.img">
-                    <div class="overlay">
-                        <div class="text">{{post.title}}</div>
-                    </div>
-                </a>
+                <div style="margin-top: 4px">
+                    <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id">
+                        <img class="thumbnail" [src]="post.img">
+                        <div class="overlay">
+                            <div class="text">{{post.title}}</div>
+                        </div>
+                    </a></div>
             </mat-tab>
             <mat-tab label="Private" *ngIf="privatePosts" class="display-posts">
-                <a class="thumbnail-container" *ngFor="let post of privatePosts" [href]="'post/' + post.id">
-                    <img class="thumbnail" [src]="post.img">
-                    <div class="overlay">
-                        <div class="text">{{post.title}}</div>
-                    </div>
-                </a>
+                <div style="margin-top: 4px">
+                    <a class="thumbnail-container" *ngFor="let post of privatePosts" [href]="'post/' + post.id">
+                        <img class="thumbnail" [src]="post.img">
+                        <div class="overlay">
+                            <div class="text">{{post.title}}</div>
+                        </div>
+                    </a></div>
             </mat-tab>
             <mat-tab label="Favorite Posts">
-                <a class="thumbnail-container" *ngFor="let post of user.savedPosts" [href]="'post/' + post.id">
-                    <img class="thumbnail" [src]="post.img">
-                    <div class="overlay">
-                        <div class="text">{{post.title}}</div>
-                    </div>
-                </a>
+                <div style="margin-top: 4px">
+                    <a class="thumbnail-container" *ngFor="let post of user.savedPosts" [href]="'post/' + post.id">
+                        <img class="thumbnail" [src]="post.img">
+                        <div class="overlay">
+                            <div class="text">{{post.title}}</div>
+                        </div>
+                    </a>
+                </div>
             </mat-tab>
             <mat-tab label="Saved Challenges">
                 <div class="saved-container">

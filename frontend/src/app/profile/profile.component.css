@@ -75,7 +75,7 @@ main {
     display: inline-block;
     width: 22vw;
     height: 22vw;
-    margin: 2px;
+    margin: auto 5px;
 }
 
 .thumbnail {
