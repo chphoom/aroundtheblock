@@ -364,13 +364,14 @@ a:before, a:after, a > span:before, a > span:after {
   justify-content: center;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 5px;
+  margin: auto;
 }
 
 .thumbnail-container {
   display: inline-block;
   width: 22vw;
   height: 22vw;
-  margin: 2px;
+  margin: auto 5px;
 }
 
 .thumbnail {
