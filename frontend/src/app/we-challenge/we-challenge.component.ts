@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, shareReplay } from 'rxjs';
 import { Challenge, ChallengeService } from '../challenge.service';
-import { PostsService } from '../posts.service';
+import { Post, PostsService } from '../posts.service';
 import { UploadService } from '../upload.service';
 import { ShareService } from '../share.service';
 import { Router } from '@angular/router';
@@ -92,5 +92,35 @@ export class WeChallengeComponent {
     }
 
     this.blur = !this.blur;
+  }
+
+  private userCache: { [key: string]: Observable<string> } = {};
+
+  getUsername(post: Post): Observable<string> {
+    const cachedValue = this.userCache[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.displayName}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache[post.user_id] = newValue;
+    return newValue;
+  }
+
+  private userCache2: { [key: string]: Observable<string> } = {};
+
+  getPfp(post: Post): Observable<string> {
+    const cachedValue = this.userCache2[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.pfp}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache2[post.user_id] = newValue;
+    return newValue;
   }
 }

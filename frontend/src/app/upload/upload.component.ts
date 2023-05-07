@@ -23,8 +23,8 @@ export class UploadComponent {
   challenge: Challenge | undefined;
   challengeType!: String;
   post: Post | undefined;
-  mediumTags: string[] = ['Digital 2D', 'Digital 3D', 'Real-time', '3D Printing', 'Traditional Ink', 'Traditional Dry Media', 'Traditional Paint', 'Traditional Sculpture', 'Mixed Media'];
-  subjectTags: string[] = ['Abstract', 'Anatomy', 'Animals & Wildlife', 'Architectural', 'Automotive', 'Game Art', 'Book Illustration', 'Urban', 'Portait', 'Anime & Manga'];
+  mediumTags: string[] = ['Digital 2D', 'Digital 3D', 'Animation', 'Real-time', '3D Printing', 'Traditional Ink', 'Traditional Dry Media', 'Traditional Paint', 'Traditional Sculpture', 'Mixed Media'];
+  subjectTags: string[] = ['Abstract', 'Anatomy', 'Animals & Wildlife', 'Architectural', 'Automotive', 'Game Art', 'Book Illustration', 'Urban', 'Portrait', 'Anime & Manga'];
 
   form = this.formBuilder.group({
     file: new FormControl('', Validators.required),
