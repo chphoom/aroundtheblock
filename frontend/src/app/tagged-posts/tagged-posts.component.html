@@ -2,7 +2,7 @@
     <div *ngIf="(posts$ | async)?.length">
         <h2>Posts tagged as "{{query}}"</h2>
         <div class="post-grid">
-            <a class="thumbnail" *ngFor="let post of posts$ | async" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'">
+            <a class="thumbnail" *ngFor="let post of posts$ | async" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                 <div class="overlay">
                     <div>
                         <div class="thumbnail-title">{{post.title}}</div>
@@ -12,6 +12,6 @@
         </div>
     </div>
     <div *ngIf="!((posts$ | async)?.length)">
-        <h2>No results matching "{{query}}"</h2>
+        <h2>No posts tagged as "{{query}}"</h2>
     </div>
 </main>

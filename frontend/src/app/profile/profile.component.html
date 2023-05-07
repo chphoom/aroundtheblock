@@ -1,6 +1,6 @@
 <main *ngIf="user">
     <div class="user-info">
-        <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}"></div>
+        <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}" [title]="user.displayName + ' profile picture'"></div>
         <div class="test"></div>
         <div class="user-text">
             <div class="user-name-pronouns">
@@ -23,8 +23,8 @@
     <div *ngIf="user" class="tabs">
         <mat-tab-group #tabGroup>
             <mat-tab label="Posts" *ngIf="publicPosts" class="display-posts">
-                <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id">
-                    <img class="thumbnail" [src]="post.img">
+                <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [title]="post.title">
+                    <img class="thumbnail" [src]="post.img" [alt]="post.title">
                     <div class="overlay">
                         <div class="text">{{post.title}}</div>
                     </div>

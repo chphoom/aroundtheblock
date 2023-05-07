@@ -1,6 +1,6 @@
 <main *ngIf="post && _user">
     <div *ngIf="(!post.private || (user && (_user!.email === user!.email))); else privateblock" class="main-content">
-      <div class="post-img-container" [ngStyle]="{'background-image':'url('+post!.img+')'}"></div>
+      <div class="post-img-container" [ngStyle]="{'background-image':'url('+post!.img+')'}" [title]="post.title"></div>
       <div class="post-content">
           <div *ngIf="post && _user">
               <div class="post-title">

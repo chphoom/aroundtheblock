@@ -1,7 +1,7 @@
 <main *ngIf="user$ | async as user">
     <div class="main-content" *ngIf="(!user.private || (currUser && (user.email === currUser.email))); else private">
         <div class="user-info">
-            <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}"></div>
+            <div class="pfp" [ngStyle]="{'background-image':'url(' + user.pfp + ')'}" [title]="user.displayName + ' profile picture'"></div>
             <div class="test"></div>
             <div class="user-text">
                 <div class="user-name-pronouns">
@@ -19,7 +19,7 @@
         </div>
         <div class="display-posts">
             <div class="post-grid">
-                <a class="thumbnail" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'">
+                <a class="thumbnail" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                     <div class="overlay">
                         <div>
                             <div class="thumbnail-title">{{post.title}}</div>
