@@ -18,11 +18,12 @@ export class PostComponent implements OnInit {
   public isLoggedin: Boolean | undefined;
   public user$: Observable<User> | undefined;
   public post: Post;
-  public _user: User | undefined;
+  public _user: User | undefined; // author of post
   public challenge: Challenge | undefined;
+  public challengeType!: String;
   public saved: { [key: number]: boolean } = {};
   public favorited: { [key: number]: boolean } = {};
-  public user: User | undefined;
+  public user: User | undefined; // current user
   public isReply = 0;
   // public trueLength: number;
 
@@ -37,11 +38,12 @@ export class PostComponent implements OnInit {
       post: (route: ActivatedRouteSnapshot) => {
         const id = parseInt(route.paramMap.get('id')!);
         return inject(PostsService).getPost(id); 
-    }
+      }
     }
   }
 
   constructor(protected snackBar: MatSnackBar, private formBuilder: FormBuilder,
+    private postsService: PostsService,
     private route: ActivatedRoute,
     private registrationService: RegistrationService,
     private challengeService: ChallengeService,
@@ -76,9 +78,18 @@ export class PostComponent implements OnInit {
     // });
     // console.log(this.post.comments)
     registrationService.getUser(this.post.user_id).subscribe(user => this._user = user)
-    challengeService.getChallenge(this.post.challenge).subscribe(challenge => this.challenge = challenge)
+    challengeService.getChallenge(this.post.challenge).subscribe(challenge => {
+      this.challenge = challenge;
+      if (this.challenge?.createdBy) {
+        this.challengeType = "me";
+      } else {
+        this.challengeType = "we";
+      }
+    })
+
     console.log(this.post.challenge)
     this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
+    // get user's saved challenges
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
       user.savedChallenges?.forEach(challenge => {
@@ -87,6 +98,7 @@ export class PostComponent implements OnInit {
       console.log(user);
       console.log(this.saved);
     });
+    //get user's favorited posts
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
       user.savedPosts?.forEach(post => {
@@ -181,10 +193,7 @@ export class PostComponent implements OnInit {
         }, (error) => {
           console.error(error);
         });
-
-        console.log("LOOK HERE" + JSON.stringify(this.post.comments))
-    }
-  }
+  }}
 
   delComment(c: Comment): void {
     this.commentService.deleteComment(c).subscribe({
@@ -197,7 +206,9 @@ export class PostComponent implements OnInit {
           window.alert(err.message);
         } else {
           window.alert("Unknown error: " + JSON.stringify(err));
-        }}})
+        }
+      }
+    })
   }
 
   private userCache: { [key: string]: Observable<string> } = {};
@@ -229,6 +240,25 @@ export class PostComponent implements OnInit {
     this.userCache2[comment.user_id] = newValue;
     console.log("here" + newValue)
     return newValue;
+  }
+
+  delPost() {
+    this.postsService.deletePost(this.post).subscribe({
+      next: () => {
+        this.router.navigate(['/profile']);
+      },
+      error: (err) => { 
+        if (err.message) {
+          window.alert(err.message);
+        } else {
+          window.alert("Unknown error: " + JSON.stringify(err));
+        }
+      }
+    })
+  }
+
+  edit() {
+    this.router.navigate([`/post/edit/${this.post.id}`]);
   }
 
   setReply(id: number){

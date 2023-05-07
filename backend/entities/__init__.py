@@ -22,6 +22,7 @@ from .reply_entity import reply_table
 from .savedPost_entity import savedPost
 from .challenge_entity import ChallengeEntity
 from .savedChallenge_entity import savedChallenge
+from .notifs import NotifEntity
 
 __authors__ = ["Kris Jordan", "Chalisa Phoomsakha"]
 __copyright__ = "Copyright 2023"

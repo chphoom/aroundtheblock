@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from .api import challenge, static_files, comment, login, user, post, upload
+from .api import challenge, static_files, comment, login, user, post, upload, notifs
 from .script.schedule import scheduler
 
 __authors__ = ["Kris Jordan"]
@@ -25,6 +25,7 @@ app.include_router(post.api)
 app.include_router(upload.api)
 app.include_router(comment.api)
 app.include_router(challenge.api)
+app.include_router(notifs.api)
 app.mount("/images", StaticFiles(directory="backend/images"), name="images")
 app.mount("/", static_files.StaticFileMiddleware(directory="./static"))
 

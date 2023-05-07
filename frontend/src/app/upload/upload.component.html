@@ -5,7 +5,7 @@
         <mat-card-title>
           <h2>Upload Post</h2>
         </mat-card-title>
-        <div *ngIf="(challenge$ | async) as challenge" class="prompt">
+        <div *ngIf="(challenge$ | async) as challenge" [class]="'prompt '+challengeType+'-prompt'">
           <div class="prompt-content">
             <p class="prompt-title">Prompt:</p>
             <div class="prompt-text">
@@ -25,7 +25,8 @@
       <mat-card-content>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label for="file">Paste image URL</mat-label>
-          <input type="text" id="file" formControlName="file" matInput placeholder="https://...">
+          <input type="text" id="file" formControlName="file" matInput placeholder="URL ending in a file type">
+          <mat-error *ngIf="form.get('file')?.hasError('required')">This field is required</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label for="posttitle">Title</mat-label>
@@ -35,10 +36,23 @@
           <mat-label for="description">Description</mat-label>
           <textarea type="text" id="description" formControlName="description" matInput placeholder="Ex. This is how I interpreted the prompt..."></textarea>
         </mat-form-field>
+        <h3>Tags</h3>
+        <mat-form-field class="less-width">
+          <mat-label>Mediums</mat-label>
+          <mat-select multiple formControlName="mediums">
+            <mat-option *ngFor="let tag of mediumTags" [value]="tag">{{tag}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="less-width">
+          <mat-label>Subject Matter</mat-label>
+          <mat-select multiple formControlName="subjects">
+            <mat-option *ngFor="let tag of subjectTags" [value]="tag">{{tag}}</mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-checkbox type="checkbox" formControlName="private">Post Privately</mat-checkbox>
       </mat-card-content>
       <mat-card-actions>
-        <button id="neutral" type="submit">
+        <button [id]="challengeType" type="submit">
           <p>Submit</p>
         </button>
       </mat-card-actions>

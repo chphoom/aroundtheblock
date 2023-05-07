@@ -40,6 +40,11 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OtherProfComponent } from './other-prof/other-prof.component';
 import { TaggedPostsComponent } from './tagged-posts/tagged-posts.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSelectModule } from '@angular/material/select';
+import { EditPostComponent } from './post/edit-post/edit-post.component';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +66,7 @@ import { TaggedPostsComponent } from './tagged-posts/tagged-posts.component';
     EditProfileComponent,
     OtherProfComponent,
     TaggedPostsComponent,
+    EditPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +86,10 @@ import { TaggedPostsComponent } from './tagged-posts/tagged-posts.component';
     MatGridListModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatMenuModule,
+    MatBadgeModule,
     MatSnackBarModule,
+    MatSelectModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
