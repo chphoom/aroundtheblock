@@ -17,55 +17,27 @@ p, a {
 
 .posts-container {
     align-items: center;
-    justify-items: start;
+    justify-items: center;
     text-align: center;
     margin-top:2rem;
 }
 
 .display-posts {
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 5px;
+}
+
+.thumbnail-container {
+    width: 20vw;
+    height: 20vw;
 }
 
 .thumbnail {
-    width: 20vw;
-    height: 20vw;   
-    object-fit: cover;
-    cursor: pointer;
-    margin-top: 5px;
+    transition: filter 0.5s ease-in-out;
+    
+}
+
+.blurred img{
     filter: blur(8px);
-}
-
-.thumbnail:hover {
-    opacity: 0.5;
-    transition: 0.5s ease;
-}
-
-.display-posts {
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 5px;
-}
-
-.thumbnail {
-    width: 20vw;
-    height: 20vw;   
-    object-fit: cover;
-    cursor: pointer;
-    margin-top: 5px;
-    filter: blur(8px);
-}
-
-.thumbnail:hover {
-    opacity: 0.5;
-    transition: 0.5s ease;
 }
 
 .prompt svg {
@@ -91,4 +63,18 @@ p, a {
     display:flex;
     align-items: center;
     flex-direction: column;
+}
+
+.spoiler {
+    border-radius: 29px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 7px 20px 6px 20px;
+    transition: all 300ms;
+    font-size: 15px;
+    cursor: pointer;
+    background: #BBF1BA;
 }
