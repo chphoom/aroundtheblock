@@ -143,13 +143,10 @@ a svg:hover {
 }
 
 .post-grid {
-    grid-template-columns: repeat(2, 1fr); /* 4 columns on large screens */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on large screens */
 }
 
 @media (max-width: 968px) { /* adjust for smaller screens */
-    .post-grid {
-        grid-template-columns: repeat(2, 1fr); /* 3 columns on medium screens */
-    }
     .thumbnail {
         height: 24vw;
         width: 24vw;
