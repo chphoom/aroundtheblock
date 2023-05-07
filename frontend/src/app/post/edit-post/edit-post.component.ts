@@ -27,8 +27,8 @@ export class EditPostComponent {
   public user: User | undefined; // current user
   public isLoggedin: Boolean | undefined;
   challenge: Challenge | undefined;
-  mediumTags: string[] = ['Digital 2D', 'Digital 3D', 'Real-time', '3D Printing', 'Traditional Ink', 'Traditional Dry Media', 'Traditional Paint', 'Traditional Sculpture', 'Mixed Media'];
-  subjectTags: string[] = ['Abstract', 'Anatomy', 'Animals & Wildlife', 'Architectural', 'Automotive', 'Game Art', 'Book Illustration', 'Urban', 'Portait', 'Anime & Manga'];
+  mediumTags: string[] = ['Digital 2D', 'Digital 3D', 'Animation', 'Real-time', '3D Printing', 'Traditional Ink', 'Traditional Dry Media', 'Traditional Paint', 'Traditional Sculpture', 'Mixed Media'];
+  subjectTags: string[] = ['Abstract', 'Anatomy', 'Animals & Wildlife', 'Architectural', 'Automotive', 'Game Art', 'Book Illustration', 'Urban', 'Portrait', 'Anime & Manga'];
 
   tags = this.mediumTags.concat(this.subjectTags)
 
