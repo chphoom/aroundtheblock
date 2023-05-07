@@ -89,7 +89,7 @@
             <a class="thumbnail" *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                 <div class="overlay">
                     <div>
-                        <div class="thumbnail-title">{{post.title}}</div>
+                        <div class="thumbnail-title">{{post.title}} {{(getPfp(post) | async)}} {{(getUsername(post) | async)}}</div>
                     </div>
                 </div>
             </a>
@@ -101,7 +101,8 @@
             <a class="thumbnail" *ngFor="let post of (mePosts$ | async)" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                 <div class="overlay">
                     <div>
-                        <div class="thumbnail-title">{{post.title}}</div>
+                        <!-- here is how u get the info -->
+                        <div class="thumbnail-title">{{post.title}} {{(getPfp(post) | async)}} {{(getUsername(post) | async)}}</div>
                     </div>
                 </div>
             </a>

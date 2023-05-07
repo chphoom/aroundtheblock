@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { Challenge, ChallengeService } from '../challenge.service';
 import { Post, User } from '../models';
 import { PostsService } from '../posts.service';
@@ -87,4 +87,37 @@ export class HomeComponent {
       console.error(error);
     });
   }
+
+  // copy from here 
+  private userCache: { [key: string]: Observable<string> } = {};
+
+  getUsername(post: Post): Observable<string> {
+    const cachedValue = this.userCache[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.displayName}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache[post.user_id] = newValue;
+    return newValue;
+  }
+
+  private userCache2: { [key: string]: Observable<string> } = {};
+
+  getPfp(post: Post): Observable<string> {
+    const cachedValue = this.userCache2[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.pfp}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache2[post.user_id] = newValue;
+    console.log("here" + newValue)
+    return newValue;
+  }
+  // to here
 }
