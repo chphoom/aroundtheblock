@@ -50,6 +50,7 @@ export class NavigationComponent {
               (comment: Comment) => {
                 this.router.navigate(['/post', comment.post]).then(() => {
                   // The navigation has completed, so you can safely perform any post-navigation actions here
+                  window.location.reload();
                 });
               }
             )
