@@ -39,7 +39,7 @@
         <button class="spoiler" (click)="toggleSpoiler()">{{ spoilerText }}</button>
         <div class="display-posts">
             <a class="thumbnail-container" [class.blurred]="blur" *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="'/images/' + post.img">
+                <img class="thumbnail" [src]="post.img">
                 <div *ngIf="spoilerText == 'Hide Spoilers'" class="overlay">
                     <div class="text">{{post.title}}</div>
                 </div>
