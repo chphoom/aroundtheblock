@@ -8,10 +8,12 @@
                             <mat-form-field class="roundedInput">
                                 <mat-label> Email or Username</mat-label>
                                 <input matInput placeholder="Email" formControlName="email" id="email" type="email">
+                                <mat-error *ngIf="login.get('email')?.hasError('required')">Email or username required</mat-error>
                             </mat-form-field>
                              <mat-form-field class="roundedInput">
                                 <mat-label>Password</mat-label>
                                 <input matInput  placeholder="Password" formControlName="password" id="password" type="password">
+                                <mat-error *ngIf="login.get('password')?.hasError('required')">Password required</mat-error>
                             </mat-form-field> 
                             <button mat-button type="Submit"><p>Login</p></button>
                         </form>
@@ -21,18 +23,22 @@
                             <mat-form-field class="roundedInput">
                                 <mat-label>Email</mat-label>
                                 <input matInput placeholder="Email" formControlName="email" id="email" type="email">
+                                <mat-error *ngIf="register.get('email')?.hasError('required')">Email required</mat-error>
                             </mat-form-field>
                             <mat-form-field class="roundedInput">
                                 <mat-label>Username</mat-label>
                                 <input matInput placeholder="Username" formControlName="username" id="username">
+                                <mat-error *ngIf="register.get('username')?.hasError('required')">Username required</mat-error>
                             </mat-form-field>
                              <mat-form-field class="roundedInput">
                                 <mat-label>Password</mat-label>
                                 <input matInput  placeholder="Password" formControlName="password" id="password" type="password">
+                                <mat-error *ngIf="register.get('password')?.hasError('required')">Password required</mat-error>
                             </mat-form-field>
                             <mat-form-field class="roundedInput">
                                 <mat-label>Confirm Password</mat-label>
                                 <input matInput  placeholder="Confirm Password" formControlName="confirm" id="confirm" type="password">
+                                <mat-error *ngIf="register.get('confirm')?.hasError('required')">Confirm password required</mat-error>
                             </mat-form-field>  
                             <button type="Submit"><p>Sign Up</p></button>
                         </form>

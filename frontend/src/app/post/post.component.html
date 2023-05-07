@@ -19,7 +19,7 @@
             <div class="tags">
                 <div *ngFor="let tag of post.tags" class="tag" (click)="tagClick(tag)">#{{tag}}</div>
             </div>
-            <div *ngIf="challenge" class="prompt">
+            <div *ngIf="challenge" [class]="'prompt '+challengeType+'-prompt'">
                 <div class="prompt-content">
                   <p class="prompt-title">Prompt:</p>
                   <div class="prompt-text">
@@ -48,7 +48,33 @@
               </div>
             </div>
             <p>{{post.desc}}</p>
-            <p>{{post.created| date: "MMM d, y"}}</p>
+            <p>{{post.created| date: "MMM d, y"}} <span *ngIf="post.private">• Private Post</span></p>
+        </div>
+        <div class="buttons" *ngIf="user?.displayName == _user?.displayName">
+          <button id="btn-edit" type="button" (click)="edit()">Edit</button>
+          <button (click)="delPost()" type="button" id="btn-delete">Delete Post</button>
+        </div>
+        <div class="post-comments-container">
+          <h2>{{post.comments.length}} Comments</h2>
+          <div id="form" *ngIf="isLoggedin">
+            <form [formGroup]="comment" class="comment-form" (ngSubmit)="onComment()">
+              <mat-form-field class="roundedInput">
+                  <mat-label>Comment</mat-label>
+                  <textarea matInput placeholder="Comment" formControlName="comment" id="comment" type="text"></textarea>
+              </mat-form-field>
+              <button mat-button type="Submit" id="black"><p>Comment</p></button>
+            </form>
+          </div>
+          <div class="comments" *ngFor="let comment of post.comments">
+            <div class="comment">
+              <img class="pfp-thumbnail" [src]="getPfp(comment) | async" style="margin-top:1rem;">
+              <div class="comment-text">
+                <h3><span [routerLink]="'/'+(getUsername(comment) | async)" style="cursor: pointer;">{{getUsername(comment) | async}} </span> <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
+                <p>{{ comment.text }}</p>
+                <input *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
+              </div>
+            </div> 
+          </div>
         </div>
     </div>
 </main>

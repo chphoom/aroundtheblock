@@ -1,5 +1,22 @@
 <main>
-    <div class="challenge we">
+    <div class="introduction" *ngIf="!isLoggedin">
+        <div class="intro-container">
+            <h1>Welcome to Around the Block!</h1>
+            <p>Are you an artist looking for a new challenge? Or stuck with creative block? Then you've found the right place!</p>
+            <p>Participate in community-wide art prompts called <span style="color: #00b448; font-weight: bold;" routerLink="/we-challenge">weChallenges</span> or generate your own art prompts called <span style="color: #e841ad; font-weight: bold;" routerLink="/me-challenge">meChallenges</span>!</p>
+            <a id="create-account" href="/login">
+                <h2 style="text-decoration: underline;">Create an account to share your work</h2>
+            </a>
+            <h3>or</h3>
+            <a href="#challenges">
+                <h2>Continue Exploring</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="challenge we" id="challenges">
         <h2>weChallenge #{{(weChallenges$ | async)?.length}}</h2>
         <p>Participate in this week's global art challenge!</p>
         <div class="prompt we-prompt" *ngIf="(current$ | async) as current">

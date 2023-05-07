@@ -1,0 +1,47 @@
+<main>
+    <mat-card>
+      <form class="upload" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card-header>
+          <mat-card-title>
+            <h2>Edit Post</h2>
+          </mat-card-title>
+          <div class="post-img-container" [ngStyle]="{'background-image':'url('+post.img+')'}"></div>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label for="posttitle">Title</mat-label>
+            <input type="text" id="posttitle" formControlName="title" [(ngModel)]="post.title" matInput placeholder="Ex. My Art">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label for="description">Description</mat-label>
+            <textarea type="text" id="description" formControlName="description" [(ngModel)]="post.desc" matInput placeholder="Ex. This is how I interpreted the prompt..."></textarea>
+          </mat-form-field>
+          <h3>Tags</h3>
+          <!-- <mat-form-field class="less-width">
+            <mat-label>Mediums</mat-label>
+            <mat-select multiple formControlName="mediums">
+              <mat-option *ngFor="let tag of mediumTags" [value]="tag">{{tag}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="less-width">
+            <mat-label>Subject Matter</mat-label>
+            <mat-select multiple formControlName="subjects">
+              <mat-option *ngFor="let tag of subjectTags" [value]="tag">{{tag}}</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+          <mat-form-field class="less-width">
+            <mat-label>Tags</mat-label>
+            <mat-select multiple formControlName="tags">
+              <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-checkbox type="checkbox" [(ngModel)]="post.private" formControlName="private">Post Privately</mat-checkbox>
+        </mat-card-content>
+        <mat-card-actions>
+          <button id="black" type="submit">
+            <p>Save</p>
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </main>

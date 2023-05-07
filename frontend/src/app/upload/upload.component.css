@@ -2,10 +2,14 @@
     min-width: 150px;
     max-width: 500px;
     width: 100%;
-  }
+}
   
 .example-full-width {
   width: 100%;
+}
+
+.less-width {
+  width:70%;
 }
 
 form {

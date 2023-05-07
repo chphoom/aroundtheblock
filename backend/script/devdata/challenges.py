@@ -14,26 +14,24 @@ for i in range(1,15):      #wk1-13 or wks[1:13] should automatically be the prev
 
 wks.reverse() #now wks[0] = wk0 (the farthest date from today) and wks[14] = wk14 (today's date)
 
-# we challenges
-# filler challenges
 models = []
-for i in range(11):                                 #for each week in wks[0:10]
-    models.append(Challenge(id=i,                       #makes a new Challenge objs w id = i
+
+models.append(Challenge(id=1,                    
             posts=[],
-            noun="fairy",
-            verb="swims",
-            adj="",
-            emotion="happy",
+            noun="",
+            verb="",
+            adj="default",
+            emotion="",
             style="",
             colors=[],
-            start=wks[i],                               #and start date = wks[1]
-            end=wks[i] + timedelta(days=num),
-            createdBy=None))                        #so models[0] = wks[0] = wk0 = the 0th week if today is the 14th week
+            start=None,                              
+            end=None,
+            createdBy="elaine13@email.unc.edu")) 
 
-models.append(Challenge(id=11,                    
+models.append(Challenge(id=2,                    
             posts=[],
             noun="woman",
-            verb="wields",
+            verb="wielding",
             adj="fierce",
             emotion="",
             style="",
@@ -42,10 +40,10 @@ models.append(Challenge(id=11,
             end=wks[11] + timedelta(days=num),
             createdBy=None))    
 
-models.append(Challenge(id=12,                    
+models.append(Challenge(id=3,                    
             posts=[],
             noun="balloon",
-            verb="dances",
+            verb="dancing",
             adj="tragic",
             emotion="",
             style="",
@@ -54,10 +52,10 @@ models.append(Challenge(id=12,
             end=wks[12] + timedelta(days=num),
             createdBy=None))    
 
-models.append(Challenge(id=13,                    
+models.append(Challenge(id=4,                    
             posts=[],
             noun="fire",
-            verb="tempts",
+            verb="tempting",
             adj="wicked",
             emotion="",
             style="",
@@ -66,10 +64,10 @@ models.append(Challenge(id=13,
             end=wks[13] + timedelta(days=num),
             createdBy=None))    
 
-models.append(Challenge(id=14,                    
+models.append(Challenge(id=5,                    
             posts=[],
             noun="fox",
-            verb="jumps",
+            verb="jumping",
             adj="quick",
             emotion="",
             style="",
@@ -78,7 +76,7 @@ models.append(Challenge(id=14,
             end=wks[14] + timedelta(days=num),
             createdBy=None))    
 
-models.append(Challenge(id=15,                    
+models.append(Challenge(id=6,                    
             posts=[],
             noun="mountains",
             verb="",
@@ -90,10 +88,10 @@ models.append(Challenge(id=15,
             end=None,
             createdBy="elaine13@email.unc.edu")) 
 
-models.append(Challenge(id=16,                    
+models.append(Challenge(id=7,                    
             posts=[],
             noun="city",
-            verb="burn",
+            verb="burning",
             adj="",
             emotion="",
             style="impressionism",
@@ -102,10 +100,10 @@ models.append(Challenge(id=16,
             end=None,
             createdBy="elaine13@email.unc.edu")) 
 
-models.append(Challenge(id=17,                    
+models.append(Challenge(id=8,                    
             posts=[],
             noun="birds",
-            verb="watch",
+            verb="watching",
             adj="",
             emotion="love",
             style="",
@@ -114,7 +112,7 @@ models.append(Challenge(id=17,
             end=None,
             createdBy="elaine13@email.unc.edu")) 
 
-models.append(Challenge(id=18,                    
+models.append(Challenge(id=9,                    
             posts=[],
             noun="intelligence",
             verb="",
@@ -124,4 +122,28 @@ models.append(Challenge(id=18,
             colors=[],
             start=None,                              
             end=None,
-            createdBy="olivia@olivia.com")) 
+            createdBy="olivia@olivia.com"))
+
+models.append(Challenge(id=10,                    
+            posts=[],
+            noun="meme",
+            verb="",
+            adj="",
+            emotion="",
+            style="",
+            colors=[],
+            start=None,                              
+            end=None,
+            createdBy="elaine13@email.unc.edu"))
+
+models.append(Challenge(id=11,                    
+            posts=[],
+            noun="",
+            verb="suffering",
+            adj="",
+            emotion="",
+            style="",
+            colors=[],
+            start=None,                              
+            end=None,
+            createdBy="elaine13@email.unc.edu")) 

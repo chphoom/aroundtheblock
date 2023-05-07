@@ -1,7 +1,12 @@
 main {
-    display:grid;
-    grid-template-columns: 33.33% 33.33% 33.34%;
-    grid-template-rows: repeat(1fr, 3);
+    display:flex;
+    flex-direction: column;
+}
+
+content {
+    display:flex;
+    flex-flow: row wrap;
+    width:100%;
 }
 
 p {
@@ -9,7 +14,6 @@ p {
 }
 
 header {
-    grid-column: 1 / 4;
     background-color: #BBF1BA;
     display:flex;
     align-items: center;
@@ -22,31 +26,25 @@ header h1 {
 }
 
 .side-bar {
-    grid-column: 1 / 2;
-    grid-row: 2 / 4;
+    flex: 1;
     display:flex;
     flex-direction: column;
     align-items: center;
     margin-top:1rem;
+    max-height:80vh;
+    overflow: scroll;
 }
 
 .challenge {
-    grid-column: 2 / 4;
-    grid-row: 2 / 3;
+    flex: 2;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-items: start;
     text-align: center;
     background: linear-gradient(180deg, rgba(187, 241, 186, 0.58) 0%, rgba(187, 241, 186, 0.0348) 100%);
-}
-
-.posts-container {
-    grid-column: 2 / 4;
-    grid-row: 3 / 4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-height: 100vh;
+    overflow: scroll;
 }
 
 .side-bar .we-prompt {
@@ -70,3 +68,7 @@ header h1 {
     align-items: center;
     flex-direction: row;
 }
+
+.clicked {
+    background-color: #BBF1BA;
+  }

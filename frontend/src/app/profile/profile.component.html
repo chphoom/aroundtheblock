@@ -15,22 +15,28 @@
                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                 </svg>
             </div>
+            <p *ngIf="user.private" style="margin:0;">Private</p>
             <p>{{user.userPosts?.length}} Posts</p>
             <p class="bio">{{user.bio}}</p>
         </div>
     </div>
     <div *ngIf="user" class="tabs">
         <mat-tab-group #tabGroup>
-            <mat-tab label="Posts" *ngIf="user.userPosts" class="display-posts">
-                <a class="thumbnail-container" *ngFor="let post of user.userPosts" [href]="'post/' + post.id">
+            <mat-tab label="Posts" *ngIf="publicPosts" class="display-posts">
+                <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id">
                     <img class="thumbnail" [src]="post.img">
                     <div class="overlay">
                         <div class="text">{{post.title}}</div>
                     </div>
                 </a>
             </mat-tab>
-            <mat-tab label="Private">
-                <p>Coming Soon</p>
+            <mat-tab label="Private" *ngIf="privatePosts" class="display-posts">
+                <a class="thumbnail-container" *ngFor="let post of privatePosts" [href]="'post/' + post.id">
+                    <img class="thumbnail" [src]="post.img">
+                    <div class="overlay">
+                        <div class="text">{{post.title}}</div>
+                    </div>
+                </a>
             </mat-tab>
             <mat-tab label="Favorite Posts">
                 <a class="thumbnail-container" *ngFor="let post of user.savedPosts" [href]="'post/' + post.id">
@@ -41,7 +47,7 @@
                 </a>
             </mat-tab>
             <mat-tab label="Saved Challenges">
-                <div *ngFor="let challenge of user.savedChallenges" class="prompt">
+                <div *ngFor="let challenge of user.savedChallenges" [class]="'prompt '+getType(challenge)+'-prompt'">
                     <span class="prompt-content">
                         <p class="prompt-title">Prompt:</p>
                         <div class="prompt-text">
@@ -55,7 +61,7 @@
                             <p id="hex">{{color}}</p>
                             </div>
                         </div>
-                        <button id="me" type="submit" (click)="onSubmit(challenge)">
+                        <button [id]="getType(challenge)" type="submit" (click)="onSubmit(challenge)">
                             <p>Create Submission</p>
                         </button>
                     </span>

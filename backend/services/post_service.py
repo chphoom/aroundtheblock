@@ -43,13 +43,12 @@ class PostService:
             raise ValueError(f"Post not found")
 
     def delete(self, id: int) -> Post:
-        # 
         post = self._session.get(PostEntity, id)
         if post:
-            temp = self._session.get(UserEntity, post.user_id)
-            temp2 = self._session.get(ChallengeEntity, post.challenge)
-            temp.userPosts.remove(post)
-            temp2.posts.remove(post)
+            user = self._session.get(UserEntity, post.user_id)
+            chall = self._session.get(ChallengeEntity, post.challenge_id)
+            user.userPosts.remove(post)
+            chall.posts.remove(post)
             self._session.delete(post)
             self._session.commit()
             return post
@@ -58,16 +57,22 @@ class PostService:
         
     def update(self, 
                id: int,
-               desc: str | None,
-               tags: list[str] | None) -> Post:
-        temp = self._session.get(PostEntity, id)
-        if temp:
-            if desc:
-                temp.desc = desc
-            if tags:
-                temp.tags = tags
+               title: str | None = None,
+               desc: str | None = None,
+               private: bool | None = None,
+               tags: list[str] | None = None) -> Post:
+        post = self._session.get(PostEntity, id)
+        if post:
+            if title != None:
+                post.title = title
+            if desc != None:
+                post.desc = desc
+            if private != None:
+                post.private = private
+            if tags != None:
+                post.tags = tags
             self._session.commit()
-            return temp.to_model()
+            return post.to_model()
         else:
             raise ValueError(f"Post not found")
         
@@ -76,6 +81,7 @@ class PostService:
             select(PostEntity)
             .join(ChallengeEntity)
             .filter(ChallengeEntity.type == "me")
+            .where(PostEntity.private.is_(False))
         )
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]

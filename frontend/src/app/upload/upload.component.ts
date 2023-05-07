@@ -21,14 +21,18 @@ export class UploadComponent {
   private isLoggedin: Boolean | undefined;
   challenge$: Observable<Challenge> | undefined;
   challenge: Challenge | undefined;
+  challengeType!: String;
   post: Post | undefined;
-  submitted = false;
+  mediumTags: string[] = ['Digital 2D', 'Digital 3D', 'Real-time', '3D Printing', 'Traditional Ink', 'Traditional Dry Media', 'Traditional Paint', 'Traditional Sculpture', 'Mixed Media'];
+  subjectTags: string[] = ['Abstract', 'Anatomy', 'Animals & Wildlife', 'Architectural', 'Automotive', 'Game Art', 'Book Illustration', 'Urban', 'Portait', 'Anime & Manga'];
 
   form = this.formBuilder.group({
     file: new FormControl('', Validators.required),
     title: '',
     description: '',
-    private: [false]
+    private: [false],
+    mediums: [[]],
+    subjects: [[]]
   });
 
   constructor(private router: Router, private formBuilder: FormBuilder, challengeService: ChallengeService, private postsService: PostsService, private uploadService: UploadService, private registrationService: RegistrationService, private shareService: ShareService) {
@@ -45,6 +49,11 @@ export class UploadComponent {
     // check if there is a challenge and gets challenge
     this.challenge$ = this.shareService.getCurrentValue();
     this.challenge$.subscribe(challenge => this.challenge = challenge)
+    if (this.challenge?.createdBy) {
+      this.challengeType = "me"
+    } else {
+      this.challengeType = "we"
+    }
   }
 
   onFileSelected(event: any) {
@@ -57,10 +66,14 @@ export class UploadComponent {
   onSubmit() {
     let form = this.form.value
 
+    if (form.title == '') {
+      form.title = "Untitled"
+    }
+
     const newPost: Post = {
       id: undefined,
       img: form.file ?? "",
-      title: form.title ?? "Untitled",
+      title: form.title ?? "",
       desc: form.description ?? "",
       private: form.private ?? false,
       created: new Date(),
@@ -70,16 +83,38 @@ export class UploadComponent {
       tags: []
     };
 
-    let id: number
+    for (let tag of form.mediums ?? "") {
+      newPost.tags.push(tag)
+    }
+    for (let tag of form.subjects ?? "") {
+      newPost.tags.push(tag)
+    }
 
-    // console.log(newPost); 
-    
-    this.postsService.createPost(newPost).subscribe(post => {
-      console.log(post);
-      this.post = post
-      this.router.navigate([`/post/${this.post?.id}`]);
-    }, (error: HttpErrorResponse)=> {
-      console.log(error);
-    });
+    if (this.challenge?.createdBy) {
+      newPost.tags.push("meChallenge")
+    } else {
+      newPost.tags.push("weChallenge")
+    }
+
+    console.log(newPost.tags)
+
+    this.postsService.createPost(newPost).subscribe({
+        next: (post) => this.onSuccess(post),
+        error: (err) => this.onError(err)
+    })
   }
+
+  onSuccess(post: Post) {
+    this.post = post
+    this.router.navigate([`/post/${this.post?.id}`]);
+  }
+
+  onError(err: Error) {
+    if (err.message) {
+      window.alert(err.message);
+    } else {
+      window.alert("Unknown error: " + JSON.stringify(err));
+    }
+  }
+
 }

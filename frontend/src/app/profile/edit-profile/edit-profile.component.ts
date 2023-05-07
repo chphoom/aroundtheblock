@@ -37,6 +37,9 @@ export class EditProfileComponent {
 
   onSave() {
     let form = this.form.value
+    if (form.pfp == '') {
+      form.pfp = "https://i.imgur.com/1MwzVBB.png"
+    }
     this.registrationService.updateUser(this.user!.email, form.pronouns!, form.displayName!, form.private!, form.pfp ?? "https://i.imgur.com/1MwzVBB.png", form.bio!, null)
     .subscribe((user: User) => {
       console.log(user);

@@ -17,7 +17,7 @@ export class SearchComponent {
     map(posts => posts.filter(post => !post.private))
   );
   public users$ = this.user_serv.getUsers().pipe(
-    map(posts => posts.filter(post => !post.private))
+    map(users => users.filter(user => !user.private))
   );
   public challenges$ = this.ch_serv.getAllChallenges()
   public query: string = "";

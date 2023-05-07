@@ -35,6 +35,13 @@ export class PostsService {
    * @returns a new Post.
    */
   createPost(post: Post): Observable<Post> {
+    let errors: string[] = []
+    if (post.img.toString().length < 1) {
+      errors.push(`Image is required.`);
+    }
+    if (errors.length > 0) {
+      return throwError(() => { return new Error(errors.join("\n")) });
+    }
     return this.http.post<Post>("/api/createpost", post);
   }
 
@@ -43,8 +50,33 @@ export class PostsService {
    * 
    * @returns the deleted Post.
    */
-  deletePost(post: Post, options: Array<String>): Observable<Post> {
-    return this.http.delete<Post>("/api/delete/posts/"+post.id);
+  deletePost(post: Post): Observable<Post> {
+    return this.http.delete<Post>(`/api/delete/posts/${post.id}`);
+  }
+
+  /**
+   * Update a Post.
+   * 
+   * @returns the deleted Post.
+   */
+  updatePost(id: number, title: string | null, desc: string | null, priv: boolean | null, tags: string[] | null): Observable<Post> {
+    let query = "";
+    if (title) {
+        query += `title=${title}&`;
+    }
+    if (desc) {
+        query += `desc=${desc}&`;
+    }
+    if (priv != null) {
+      query += `private=${priv}&`;
+    }
+    if (tags?.length) {
+        query += `connectedAccounts=${tags.join(",")}&`;
+    }
+    if (query) {
+      query = "?" + query.slice(0, -1); // remove the trailing "&" or "?" if query is not empty
+    }
+    return this.http.put<Post>(`/api/post/edit/${id}${query}`, tags);
   }
 
   /**

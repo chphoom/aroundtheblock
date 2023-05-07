@@ -1,11 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Route } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Route, Router } from '@angular/router';
 import { Post, PostsService } from '../posts.service';
 import { Challenge, User } from '../models';
 import { RegistrationService } from '../registration.service';
 import { ChallengeService } from '../challenge.service';
-import { Observable } from 'rxjs';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Observable, map, shareReplay } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommentService, Comment } from '../comment.service';
 
 @Component({
   selector: 'app-post',
@@ -13,13 +15,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
+  public isLoggedin: Boolean | undefined;
+  public user$: Observable<User> | undefined;
   public post: Post;
-  public _user: User | undefined;
+  public _user: User | undefined; // author of post
   public challenge: Challenge | undefined;
+  public challengeType!: String;
   public saved: { [key: number]: boolean } = {};
   public favorited: { [key: number]: boolean } = {};
-  public user: User | undefined;
-  public isLoggedin: Boolean | undefined;
+  public user: User | undefined; // current user
+  comment = this.formBuilder.group({
+    comment: new FormControl(''),
+  });
 
   public static Route: Route = {
     path: 'post/:id',
@@ -28,17 +35,40 @@ export class PostComponent implements OnInit {
       post: (route: ActivatedRouteSnapshot) => {
         const id = parseInt(route.paramMap.get('id')!);
         return inject(PostsService).getPost(id); 
-    }
+      }
     }
   }
 
-  constructor(protected snackBar: MatSnackBar, private route: ActivatedRoute, private registrationService: RegistrationService, private challengeService: ChallengeService) {
+  constructor(protected snackBar: MatSnackBar, private formBuilder: FormBuilder,
+    private postsService: PostsService,
+    private route: ActivatedRoute,
+    private registrationService: RegistrationService,
+    private challengeService: ChallengeService,
+    private router: Router,
+    private commentService: CommentService) {
+    this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
+    if (this.isLoggedin) {
+       // get current user information
+      this.user$ = this.registrationService.getUserInfo();
+      this.registrationService.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
+    }
     let data = route.snapshot.data as { post: Post };
     this.post = data.post;
     registrationService.getUser(this.post.user_id).subscribe(user => this._user = user)
-    challengeService.getChallenge(this.post.challenge).subscribe(challenge => this.challenge = challenge)
+    challengeService.getChallenge(this.post.challenge).subscribe(challenge => {
+      this.challenge = challenge;
+      if (this.challenge?.createdBy) {
+        this.challengeType = "me";
+      } else {
+        this.challengeType = "we";
+      }
+    })
+
     console.log(this.post.challenge)
     this.registrationService.isAuthenticated$.subscribe(bool => this.isLoggedin = bool);
+    // get user's saved challenges
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
       user.savedChallenges?.forEach(challenge => {
@@ -47,6 +77,7 @@ export class PostComponent implements OnInit {
       console.log(user);
       console.log(this.saved);
     });
+    //get user's favorited posts
     this.registrationService.getUserInfo().subscribe((user: User) => {
       this.user = user;
       user.savedPosts?.forEach(post => {
@@ -110,5 +141,93 @@ export class PostComponent implements OnInit {
   tagClick(tag: string) {
     window.location.reload();
     window.location.href = "/tagged/"+tag;
+  }
+
+  onComment(): void {
+    let form = this.comment.value;
+    let _c = form.comment ?? "";
+
+    if (!this.isLoggedin) {
+      this.router.navigate(['/login'])
+    }
+    // get current user information
+    this.user$ = this.registrationService.getUserInfo();
+    this.registrationService.getUserInfo().subscribe((user: User) => {
+      this.user = user;
+    });
+
+    this.commentService.createComment(_c, this.user!, this.post.id!)
+      .subscribe((response) => {
+          console.log(response)
+          window.location.reload();
+        }, (error) => {
+          console.error(error);
+        });
+  }
+
+  delComment(c: Comment): void {
+    this.commentService.deleteComment(c).subscribe({
+      next: (challenge) => {
+        //update window
+        window.location.reload();
+      },
+      error: (err) => { 
+        if (err.message) {
+          window.alert(err.message);
+        } else {
+          window.alert("Unknown error: " + JSON.stringify(err));
+        }
+      }
+    })
+  }
+
+  private userCache: { [key: string]: Observable<string> } = {};
+
+  getUsername(comment: Comment): Observable<string> {
+    const cachedValue = this.userCache[comment.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(comment.user_id).pipe(
+      map(user => user ? `${user.displayName}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache[comment.user_id] = newValue;
+    return newValue;
+  }
+
+  private userCache2: { [key: string]: Observable<string> } = {};
+
+  getPfp(comment: Comment): Observable<string> {
+    const cachedValue = this.userCache2[comment.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(comment.user_id).pipe(
+      map(user => user ? `${user.pfp}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache2[comment.user_id] = newValue;
+    console.log("here" + newValue)
+    return newValue;
+  }
+
+  delPost() {
+    this.postsService.deletePost(this.post).subscribe({
+      next: () => {
+        this.router.navigate(['/profile']);
+      },
+      error: (err) => { 
+        if (err.message) {
+          window.alert(err.message);
+        } else {
+          window.alert("Unknown error: " + JSON.stringify(err));
+        }
+      }
+    })
+  }
+
+  edit() {
+    this.router.navigate([`/post/edit/${this.post.id}`]);
   }
 }

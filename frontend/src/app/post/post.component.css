@@ -40,7 +40,8 @@ h2 {
     color:white;
     border-radius: 5px;
     padding:4px;
-    margin:4px;
+    margin:8px;
+    margin-left: 0;
     transition: all 300ms;
     cursor: pointer;
 }
@@ -69,4 +70,87 @@ h2 {
 .fav-icon {
     cursor: pointer;
     margin-left: 1rem;
+    transition: all 300ms ease-out; 
+}
+
+.fav-icon:hover {
+    transform: scale(1.1); 
+}
+
+/* Comments */
+
+.post-comments-container {
+    width: 90%;
+}
+
+.comment-form {
+    display:flex;
+    flex-flow: row wrap;
+}
+
+mat-form-field {
+    min-width: 70%;
+}
+
+#black {
+    margin-bottom:2rem;
+}
+
+#form {
+    margin-top:1rem;
+}
+
+.comment {
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.comment-text input {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 4px 8px;
+    transition: all 300ms;
+    cursor: pointer;
+}
+
+.comment-text input:hover {
+    background-color: black;
+    color: white;
+}
+
+#btn-delete {
+    background-color: white;
+    color:black;
+    transition: all 300ms;
+    padding: 8px 16px;
+    border: 2px solid rgb(205, 63, 63);
+}
+
+#btn-delete:hover {
+    color:white;
+    background-color: rgb(205, 63, 63);
+}
+
+#btn-edit {
+    background-color: white;
+    color:black;
+    transition: all 300ms;
+    padding: 8px 16px;
+    border: 2px solid rgb(0, 0, 0);
+    margin-right:0;
+}
+
+#btn-edit:hover {
+    color:white;
+    background-color: rgb(0, 0, 0);
+}
+
+.buttons {
+    display:flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
 }
