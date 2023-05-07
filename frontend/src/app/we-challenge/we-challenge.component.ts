@@ -23,6 +23,7 @@ export class WeChallengeComponent {
   public saved: Boolean | undefined;
   countdown!: string;
   public spoilerText = 'Show Spoilers';
+  public blur = true;
 
   constructor(private router: Router, private challengeService: ChallengeService, private registrationService: RegistrationService, private postsService: PostsService, private uploadService: UploadService, private shareService: ShareService, protected snackBar: MatSnackBar) {
     this.current$ = this.challengeService.getCurrentChallenge()
@@ -81,13 +82,15 @@ export class WeChallengeComponent {
     });
   }
 
-  toggleSpoilerText() {
+  toggleSpoiler() {
     //this.spoilerText = 'Show Spoilers' ? 'Hide Spoilers' : 'Show Spoilers';
     if (this.spoilerText == 'Show Spoilers') {
       this.spoilerText = 'Hide Spoilers';
     }
     else {
-      this.spoilerText = 'Show Spoilers'
+      this.spoilerText = 'Show Spoilers';
     }
+
+    this.blur = !this.blur;
   }
 }
