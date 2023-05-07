@@ -338,6 +338,10 @@ a:before, a:after, a > span:before, a > span:after {
   grid-gap: 5px; /* margin between images */
 }
 
+.post-grid a {
+  margin: 0 !important;
+}
+
 .thumbnail {
   background-size: cover;
   background-position: center;
@@ -346,6 +350,7 @@ a:before, a:after, a > span:before, a > span:after {
   width: 24vw;
   position: relative;
   overflow: hidden;
+  background-color:rgb(190, 190, 190);
 }
 
 .thumbnail:hover .overlay, .thumbnail:focus .overlay {
@@ -368,6 +373,20 @@ a:before, a:after, a > span:before, a > span:after {
   box-sizing: border-box;
 }
 
+.overlay-info {
+  display:flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.overlay-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
 .thumbnail-title {
     font-family: 'Overpass', 'sans-serif';
     font-style: normal;
@@ -385,7 +404,7 @@ a:before, a:after, a > span:before, a > span:after {
     font-size: 18px;
     line-height: 16px;
     text-align: center;
-    color: white;
+    color: rgba(255, 255, 255, 0.806);
 }
 
 @media (max-width: 968px) { /* adjust for smaller screens */
@@ -395,6 +414,10 @@ a:before, a:after, a > span:before, a > span:after {
     .thumbnail {
         height: 31vw;
         width: 31vw;
+    }
+    .overlay .pfp-thumbnail {
+      width: 40px;
+      height: 40px;
     }
 }
 

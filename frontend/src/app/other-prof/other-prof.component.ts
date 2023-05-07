@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RegistrationService, User } from '../registration.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map, shareReplay } from 'rxjs';
 import { Post } from '../models';
 
 @Component({
@@ -33,8 +33,36 @@ export class OtherProfComponent {
       this.currUser = user;
       console.log(user);
     })
-    /* if (this.user.private && (this.currUser.email != this.user.email)) {
-      this.router.navigate(['/'])
-    } */
   }
+
+  private userCache: { [key: string]: Observable<string> } = {};
+
+  getUsername(post: Post): Observable<string> {
+    const cachedValue = this.userCache[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.displayName}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache[post.user_id] = newValue;
+    return newValue;
+  }
+
+  private userCache2: { [key: string]: Observable<string> } = {};
+
+  getPfp(post: Post): Observable<string> {
+    const cachedValue = this.userCache2[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.pfp}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache2[post.user_id] = newValue;
+    return newValue;
+  }
+
 }

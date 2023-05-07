@@ -116,7 +116,6 @@ export class HomeComponent {
       shareReplay(1) // cache the result
     );
     this.userCache2[post.user_id] = newValue;
-    console.log("here" + newValue)
     return newValue;
   }
   // to here
