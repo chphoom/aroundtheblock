@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 from fastapi import Depends
 from sqlalchemy.orm import Session
 from ..database import db_session
@@ -19,7 +19,7 @@ class SaveService:
             if challenge:
                 user.savedChallenges.append(challenge)
                 if challenge.to_model().getType() == "we" and challenge.start <= datetime.now():
-                    notif_entity: NotifEntity = NotifEntity.from_model(Notif(id=None, toUser_id=user.id, fromUser_id=None, comment_id=None, last_read=None, challenge_id=challenge_id, read=False))
+                    notif_entity: NotifEntity = NotifEntity.from_model(Notif(id=None, toUser_id=user.email, fromUser_id=None, comment_id=None, last_read=None, challenge_id=challenge_id, read=False))
                     self._session.add(notif_entity)
                 self._session.commit()
                 return user.to_model()

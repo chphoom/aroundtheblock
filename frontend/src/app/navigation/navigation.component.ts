@@ -6,6 +6,7 @@ import { NotificationService, Notification } from '../notification.service';
 import { PostsService } from '../posts.service';
 import { CommentService, Comment } from '../comment.service';
 import { Observable, map, of, shareReplay } from 'rxjs';
+import { ChallengeService, Challenge } from '../challenge.service';
 
 @Component({
   selector: 'app-navigation',
@@ -16,12 +17,14 @@ export class NavigationComponent {
   public notifs!: Notification[]
   numUnread!: number;
   public user: User | undefined;
+  // public countdownMap: Map<number, string> = new Map<number, string>();
   @ViewChild('search', { static: true }) search!: ElementRef;
 
   constructor(private router: Router,
      public registration_service: RegistrationService,
      public notificationService: NotificationService,
-     private commentService: CommentService) {
+     private commentService: CommentService,
+     private challengeService: ChallengeService) {
     this.registration_service.getUserInfo().subscribe((user: User) => {
       this.user = user;
       this.notificationService.getToUser(user.email).subscribe(
@@ -81,4 +84,39 @@ export class NavigationComponent {
     this.registration_service.logout();
     this.router.navigate(['/']);
   }
+
+  // public getCountdown(challengeId: number): string {
+  //   // Check if countdown value is already stored in the map
+  //   if (this.countdownMap.has(challengeId)) {
+  //     return this.countdownMap.get(challengeId)!;
+  //   }
+
+  //   // Fetch the saved challenge data based on the challengeId
+  //   let savedChallenge: Challenge;
+  //   this.challengeService.getChallenge(challengeId).subscribe(
+  //     (res:Challenge) => {
+  //       savedChallenge = res;
+  //     }
+  //   );
+
+  //   if (savedChallenge!) {
+  //     const end = new Date(savedChallenge.end!).getTime(); // Access the 'end' property from 'current'
+  //     setInterval(() => {
+  //       const now = new Date().getTime();
+  //       const distance = end - now;
+  //       const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+  //       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+  //       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+  //       const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+  //       const countdown = days + ':' + hours + ':' + minutes + ':' + seconds;
+
+  //       // Store the countdown value in the map
+  //       this.countdownMap.set(challengeId, countdown);
+  //     }, 1000);
+
+  //     return ''; // Initially return empty string until the countdown value is calculated
+  //   }
+
+  //   return ''; // Handle the case when savedChallenge is not found or null
+  // }
 }
