@@ -2,10 +2,10 @@
 
 These were intially designed to be used by the `script.reset_db` module."""
 
-from ...models import User, Post
-from datetime import datetime, timedelta
+from ...models import User
+from datetime import datetime
 
-__authors__ = ["Kris Jordan"]
+__authors__ = ["Chalisa Phoomsakha, Elaine Dong"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 

@@ -1,25 +1,29 @@
 # Around the Block
 This project was made for COMP 590: User Interfaces at UNC by Keaw, Elaine, and Liya.
 
-Currently in Sprint 1 of development.
-
-## Stories implemented in Sprint 1
-
-- As an artist, I want to view the current global challenge so that I can decide if I want to do it or not.
-- As an artist, I want to generate my own challenges so that I can have a prompt that suits my interests.
-- As an artist, I want to upload my work so that I can show my interpretation of a challenge.
-- As an artist, I want to learn more about this website so that I can understand it better.
-- As an artist, I want to see what others have worked on so that I can gain inspiration for my own art.
-- As a beginner artist, I want to post my work privately so that I can keep my art somewhere even though I don't want others to see it yet.
-
-## Stories to be implemented in Sprint 2
-- As an artist, I want to save challenges so that I can go back to them later.
-- As an artist, I want to make my own profile so that I can display my information to others.
-
-## Future stories
-- As an artist, I want to search through all the art on the website and filter by tags so that I can find works that are relevant to me.
-- As an artist, I want to comment on other people's works so that I can provide constructive criticism.
-- As a user, I want to receive notifcations so that I can be reminded when a weChallenge is about to end or when someone comments on my post.
-
 ## Development
-see docs/getting_started for intructions to start development server
+This project uses Angular, FastAPI, SQLAlchemy, and Postgres.
+
+See [```docs/get_started.md```](https://github.com/chphoom/aroundtheblock/blob/28d230dd5292d9d6f5e37681df33d72cd3a6bb3f/docs/get_started.md) for intructions to start the development server.
+
+## Deployment
+This project is deployed on https://aroundtheblock.apps.cloudapps.unc.edu/ . Pushes to the main branch are automatically deployed.
+
+## File Organization
+
+### backend/models
+Contains database schema.
+### backend/script
+Contains database scripts and scheduler script. 
+### backend/script/devdata
+Contains mock data for development purposes.
+### backend/services
+Contains backend services that get data from the database.
+### backend/api
+Contains API endpoints that call the functions in the service layer.
+### frontend/src/app
+Contains all frontend components and services. Components include an .html, .css, and .ts file for one particular part of the site. Services contain functions that call API endpoints.
+### frontend/src/app/app-routing.module.ts
+Contains all routes in the site.
+### frontend/src/styles.css and frontend/src/custom-theme.scss
+Applies site-wide styling.
