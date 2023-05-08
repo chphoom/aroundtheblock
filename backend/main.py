@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from .api import challenge, static_files, comment, login, user, post, upload, notifs
 from .script.schedule import scheduler
 
-__authors__ = ["Kris Jordan"]
+__authors__ = ["Kris Jordan, Chalisa Phoomsakha"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 

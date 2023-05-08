@@ -3,7 +3,7 @@
 These were intially designed to be used by the `script.reset_db` module."""
 
 from ...models import Comment
-from datetime import datetime, timedelta
+from datetime import datetime
 
 c1 = Comment(
     id=1,
@@ -13,8 +13,6 @@ c1 = Comment(
     text="some reply",
     created=datetime.now()
 )
-
-
 
 models = [
     c1
