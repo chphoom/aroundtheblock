@@ -15,57 +15,8 @@ p, a {
     background: linear-gradient(180deg, rgba(187, 241, 186, 0.58) 0%, rgba(187, 241, 186, 0.0348) 100%);
 }
 
-.posts-container {
-    align-items: center;
-    justify-items: start;
-    text-align: center;
-    margin-top:2rem;
-}
-
-.display-posts {
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 5px;
-}
-
-.thumbnail {
-    width: 20vw;
-    height: 20vw;   
-    object-fit: cover;
-    cursor: pointer;
-    margin-top: 5px;
-    filter: blur(8px);
-}
-
-.thumbnail:hover {
-    opacity: 0.5;
-    transition: 0.5s ease;
-}
-
-.display-posts {
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 5px;
-}
-
-.thumbnail {
-    width: 20vw;
-    height: 20vw;   
-    object-fit: cover;
-    cursor: pointer;
-    margin-top: 5px;
-    filter: blur(8px);
-}
-
-.thumbnail:hover {
-    opacity: 0.5;
-    transition: 0.5s ease;
+.blurred {
+    filter: blur(10px);
 }
 
 .prompt svg {
@@ -91,4 +42,18 @@ p, a {
     display:flex;
     align-items: center;
     flex-direction: column;
+}
+
+.spoiler {
+    border-radius: 29px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 7px 20px 6px 20px;
+    transition: all 300ms;
+    font-size: 15px;
+    cursor: pointer;
+    background: #BBF1BA;
 }

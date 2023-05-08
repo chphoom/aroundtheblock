@@ -4,58 +4,6 @@ main {
     flex-direction: column;
 }
 
-#displayname {
-    margin:none;
-    font-size: 24px;
-}
-
-.edit {
-    cursor: pointer;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0px;
-    gap: 2rem;
-    min-width: 70%;
-    max-width:90%;
-    margin:2rem;
-}
-
-.pfp {
-    height:200px;
-    width:200px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 50%;
-}
-
-.user-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-around;
-    padding: 0px;
-}
-
-.user-name-pronouns {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: center;
-    padding: 0px;
-    gap: 10px;
-}
-
-.bio {
-    width:20rem;
-    min-height:2rem;
-}
-
 .tabs {
     margin:1rem;
     min-width: 70%;

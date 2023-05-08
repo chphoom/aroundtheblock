@@ -4,8 +4,8 @@ import { ChallengeService } from '../challenge.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Challenge } from '../challenge.service';
 import { Router } from '@angular/router';
-import { PostsService } from '../posts.service';
-import { Observable } from 'rxjs';
+import { Post, PostsService } from '../posts.service';
+import { Observable, map, shareReplay } from 'rxjs';
 import { ShareService } from '../share.service';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { LoadingService } from '../loading.service';
@@ -118,4 +118,35 @@ export class MeChallengeComponent {
       console.error(error);
     });
   }
+
+  private userCache: { [key: string]: Observable<string> } = {};
+
+  getUsername(post: Post): Observable<string> {
+    const cachedValue = this.userCache[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.displayName}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache[post.user_id] = newValue;
+    return newValue;
+  }
+
+  private userCache2: { [key: string]: Observable<string> } = {};
+
+  getPfp(post: Post): Observable<string> {
+    const cachedValue = this.userCache2[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.pfp}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache2[post.user_id] = newValue;
+    return newValue;
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { Challenge, ChallengeService } from '../challenge.service';
 import { Post, User } from '../models';
 import { PostsService } from '../posts.service';
@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HomeComponent {
   public current$: Observable<Challenge>;
   public mePosts$: Observable<Post[]>;
+  public wePosts$: Observable<Post[]>;
   public weChallenges$: Observable<Challenge[]>; 
   public prev$!: Observable<Challenge>
   public user: User | undefined;
@@ -37,6 +38,7 @@ export class HomeComponent {
     });
     this.current$ = this.challengeService.getCurrentChallenge()
     this.mePosts$ = this.postService.getMePosts()
+    this.wePosts$ = this.postService.getWePosts()
     this.weChallenges$ = this.challengeService.getWeChallenges()
     this.challengeService.getWeChallenges().subscribe(
       challenges => {
@@ -85,4 +87,36 @@ export class HomeComponent {
       console.error(error);
     });
   }
+
+  // copy from here 
+  private userCache: { [key: string]: Observable<string> } = {};
+
+  getUsername(post: Post): Observable<string> {
+    const cachedValue = this.userCache[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.displayName}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache[post.user_id] = newValue;
+    return newValue;
+  }
+
+  private userCache2: { [key: string]: Observable<string> } = {};
+
+  getPfp(post: Post): Observable<string> {
+    const cachedValue = this.userCache2[post.user_id];
+    if (cachedValue) {
+      return cachedValue;
+    }
+    const newValue = this.registrationService.getUser(post.user_id).pipe(
+      map(user => user ? `${user.pfp}` : ''),
+      shareReplay(1) // cache the result
+    );
+    this.userCache2[post.user_id] = newValue;
+    return newValue;
+  }
+  // to here
 }

@@ -16,3 +16,20 @@ main {
     flex-direction: row;
     max-width: 80%;
 }
+
+.post-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 968px) {
+    .display-posts {
+        max-width: 100%;
+    }
+    .post-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .thumbnail {
+        height: 46vw;
+        width: 46vw;
+    }
+}
