@@ -60,9 +60,9 @@
             <form [formGroup]="comment" class="comment-form" (ngSubmit)="onComment(isReply)">
               <mat-form-field class="roundedInput">
                   <mat-label>Comment</mat-label>
-                  <textarea matInput placeholder="Comment" formControlName="comment" id="comment" type="text"></textarea>
+                  <textarea matInput placeholder="Write a comment" formControlName="comment" id="comment" type="text"></textarea>
               </mat-form-field>
-              <button mat-button type="Submit" id="black"><p>Comment</p></button>
+              <button mat-button type="Submit" id="black" [disabled]="comment.invalid"><p>Comment</p></button>
               <button mat-button *ngIf="isReply>0" id="black" (click)="setReply(0)"><p>Reset Reply</p></button>
             </form>
           </div>
@@ -71,7 +71,15 @@
               <img class="pfp-thumbnail" [src]="getPfp(comment) | async" style="margin-top:1rem;">
               <div class="comment-text">
                 <h3><span [routerLink]="'/'+(getUsername(comment) | async)" style="cursor: pointer;">{{getUsername(comment) | async}} </span> <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
-                <p *ngIf=" comment.replyTo_id !== null "> replied to "{{getComment(comment.replyTo_id)!.text}}" - {{getUsername(getComment(comment.replyTo_id)!) | async}}</p>
+                
+                <div class="reply-parent" *ngIf=" comment.replyTo_id !== null">
+                  <div class="reply-parent-author">
+                    <img class="reply-pfp" [src]="getPfp(getComment(comment.replyTo_id)!) | async">
+                    <h3>{{ getUsername(getComment(comment.replyTo_id)!) | async }}</h3>
+                  </div>
+                  <p>{{ getComment(comment.replyTo_id)!.text }}</p>
+                </div>
+                
                 <p>{{ comment.text }}</p>
                 <input *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
                 <input type="button" value="Reply" (click)="setReply(comment.id!)"/>
