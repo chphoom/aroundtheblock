@@ -71,7 +71,6 @@
               <img class="pfp-thumbnail" [src]="getPfp(comment) | async" style="margin-top:1rem;">
               <div class="comment-text">
                 <h3><span [routerLink]="'/'+(getUsername(comment) | async)" style="cursor: pointer;">{{getUsername(comment) | async}} </span> <span style="font-weight: normal; color: rgb(110, 110, 110); font-size: 14px;">{{comment.created | date: "MMM d, y"}}</span></h3>
-                
                 <div class="reply-parent" *ngIf=" comment.replyTo_id !== null">
                   <div class="reply-parent-author">
                     <img class="reply-pfp" [src]="getPfp(getComment(comment.replyTo_id)!) | async">
@@ -79,7 +78,6 @@
                   </div>
                   <p>{{ getComment(comment.replyTo_id)!.text }}</p>
                 </div>
-                
                 <p>{{ comment.text }}</p>
                 <input *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
                 <input type="button" value="Reply" (click)="setReply(comment.id!)"/>
