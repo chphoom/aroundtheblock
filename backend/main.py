@@ -26,7 +26,6 @@ app.include_router(upload.api)
 app.include_router(comment.api)
 app.include_router(challenge.api)
 app.include_router(notifs.api)
-app.mount("/images", StaticFiles(directory="backend/images"), name="images")
 app.mount("/", static_files.StaticFileMiddleware(directory="./static"))
 
 # start the scheduler
