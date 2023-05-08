@@ -17,7 +17,7 @@ main {
     grid-gap: 5px;
 }
 
-.thumbnail-container {
+/*.thumbnail-container {
     display: inline-block;
     width: 22.5vw;
     height: 22.5vw;
@@ -30,9 +30,9 @@ main {
     margin: 2px;
     object-fit: cover;
     cursor: pointer;
-}
+}*/
 
-.overlay {
+/*.overlay {
     position: absolute;
     margin: 2px;
     top: 0;
@@ -44,13 +44,13 @@ main {
     opacity: 0;
     transition: 0.5s ease;
     background-color: #000;
-}
+}*/
 
 .thumbnail-container:hover .overlay {
-    opacity: 0.6;
+    opacity: 1;
 }
 
-.text {
+/*.text {
     color: white;
     font-size: 20px;
     position: absolute;
@@ -60,7 +60,7 @@ main {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
-}
+}*/
   
 #logout {
     background-color: white;
