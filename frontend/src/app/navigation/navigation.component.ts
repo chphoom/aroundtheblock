@@ -120,7 +120,7 @@ export class NavigationComponent {
           } else {
             // The current date is more than one day away from challenge.end
             // Add your logic here
-            observer.next(`Current challenge ends: ${challengeEndDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`);
+            observer.next(`Current challenge ends on ${challengeEndDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`);
           }
           observer.complete();
         },
