@@ -35,7 +35,7 @@
         <a routerLink="/past-challenges" class="underline-hover">See past we challenges</a>
     </div>
     <div class="posts-container">
-        <h1>See what others made</h1>
+        <h1 style="margin-top: 3rem;">See what others made</h1>
         <button class="spoiler" id="we" (click)="toggleSpoiler()">{{ spoilerText }}</button>
         <div class="post-grid">
             <a class="thumbnail" [ngClass]="{'blurred': blur}" *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">

@@ -24,29 +24,44 @@
         <mat-tab-group #tabGroup dynamicHeight>
             <mat-tab label="Posts" *ngIf="publicPosts">
                 <div class="display-posts">
-                    <a class="thumbnail-container" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [title]="post.title">
-                        <img class="thumbnail" [src]="post.img" [alt]="post.title">
+                    <a class="thumbnail" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                         <div class="overlay">
-                            <div class="text">{{post.title}}</div>
+                            <div class="overlay-info">
+                                <img class="pfp-thumbnail" [src]="getPfp(post) | async">
+                                <div class="overlay-text">
+                                    <div class="thumbnail-title">{{post.title}}</div>
+                                    <div class="thumbnail-user">{{(getUsername(post) | async)}}</div>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
             </mat-tab>
             <mat-tab label="Private" *ngIf="privatePosts">
                 <div class="display-posts">
-                    <a class="thumbnail-container" *ngFor="let post of privatePosts" [href]="'post/' + post.id">
-                        <img class="thumbnail" [src]="post.img">
+                    <a class="thumbnail" *ngFor="let post of privatePosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                         <div class="overlay">
-                            <div class="text">{{post.title}}</div>
+                            <div class="overlay-info">
+                                <img class="pfp-thumbnail" [src]="getPfp(post) | async">
+                                <div class="overlay-text">
+                                    <div class="thumbnail-title">{{post.title}}</div>
+                                    <div class="thumbnail-user">{{(getUsername(post) | async)}}</div>
+                                </div>
+                            </div>
                         </div>
                     </a></div>
             </mat-tab>
             <mat-tab label="Favorite Posts">
                 <div class="display-posts">
-                    <a class="thumbnail-container" *ngFor="let post of user.savedPosts" [href]="'post/' + post.id">
-                        <img class="thumbnail" [src]="post.img">
+                    <a class="thumbnail" *ngFor="let post of user.savedPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                         <div class="overlay">
-                            <div class="text">{{post.title}}</div>
+                            <div class="overlay-info">
+                                <img class="pfp-thumbnail" [src]="getPfp(post) | async">
+                                <div class="overlay-text">
+                                    <div class="thumbnail-title">{{post.title}}</div>
+                                    <div class="thumbnail-user">{{(getUsername(post) | async)}}</div>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
