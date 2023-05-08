@@ -63,9 +63,7 @@ main {
 }
 
 .display-posts {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    display: inline-grid;
     justify-content: center;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 5px;
@@ -73,9 +71,9 @@ main {
 
 .thumbnail-container {
     display: inline-block;
-    width: 22vw;
-    height: 22vw;
-    margin: auto 5px;
+    width: 22.5vw;
+    height: 22.5vw;
+    margin: 0;
 }
 
 .thumbnail {
@@ -146,7 +144,7 @@ mat-mdc-tab-body-wrapper {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 10px auto;
+    margin: 5px auto;
 }
 
 .icon {

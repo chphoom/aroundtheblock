@@ -363,8 +363,8 @@ a:before, a:after, a > span:before, a > span:after {
   flex-direction: row;
   justify-content: center;
   text-align: center;
+  align-items: center;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 5px;
   margin: auto;
 }
 
