@@ -36,12 +36,17 @@
     </div>
     <div class="posts-container">
         <h1>See what others made</h1>
-        <button class="spoiler" (click)="toggleSpoiler()">{{ spoilerText }}</button>
-        <div class="display-posts">
-            <a class="thumbnail-container" [class.blurred]="blur" *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id">
-                <img class="thumbnail" [src]="post.img">
-                <div *ngIf="spoilerText == 'Hide Spoilers'" class="overlay">
-                    <div class="text">{{post.title}}</div>
+        <button class="spoiler" id="we" (click)="toggleSpoiler()">{{ spoilerText }}</button>
+        <div class="post-grid">
+            <a class="thumbnail" [ngClass]="{'blurred': blur}" *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
+                <div class="overlay" *ngIf="spoilerText === 'Hide Spoilers'">
+                  <div class="overlay-info">
+                    <img class="pfp-thumbnail" [src]="getPfp(post) | async">
+                    <div class="overlay-text">
+                        <div class="thumbnail-title">{{post.title}}</div>
+                        <div class="thumbnail-user">{{(getUsername(post) | async)}}</div>
+                    </div>
+                  </div>
                 </div>
             </a>
         </div>

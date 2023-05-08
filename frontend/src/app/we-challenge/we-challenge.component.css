@@ -15,29 +15,8 @@ p, a {
     background: linear-gradient(180deg, rgba(187, 241, 186, 0.58) 0%, rgba(187, 241, 186, 0.0348) 100%);
 }
 
-.posts-container {
-    align-items: center;
-    justify-items: center;
-    text-align: center;
-    margin-top:2rem;
-}
-
-.display-posts {
-    grid-template-columns: repeat(5, 1fr);
-}
-
-.thumbnail-container {
-    width: 20vw;
-    height: 20vw;
-}
-
-.thumbnail {
-    transition: filter 0.5s ease-in-out;
-    
-}
-
-.blurred img{
-    filter: blur(8px);
+.blurred {
+    filter: blur(10px);
 }
 
 .prompt svg {

@@ -142,15 +142,15 @@ a svg:hover {
     cursor: pointer;
 }
 
-.display-posts {
-    grid-template-columns: repeat(5, 1fr);
+.post-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on large screens */
 }
 
-.thumbnail-container {
-    position: relative;
-    width: 23vw;
-    height: 23vw;
-    cursor: pointer;
+@media (max-width: 968px) { /* adjust for smaller screens */
+    .thumbnail {
+        height: 24vw;
+        width: 24vw;
+    }
 }
 
 @media screen and (max-width: 756px) {
@@ -194,8 +194,8 @@ a svg:hover {
         grid-row: 6 / 7;
     }
 
-    .thumbnail-container {
-        width: 47vw;
-        height: 47vw;
+    .thumbnail {
+        height: 46vw;
+        width: 46vw;
     }
 }
