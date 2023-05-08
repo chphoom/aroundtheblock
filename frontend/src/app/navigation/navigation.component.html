@@ -45,7 +45,7 @@
             <mat-menu #menu="matMenu">
                 <label *ngIf="notifs.length == 0" style="margin: 1rem;">Nothing to see here!</label>
                 <button *ngFor="let notif of notifs?.slice()?.reverse()" mat-menu-item (click)="onClickN(notif)" [ngClass]="{'unread': !notif.read}">
-                  {{ (getUsername(notif) | async) ? 'New comment from '+ (getUsername(notif) | async) : 'Current challenge ends soon!' }}
+                  {{ (getUsername(notif) | async) ? 'New comment from '+ (getUsername(notif) | async) : (challengeString(notif) | async) }}
                 </button>
             </mat-menu>
             <div mat-menu-trigger [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger" tabindex="0">

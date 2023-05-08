@@ -85,38 +85,39 @@ export class NavigationComponent {
     this.router.navigate(['/']);
   }
 
-  // public getCountdown(challengeId: number): string {
-  //   // Check if countdown value is already stored in the map
-  //   if (this.countdownMap.has(challengeId)) {
-  //     return this.countdownMap.get(challengeId)!;
-  //   }
-
-  //   // Fetch the saved challenge data based on the challengeId
-  //   let savedChallenge: Challenge;
-  //   this.challengeService.getChallenge(challengeId).subscribe(
-  //     (res:Challenge) => {
-  //       savedChallenge = res;
-  //     }
-  //   );
-
-  //   if (savedChallenge!) {
-  //     const end = new Date(savedChallenge.end!).getTime(); // Access the 'end' property from 'current'
-  //     setInterval(() => {
-  //       const now = new Date().getTime();
-  //       const distance = end - now;
-  //       const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-  //       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-  //       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-  //       const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-  //       const countdown = days + ':' + hours + ':' + minutes + ':' + seconds;
-
-  //       // Store the countdown value in the map
-  //       this.countdownMap.set(challengeId, countdown);
-  //     }, 1000);
-
-  //     return ''; // Initially return empty string until the countdown value is calculated
-  //   }
-
-  //   return ''; // Handle the case when savedChallenge is not found or null
-  // }
+  challengeString(notif: Notification): Observable<string> {
+    return new Observable<string>((observer) => {
+      this.challengeService.getChallenge(notif.challenge_id!).subscribe(
+        (challenge: Challenge) => {
+          // Calculate the current date and challenge end date
+          const currentDate = new Date();
+          const challengeEndDate = new Date(challenge.end!);
+  
+          // Calculate the difference in milliseconds between the two dates
+          const timeDiff = challengeEndDate.getTime() - currentDate.getTime();
+  
+          // Convert the difference to days
+          const oneDayInMs = 24 * 60 * 60 * 1000;
+          const daysDiff = timeDiff / oneDayInMs;
+  
+          // Check if the difference is less than or equal to 1 day
+          if (daysDiff <= 1) {
+            // The current date is within one day of challenge.end
+            // Add your logic here
+            this.notificationService.unread(notif.id!).subscribe(() => {});
+            observer.next('Current challenge ends soon!');
+          } else {
+            // The current date is more than one day away from challenge.end
+            // Add your logic here
+            observer.next(`The current challenge ends: ${challenge.end}`);
+          }
+          observer.complete();
+        },
+        (error) => {
+          observer.error(error);
+        }
+      );
+    });
+  }
+  
 }
