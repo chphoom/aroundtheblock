@@ -24,6 +24,9 @@ export class PostComponent implements OnInit {
   public saved: { [key: number]: boolean } = {};
   public favorited: { [key: number]: boolean } = {};
   public user: User | undefined; // current user
+  public isReply = 0;
+  // public trueLength: number;
+
   comment = this.formBuilder.group({
     comment: new FormControl(''),
   });
@@ -56,6 +59,24 @@ export class PostComponent implements OnInit {
     }
     let data = route.snapshot.data as { post: Post };
     this.post = data.post;
+    // this.trueLength = this.post.comments.length
+    console.log(this.post.comments)
+    // this.post.comments = this.post.comments.filter((comment) => {
+    //   // Check if this comment is a reply to another comment
+    //   if (comment.replyTo_id !== null) {
+    //     // Find the parent comment and add the current comment to its replies array
+    //     const parentComment = this.post.comments.find((c) => c.id === comment.replyTo_id);
+    //     if (parentComment) {
+    //       parentComment.replies = parentComment.replies || [];
+    //       parentComment.replies.push(comment);
+    //     }
+    //     return false;
+    //   } else {
+    //     // This comment is not a reply to another comment, so it's not a duplicate
+    //     return true;
+    //   }
+    // });
+    // console.log(this.post.comments)
     registrationService.getUser(this.post.user_id).subscribe(user => this._user = user)
     challengeService.getChallenge(this.post.challenge).subscribe(challenge => {
       this.challenge = challenge;
@@ -143,7 +164,7 @@ export class PostComponent implements OnInit {
     window.location.href = "/tagged/"+tag;
   }
 
-  onComment(): void {
+  onComment(replyTo: number): void {
     let form = this.comment.value;
     let _c = form.comment ?? "";
 
@@ -156,14 +177,23 @@ export class PostComponent implements OnInit {
       this.user = user;
     });
 
-    this.commentService.createComment(_c, this.user!, this.post.id!)
+    if(replyTo>0){
+      this.commentService.createReply(replyTo, _c, this.user!)
       .subscribe((response) => {
           console.log(response)
           window.location.reload();
         }, (error) => {
           console.error(error);
         });
-  }
+    } else {
+      this.commentService.createComment(_c, this.user!, this.post.id!)
+      .subscribe((response) => {
+          console.log(response)
+          window.location.reload();
+        }, (error) => {
+          console.error(error);
+        });
+  }}
 
   delComment(c: Comment): void {
     this.commentService.deleteComment(c).subscribe({
@@ -230,4 +260,14 @@ export class PostComponent implements OnInit {
   edit() {
     this.router.navigate([`/post/edit/${this.post.id}`]);
   }
+
+  setReply(id: number){
+    this.isReply = id;
+  }
+
+  getComment(id: number) {
+    const comment = this.post.comments.find((comment:Comment) => comment.id === id);
+    return comment; // return the comment with matching id or undefined if not found
+  }
+  
 }
