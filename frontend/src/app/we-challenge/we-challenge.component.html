@@ -38,7 +38,7 @@
         <h1 style="margin-top: 3rem;">See what others made</h1>
         <button class="spoiler" id="we" (click)="toggleSpoiler()">{{ spoilerText }}</button>
         <div class="post-grid">
-            <a class="thumbnail" [ngClass]="{'blurred': blur}" *ngFor="let post of wePosts$ | async" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
+            <a class="thumbnail" [ngClass]="{'blurred': blur}" *ngFor="let post of (wePosts$ | async)?.slice()?.reverse()" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                 <div class="overlay" *ngIf="spoilerText === 'Hide Spoilers'">
                   <div class="overlay-info">
                     <img class="pfp-thumbnail" [src]="getPfp(post) | async">

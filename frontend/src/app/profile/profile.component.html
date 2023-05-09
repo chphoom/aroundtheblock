@@ -24,7 +24,7 @@
         <mat-tab-group #tabGroup dynamicHeight>
             <mat-tab label="Posts" *ngIf="publicPosts">
                 <div class="display-posts">
-                    <a class="thumbnail" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
+                    <a class="thumbnail" *ngFor="let post of publicPosts.slice()?.reverse()" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                         <div class="overlay">
                             <div class="overlay-info">
                                 <img class="pfp-thumbnail" [src]="getPfp(post) | async">
@@ -39,7 +39,7 @@
             </mat-tab>
             <mat-tab label="Private" *ngIf="privatePosts">
                 <div class="display-posts">
-                    <a class="thumbnail" *ngFor="let post of privatePosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
+                    <a class="thumbnail" *ngFor="let post of privatePosts.slice()?.reverse()" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                         <div class="overlay">
                             <div class="overlay-info">
                                 <img class="pfp-thumbnail" [src]="getPfp(post) | async">
@@ -53,7 +53,7 @@
             </mat-tab>
             <mat-tab label="Favorite Posts">
                 <div class="display-posts">
-                    <a class="thumbnail" *ngFor="let post of user.savedPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
+                    <a class="thumbnail" *ngFor="let post of user.savedPosts?.slice()?.reverse()" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                         <div class="overlay">
                             <div class="overlay-info">
                                 <img class="pfp-thumbnail" [src]="getPfp(post) | async">
