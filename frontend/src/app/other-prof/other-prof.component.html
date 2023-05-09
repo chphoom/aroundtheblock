@@ -19,7 +19,7 @@
         </div>
         <div class="display-posts">
             <div class="post-grid">
-                <a class="thumbnail" *ngFor="let post of publicPosts" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
+                <a class="thumbnail" *ngFor="let post of publicPosts.slice()?.reverse()" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
                     <div class="overlay">
                         <div class="overlay-info">
                             <img class="pfp-thumbnail" [src]="getPfp(post) | async">
