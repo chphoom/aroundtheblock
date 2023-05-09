@@ -63,8 +63,10 @@
                     <mat-label>Comment</mat-label>
                     <textarea matInput placeholder="Write a comment" formControlName="comment" id="comment" type="text"></textarea>
                 </mat-form-field>
-                <button mat-button type="Submit" id="black" [disabled]="comment.invalid"><p>Comment</p></button>
-                <button mat-button *ngIf="isReply>0" id="black" (click)="setReply(0)"><p>Reset Reply</p></button>
+                <div class="reply-buttons">
+                <button class="btn-comment" mat-button type="Submit"><p>Comment</p></button>
+                  <button class="btn-comment" id="btn-delete" style="border: 1.5px solid" mat-button *ngIf="isReply>0" (click)="setReply(0)"><p>Cancel</p></button>
+              </div>
             </form>
             </div>
             <div class="comments" *ngFor="let comment of post!.comments">
@@ -80,8 +82,8 @@
                   <p>{{ getComment(comment.replyTo_id)!.text }}</p>
                 </div>
                 <p>{{ comment.text }}</p>
-                  <input *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
-                  <input type="button" value="Reply" (click)="setReply(comment.id!)"/>
+                  <input id="btn-delete" style="padding: 4px 8px; border: 1.5px solid" *ngIf="(getUsername(comment) | async) == user?.displayName" type="button" value="Delete" (click)="delComment(comment)"/>
+                  <input style="border: 1.5px solid" *ngIf="isLoggedin" type="button" value="Reply" (click)="setReply(comment.id!)"/>
               </div>
               </div>
             </div>
