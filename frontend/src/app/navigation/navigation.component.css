@@ -109,3 +109,14 @@ input[type="text"]::placeholder {
     font-size: 12px;
     text-align: center;
 }
+
+.pfp-thumbnail {
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.mat-mdc-menu-item .mat-icon {
+    margin: 0;
+    margin-right: 10px;
+}
