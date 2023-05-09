@@ -6,6 +6,7 @@ import { NotificationService, Notification } from '../notification.service';
 import { PostsService } from '../posts.service';
 import { CommentService, Comment } from '../comment.service';
 import { Observable, map, of, shareReplay } from 'rxjs';
+import { ChallengeService, Challenge } from '../challenge.service';
 
 @Component({
   selector: 'app-navigation',
@@ -16,12 +17,14 @@ export class NavigationComponent {
   public notifs!: Notification[]
   numUnread!: number;
   public user: User | undefined;
+  // public countdownMap: Map<number, string> = new Map<number, string>();
   @ViewChild('search', { static: true }) search!: ElementRef;
 
   constructor(private router: Router,
      public registration_service: RegistrationService,
      public notificationService: NotificationService,
-     private commentService: CommentService) {
+     private commentService: CommentService,
+     private challengeService: ChallengeService) {
     this.registration_service.getUserInfo().subscribe((user: User) => {
       this.user = user;
       this.notificationService.getToUser(user.email).subscribe(
@@ -57,7 +60,11 @@ export class NavigationComponent {
           }
         )
       } else if (notif.challenge_id) {
-        this.router.navigate(['/we-challenge']);
+        this.notificationService.read(notif.id!).subscribe(
+          (update: Notification) => {
+            this.router.navigate(['/we-challenge']);
+          }
+        )
       } else {
         // handle some error idk
       }
@@ -81,5 +88,50 @@ export class NavigationComponent {
   logOut() {
     this.registration_service.logout();
     this.router.navigate(['/']);
+  }
+
+  private challengeCache: { [key: string]: Observable<string> } = {};
+
+  challengeString(notif: Notification): Observable<string> {
+    const cachedValue = this.challengeCache[notif.challenge_id!];
+    if (cachedValue) {
+      return cachedValue;
+    }
+
+    const newValue = new Observable<string>((observer) => {
+      this.challengeService.getChallenge(notif.challenge_id!).subscribe(
+        (challenge: Challenge) => {
+          // Calculate the current date and challenge end date
+          const currentDate = new Date();
+          const challengeEndDate = new Date(challenge.end!);
+
+          // Calculate the difference in milliseconds between the two dates
+          const timeDiff = challengeEndDate.getTime() - currentDate.getTime();
+
+          // Convert the difference to days
+          const oneDayInMs = 24 * 60 * 60 * 1000;
+          const daysDiff = timeDiff / oneDayInMs;
+
+          // Check if the difference is less than or equal to 1 day
+          if (daysDiff <= 1) {
+            // The current date is within one day of challenge.end
+            // Add your logic here
+            this.notificationService.unread(notif.id!).subscribe(() => {});
+            observer.next('Current challenge ends soon!');
+          } else {
+            // The current date is more than one day away from challenge.end
+            // Add your logic here
+            observer.next(`Current challenge ends on ${challengeEndDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`);
+          }
+          observer.complete();
+        },
+        (error) => {
+          observer.error(error);
+        }
+      );
+    });
+
+    this.challengeCache[notif.challenge_id!] = newValue;
+    return newValue;
   }
 }

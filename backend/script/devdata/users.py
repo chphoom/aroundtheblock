@@ -2,10 +2,10 @@
 
 These were intially designed to be used by the `script.reset_db` module."""
 
-from ...models import User, Post
-from datetime import datetime, timedelta
+from ...models import User
+from datetime import datetime
 
-__authors__ = ["Kris Jordan"]
+__authors__ = ["Chalisa Phoomsakha, Elaine Dong"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 
@@ -28,7 +28,7 @@ lucy = User(email="lucy@lucy.com",
             password="test", 
             created=datetime.now(), 
             private=False, 
-            bio="Hi there! I'm Lucy, a recent college grad with a passion for art. I work at an animation stupid in New York and love experimenting with new styles.", 
+            bio="Hi there! I'm Lucy, a recent college grad with a passion for art. I work at an animation studio in New York and love experimenting with new styles.", 
             pronouns="she/her", 
             pfp="https://i.imgur.com/8kUuuIg.png", 
             userPosts=[], 
@@ -97,9 +97,9 @@ anonymous = User(
             displayName="anonymous",
             password="test", 
             created=datetime.now(), 
-            private=True, 
-            bio="the profile used for private or anonymous users", 
-            pronouns="they/them", 
+            private=False, 
+            bio="This account is private.", 
+            pronouns="", 
             pfp="https://i.imgur.com/1MwzVBB.png", 
             userPosts=[], 
             connectedAccounts=[], 

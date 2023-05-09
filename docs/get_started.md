@@ -36,31 +36,17 @@ Once the Dev Container begins, open a terminal and complete the following:
     2. `npm install`
     3. `popd`
 2. Create database and reset demo data:
-    2. `python3 -m backend.script.create_database`
-        Note from Keaw: if you need to delete the database do `python3 -m backend.script.delete_database` first
+    1. `python3 -m backend.script.create_database`
+        - Note from Keaw: if you need to delete the database do `python3 -m backend.script.delete_database` first
             you need to delete it if you get an error that says the database already exists, 
             or if reset_db can't drop the tables correctly.
-    3. `python3 -m backend.script.reset_db`
+    2. `python3 -m backend.script.reset_db`
 3. Start dev server processes using the `honcho` process manager
     1. `honcho start`
-        1. Wait until you see "frontend.1 | Compiled successfully" emitted from the Angular dev server.
+        - Wait until you see "frontend.1 | Compiled successfully" emitted from the Angular dev server.
     2. Open `localhost:1560` in a browser and you should see the XL site running locally in development.
     3. To stop the development servers, press `Ctrl+C` in the terminal running `honcho` and close VSCode.
 
 ## Develop in Branches
 
 Before beginning any feature work, fixes, or other modifications, you should checkout a branch to keep the history separate from the `main` line history until it is ready deploying into production.
-
-## Authorize as Alternate Users
-
-When running in a development environment, it is helpful to be able to switch between authenticated users.
-Our current mechanism for doing so is a special authorization route that only works in development:
-
-Change users route pattern: `http://localhost:1560/auth/as/{onyen}/{pid}`
-
-For reference, here are some mock personas that are installed in the `reset_database` script from above:
-
-1. Sol Student: <http://localhost:1560/auth/as/sol/100000000>
-2. Arden Ambassador: <http://localhost:1560/auth/as/arden/100000001>
-3. Merritt Manager: <http://localhost:1560/auth/as/merritt/100000002>
-4. Super User: <http://localhost:1560/auth/as/root/999999999>

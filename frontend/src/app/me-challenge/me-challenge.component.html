@@ -44,7 +44,6 @@
               </svg>
             </div>
             <div class="icon" (click)="unsave()" *ngIf="isLoggedin && (saved)">
-                <!-- (user$ | async)?.savedChallenges?.includes(current) -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
                     <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
                     <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
@@ -54,12 +53,17 @@
         <a *ngIf="user" class="underline-hover" routerLink="/profile">See saved challenges</a>
     </div>
     <div class="posts-container">
-        <h1>See what others made</h1>
-        <div class="display-posts">
-          <a class="thumbnail-container" *ngFor="let post of mePosts$ | async" [href]="'post/' + post.id">
-              <img class="thumbnail" [src]="post.img">
+        <h1 style="margin-top: 3rem;">See what others made</h1>
+        <div class="post-grid">
+          <a class="thumbnail" *ngFor="let post of (mePosts$ | async)?.slice()?.reverse()" [href]="'post/' + post.id" [style]="'background-image: url('+post.img+')'" [title]="post.title">
               <div class="overlay">
-                  <div class="text">{{post.title}}</div>
+                <div class="overlay-info">
+                  <img class="pfp-thumbnail" [src]="getPfp(post) | async">
+                  <div class="overlay-text">
+                      <div class="thumbnail-title">{{post.title}}</div>
+                      <div class="thumbnail-user">{{(getUsername(post) | async)}}</div>
+                  </div>
+                </div>
               </div>
           </a>
         </div>

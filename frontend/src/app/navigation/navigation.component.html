@@ -40,30 +40,39 @@
     </div>
     <div class="account">
         <div *ngIf="(registration_service.isAuthenticated$ | async); else guest" class="user-bar">
-            <mat-icon *ngIf="(numUnread == 0)" style="cursor: pointer;" [matMenuTriggerFor]="menu" aria-label="notifications">notifications</mat-icon>
+            <mat-icon *ngIf="(numUnread == 0)" style="cursor: pointer;" [matMenuTriggerFor]="menu" aria-label="notifications" tabindex="0">notifications</mat-icon>
             <mat-icon *ngIf="(numUnread > 0)" #unread matBadge="{{numUnread}}" matBadgeSize="small" matBadgeColor="warn" style="cursor: pointer;" [matMenuTriggerFor]="menu" aria-label="notifications">notifications</mat-icon>
             <mat-menu #menu="matMenu">
                 <label *ngIf="notifs.length == 0" style="margin: 1rem;">Nothing to see here!</label>
-                <button *ngFor="let notif of notifs?.slice()?.reverse()" mat-menu-item (click)="onClickN(notif)" [ngClass]="{'unread': !notif.read}"> 
-                    New comment from {{ (getUsername(notif) | async) }} 
+                <button *ngFor="let notif of notifs?.slice()?.reverse()" mat-menu-item (click)="onClickN(notif)" [ngClass]="{'unread': !notif.read}">
+                  {{ (getUsername(notif) | async) ? 'New comment from '+ (getUsername(notif) | async) : (challengeString(notif) | async) }}
                 </button>
             </mat-menu>
-            <div mat-menu-trigger [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger">
+            <div mat-menu-trigger [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger" tabindex="0">
                 <a style="cursor:pointer;" class="user">
                   <p>{{user?.displayName}}</p>
-                  <mat-icon>account_box</mat-icon>
+                  <img class="pfp-thumbnail" [src]="user?.pfp" [alt]="user?.displayName + ' profile picture'">
                 </a>
             </div>
             <mat-menu #userMenu="matMenu" (mouseleave)="userMenuTrigger.closeMenu()">
-                <a mat-menu-item routerLink="/profile">Profile</a>
-                <a mat-menu-item routerLink="/profile/edit">Settings</a>
-                <a mat-menu-item (click)="logOut()">Logout</a>
+                <a mat-menu-item routerLink="/profile">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Profile</span>
+                </a>
+                <a mat-menu-item routerLink="/profile/edit">
+                    <mat-icon>settings</mat-icon>
+                    <span>Settings</span>
+                </a>
+                <a mat-menu-item (click)="logOut()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Logout</span>
+                </a>
             </mat-menu>
         </div>
         <ng-template #guest>
             <a class="user" routerLink="/login">
                 <p>Sign In</p>
-                <mat-icon>account_box</mat-icon>
+                <mat-icon>account_circle</mat-icon>
             </a>
         </ng-template>
     </div>
