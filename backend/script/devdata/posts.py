@@ -206,7 +206,7 @@ models.append(Post(id=18,
 
 models.append(Post(id=19,
                img="https://cdna.artstation.com/p/assets/images/images/055/128/704/large/sylvain-sarrailh-cypress-cliff.jpg?1666189543",
-               title="They Cypress Cliff",
+               title="The Cypress Cliff",
                desc="Source: https://www.artstation.com/artwork/QnQWkd",
                private=False,
                created=datetime.now(),
