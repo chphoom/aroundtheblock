@@ -51,19 +51,28 @@
             <div mat-menu-trigger [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger" tabindex="0">
                 <a style="cursor:pointer;" class="user">
                   <p>{{user?.displayName}}</p>
-                  <mat-icon>account_box</mat-icon>
+                  <img class="pfp-thumbnail" [src]="user?.pfp" [alt]="user?.displayName + ' profile picture'">
                 </a>
             </div>
             <mat-menu #userMenu="matMenu" (mouseleave)="userMenuTrigger.closeMenu()">
-                <a mat-menu-item routerLink="/profile">Profile</a>
-                <a mat-menu-item routerLink="/profile/edit">Settings</a>
-                <a mat-menu-item (click)="logOut()">Logout</a>
+                <a mat-menu-item routerLink="/profile">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Profile</span>
+                </a>
+                <a mat-menu-item routerLink="/profile/edit">
+                    <mat-icon>settings</mat-icon>
+                    <span>Settings</span>
+                </a>
+                <a mat-menu-item (click)="logOut()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Logout</span>
+                </a>
             </mat-menu>
         </div>
         <ng-template #guest>
             <a class="user" routerLink="/login">
                 <p>Sign In</p>
-                <mat-icon>account_box</mat-icon>
+                <mat-icon>account_circle</mat-icon>
             </a>
         </ng-template>
     </div>
