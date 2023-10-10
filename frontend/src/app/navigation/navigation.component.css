@@ -49,7 +49,7 @@ p {
 .search {
     margin:0 2rem;
     display:flex;
-    flex-grow:1;
+    flex-shrink:1;
     align-items: center;
     height:30px;
     border: 1px solid rgb(218, 218, 218);
@@ -153,6 +153,12 @@ input[type="text"]::placeholder {
 }
 
 @media screen and (max-width: 900px) {
+    .search {
+        width: 15vw;
+    }
+}
+
+@media screen and (max-width: 700px) {
     .nav-items {
         display: none;
     }
