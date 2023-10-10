@@ -20,6 +20,12 @@ export class NavigationComponent {
   // public countdownMap: Map<number, string> = new Map<number, string>();
   @ViewChild('search', { static: true }) search!: ElementRef;
 
+  isDropdownOpen: boolean = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
   constructor(private router: Router,
      public registration_service: RegistrationService,
      public notificationService: NotificationService,
