@@ -164,7 +164,6 @@ input[type="text"]::placeholder {
         border-radius: 12px;
         background: #000;
         height: 60px;
-        border: white solid 1px;
         display: flex;
         align-items: center;
         justify-content: center;
